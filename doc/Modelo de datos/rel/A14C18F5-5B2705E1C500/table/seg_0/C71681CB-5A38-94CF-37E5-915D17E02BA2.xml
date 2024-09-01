@@ -1,0 +1,107 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C71681CB-5A38-94CF-37E5-915D17E02BA2" name="DELIVERABLE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>339C8064-F5CC-351A-34EC-B15821626319</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="B4B6AA7C-C653-CDAC-26C2-602FEA13BD11">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>728564A4-8323-F866-83AF-58E76B3D112C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="1AF169D4-1242-EC34-20F4-83E2029EB660">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>552C802D-05E3-3512-1CDC-6FC1AD455DC4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="75F77ED9-F3D5-4281-C382-F8C4CA576A9D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>2D8C5628-3ED2-3D8E-D002-BFC5FBCBAC3C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="file" id="0FEE6DC9-8D38-FFA6-7616-96CF8CB9828F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>5CE02D57-38DB-4001-12B5-DE02A32F9F4C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LogDes-7DD553FD-11E8-61FA-399D-2E531FB621D0@LOGDT10034</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="timelineSection" id="AA3E03E6-EA46-1557-9C61-773A2522CCD6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>A628DE89-35E6-CFEC-E1BF-B81010FF70FE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECT_idProject" id="9B9F50D4-7FCA-3C18-0AF1-CFF03DFE68FA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:44:16 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="33A7F747-D2C5-4D34-0104-455C777A63B2" referredColumn="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="61D6C72B-44D4-BECE-1917-621E81B5C8B4" name="DELIVERABLE_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>5FA02787-B7FD-A383-1210-1EA7FF22DDEE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B4B6AA7C-C653-CDAC-26C2-602FEA13BD11"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="252A0F29-0AEE-3712-900A-40CDEFBE6B07" name="DELIVERABLE_DELIVERABLE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:44:11 UTC</createdTime>
+<generatorID>5FA02787-B7FD-A383-1210-1EA7FF22DDEE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9B9F50D4-7FCA-3C18-0AF1-CFF03DFE68FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

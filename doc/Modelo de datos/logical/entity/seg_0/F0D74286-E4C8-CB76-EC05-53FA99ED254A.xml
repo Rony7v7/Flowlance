@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F0D74286-E4C8-CB76-EC05-53FA99ED254A" name="FREELANCER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:10:12 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>44F2F060-307F-4855-5A6C-195107A9B3B3</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<source>USER</source>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idFreelancer" id="FC7B47DC-F416-87EC-26AE-61F64F906D38">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:10:24 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProfile" id="17FE1058-3CE4-1F8F-30EC-175461078098">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:50:06 UTC</createdTime>
+<generatorID>46401529-ACE5-CA0C-99B4-4DFD82A97FF2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>9DE46943-E77F-4C36-E3BE-A70F77278D23</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="7918F6C0-B6CE-5AA4-7259-9DB74FFDF808">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:23:28 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="lastName" id="6E446991-3097-AFF0-333D-2ED23933B263">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:23:32 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="4A4885C1-411E-EA59-38F8-7C551DD95E44" name="FREELANCER PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:12:36 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>FC7B47DC-F416-87EC-26AE-61F64F906D38</newElementsIDs>
+<usedAttributes>
+<attributeRef>FC7B47DC-F416-87EC-26AE-61F64F906D38</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="69892C92-BBD1-C3D7-E191-17D4B3856CCC" name="PORTAFOLIO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>69DE3620-499C-DD34-16C2-9FEF78BE11F1</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPortafolio" id="3D29344B-9CE5-3E70-18A0-699375A6F571">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>FEE8ABEE-E460-B013-DC22-B2786B101A5C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="timeProject" id="2DF2F688-3124-2B6F-115B-B1122F9060C1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>3C5A08FC-5749-4509-D826-53C2447FEF5A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROFILE_FREELANCER_idProfile" id="E829F65B-8E8D-A0E5-2C75-A02A3732F10F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:31:41 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6AE33221-1CA9-87E4-20CB-BF259891E35E" referredColumn="1BCB6C1A-4E27-32AE-4252-E523E93745FF"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1EA33450-EA62-E643-F779-3F65BF8A3710" name="PORTAFOLIO_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>A112890C-5E69-0B79-5B82-2085A2AFB947</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3D29344B-9CE5-3E70-18A0-699375A6F571"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="28B6CC76-5625-1397-94E5-193FA6B71FBF" name="PORTAFOLIO_PORTAFOLIO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:31:38 UTC</createdTime>
+<generatorID>A112890C-5E69-0B79-5B82-2085A2AFB947</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E829F65B-8E8D-A0E5-2C75-A02A3732F10F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

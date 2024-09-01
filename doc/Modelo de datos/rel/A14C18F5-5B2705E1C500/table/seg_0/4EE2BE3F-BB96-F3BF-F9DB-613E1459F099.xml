@@ -1,0 +1,83 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4EE2BE3F-BB96-F3BF-F9DB-613E1459F099" name="ROLE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>57E0E981-6C58-2F72-9C82-A85433561BCA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="responsabilities" id="4934BE27-AB63-E3E4-BED5-274D66E8152D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>8BA96A18-CAF7-505A-DB60-CECDAFFAB7C0</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="achievements" id="A2DC183F-0CC4-40DF-0C0F-26DAF15BFFE9">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>24834559-46EB-56AD-63CA-68325F23D567</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idRole" id="C4EAE298-BE17-6EA6-B344-568736554684">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>111B6878-F9F9-D6A5-CFBC-07B7AB9E94CE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WORKER_idContract" id="188C0D90-E4A5-1F76-F318-4EC96F264A8D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:33:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6DC322A4-44DD-3BF0-590C-7E94ECAF3B53" referredColumn="215D3856-7805-D468-2058-D8F9A4811091"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1AA00246-9C8A-376E-957C-4E4D06A9564F" name="ROLE_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:41:22 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4EAE298-BE17-6EA6-B344-568736554684"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9F7CF0DB-F36B-0AD0-5A93-61F25DD7B5A7" name="ROLE_ROLE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:33:34 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="188C0D90-E4A5-1F76-F318-4EC96F264A8D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

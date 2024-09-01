@@ -1,0 +1,140 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="467FE5AA-F3A4-4B8D-5F97-E7A2E079495A" name="TASK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>BCE3CC74-6547-1AC8-207A-05028C5E903C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idTask" id="26E1F8D9-29AE-BF66-7DD1-F979052BB0E5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>7ACAAFE5-1886-48C6-9A1C-129CF486ECDE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="F2E06816-E39A-42E6-5A3A-EE26E4CC3D16">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>924547ED-D008-DE32-5C6E-88898197D50A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="B76FB3C2-B45B-F262-7C7E-D4B09531C685">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>05DEC21B-3735-BC58-CC8C-266FAD5F29C2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="F3FA0E80-F8A8-AFEB-2CF5-F134A9616A98">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>B989B9C0-AEC5-248A-BBA6-39E8A923A0F4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TASK_STATUS_TASK_STATUS_ID" id="2646A930-4F62-CBB8-2638-7CD6D225396C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRIORITY_TASK_PRIORITY_TASK_ID" id="71071B19-5720-3D64-CEC2-03B82F0FEED4">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="timelineSection" id="09156C4B-FDCD-9310-2E5C-EAE866D6B2B6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>C8C84155-143D-7117-63C3-A6B82D8CD4AD</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECTv1_PROJECTv1_ID" id="B26A5963-64E0-8B82-D352-93B135E10E93">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E69A9120-ABB7-D9AC-C02B-A2EA3148C30F" referredColumn="C4B61126-736E-6115-BA1B-15F7929BF3BD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="29A552EA-88F0-5F2B-964D-C8065E2371B9" name="TASK_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>AE3690B2-95B4-B9E4-CFCD-882F433E983C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="26E1F8D9-29AE-BF66-7DD1-F979052BB0E5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="060E66F1-B908-FA95-EC92-3E530424DBC5" name="TASK__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>EDC85920-3C3D-5BCF-B2FC-99C66C13C52A</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="2646A930-4F62-CBB8-2638-7CD6D225396C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E97C6A94-7C36-284D-9EFF-5ED9E37F4E26" name="TASK__IDXv1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>89B8853E-ED61-11DD-B806-438EFB020D36</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="71071B19-5720-3D64-CEC2-03B82F0FEED4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7ECA35F6-96B8-87A0-919A-5AC950B29DF0" name="TASK_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>AF9F931C-25CF-A3AA-0BE5-1554B67EE9BB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B26A5963-64E0-8B82-D352-93B135E10E93"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

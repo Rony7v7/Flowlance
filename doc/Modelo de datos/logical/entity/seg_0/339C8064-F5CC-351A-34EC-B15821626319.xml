@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="339C8064-F5CC-351A-34EC-B15821626319" name="DELIVERABLE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:53 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="728564A4-8323-F866-83AF-58E76B3D112C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:26:44 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="552C802D-05E3-3512-1CDC-6FC1AD455DC4">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:26:55 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="description" id="2D8C5628-3ED2-3D8E-D002-BFC5FBCBAC3C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:26:59 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="file" id="5CE02D57-38DB-4001-12B5-DE02A32F9F4C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:27:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="timelineSection" id="A628DE89-35E6-CFEC-E1BF-B81010FF70FE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:59:27 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProject" id="A0728820-64C6-BBE9-5F33-07C2EE061F56">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:34:22 UTC</createdTime>
+<generatorID>BF5D999C-D764-C5BC-171F-0A43687ADEF3</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>6F8EAB1F-4BA4-8841-5071-BBE0DC4CCE34</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="5FA02787-B7FD-A383-1210-1EA7FF22DDEE" name="deliverable PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:26:54 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>728564A4-8323-F866-83AF-58E76B3D112C</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

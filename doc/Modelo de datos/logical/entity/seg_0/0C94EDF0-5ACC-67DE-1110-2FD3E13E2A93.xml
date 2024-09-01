@@ -1,0 +1,41 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="0C94EDF0-5ACC-67DE-1110-2FD3E13E2A93" name="TIMELINE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:02:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="state" id="A84F511D-379E-3EEE-443D-2008CE3273FE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:02:43 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProjectCustomer" id="58226235-9CB3-6015-D6F6-0C9F5C3F3AEA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:53:02 UTC</createdTime>
+<generatorID>195ED688-1302-4D70-D0BF-35189D8550A2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>B01D9D1F-F44D-298F-49D0-4B16A7EC8CEC</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B67D8340-2656-3679-4FEB-BDAEBABEC9A4" name="SCORE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:40:38 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="stars" id="748FCB3D-B76B-C6D3-4665-378442B966AF">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:40:57 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProfile" id="61E60403-8E8F-ED2E-6398-BB8B38270D8F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:51:05 UTC</createdTime>
+<generatorID>F2241B4D-EC82-3E16-A3F3-EE66E614A3DD</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>9DE46943-E77F-4C36-E3BE-A70F77278D23</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1EAD8F0E-D10A-0D92-284A-B02B17591237" name="SCORE PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:46:23 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<pk>true</pk>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="13395FEA-8827-6DE3-EADA-3EC83D301767" name="CUSTOMER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>276179CB-0AB6-0E51-B480-C57DF4C16140</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="C9C26D15-8617-410F-3D98-4E1FDE56CC17">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>279D0C1D-4006-DF87-08C2-9AFC3846A3FB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3349337F-C7D5-87AD-B689-0B4BF1B7A9A0" referredColumn="8EF34EC0-10E9-2B46-DC82-F957532D7E61"/>
+</associations>
+</Column>
+<Column name="idCustomer" id="5020D121-E9C0-A244-CA13-BFA848E60DA5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>91924CDF-0270-670C-C574-22A179701FF6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nit" id="AF5F5C3D-89B8-8305-5026-758DF3F120B9">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>7447D380-69F9-4BA6-666F-4197B6228147</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="direction" id="F5D94F60-D9AA-0786-9C99-4C0E2C2A11CC">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>0D665AFB-3191-F47D-49C4-CCCBF3DA4BBF</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typeCustomer" id="E7803C55-A09B-3281-66E6-85B26C575BDE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>D1640F55-DBD1-99BE-BC24-DD19E51E34F6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="country" id="D3EC1C24-13B9-15C3-0DD9-6D5EC5235273">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>FBD8DEBB-1819-4102-311E-BE473D20CA91</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="legalRepresentation" id="9C4E2AD6-56E7-E1C6-5483-5EC3FE8FA9F8">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>2CE2EF02-3BA3-7F56-7A11-49AD80EC304B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="AB35B214-DEB6-2E46-2F7B-216934A93407">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>226BC599-890B-A998-1D3D-90A240299C6E</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D1FC81EB-8615-E089-4F89-9A8BC7B3106D" name="CUSTOMER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>D22AEE30-46BB-AF89-799E-56F6DCCE19FB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C9C26D15-8617-410F-3D98-4E1FDE56CC17"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="26649F21-A5EC-7007-F0B4-1BF1ACE30321" name="CUSTOMER_PKv1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>517A383C-0CC5-54E4-1B70-A9F9A26B58A5</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5020D121-E9C0-A244-CA13-BFA848E60DA5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="70ACCB73-FC95-AECC-5C9B-CD333D3C0E61" name="CUSTOMER_USER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>78F3D5EB-A95D-595C-94FE-65802BAA17F4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C9C26D15-8617-410F-3D98-4E1FDE56CC17"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

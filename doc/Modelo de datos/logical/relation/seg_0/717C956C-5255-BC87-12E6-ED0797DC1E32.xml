@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_35" directorySegmentName="seg_0" id="717C956C-5255-BC87-12E6-ED0797DC1E32">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:02:15 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<sourcePk>A112890C-5E69-0B79-5B82-2085A2AFB947</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>based on</nameOnSource>
+<nameOnTarget>based</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>69DE3620-499C-DD34-16C2-9FEF78BE11F1</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>2E4A06E1-2E6D-0238-8A83-C52C9DE94376</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attribute name="file" id="4F223411-18BB-D50D-837C-C982465690E2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:52:09 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</attribute>
+<attribute name="reference" id="0BB375EE-D288-AD5D-82EB-B8E740B350F1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:52:18 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</attribute>
+<attribute name="contact" id="4F45A83F-5743-4E4E-73A7-0ADE99C632C5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:52:39 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</attribute>
+</attributes>
+</Relation>

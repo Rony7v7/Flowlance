@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4589D75D-86AC-6916-B407-F464FAC4C40B" name="COMMENT">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:10:08 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="commentID" id="A1AFD672-3737-36F8-D770-56FE62AD4A7B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:12:52 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="body" id="327CC1AE-7F74-4EB5-7F92-BFE9F55B9C7F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:12:58 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="date" id="F48DF39E-DE25-4B0E-466F-AE38FA71E7FB">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:13:04 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProfile" id="272D5FC5-C6FC-5C1C-F17F-E6924D4D7A7B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:13:47 UTC</createdTime>
+<generatorID>9762E1CE-D535-E2B8-5146-23B483FCD965</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>9DE46943-E77F-4C36-E3BE-A70F77278D23</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="author" id="8996F989-5A80-0ABC-5EFE-18F6A2FF20AB">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 04:39:15 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="EA260424-2595-FC12-AE24-1FEA1E157718" name="COMMENT PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:12:56 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A1AFD672-3737-36F8-D770-56FE62AD4A7B</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

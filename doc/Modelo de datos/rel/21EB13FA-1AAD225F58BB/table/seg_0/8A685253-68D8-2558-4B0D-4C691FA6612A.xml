@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A685253-68D8-2558-4B0D-4C691FA6612A" name="HITO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>F1C07A06-E0E6-893A-2AD0-79F9F4C0EB9C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idHito" id="0370A9FB-6D03-03C2-7459-2CEC06994750">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>8C9EE2FF-9B58-ADF4-8B85-9E7B7AA46239</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="4BB5C8B9-79C5-872B-7979-2B5B9CE2667C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>F62F4FF7-B5E8-0121-B4A6-01BA2267CD67</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="B865E9FE-AA6C-EB9E-CA3E-9BD1DBA114FE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>925C141E-6A87-D63F-F3E3-0AB06B009C09</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="startDate" id="EA0ADED9-E79E-6FB4-5AF7-857E6503B263">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>B2157AEC-CC05-2DE0-FC46-806D68226EEA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id" id="89825E2F-E994-783F-7FCE-FFE70610746B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>AC2F5810-2792-5122-C480-0F004F06E2A9</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3A34081E-6EF6-3313-8791-BF1B45E9EDF6" referredColumn="121F6496-103F-33EB-BE87-256FC3A0DCF2"/>
+</associations>
+</Column>
+<Column name="endDate" id="75113954-2EF5-27BD-680A-9295A643D1CA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>A6E21BE8-B55B-4096-9400-A761A93DCA81</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATE_HITO_STATE_HITO_ID" id="B8C91139-00C9-43BB-DA44-5E97389D39FC">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="572725E5-6EA8-21FA-9E1C-09E5AF55F924" referredColumn="9D6144A3-16F9-D9A3-E73A-73AFE7AC4DBB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5AB014F5-342A-6719-8D2D-692AC8942491" name="HITO_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>7BBAEED6-3C2D-3A75-5D72-C1EF18EA3E5F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0370A9FB-6D03-03C2-7459-2CEC06994750"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B683ECD3-CC11-9E8B-D441-5AB35E19FF3B" name="HITO__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>09E07A75-DC2B-95D4-5DE1-665866176E0A</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B8C91139-00C9-43BB-DA44-5E97389D39FC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EB9CD65B-C962-6A83-CE1B-73555581A567" name="HITO_DELIVERABLE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>E732BAC7-C6A7-72D0-F0A6-0F714A528EFB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="89825E2F-E994-783F-7FCE-FFE70610746B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F080F8FB-EBE2-A639-49E8-C400C5C6D52F" name="HITO_STATE_HITO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>09E07A75-DC2B-95D4-5DE1-665866176E0A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B8C91139-00C9-43BB-DA44-5E97389D39FC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

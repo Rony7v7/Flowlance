@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="32EE3566-A504-AB71-00A2-3B0DC7EC82CC" containerWithKeyObject="12E950AB-D7A1-6A84-DB06-2963096100FC" localFKIndex="CBEA4D2A-F2F6-D900-CB92-AEE01EAAD28A" name="PROJECT_CUSTOMER_TIMELINE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<generatorID>195ED688-1302-4D70-D0BF-35189D8550A2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>TIMELINE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>AA284DF8-3E8E-259B-EC4D-6C14EED4FF88</referredTableID>
+<keyObject>17B501B3-FF74-D964-566B-4D617C663D76</keyObject>
+<referredKeyID>17B501B3-FF74-D964-566B-4D617C663D76</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>TIMELINE_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

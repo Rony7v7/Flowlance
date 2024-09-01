@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="DB0C1E45-1B76-23B5-EB7F-1494F533CF65" name="PROJECT_FREELANCER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 05:14:00 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>167CED17-3940-463B-1574-9992C22E5633</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idProjectFreelancer" id="4D2B392B-64F1-DEE2-5ECB-03B11C555F7C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 05:56:52 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idFreelancer" id="F9270DEF-B455-A5F5-E18D-7FB34A7A88BA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:44:47 UTC</createdTime>
+<generatorID>73937786-FB49-2235-73DF-AB59B15FE7FA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>FC7B47DC-F416-87EC-26AE-61F64F906D38</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0B66BAF5-6D04-67D4-B2F6-44B6588DE449" name="PROJECT_FREELANCER PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 05:57:01 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4D2B392B-64F1-DEE2-5ECB-03B11C555F7C</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6808592E-D3D9-AC6A-00D6-FD97DBE31DF3" name="DELIVERABLE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>339C8064-F5CC-351A-34EC-B15821626319</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="121F6496-103F-33EB-BE87-256FC3A0DCF2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>728564A4-8323-F866-83AF-58E76B3D112C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="FFA7A11D-E4E0-529E-BAEA-14DE9FBF0D00">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>552C802D-05E3-3512-1CDC-6FC1AD455DC4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="317D4820-B574-2185-4AC3-03BD24725EB8">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>2D8C5628-3ED2-3D8E-D002-BFC5FBCBAC3C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="file" id="E31A142A-D022-50D4-8B80-78CAD283DAF6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>5CE02D57-38DB-4001-12B5-DE02A32F9F4C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="timelineSection" id="012AE401-A229-F38C-EBA8-63E9EE6D71D7">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>A628DE89-35E6-CFEC-E1BF-B81010FF70FE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECTv1_PROJECTv1_ID" id="6B3E5500-6142-619E-1F9E-A87E472DB104">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3DA7B1C8-6EFD-DC6C-27D0-0B0BB6830B7F" referredColumn="C4B61126-736E-6115-BA1B-15F7929BF3BD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D28097DB-3C76-A1F9-69F9-E4A894958567" name="DELIVERABLE_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>5FA02787-B7FD-A383-1210-1EA7FF22DDEE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="121F6496-103F-33EB-BE87-256FC3A0DCF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EB9FF8CB-FDB1-B065-B83B-B2EB410394AD" name="DELIVERABLE_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>BF5D999C-D764-C5BC-171F-0A43687ADEF3</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6B3E5500-6142-619E-1F9E-A87E472DB104"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

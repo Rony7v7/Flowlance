@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="09827C25-B401-2EEE-12EC-9BBCDE6D53DA" containerWithKeyObject="427C56D4-F9EB-159D-04E6-1F8AB5CCEED4" localFKIndex="1ABB79C1-5264-4379-74CD-9B22937C16CA" name="Relation_41_CUORSE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>3F95AA4E-4C4B-ECCA-4164-A7DB2D9DD0EF</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>CUORSE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>854D5C6C-6D6B-158F-C2DA-6D1C33B6DD37</referredTableID>
+<keyObject>A2B8D691-ECC2-2B6D-EB9E-4011D6D6A3B9</keyObject>
+<referredKeyID>A2B8D691-ECC2-2B6D-EB9E-4011D6D6A3B9</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idCourse</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

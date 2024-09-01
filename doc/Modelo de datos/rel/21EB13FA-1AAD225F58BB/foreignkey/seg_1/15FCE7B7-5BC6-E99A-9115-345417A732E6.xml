@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_1" id="15FCE7B7-5BC6-E99A-9115-345417A732E6" containerWithKeyObject="1557953D-F1B6-3C15-AB67-A6CF0D9AF7AF" localFKIndex="295F9F9C-27EA-79D9-EAB3-114C2542AA70" name="STATE_HITO_HITO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>09E07A75-DC2B-95D4-5DE1-665866176E0A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>HITO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>8A685253-68D8-2558-4B0D-4C691FA6612A</referredTableID>
+<keyObject>5AB014F5-342A-6719-8D2D-692AC8942491</keyObject>
+<referredKeyID>5AB014F5-342A-6719-8D2D-692AC8942491</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>idHito</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

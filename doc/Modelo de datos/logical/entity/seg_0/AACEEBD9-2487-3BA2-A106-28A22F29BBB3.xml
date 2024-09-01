@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="AACEEBD9-2487-3BA2-A106-28A22F29BBB3" name="PROJECT_CUSTOMER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:59:44 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>167CED17-3940-463B-1574-9992C22E5633</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idProjectCustomer" id="B01D9D1F-F44D-298F-49D0-4B16A7EC8CEC">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:59:49 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="requeriments" id="2682C7F8-1562-6C65-8A96-D812023EC9F7">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:00:17 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="budget" id="7F99BCBD-3842-3FD3-00D7-AE0BF6B53151">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:00:23 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idCustomer" id="B6BFBA35-D5E2-063D-4C63-9634938DD031">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:55:46 UTC</createdTime>
+<generatorID>A12BE6CD-4711-F880-2CEA-902780D2EADD</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>91924CDF-0270-670C-C574-22A179701FF6</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="photo" id="90A10F21-97A1-BD6D-9AEB-58FB12E43FF0">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:22:36 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9C0C9721-4DCC-2829-DC0F-FEDD7CFBBA8E" name="PROJECT PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:00:00 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B01D9D1F-F44D-298F-49D0-4B16A7EC8CEC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,77 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="21F4747E-E749-468A-6DE4-C86F12B7EE47" name="NOTIFICATION">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>3D2E8113-ACC3-1F7B-93BB-81053BDEA5AA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idNotification" id="B3F46D82-5CE7-4079-14AB-AE5CF9F2286C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>9E7AAF9B-3D54-48C6-6097-D9B5CA74D092</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="content" id="E163855C-2B3F-6ABD-7239-90A1D5465978">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>96ADF71C-9064-E059-F5C3-CA6D45E22773</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="1492FEC8-9AD1-40C1-48C5-378B62BC89E5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>295E8955-7BBB-A735-B884-2965CA2FFAAC</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id" id="9A0D7791-1415-D619-8025-E59005943341">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>B3A2992A-CF9B-B30C-F49A-55F7AA5647A2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7390EC86-42BD-7CB8-D668-EA27F09654FD" referredColumn="92CBB29D-465A-E681-CF4B-CADDBD5E6EB4"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9AC0F6E6-A776-5861-7096-BD1AA89E1CD7" name="NOTIFICATION_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>4344AC14-B40D-C0E7-95D0-9C7AE04A5943</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B3F46D82-5CE7-4079-14AB-AE5CF9F2286C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4B400F30-4A26-9A88-ED93-17B87427B76D" name="NOTIFICATION_USER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>84110327-EC9F-E305-C019-E4104EB81ABC</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9A0D7791-1415-D619-8025-E59005943341"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

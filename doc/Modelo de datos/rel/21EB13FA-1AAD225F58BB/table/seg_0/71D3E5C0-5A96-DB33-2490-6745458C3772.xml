@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="71D3E5C0-5A96-DB33-2490-6745458C3772" name="PROFILE_CUSTOMER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>2E65BF52-8690-5AF0-6A55-68DEEC079F1C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idCustomer" id="D6C04204-6D8C-1C7A-C946-9CBFC86E2D10">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>5AE1717B-8562-256B-0DF7-5D21DDCC9FEA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0F6251CD-E348-B065-36B2-DBA5FE8B7C05" referredColumn="EDB84049-EF7D-6029-29C4-C55B5A0CE414"/>
+</associations>
+</Column>
+<Column name="idProfile" id="C454CEE1-EED3-D3A4-CF75-CA18BA644A14">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>854C6ED8-39AF-D7DC-DAE1-FD1C1C78C53F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="A69022E5-B695-8639-741E-9213018E4831">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>9CA2ACA7-6F7C-9B2C-CBB2-71DF64DB120D</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="84C241B8-EB0A-6D21-6BFC-DB6F3E645006" name="PROFILE_CUSTOMER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>A5025749-44ED-2B82-2AED-8BB2737125AF</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C454CEE1-EED3-D3A4-CF75-CA18BA644A14"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7126A85E-171B-0925-2623-854E08581D8E" name="PROFILE_CUSTOMER__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>C654E859-6B6C-5F83-17B1-A40388E25888</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D6C04204-6D8C-1C7A-C946-9CBFC86E2D10"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="475BDA1F-6B65-ACBE-4E33-B17388DAA7CE" name="PROFILE_CUSTOMER_CUSTOMER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>C654E859-6B6C-5F83-17B1-A40388E25888</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D6C04204-6D8C-1C7A-C946-9CBFC86E2D10"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

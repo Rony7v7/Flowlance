@@ -1,0 +1,70 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BAB4713A-2C72-B6EA-1468-B0F20D267EE2" name="TIMELINE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>0C94EDF0-5ACC-67DE-1110-2FD3E13E2A93</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="state" id="A541275C-8F3B-90F9-334A-A7162D6BB82D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>A84F511D-379E-3EEE-443D-2008CE3273FE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idTimeline" id="EF3B84B5-3E2E-A255-A91F-E1D12E549C81">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:01:00 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECT_CUSTOMER_idProject" id="0625ADF6-A4AD-27AC-0A33-986E291F55AF">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:35:06 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CB3ABC7A-6B21-1FD0-9840-A90B46C51471" referredColumn="DEAAF768-E9D2-D629-09D8-F84E88E76D25"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3042FD37-09E0-3A05-C076-4D8D6B4113B0" name="TIMELINE_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:40:46 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EF3B84B5-3E2E-A255-A91F-E1D12E549C81"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7AC6088E-0CCE-8573-4D28-B3B34F605576" name="TIMELINE_TIMELINE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:35:01 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0625ADF6-A4AD-27AC-0A33-986E291F55AF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
