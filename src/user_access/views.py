@@ -1,8 +1,16 @@
-from django.shortcuts import render
-from django.contrib.auth.views import LoginView
-from .login_form import login_form
+from django.shortcuts import render, redirect
+from .LoginForm import LoginForm
+from django.contrib.auth import login
 
 
-class login_view(LoginView):
-    template_name = "login/login.html"
-    authentication_form = login_form
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            print("user", user)
+            return redirect("login")
+    else:
+        form = LoginForm()
+    return render(request, "login/login.html", {"form": form})
