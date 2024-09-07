@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 flowlance_virtual_enviroment/
+.vscode/
+.idea/
