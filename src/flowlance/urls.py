@@ -18,4 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [path("admin/", admin.site.urls), path("", include("user_access.urls"))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", include("user_access.urls")),
+    path("project/", include("project_controller.urls"))
+]
