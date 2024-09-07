@@ -1,0 +1,55 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Proyecto</title>
+</head>
+
+<body>
+    <h1>Crear Nuevo Proyecto</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div>
+            <label for="{{ form.title.id_for_label }}">Título:</label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.description.id_for_label }}">Descripción detallada:</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.requirements.id_for_label }}">Requerimientos específicos:</label>
+            {{ form.requirements }}
+            {{ form.requirements.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.budget.id_for_label }}">Presupuesto:</label>
+            {{ form.budget }}
+            {{ form.budget.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.start_date.id_for_label }}">Fecha de inicio:</label>
+            {{ form.start_date }}
+            {{ form.start_date.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.end_date.id_for_label }}">Fecha de finalización:</label>
+            {{ form.end_date }}
+            {{ form.end_date.errors }}
+        </div>
+
+        <input type="submit" value="Crear Proyecto">
+    </form>
+</body>
+
+</html>
