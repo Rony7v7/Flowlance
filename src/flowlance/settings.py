@@ -27,7 +27,11 @@ SECRET_KEY = "django-insecure-(wv2tpxe)zoz0ic3vk71xto!uu40@5@ejm0jvsu^fr%0w&+l4m
 DEBUG = True
 
 ALLOWED_HOSTS = []
+TAILWIND_APP_NAME = "theme"
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -38,6 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "tailwind",
+    "django_browser_reload",
+    "theme",
     "user_access",
     "project_controller",
 ]
@@ -50,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "flowlance.urls"
