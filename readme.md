@@ -17,21 +17,17 @@ FlowLance es una plataforma en línea diseñada para conectar freelancers con cl
 
 ### Installing
 
-0. If you haven't created your own virtual enviroment please do:
-
-    ```
-
+0. If you haven't installed the package to ceate the virtual enviroment please do:
+`
         pip install virtualenv
+`
 
-        python -m venv flowlance_virtual_enviroment
-
-    ```
 1. git pull `https://github.com/2024-2-PI1-G3/202402-proyecto-gecko-team`
 2. cd into the project (the src folder)
 3. Start the virtual enviroment 
     * Linux: `source flowlance_virtual_enviroment/bin/activate`
     * Windows: `flowlance_virtual_enviroment\Scripts\activate`
-4. Install all the requirements with: `pip install -r requirements.txt`
+5. Install all the requirements with: `pip install -r requirements.txt`
 
 ### Executing program
 
