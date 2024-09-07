@@ -1,4 +1,4 @@
-# Project Title
+# Flow Lance
 
 Simple overview of use/purpose.
 
@@ -27,7 +27,7 @@ FlowLance es una plataforma en línea diseñada para conectar freelancers con cl
 
     ```
 1. git pull `https://github.com/2024-2-PI1-G3/202402-proyecto-gecko-team`
-2. cd into the project
+2. cd into the project (the src folder)
 3. Start the virtual enviroment 
     * Linux: `source flowlance_virtual_enviroment/bin/activate`
     * Windows: `flowlance_virtual_enviroment\Scripts\activate`
