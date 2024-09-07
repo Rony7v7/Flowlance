@@ -42,7 +42,17 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                bg_white: "FAFAFD",
+                bg_gray: "EAEBF9",
+                primary_lightest: "D5D7F2",
+                primary_black: "121670",
+                primary_light: "8D92F2",
+                primary_medium: "636AF2",
+                primary_dark: "3D46F2",
+            }
+        },
     },
     plugins: [
         /**
