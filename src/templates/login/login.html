@@ -15,18 +15,6 @@
         <!-- Título -->
         <h1 class="text-primary_black text-3xl font-bold mb-4">Iniciar sesión</h1>
 
-        <!-- Formulario -->
-        {% if form.errors %}
-        <div class="bg-red-500 text-white p-2 mb-4">
-            <ul>
-                {% for field in form %}
-                {% for error in field.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
 
         <form method="post">
             {% csrf_token %}
@@ -67,6 +55,23 @@
 
         <!-- Enlaces adicionales -->
         <a href="#" class="text-primary_black hover:underline mb-4 block font-bold">¿Olvidaste tu contraseña?</a>
+        <!-- Formulario -->
+        {% if form.errors %}
+        <div class="bg-red-500 text-white p-2 mb-4 rounded-md">
+            <ul>
+                {% for field in form %}
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
     </div>
 
     <!-- Registration Link -->
