@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .LoginForm import LoginForm
 from django.contrib.auth import login
 
+def home(request):
+    return render(request, "homepage/home.html")
 
 def login_view(request):
     if request.method == "POST":
