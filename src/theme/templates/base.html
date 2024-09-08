@@ -5,15 +5,18 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{% block title %}My App{% endblock %}</title>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- Logo -->
+	<link rel="icon" href="{% static 'img/logo.svg' %}" type="image/svg+xml">
+	
+	<title>{% block title %}Flowlance{% endblock %}</title>
 	{% tailwind_css %}
 </head>
 
-<body class="bg-bg_white">
+<body class="bg-bg_white flex flex-col p-0 m-0">
 
 	<!-- Header or navbar can go here -->
-
-	<div class="container mx-auto p-4">
+	<div class= "flex flex-col justify-start w-screen">
 		{% block content %}
 		{% endblock %}
 	</div>
