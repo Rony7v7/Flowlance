@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import PortfolioProjectForm, CurriculumVitaeForm, CursoForm
-from .models import PortfolioProject, CurriculumVitae, Curso
+from .models import ProyectoPortafolio, CurriculumVitae, Curso
 
 def crear_proyecto_portafolio(request):
     if request.method == 'POST':
