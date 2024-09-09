@@ -16,6 +16,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+NPM_BIN_PATH = "C:\\Program Files\\nodejs\\npm.cmd"
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     "theme",
     "user_access",
     "project_controller",
+    "freelancer_profile_creation",
 ]
 
 MIDDLEWARE = [
@@ -61,6 +65,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "flowlance.urls"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {
