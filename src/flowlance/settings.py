@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "theme",
     "user_access",
     "project_controller",
+    "freelancer_profile_creation",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "flowlance.urls"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {
