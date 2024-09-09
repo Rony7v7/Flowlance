@@ -1,0 +1,262 @@
+<!-- Simple Hero for FlowLance Landing Page. Contains a message and an image -->
+
+<div class="flex flex-col items-center justify-center bg-[#FAFAFD] py-10">
+  <!-- Header Text -->
+  <div class="flex flex-col items-center justify-center gap-4">
+    <h1 class="text-5xl font-extrabold italic text-[#3D46F2]">FlowLance</h1>
+    <p class="text-2xl font-extrabold italic text-[#3D46F2]">
+      Tu plataforma de freelancers
+    </p>
+  </div>
+
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Parte izquierda texto y Parte derecha imágenes</title>
+      <style>
+          /* text in the left and images to the right */
+          .container {
+              display: flex;
+              justify-content: space-between; /* Separates the text and images */
+              align-items: flex-start; 
+              padding: 60px;
+          }
+  
+          /* Left section (text) */
+          .left {
+              width: 50%; /* Text occupies 50% of the container */
+              margin-top: 200px; /* Move the text down a little bit */
+          }
+  
+          /* Apply font size and other styles directly to the paragraph */
+          .left p {
+              font-size: 35px; 
+              font-weight: 600; 
+              line-height: 1.6; 
+              color: #121670; 
+          }
+  
+          /* Right section (images) */
+          .right {
+              width: 50%; 
+              position: relative; /* Make the container relative to position images inside */
+          }
+  
+          /* Style for the images */
+          .right img {
+              width: 200px;
+              height: 200px;
+              border-radius: 50%; /* Make the images circular */
+              object-fit: cover;
+              position: absolute; /* Position images absolutely within the container */
+          }
+  
+          /* Personalize the position for each image */
+          .image1 {
+              top: 10px;
+              left: 50px;
+          }
+  
+          .image2 {
+              top: 50px;
+              left: 400px;
+          }
+  
+          .image3 {
+              top: 300px;
+              left: 150px;
+          }
+  
+          .image4 {
+              top: 350px;
+              left: 500px;
+          }
+  
+          /* Section for "¿Por qué elegirnos?" */
+          .why-choose-us {
+              margin-top: 120px;
+              text-align: center;
+              width: 100%; 
+          }
+  
+          .why-choose-us h2 {
+              font-size: 36px;
+              font-weight: bold;
+              color: #121670;
+          }
+  
+          /* Modify card container to ensure equal spacing */
+          .card-container {
+              display: flex;
+              justify-content: center; /* Center the cards */
+              margin-top: 40px;
+              gap: 20px; /* Adds space between the cards */
+              width: 100%; 
+          }
+  
+          
+          .card {
+              flex-grow: 1;
+              max-width: 400px; /* Set a max width for each card */
+              background-color: #f7f7f7;
+              border-radius: 10px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+              text-align: center;
+              padding-bottom: 20px; 
+          }
+  
+          /* Ensure the images also expand */
+          .card img {
+              width: 100%; 
+              height: 250px; 
+              object-fit: cover;
+          }
+  
+          .card h3 {
+              background-color: #8D92F2;
+              padding: 10px;
+              font-size: 27px; 
+              font-weight: bold;
+              color: white;
+          }
+  
+          .card p {
+              padding: 15px;
+              font-size: 22px; 
+              color: #555;
+          }
+      </style>
+  </head>
+  <body>
+  
+      <!-- Main container with two sections -->
+      <div class="container">
+          <!-- Left part: Text -->
+          <div class="left">
+              <p>
+                  Donde los <span style="color: #636AF2; font-weight: bold;">proyectos</span> encuentran a los 
+                  <span style="color: #F2AE30; font-weight: bold;">profesionales</span>.
+                  <br><br>
+                  Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel.
+              </p>
+          </div>
+  
+          <!-- Right part: Images -->
+          <div class="right">
+              <img src="https://img.freepik.com/foto-gratis/laboratorio-computacion-moderno-equipado_23-2149241221.jpg?t=st=1725826763~exp=1725830363~hmac=cd002ffba8798bc6c694ecf0258b91cbaf727e7ed5debe611d9b2eca283e5e84&w=826" class="image1">
+              <img src="https://img.freepik.com/foto-gratis/colegas-sonrientes-que-miran-ordenador-portatil-lugar-trabajo_23-2148222628.jpg?t=st=1725827469~exp=1725831069~hmac=181efa557bbd4dbc1bffb6f74fc53fb7fdd3bccdddf245d8ea3e27592e27e761&w=826" class="image2">
+              <img src="https://img.freepik.com/foto-gratis/personas-que-trabajan-codigos-html_23-2150038850.jpg?t=st=1725827920~exp=1725831520~hmac=cac1598ad102d9cda1c79c1daa720c67e1e408287107f2b648944aba6397e694&w=1480" class="image3">
+              <img src="https://img.freepik.com/foto-gratis/hombre-que-usa-computadora-portatil-oficina_23-2147807984.jpg?t=st=1725828199~exp=1725831799~hmac=461727b9f0d63528ae130451cc374b66053bad196bdc02606c5e0fe510418597&w=1480" class="image4">
+          </div>
+      </div>
+  
+      <!-- Section for "¿Por qué elegirnos?"  -->
+      <div class="why-choose-us">
+          <h2 class="text-2xl font-extrabold-[#121670]">¿Por qué elegirnos?</h2>
+          
+  
+          <div class="card-container">
+              <!-- Card 1 -->
+              <div class="card">
+                  <img src="https://img.freepik.com/fotos-premium/persona-escribiendo-computadora-portatil-pantalla-que-dice-palabra-ella_889227-13444.jpg?w=900">
+                  <h3 class="text-3xl font-extrabold">CALIDAD</h3>
+                  <p class="text-2xl">Acceso a miles de freelancers verificados</p>
+              </div>
+  
+              <!-- Card 2 -->
+              <div class="card">
+                  <img src="https://sosliem.com/wp/wp-content/uploads/2022/03/Nosotros.jpg">
+                  <h3 class="text-3xl font-extrabold">EFECTIVIDAD</h3>
+                  <p class="text-2xl">Procesos de contratación rápidos y seguros</p>
+              </div>
+  
+              <!-- Card 3 -->
+              <div class="card">
+                  <img src="https://helloricca.com/wp-content/uploads/2023/06/Rectangle-5.png">
+                  <h3 class="text-3xl font-extrabold">AMIGABLE</h3>
+                  <p class="text-2xl">Plataforma intuitiva y fácil de usar</p>
+
+              </div>
+          </div>
+      </div>
+  
+  </body>
+  </html>
+
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen con texto y botón encima</title>
+    <style>
+        
+        .hero-section {
+            position: relative;
+            width: 100%;
+            max-width: 1200px; 
+            height: 400px; 
+            background-image: url('https://spacecloudec.com/wp-content/uploads/2024/03/13-1-1000x500.jpg'); 
+            background-size: cover; /* Cover ensures the image fits the container */
+            background-position: center; /* Centers the background image */
+            border-radius: 10px;
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; /* Centers the text */
+            margin-top: 100px;
+        }
+
+        /* Style for the text */
+        .hero-section h2 {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px; /* Space between the text and the button */
+        }
+
+        /* Style for the button */
+        .hero-section button {
+            background-color: #3D46F2;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-section button:hover {
+            background-color: white;
+            color: #3D46F2;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Hero Image and Call to Action -->
+    <div class="hero-section">
+        <div class="content">
+            <h2>Únete a nuestra red de freelancers y descubre proyectos adaptados a ti</h2>
+            <button>Regístrate ahora!</button>
+        </div>
+    </div>
+
+</body>
+</html>
+
+  <!-- Login Link -->
+  <div class="mt-4">
+    <p class="text-md text-gray-600">
+      ¿Ya tienes una cuenta?
+      <a href="login.html" class="text-[#3D46F2] font-bold hover:underline">Inicia sesión aquí</a>.
+    </p>
+  </div>
+</div>
+
