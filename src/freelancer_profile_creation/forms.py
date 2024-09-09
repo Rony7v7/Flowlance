@@ -1,9 +1,9 @@
 from django import forms
-from .models import PortfolioProject, CurriculumVitae, Curso
+from .models import ProyectoPortafolio, CurriculumVitae, Curso
 
 class PortfolioProjectForm(forms.ModelForm):
     class Meta:
-        model = PortfolioProject
+        model = ProyectoPortafolio
         fields = ['nombre_proyecto', 'cliente', 'descripcion_proyecto', 'fecha_inicio', 'fecha_fin', 'actividades_realizadas', 'archivos_adjuntos', 'enlace_externo']
         widgets = {
             'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),
