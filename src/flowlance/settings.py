@@ -33,6 +33,9 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 # Application definition
+NPM_BIN_PATH = os.getenv(
+    "NPM_BIN_PATH", "npm"
+)  # Default to 'npm' if env variable is not set
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -62,8 +65,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "flowlance.urls"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 TEMPLATES = [
     {
@@ -131,9 +134,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "theme/static"
-]
+STATICFILES_DIRS = [BASE_DIR / "theme/static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
