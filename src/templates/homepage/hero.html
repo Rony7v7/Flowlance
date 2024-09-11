@@ -16,6 +16,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Parte izquierda texto y Parte derecha imágenes</title>
       <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Evitar el desbordamiento horizontal */
+        }
           /* text in the left and images to the right */
           .container {
               display: flex;
@@ -37,7 +42,7 @@
               line-height: 1.6; 
               color: #121670; 
           }
-  
+
           /* Right section (images) */
           .right {
               width: 50%; 
@@ -76,7 +81,7 @@
   
           /* Section for "¿Por qué elegirnos?" */
           .why-choose-us {
-              margin-top: 120px;
+              margin-top: 20px;
               text-align: center;
               width: 100%; 
           }
@@ -91,21 +96,22 @@
           .card-container {
               display: flex;
               justify-content: center; /* Center the cards */
-              margin-top: 40px;
+              margin-top: 10px;
               gap: 20px; /* Adds space between the cards */
               width: 100%; 
+              
           }
   
           
           .card {
               flex-grow: 1;
-              max-width: 400px; /* Set a max width for each card */
-              background-color: #f7f7f7;
+              max-width: 500px; /* Set a max width for each card */
+              background-color: #8D92F2;
               border-radius: 10px;
               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
               overflow: hidden;
               text-align: center;
-              padding-bottom: 20px; 
+              padding-bottom: 0px; 
           }
   
           /* Ensure the images also expand */
@@ -126,7 +132,7 @@
           .card p {
               padding: 15px;
               font-size: 22px; 
-              color: #555;
+              color: white;
           }
       </style>
   </head>
@@ -136,13 +142,14 @@
       <div class="container">
           <!-- Left part: Text -->
           <div class="left">
-              <p>
-                  Donde los <span style="color: #636AF2; font-weight: bold;">proyectos</span> encuentran a los 
-                  <span style="color: #F2AE30; font-weight: bold;">profesionales</span>.
-                  <br><br>
-                  Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel.
-              </p>
-          </div>
+                <p>
+                    Donde los <span style="color: #636AF2; font-weight: bold;">proyectos</span> encuentran a los 
+                    <span style="color: #F2AE30; font-weight: bold;">profesionales</span>
+                </p>
+                <p style="font-size: 22px; color: #121670;"><br>Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel</p>
+
+                <h2 style="font-size: 35px; font-weight: 600; line-height: 1.6; color: #121670; margin-top: 250px;">¿Por qué elegirnos?</h2>
+            </div>
   
           <!-- Right part: Images -->
           <div class="right">
@@ -155,30 +162,28 @@
   
       <!-- Section for "¿Por qué elegirnos?"  -->
       <div class="why-choose-us">
-          <h2 class="text-2xl font-extrabold-[#121670]">¿Por qué elegirnos?</h2>
-          
-  
+        
           <div class="card-container">
               <!-- Card 1 -->
               <div class="card">
-                  <img src="https://img.freepik.com/fotos-premium/persona-escribiendo-computadora-portatil-pantalla-que-dice-palabra-ella_889227-13444.jpg?w=900">
                   <h3 class="text-3xl font-extrabold">CALIDAD</h3>
                   <p class="text-2xl">Acceso a miles de freelancers verificados</p>
+                  <img src="https://img.freepik.com/fotos-premium/persona-escribiendo-computadora-portatil-pantalla-que-dice-palabra-ella_889227-13444.jpg?w=900">
+                  
               </div>
   
               <!-- Card 2 -->
               <div class="card">
-                  <img src="https://sosliem.com/wp/wp-content/uploads/2022/03/Nosotros.jpg">
                   <h3 class="text-3xl font-extrabold">EFECTIVIDAD</h3>
                   <p class="text-2xl">Procesos de contratación rápidos y seguros</p>
+                  <img src="https://sosliem.com/wp/wp-content/uploads/2022/03/Nosotros.jpg">
               </div>
   
               <!-- Card 3 -->
               <div class="card">
-                  <img src="https://helloricca.com/wp-content/uploads/2023/06/Rectangle-5.png">
                   <h3 class="text-3xl font-extrabold">AMIGABLE</h3>
                   <p class="text-2xl">Plataforma intuitiva y fácil de usar</p>
-
+                  <img src="https://img.freepik.com/foto-gratis/alegre-adolescentes-mirando-libro-juntos_23-2147659143.jpg?t=st=1725934464~exp=1725938064~hmac=c8f092c8bcb9660541aa577d0d143bbb235f56e9b6c831ffa5dea84a6e796b58&w=1480">
               </div>
           </div>
       </div>
@@ -207,7 +212,7 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; /* Centers the text */
-            margin-top: 100px;
+            margin-top: 50px;
         }
 
         /* Style for the text */
