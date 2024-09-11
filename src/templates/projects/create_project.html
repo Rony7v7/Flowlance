@@ -1,55 +1,76 @@
-<html lang="es">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nuevo Proyecto</title>
-</head>
+{% block title %}Creación de proyecto{% endblock %}
 
-<body>
-    <h1>Crear Nuevo Proyecto</h1>
-    <form method="post">
+{% block content %}
+<div class="px-20 py-8 h-screen">
+    <h1 class="text-2xl font-bold text-primary_black mb-2">Creación de proyecto</h1>
+    <h2 class="text-lg text-primary_dark mb-6">Información de los proyectos</h2>
+
+    <form method="post" class="space-y-6 w-full flex justify-center items-center flex-col">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div>
-            <label for="{{ form.title.id_for_label }}">Título:</label>
-            {{ form.title }}
-            {{ form.title.errors }}
-        </div>
+        <div class="items-center justify-center space-y-4 w-1/2">
+            <div>
+                <label for="{{ form.title.id_for_label }}"
+                    class="block text-sm font-medium text-primary_black mb-1">Ingresa
+                    el nombre del proyecto <span class="text-red-600">*</span></label>
+                {{ form.title}}
+                {{ form.title.errors }}
+            </div>
 
-        <div>
-            <label for="{{ form.description.id_for_label }}">Descripción detallada:</label>
-            {{ form.description }}
-            {{ form.description.errors }}
-        </div>
+            <div>
+                <label for="{{ form.description.id_for_label }}"
+                    class="block text-sm font-medium text-primary_black mb-1">Especificaciones del proyecto
+                    <span class="text-red-600">*</span></label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
 
-        <div>
-            <label for="{{ form.requirements.id_for_label }}">Requerimientos específicos:</label>
-            {{ form.requirements }}
-            {{ form.requirements.errors }}
-        </div>
+            <div>
+                <label for="{{ form.requirements.id_for_label }}"
+                    class="block text-sm font-medium text-primary_black mb-1">Requerimientos del proyecto <span
+                        class="text-red-600">*</span></label>
+                {{ form.requirements }}
+                {{ form.requirements.errors }}
+            </div>
 
-        <div>
-            <label for="{{ form.budget.id_for_label }}">Presupuesto:</label>
-            {{ form.budget }}
-            {{ form.budget.errors }}
+            <div>
+                <label for="{{ form.budget.id_for_label }}"
+                    class="block text-sm font-medium text-primary_black mb-1">Presupuesto del proyecto <span
+                        class="text-red-600">*</span></label>
+                {{ form.budget }}
+                {{ form.budget.errors }}
+            </div>
+            <div class="flex justify-between">
+                <div>
+                    <label for="{{ form.start_date.id_for_label }}"
+                        class=" w-1/2 text-sm font-medium text-primary_black mb-1">Fecha
+                        de
+                        inicio:</label>
+                    {{ form.start_date }}
+                    {{ form.start_date.errors }}
+                </div>
+                <div>
+                    <label for="{{ form.end_date.id_for_label }}"
+                        class=" w-1/2 text-sm font-medium text-primary_black mb-1">Fecha de
+                        finalización:</label>
+                    {{ form.end_date }}
+                    {{ form.end_date.errors }}
+                </div>
+            </div>
         </div>
+        <div class="flex justify-center items-center">
+            <button type="submit"
+                class=" bg-primary_medium text-white font-semibold px-5 py-3 rounded-md hover:bg-primary_light focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Confirmar
+            </button>
 
-        <div>
-            <label for="{{ form.start_date.id_for_label }}">Fecha de inicio:</label>
-            {{ form.start_date }}
-            {{ form.start_date.errors }}
-        </div>
-
-        <div>
-            <label for="{{ form.end_date.id_for_label }}">Fecha de finalización:</label>
-            {{ form.end_date }}
-            {{ form.end_date.errors }}
-        </div>
-
-        <input type="submit" value="Crear Proyecto">
     </form>
-</body>
+</div>
 
-</html>
+
+</div>
+{% endblock %}

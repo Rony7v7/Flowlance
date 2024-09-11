@@ -27,6 +27,7 @@ SECRET_KEY = "django-insecure-(wv2tpxe)zoz0ic3vk71xto!uu40@5@ejm0jvsu^fr%0w&+l4m
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_URL = "login"
 TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
