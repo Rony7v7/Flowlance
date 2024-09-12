@@ -27,15 +27,15 @@ SECRET_KEY = "django-insecure-(wv2tpxe)zoz0ic3vk71xto!uu40@5@ejm0jvsu^fr%0w&+l4m
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_URL = "login"
 TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 # Application definition
-NPM_BIN_PATH = os.getenv(
-    "NPM_BIN_PATH", "npm"
-)  # Default to 'npm' if env variable is not set
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
