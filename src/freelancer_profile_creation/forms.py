@@ -1,21 +1,21 @@
 from django import forms
-from .models import ProyectoPortafolio, CurriculumVitae, Curso
+from .models import PortfolioProject, CurriculumVitae, Course
 
 class PortfolioProjectForm(forms.ModelForm):
     class Meta:
-        model = ProyectoPortafolio
-        fields = ['nombre_proyecto', 'cliente', 'descripcion_proyecto', 'fecha_inicio', 'fecha_fin', 'actividades_realizadas', 'archivos_adjuntos', 'enlace_externo']
+        model = PortfolioProject
+        fields = ['project_name', 'client', 'project_description', 'start_date', 'end_date', 'activities_done', 'attached_files', 'external_link']
         widgets = {
-            'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),
-            'fecha_fin': forms.DateInput(attrs={'type': 'date'}),
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
 class CurriculumVitaeForm(forms.ModelForm):
     class Meta:
         model = CurriculumVitae
-        fields = ['archivo']
+        fields = ['file']
 
-class CursoForm(forms.ModelForm):
+class CourseForm(forms.ModelForm):
     class Meta:
-        model = Curso
-        fields = ['nombre_curso', 'descripcion_curso', 'organizacion', 'enlace_curso', 'imagen_curso']
+        model = Course
+        fields = ['course_name', 'course_description', 'organization', 'course_link', 'course_image']
