@@ -25,7 +25,7 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path("", include("user_access.urls")),  # Incluye las URLs de acceso de usuarios
     path("project/", include("project_controller.urls")),  # Incluye URLs de control de proyectos
-    path('perfil/', include('freelancer_profile_creation.urls')),  # Incluye URLs de creación de perfiles
+    path('profile/', include('freelancer_profile_creation.urls')),  # Incluye URLs de creación de perfiles
     path('dashboard/', include('dashboard.urls')),  # Incluye URLs del dashboard
 ]
 
