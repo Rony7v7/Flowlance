@@ -1,15 +1,8 @@
-{% extends "navigation/navigation.html" %}
+{% extends "projects/default_project_view.html" %}
 
-{% block app_content %}
-<div class="container mx-auto p-4">
-    <!-- Navigation Tabs -->
-    <div class="flex items-center justify-between bg-primary_lightest rounded-lg px-20 py-2 text-white">
-        <a href="#"
-            class="text-md font-semibold bg-primary_light rounded-md px-10 py-1 {% if section == 'hitos' %} !bg-primary_dark text-white{% endif %}">Hitos</a>
-        <a href="#" class="text-md font-semibold bg-primary_light rounded-md px-10 py-1">Tareas</a>
-        <a href="#" class="text-md font-semibold bg-primary_light rounded-md px-10 py-1">Línea de Tiempo</a>
-        <a href="#" class="text-md font-semibold bg-primary_light rounded-md px-10 py-1">Calendario</a>
-    </div>
+{% block section %}
+
+<div>
 
     <!-- Panel de Control -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">Panel de control</h1>
@@ -54,12 +47,14 @@
                 <h3 class="text-lg font-semibold text-primary_black">{{ milestone.name }}</h3>
                 <p class="text-sm text-primary_medium">Fecha de Inicio: {{ milestone.start_date }}</p>
                 <p class="text-sm text-primary_medium">Fecha de Finalización: {{ milestone.end_date }}</p>
-                <span class="text-sm text-primary_dark block">Entregables: <span class="block text-black mt-2">{{
-                        milestone.deliverables }}/10</span></span>
+                <span class="text-sm text-primary_dark block">Entregables: <span
+                        class="block text-black mt-2">{{milestone.deliverables }}/10</span></span>
                 <button class="mt-2 bg-primary_medium text-white px-4 py-2 rounded-lg">Ver más</button>
             </div>
             {% endfor %}
         </div>
     </div>
+
 </div>
+
 {% endblock %}

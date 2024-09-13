@@ -1,0 +1,22 @@
+{% extends "navigation/navigation.html" %}
+
+{% block app_content %}
+<div class="container mx-auto p-4">
+    <!-- Navigation Tabs -->
+    <div class="flex items-center justify-between bg-primary_lightest rounded-lg px-20 py-2 text-white">
+        <a href="/project/{{project.id}}/hitos"
+            class="text-md font-semibold bg-primary_light rounded-md px-10 py-1 {% if section == 'hitos' %} !bg-primary_dark text-white{% endif %}">Hitos</a>
+        <a href="/project/{{project.id}}/tareas"
+            class="text-md font-semibold bg-primary_light rounded-md px-10 py-1 {% if section == 'tareas' %} !bg-primary_dark text-white{% endif %}">Tareas</a>
+        <a href="/project/{{project.id}}/linea_de_tiempo"
+            class="text-md font-semibold bg-primary_light rounded-md px-10 py-1 {% if section == 'linea_de_tiempo' %} !bg-primary_dark text-white{% endif %}">Línea de Tiempo</a>
+        <a href="/project/{{project.id}}/calendario"
+            class="text-md font-semibold bg-primary_light rounded-md px-10 py-1 {% if section == 'calendario' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
+    </div>
+
+    {%block section %}
+
+    {% endblock %}
+
+</div>
+{% endblock %}

@@ -33,19 +33,22 @@ def my_projects(request):
 @login_required
 def display_project(request, project_id, section):
     project = Project.objects.get(id=project_id)
-    if section == "hitos":
-        return render(
-            request,
-            "projects/project.html",
-            {
-                "project": project,
-                "milestones": project.milestones.all(),
-                "section": section,
-            },
-        )
+
+    sections_map = {
+        "hitos": "projects/milestones.html",
+        "tareas": "projects/tasks.html",
+        "linea_de_tiempo": "projects/time_line.html",
+        "calendario": "projects/calendar.html",
+    }
+
+    section_to_show = sections_map.get(section, "project/milestones.html")
 
     return render(
         request,
-        "projects/",
-        {"project": project, "milestones": project.milestones.all()},
+        section_to_show,
+        {
+            "project": project,
+            "milestones": project.milestones.all(),
+            "section":section
+        },
     )
