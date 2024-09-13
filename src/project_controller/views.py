@@ -12,9 +12,7 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
-            return redirect(
-                "my_projects"
-            )  
+            return redirect("my_projects")
     else:
         form = ProjectForm()
     return render(request, "projects/create_project.html", {"form": form})
@@ -23,4 +21,31 @@ def create_project(request):
 @login_required
 def my_projects(request):
     projects = Project.objects.filter(client=request.user)
-    return render(request, "projects/my_projects.html", {"projects": projects})
+    return render(
+        request,
+        "projects/my_projects.html",
+        {
+            "projects": projects,
+        },
+    )
+
+
+@login_required
+def display_project(request, project_id, section):
+    project = Project.objects.get(id=project_id)
+    if section == "hitos":
+        return render(
+            request,
+            "projects/project.html",
+            {
+                "project": project,
+                "milestones": project.milestones.all(),
+                "section": section,
+            },
+        )
+
+    return render(
+        request,
+        "projects/",
+        {"project": project, "milestones": project.milestones.all()},
+    )
