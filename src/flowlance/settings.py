@@ -27,13 +27,15 @@ SECRET_KEY = "django-insecure-(wv2tpxe)zoz0ic3vk71xto!uu40@5@ejm0jvsu^fr%0w&+l4m
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_URL = "login"
 TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 # Application definition
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     "theme",
     "user_access",
     "project_controller",
+    "freelancer_profile_creation",
 ]
 
 MIDDLEWARE = [
@@ -61,6 +64,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "flowlance.urls"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 TEMPLATES = [
     {
@@ -128,9 +134,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "theme/static"
-]
+STATICFILES_DIRS = [BASE_DIR / "theme/static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
