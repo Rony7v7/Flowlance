@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from .models import Project
+from django.http import Http404
 
 
 @login_required
@@ -32,13 +33,16 @@ def my_projects(request):
 
 @login_required
 def display_project(request, project_id, section):
-    project = Project.objects.get(id=project_id)
+    try:
+        project = Project.objects.only("title","description").get(id=project_id)
+    except Project.DoesNotExist:
+        raise Http404("No Project with that id")
 
     sections_map = {
-        "hitos": "projects/milestones.html",
-        "tareas": "projects/tasks.html",
-        "linea_de_tiempo": "projects/time_line.html",
-        "calendario": "projects/calendar.html",
+        "milestone": "projects/milestones.html",
+        "task": "projects/tasks.html",
+        "time_line": "projects/time_line.html",
+        "calendar": "projects/calendar.html",
     }
 
     section_to_show = sections_map.get(section, "project/milestones.html")

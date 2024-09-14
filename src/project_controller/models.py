@@ -24,4 +24,19 @@ class Milestone(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='milestones')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="milestones"
+    )
+
+
+class Task(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tasks")
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    priority = models.CharField(max_length=50)
+    milestone = models.ForeignKey(
+        Milestone, on_delete=models.SET_NULL, null=True, blank=True, related_name="tasks",
+    )
