@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <div>
-        <!-- Aqui va el content -->
-        {% block app_content %}
-        {% endblock %}
-    </div>
 
+<div class="flex flex-row gap-8">
     <div>
         {% include "navigation/navbar.html" %}
     </div>
-
-    <div>
-        <!-- Aqui va la searchbar -->
+    <div class="flex flex-col gap-5 w-full">
+        <!-- Aqui va el content -->
+        {% block app_content %}
+        {% endblock %}
     </div>
 </div>
 
