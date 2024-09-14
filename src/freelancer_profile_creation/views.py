@@ -28,12 +28,12 @@ def upload_curriculum(request):
 
 def add_course(request):
     if request.method == 'POST':
-        form = CursoForm(request.POST, request.FILES)
+        form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             curso = form.save(commit=False)
             curso.perfil = request.user
             curso.save()
             return redirect('curso_exito')  
     else:
-        form = CursoForm()
+        form = CourseForm()
     return render(request, 'freelancer_profile_creation/add_course.html', {'form': form})
