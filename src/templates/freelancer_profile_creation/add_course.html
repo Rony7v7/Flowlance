@@ -18,23 +18,23 @@
             {% csrf_token %}
 
             <div>
-                <label class="block text-primary_black font-medium" for="nombre_curso">Ingresa el nombre del curso</label>
-                <input type="text" name="nombre_curso" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre del curso" required>
+                <label class="block text-primary_black font-medium" for="course_name">Ingresa el nombre del curso</label>
+                <input type="text" name="course_name" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre del curso" required>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="descripcion_curso">Ingresa una descripción del curso</label>
-                <textarea name="descripcion_curso" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="descripción del curso"></textarea>
+                <label class="block text-primary_black font-medium" for="course_description">Ingresa una descripción del curso</label>
+                <textarea name="course_description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="descripción del curso"></textarea>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="organizacion">Ingresa la organización que expide el certificado</label>
-                <input type="text" name="organizacion" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre de la organización">
+                <label class="block text-primary_black font-medium" for="organization">Ingresa la organización que expide el certificado</label>
+                <input type="text" name="organization" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre de la organización">
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="enlace_curso">Ingresa el enlace del curso</label>
-                <input type="url" name="enlace_curso" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="https://example.com">
+                <label class="block text-primary_black font-medium" for="course_link">Ingresa el enlace del curso</label>
+                <input type="url" name="course_link" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="https://example.com">
             </div>
 
             <div>
@@ -45,16 +45,15 @@
                             <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
                         </svg>
                         <div class="flex text-sm text-gray-600 justify-center">
-                            <label for="imagen_curso" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
+                            <label for="course_image" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
                                 <span>Arrastra tu archivo aquí</span>
-                                <input id="imagen_curso" name="imagen_curso" type="file" class="sr-only">
+                                <input id="course_image" name="course_image" type="file" class="sr-only">
                             </label>
                         </div>
                         <p class="text-xs text-gray-500">Aquí puedes adjuntar una imagen del curso.</p>
                     </div>
                 </div>
             </div>
-
 
             <div class="flex justify-center">
                 <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
