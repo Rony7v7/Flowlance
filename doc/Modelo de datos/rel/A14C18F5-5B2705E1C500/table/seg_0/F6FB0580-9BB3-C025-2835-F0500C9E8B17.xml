@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F6FB0580-9BB3-C025-2835-F0500C9E8B17" name="STATE_HITO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>53A60646-7D4D-F3D7-A4B1-DBAE64BBB0F6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="state" id="0333AD89-6591-056B-48A8-FD7EB1245C7E">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>CEF9792C-4E38-1FFB-BBF2-EAB37AE4804C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HITO_idHito" id="2D14299D-4F4A-4693-DB4E-36E6113B81B0">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:50:31 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B07A5023-BF35-E559-BE96-A950297FF7AF" referredColumn="951423AE-4FF8-806B-A7EB-5B2C9B1CB660"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1453139D-910D-039A-15B0-F5FB59C6D35D" name="STATE_HITO_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:47:30 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2D14299D-4F4A-4693-DB4E-36E6113B81B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="074CA25D-2719-7C5B-32C2-F10C0EFE0E99" name="STATE_HITO_STATE_HITO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:50:26 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2D14299D-4F4A-4693-DB4E-36E6113B81B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8BB57A4F-B14E-1CF9-9F03-7C5A1802B76E" name="SCORE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>B67D8340-2656-3679-4FEB-BDAEBABEC9A4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="stars" id="F852AF35-8771-0EF6-7939-7241BFA8029A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>748FCB3D-B76B-C6D3-4665-378442B966AF</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROFILE_FREELANCER_idProfile" id="4BF03444-D802-AB98-1B8F-05C9C538352F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:30:40 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="84729DF0-6515-D574-A4B6-32ADF25F0555" referredColumn="1BCB6C1A-4E27-32AE-4252-E523E93745FF"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="89F38965-ACC8-162A-7FA4-D321E5302CAB" name="SCORE_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:50:15 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4BF03444-D802-AB98-1B8F-05C9C538352F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="03413D56-0ECD-1353-E9CA-8111A9B0B65C" name="SCORE_SCORE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:30:24 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4BF03444-D802-AB98-1B8F-05C9C538352F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A02A6F38-8C53-1159-99C1-5F82924314FD" name="Relation_12">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SKILL_SKILL_ID" id="2DF1408F-B054-0E63-0FE8-BF338B430624">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FC07F8B8-6220-672B-601E-A3B66E443DC3" referredColumn="7E08304C-09C9-3C50-9172-750F8100D793"/>
+</associations>
+</Column>
+<Column name="PROFILE_idProfile" id="C169618F-47A8-283F-C84D-596A0C8D4676">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C5FFF059-28E8-920E-47AB-D8E4F7816B49" referredColumn="3608A95F-3685-BD25-853A-38A82012E1C7"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0FCD6075-C718-807F-F6DA-C6D17EEF986A" name="Relation_12_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2DF1408F-B054-0E63-0FE8-BF338B430624"/>
+<colUsage columnID="C169618F-47A8-283F-C84D-596A0C8D4676"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4824A7D2-954E-FD87-9239-64392F8CEF05" name="Relation_12_SKILL_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>AD43C674-541C-1421-A259-561A16A2A7EE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2DF1408F-B054-0E63-0FE8-BF338B430624"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C921898C-53A6-ECB9-D1CB-5960E4BAFBC2" name="Relation_12_PROFILE_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>AD43C674-541C-1421-A259-561A16A2A7EE</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C169618F-47A8-283F-C84D-596A0C8D4676"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

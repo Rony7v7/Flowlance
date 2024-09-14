@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="69DE3620-499C-DD34-16C2-9FEF78BE11F1" name="PORTAFOLIO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:44:32 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idPortafolio" id="FEE8ABEE-E460-B013-DC22-B2786B101A5C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:44:44 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="timeProject" id="3C5A08FC-5749-4509-D826-53C2447FEF5A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:45:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProfile" id="D4C919AF-383A-AD5A-ED4D-64F0279C8DB7">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:51:56 UTC</createdTime>
+<generatorID>C53C5AC0-1274-AAF2-D5C1-96352DF6AD3B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>9DE46943-E77F-4C36-E3BE-A70F77278D23</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="A112890C-5E69-0B79-5B82-2085A2AFB947" name="PORTAFOLIO PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:14:21 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FEE8ABEE-E460-B013-DC22-B2786B101A5C</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

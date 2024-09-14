@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie de página simple</title>
+    <style>
+        /* Estilos básicos para el pie de página */
+        .footer {
+            display: flex;
+            justify-content: space-between; /* Alinea los elementos a los extremos */
+            padding: 10px 20px;
+            background-color: #F9F9F9;
+            border-top: 1px solid #eaeaea;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para los enlaces */
+        .footer-links a {
+            margin-right: 15px; /* Espacio entre los enlaces */
+            color: #121670;
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline; /* Subrayado al pasar el ratón */
+        }
+
+        /* Estilos para el selector de idioma */
+        .language-select select {
+            border: none;
+            background-color: #F9F9F9;
+            color: #121670;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pie de página -->
+    <div class="footer">
+        <!-- Parte izquierda: Enlaces -->
+        <div class="footer-links">
+            <a href="#">Términos de servicio</a>
+            <a href="#">Política de privacidad</a>
+            <a href="#">Sobre nosotros</a>
+            <a href="#">Configuración</a>
+        </div>
+
+        <!-- Parte derecha: Selector de idioma -->
+        <div class="language-select">
+            <select>
+                <option value="es">Español (Latinoamérica)</option>
+                <option value="en">English (US)</option>
+            </select>
+        </div>
+    </div>
+
+</body>
+</html>

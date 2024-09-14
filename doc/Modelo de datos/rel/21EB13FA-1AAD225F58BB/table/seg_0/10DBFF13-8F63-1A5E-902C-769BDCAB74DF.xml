@@ -1,0 +1,124 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="10DBFF13-8F63-1A5E-902C-769BDCAB74DF" name="CALENDAR">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>F6743A0F-053E-1F0D-85A3-37EC363E3D84</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="global_zone_time" id="E2DD4431-69B5-BA3A-5F96-AE142CFAAF30">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>DBF585B6-49F1-0C3B-2593-78C430976594</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idCalendar" id="2578AD15-78ED-3A6F-2CAB-BA2B0E33635B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>AD143CA5-88DB-D8AE-F45F-8BC6FBBFB513</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECTv1_PROJECTv1_ID" id="04CF883C-21E2-BE43-659E-D2EC5793203A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECTv2_PROJECTv1_ID" id="06C075FB-2793-BAAD-45EC-1C217475F3FB">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECT_PROJECTv1_ID" id="59F0A2B8-B9ED-F1F4-795B-ABD2FCA6B989">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:09:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1A72F51D-37D6-5CCC-C0D6-F4AC27DC105D" referredColumn="C4B61126-736E-6115-BA1B-15F7929BF3BD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DDC7F14E-EE7E-04AE-4120-BD9740DEFAA1" name="CALENDAR_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>FD7FCE30-6A1F-4E87-EBD6-2DE4B24CA70A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2578AD15-78ED-3A6F-2CAB-BA2B0E33635B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="53575B89-5F2E-E837-FFF9-3C15D2EB41B6" name="CALENDAR__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>30E2F4B9-58D0-BAA1-9074-7B863175DF2F</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="04CF883C-21E2-BE43-659E-D2EC5793203A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="52D1A77A-83C2-B90B-2115-6F16CAE8BF90" name="CALENDAR__IDXv1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>30E2F4B9-58D0-BAA1-9074-7B863175DF2F</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="06C075FB-2793-BAAD-45EC-1C217475F3FB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C65709EA-2DB2-8E0B-69D1-29264AB11F23" name="CALENDAR__IDXv2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:09:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>30E2F4B9-58D0-BAA1-9074-7B863175DF2F</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="59F0A2B8-B9ED-F1F4-795B-ABD2FCA6B989"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E52B7723-4C5E-23A9-EE6C-A188FB9EF95A" name="CALENDAR_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>30E2F4B9-58D0-BAA1-9074-7B863175DF2F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="59F0A2B8-B9ED-F1F4-795B-ABD2FCA6B989"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

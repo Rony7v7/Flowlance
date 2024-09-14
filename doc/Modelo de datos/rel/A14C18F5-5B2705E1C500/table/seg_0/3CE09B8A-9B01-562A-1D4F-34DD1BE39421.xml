@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3CE09B8A-9B01-562A-1D4F-34DD1BE39421" name="FREELANCER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>F0D74286-E4C8-CB76-EC05-53FA99ED254A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="F6EFB43C-CEEA-28F8-C2EF-4BCFF3C830DD">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>279D0C1D-4006-DF87-08C2-9AFC3846A3FB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="36BF0D1E-AF5B-9FF5-9CC2-EC2333F41389" referredColumn="8EF34EC0-10E9-2B46-DC82-F957532D7E61"/>
+</associations>
+</Column>
+<Column name="idFreelancer" id="E595A17E-9841-FE5C-173F-2069C17E845C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>FC7B47DC-F416-87EC-26AE-61F64F906D38</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="28DB5D87-0F6E-1A43-1815-8B327203ED3F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>7918F6C0-B6CE-5AA4-7259-9DB74FFDF808</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="lastName" id="00AF069A-DFC6-03E4-D1D1-FC3DEE4764DA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>6E446991-3097-AFF0-333D-2ED23933B263</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A0938DD2-2BD1-7F0C-E0DA-F5A5AE53ADC3" name="FREELANCER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>D22AEE30-46BB-AF89-799E-56F6DCCE19FB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6EFB43C-CEEA-28F8-C2EF-4BCFF3C830DD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A43168F0-D5C9-B728-4083-DBF5DF5E4D8D" name="FREELANCER_PKv1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>4A4885C1-411E-EA59-38F8-7C551DD95E44</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E595A17E-9841-FE5C-173F-2069C17E845C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="575AEA9D-33EF-D6BD-6534-8457979CC7E2" name="FREELANCER_USER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>830F6681-1458-C99E-2591-2B3DD1BA7CBB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6EFB43C-CEEA-28F8-C2EF-4BCFF3C830DD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

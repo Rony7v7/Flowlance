@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_1" id="CC648741-70A4-4B45-50CE-64A668B5D5E8" containerWithKeyObject="B6AF58A3-760C-7BAD-7526-1071A7BC709E" localFKIndex="BD7929DF-B3DA-ED9D-A365-8FBDE4809255" name="USER_SETTINGS_CHAT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>3028EB68-A10A-CE61-2B6C-B21049E5A43B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>SETTINGS_CHAT</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>75A81443-C660-E900-F373-AC3BD3EF68C5</referredTableID>
+<keyObject>5B405B8F-C7C6-7972-7A3A-7ABEAB275AFC</keyObject>
+<referredKeyID>5B405B8F-C7C6-7972-7A3A-7ABEAB275AFC</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>SETTINGS_CHAT_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F39AFDA4-B039-B016-B7E3-0586DA567623" containerWithKeyObject="36A1AE8F-BFFF-4E0F-D02D-F683BF231DEE" localFKIndex="EF0BFA34-0B08-A73F-A715-12EABA327CEC" name="PROJECT_FREELANCER_PROJECT_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 23:12:15 UTC</createdTime>
+<generatorID>0B66BAF5-6D04-67D4-B2F6-44B6588DE449</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>PORTAFOLIO</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>69892C92-BBD1-C3D7-E191-17D4B3856CCC</referredTableID>
+<keyObject>1EA33450-EA62-E643-F779-3F65BF8A3710</keyObject>
+<referredKeyID>1EA33450-EA62-E643-F779-3F65BF8A3710</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>idPortafolio</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
