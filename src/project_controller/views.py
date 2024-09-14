@@ -29,8 +29,38 @@ def my_projects(request):
             "projects": projects,
         },
     )
+    
+@login_required
+def list_projects(request):
+    # projects = Project.objects.all() 
+    
+    # Proyectos de prueba
 
+    projects = [
+        {
+            "title": "Proyecto 1",
+            "description": "Descripción del proyecto 1",
+            "budget": 1000,
+            "deadline": "2021-12-31",
+        },
 
+        {
+            "title": "Proyecto 2",
+            "description": "Descripción del proyecto 2",
+            "budget": 2000,
+            "deadline": "2021-12-31",
+        },
+
+        {
+            "title": "Proyecto 3",
+            "description": "Descripción del proyecto 3",
+            "budget": 3000,
+            "deadline": "2021-12-31",
+        }
+    ]
+
+    return render(request, "projects/project_list.html", {"projects": projects})
+  
 @login_required
 def display_project(request, project_id, section):
     try:
