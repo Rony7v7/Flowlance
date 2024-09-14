@@ -1,5 +1,18 @@
 from django import forms
 from .models import PortfolioProject, CurriculumVitae, Course
+from django.core.exceptions import ValidationError
+
+class CurriculumVitaeForm(forms.ModelForm):
+    class Meta:
+        model = CurriculumVitae
+        fields = ['file']
+
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        if file:
+            if not file.name.endswith('.pdf'):
+                raise ValidationError('El currículum debe estar en formato PDF.')
+        return file
 
 class PortfolioProjectForm(forms.ModelForm):
     class Meta:
@@ -10,12 +23,16 @@ class PortfolioProjectForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
-class CurriculumVitaeForm(forms.ModelForm):
-    class Meta:
-        model = CurriculumVitae
-        fields = ['file']
+    def clean_attached_files(self):
+        file = self.cleaned_data.get('attached_files')
+        if file:
+            if not file.name.endswith(('.png', '.jpg', '.jpeg', '.pdf', '.docx')):
+                raise ValidationError('El archivo adjunto debe ser una imagen o documento (png, jpg, pdf, docx).')
+        return file
+
 
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ['course_name', 'course_description', 'organization', 'course_link', 'course_image']
+
