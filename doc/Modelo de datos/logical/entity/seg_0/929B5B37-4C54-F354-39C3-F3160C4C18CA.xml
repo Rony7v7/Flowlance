@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="929B5B37-4C54-F354-39C3-F3160C4C18CA" name="SETTINGS_NOTIFICATION">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:05:05 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="F1DA33A8-9D38-4B38-F449-748223261941">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:49:03 UTC</createdTime>
+<generatorID>57B1473D-0FCA-9936-6546-DEBAE71F3B98</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>279D0C1D-4006-DF87-08C2-9AFC3846A3FB</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="silence" id="29BC9AC2-C9F3-58B0-C958-45A653A432B2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:20:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="favorite" id="5B423770-3A60-AA17-E633-B766E229DB0D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:21:20 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="summary" id="09FA8221-599C-35B2-DFFC-A9A99B80A0C1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:23:18 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="type" id="53ACF680-66EE-5DDF-7C0E-8E7177F1E0C5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:31:45 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="FEACD3D4-0715-D91A-D639-897150426447" name="SETTINGS_NOTIFICATION PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:20:11 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F1DA33A8-9D38-4B38-F449-748223261941</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

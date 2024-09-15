@@ -1,0 +1,94 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5E862322-EBF6-B1C5-B3FF-08AFC8BB99E2" name="PROJECT">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>167CED17-3940-463B-1574-9992C22E5633</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idProject" id="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>6F8EAB1F-4BA4-8841-5071-BBE0DC4CCE34</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="9944EC00-483B-E279-E07D-CA144DD8851B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>600CB4FF-B66E-0845-DAD7-7147D3F0AD21</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="2AD05B9F-E75B-0E40-8204-6B8306DCA179">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>E580335F-D5F6-1D25-10F3-CB01A6775E51</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_id" id="F6CD763A-3390-C8F1-3156-12A0FDA1655C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:32:40 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="08E9F519-B051-C8D5-51EA-8F6B688FF381" referredColumn="8EF34EC0-10E9-2B46-DC82-F957532D7E61"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C74B774C-0AFC-2C5E-DD81-6D4B46B70455" name="PROJECT_PKv2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:00:19 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FA0C7A56-94B9-89E6-F4D9-1CE759B4D45C" name="PROJECT_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>375A285F-DC45-BB2A-E3B1-E9ADF1C0F546</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8457C318-927A-DCEA-C2BB-6872B4EF19C8" name="PROJECT_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:32:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6CD763A-3390-C8F1-3156-12A0FDA1655C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

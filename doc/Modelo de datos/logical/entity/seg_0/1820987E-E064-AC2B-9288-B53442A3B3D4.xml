@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="1820987E-E064-AC2B-9288-B53442A3B3D4" name="WORKER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 05:14:37 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idContract" id="02B067C3-9D8C-72E5-F270-6929D2224C15">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:29:09 UTC</createdTime>
+<generatorID>8C058CBA-212E-6C11-C5C4-37483431DE87</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<referedAttribute>2DFB0BED-2E8B-B77C-09DB-CBF04A9BE109</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idWorker" id="52BC577E-ACA7-15CF-5ED2-9E608B42E06A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:42:22 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2A0ADCEB-904C-2285-27DE-D661F33D5E7A" name="WORKER PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:42:29 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+<item key="A14C18F5-ADBF-F97B-9433-5B2705E1C500" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>52BC577E-ACA7-15CF-5ED2-9E608B42E06A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

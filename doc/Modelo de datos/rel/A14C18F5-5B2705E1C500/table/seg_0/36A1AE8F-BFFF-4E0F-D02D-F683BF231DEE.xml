@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="36A1AE8F-BFFF-4E0F-D02D-F683BF231DEE" name="PROJECT_FREELANCER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>DB0C1E45-1B76-23B5-EB7F-1494F533CF65</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idProjectFreelancer" id="6924B47B-4057-FCB7-3274-71471C6AA0CD">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>4D2B392B-64F1-DEE2-5ECB-03B11C555F7C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idProject" id="A787EA29-6186-3DE1-438E-CF0BBCBB28F5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>6F8EAB1F-4BA4-8841-5071-BBE0DC4CCE34</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="05CACA13-D44F-2AA4-C379-623ADDAAE1BF" referredColumn="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F"/>
+</associations>
+</Column>
+<Column name="PORTAFOLIO_idPortafolio" id="B55AA324-EA89-4170-697A-878D7C8BF95C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 23:12:25 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F39AFDA4-B039-B016-B7E3-0586DA567623" referredColumn="3D29344B-9CE5-3E70-18A0-699375A6F571"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0AA67275-4EDD-478F-E630-27CB960142C3" name="PROJECT_FREELANCER_idProjectFreelancer_UN">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>0B66BAF5-6D04-67D4-B2F6-44B6588DE449</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6924B47B-4057-FCB7-3274-71471C6AA0CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D17AF408-0978-8139-89F8-E56CE8BD7DD2" name="PROJECT_FREELANCER_idProject_UN">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>375A285F-DC45-BB2A-E3B1-E9ADF1C0F546</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A787EA29-6186-3DE1-438E-CF0BBCBB28F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D13D89C3-E692-ED44-2419-567D96299ADA" name="PROJECT_FREELANCER_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>C97DD6E9-4BA9-CDB4-24B0-13DCC0D1D4E7</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A787EA29-6186-3DE1-438E-CF0BBCBB28F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EF0BFA34-0B08-A73F-A715-12EABA327CEC" name="PROJECT_FREELANCER_PROJECT_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 23:12:15 UTC</createdTime>
+<generatorID>0B66BAF5-6D04-67D4-B2F6-44B6588DE449</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B55AA324-EA89-4170-697A-878D7C8BF95C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

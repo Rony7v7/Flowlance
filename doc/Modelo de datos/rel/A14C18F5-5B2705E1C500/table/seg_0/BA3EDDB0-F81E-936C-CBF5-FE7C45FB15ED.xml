@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BA3EDDB0-F81E-936C-CBF5-FE7C45FB15ED" name="PROJECT_CUSTOMER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>AACEEBD9-2487-3BA2-A106-28A22F29BBB3</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idProjectCustomer" id="B6A77535-425C-F1E2-8194-B0083D25B6E4">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>B01D9D1F-F44D-298F-49D0-4B16A7EC8CEC</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="9E863E03-A4D9-CAD4-D456-BE587C7A8BFD">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>77BC7824-89D7-D127-06B4-CAA92E2FFEB3</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="4F44E5C1-0DA3-5996-A328-7277527F7B2B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>1CFEFE19-72D9-41E7-F8A5-123029730968</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="requeriments" id="C2F083F4-1294-EA58-BCC0-FFB5682AF9F6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>2682C7F8-1562-6C65-8A96-D812023EC9F7</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="budget" id="08402984-E63F-3D5A-BDCE-7CB0C636DED1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>7F99BCBD-3842-3FD3-00D7-AE0BF6B53151</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="photo" id="5929AD4D-2E2B-4E26-156E-245D43D242B3">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>90A10F21-97A1-BD6D-9AEB-58FB12E43FF0</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LogDes-7DD553FD-11E8-61FA-399D-2E531FB621D0@LOGDT10034</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idProject" id="DEAAF768-E9D2-D629-09D8-F84E88E76D25">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>6F8EAB1F-4BA4-8841-5071-BBE0DC4CCE34</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C5FDFF4E-7A4C-76EF-E68E-AB53F13ED4C3" referredColumn="E3E3BD5B-33DD-AA52-1286-F2D3AF97476F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5EA82CD7-0056-AA45-3388-4DB180E67619" name="PROJECT_CUSTOMER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 22:01:23 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B6A77535-425C-F1E2-8194-B0083D25B6E4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F8B39410-72B2-48FA-7CFE-B62D85464EDD" name="PROJECT_CUSTOMER_idProjectCustomer_UN">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>9C0C9721-4DCC-2829-DC0F-FEDD7CFBBA8E</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B6A77535-425C-F1E2-8194-B0083D25B6E4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B5CCE95F-E9ED-C064-4718-86372C1BC2E4" name="PROJECT_CUSTOMER_idProject_UN">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>375A285F-DC45-BB2A-E3B1-E9ADF1C0F546</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DEAAF768-E9D2-D629-09D8-F84E88E76D25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C1163274-EC61-0834-6C38-D7B277D38DD1" name="PROJECT_CUSTOMER_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 18:35:20 UTC</createdTime>
+<generatorID>C955E449-E3D0-09CF-0F61-88BEAEA8949B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DEAAF768-E9D2-D629-09D8-F84E88E76D25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

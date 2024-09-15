@@ -1,0 +1,120 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8040EF60-872C-D468-6F75-A86F13B4D578" name="PROFILE_FREELANCER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>8A1F0ACA-9094-74F6-FE94-68807CB43096</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idProfile" id="1BCB6C1A-4E27-32AE-4252-E523E93745FF">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>9DE46943-E77F-4C36-E3BE-A70F77278D23</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="D51EAAA3-8853-BA5D-15DA-998C478FB719">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>CFE51E63-4312-EB4E-AB9E-BE6D8308C028</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="calification" id="BA96FB96-8516-6B66-C67A-F12E7CF673A7">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>44F0D461-CC80-2147-0392-8EB9092CD843</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SCORE_idProfile1" id="4E5C063B-B9DC-F245-7929-9A7958F8F79E">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:26:06 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SETTINGS_CHAT_id" id="434B74C9-0E36-B41F-D219-EFB289EAAF16">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:26:08 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SETTINGS_NOTIFICATION_id" id="18359959-6E73-3CF3-99A4-0E864C05FB64">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:26:16 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FREELANCER_id" id="E5722A31-7CA5-9915-FDB2-B9B4F0F51A0F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:30:16 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="53CB6804-F8C8-DA6A-541B-1E8F4BFACFEA" referredColumn="F6EFB43C-CEEA-28F8-C2EF-4BCFF3C830DD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5043E2CC-9AB3-06E8-6C85-15FBEA15177C" name="PROFILE_FREELANCER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>2CEC514E-C750-B3CE-050F-AF54107F81C6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1BCB6C1A-4E27-32AE-4252-E523E93745FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="51BE435C-74B2-9867-E984-A9184BE4525C" name="PROFILE_FREELANCER_PROFILE_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:30:14 UTC</createdTime>
+<generatorID>2CEC514E-C750-B3CE-050F-AF54107F81C6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E5722A31-7CA5-9915-FDB2-B9B4F0F51A0F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

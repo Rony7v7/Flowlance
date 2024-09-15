@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5BE32415-0689-C44B-D782-21776CAEA991" name="EXPERIENCE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>2E4A06E1-2E6D-0238-8A83-C52C9DE94376</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPortafolio" id="57E20F20-A79A-9AC2-EFA5-15E1D2B3EB30">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>8F56AAE7-9BCA-43C6-80F6-D69789A1454D</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D43D5217-021F-4692-33FF-E757458CFD39" referredColumn="AE40B9C6-8664-5799-29C1-594369470B96"/>
+</associations>
+</Column>
+<Column name="contact" id="BBD500DC-E046-0681-01C1-56EB558B8880">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>37B39B44-63FF-94D0-08C5-8EE1BCEDD6CC</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="file" id="CC861975-DB9F-3C10-378E-D1DB1BE02489">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>DDAA7739-4655-4212-DDAD-0E7D749B0929</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="DA903E19-B17D-3B09-72FF-4C7D2C40454B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>F6ED6F72-03EA-2D17-3F73-06874DB3086D</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="bussinessName" id="48710906-1995-3C6A-8419-283049E97619">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>38A02F78-3F64-2236-0F35-B720DA0830FA</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="file1" id="906C8D21-48B4-3524-6B89-D8220424C33E">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>4F223411-18BB-D50D-837C-C982465690E2</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isRelationshipColumn>true</isRelationshipColumn>
+<dependOnForeignKeyID>D43D5217-021F-4692-33FF-E757458CFD39</dependOnForeignKeyID>
+</Column>
+<Column name="reference" id="3921BB0B-612E-6A12-BC7D-0B87A04479F5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>0BB375EE-D288-AD5D-82EB-B8E740B350F1</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isRelationshipColumn>true</isRelationshipColumn>
+<dependOnForeignKeyID>D43D5217-021F-4692-33FF-E757458CFD39</dependOnForeignKeyID>
+</Column>
+<Column name="contact1" id="5BBD7B51-2502-B2AA-C2D5-B82284EECF1E">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>4F45A83F-5743-4E4E-73A7-0ADE99C632C5</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isRelationshipColumn>true</isRelationshipColumn>
+<dependOnForeignKeyID>D43D5217-021F-4692-33FF-E757458CFD39</dependOnForeignKeyID>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F47972ED-5ABB-90F5-6DEE-548F68C9E394" name="EXPERIENCE__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>717C956C-5255-BC87-12E6-ED0797DC1E32</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="57E20F20-A79A-9AC2-EFA5-15E1D2B3EB30"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C405A6E9-7A73-CE29-8CF9-0C9C14697F7F" name="EXPERIENCE_PORTAFOLIO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>717C956C-5255-BC87-12E6-ED0797DC1E32</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="57E20F20-A79A-9AC2-EFA5-15E1D2B3EB30"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

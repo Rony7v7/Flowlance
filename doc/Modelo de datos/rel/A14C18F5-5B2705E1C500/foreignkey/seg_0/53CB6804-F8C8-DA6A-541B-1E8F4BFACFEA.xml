@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="53CB6804-F8C8-DA6A-541B-1E8F4BFACFEA" containerWithKeyObject="8040EF60-872C-D468-6F75-A86F13B4D578" localFKIndex="51BE435C-74B2-9867-E984-A9184BE4525C" name="PROFILE_FREELANCER_PROFILE_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:30:14 UTC</createdTime>
+<generatorID>2CEC514E-C750-B3CE-050F-AF54107F81C6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>FREELANCER</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>3CE09B8A-9B01-562A-1D4F-34DD1BE39421</referredTableID>
+<keyObject>A0938DD2-2BD1-7F0C-E0DA-F5A5AE53ADC3</keyObject>
+<referredKeyID>A0938DD2-2BD1-7F0C-E0DA-F5A5AE53ADC3</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

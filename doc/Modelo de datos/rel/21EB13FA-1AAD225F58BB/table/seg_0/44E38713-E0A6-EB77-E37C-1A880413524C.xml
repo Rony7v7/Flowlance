@@ -1,0 +1,122 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="44E38713-E0A6-EB77-E37C-1A880413524C" name="PAYMENT">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>83400F29-2826-AC07-0270-E0DFF49B95B6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPayment" id="6CBFF6DB-2145-C6F1-7546-BD34010EECF5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>3151F284-261D-6A45-2CB0-10292E995E5F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="38960D24-81CA-5B56-A6AF-1381EEC995C6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>3555F945-2B55-F424-75C2-A3F52DFBE068</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="amount" id="8188E7DF-A1B2-FE1E-088F-DA3FFE4076E6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>5E1B6F01-A145-78B3-E7F3-96126208EBFB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="file" id="249E6520-01CF-2D86-7327-9439B3644E84">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>65604443-3B5A-47B0-6AB3-225334337263</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idWorker" id="CC37873F-294E-8DD4-E7CF-91E7017E19D6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>055406D5-C492-9FDF-E382-432B580D2349</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EC2289D2-29D6-42DD-9DC2-FD028806EE7A" referredColumn="356E7C35-342C-C1B1-22A2-B5CD1E17151F"/>
+</associations>
+</Column>
+<Column name="PROJECTv1_PROJECTv1_ID" id="A20CA772-0FE6-D418-23A8-391EB4ABEE6A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="083B0F9A-1941-5AFD-F1FA-D1127CAC9842" referredColumn="C4B61126-736E-6115-BA1B-15F7929BF3BD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7E3893F0-1566-11DD-47C1-6890BEA94F9A" name="PAYMENT_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>4ED027F1-9327-A60E-F5A8-068258140C62</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6CBFF6DB-2145-C6F1-7546-BD34010EECF5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0F10B69F-7AF6-E4B5-3AD5-16ED9AE268A2" name="PAYMENT__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>255BB358-D3B7-925E-1CDB-C47D18A4A92B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="CC37873F-294E-8DD4-E7CF-91E7017E19D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="202BB1DD-AC0F-EC9E-85B5-DCB10FBC5C8C" name="PAYMENT_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>850C194B-4315-5BA2-C168-93A305C1B8A5</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A20CA772-0FE6-D418-23A8-391EB4ABEE6A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="434D15E4-C1CF-EAF6-7FA5-BACA239AD304" name="PAYMENT_WORKER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>255BB358-D3B7-925E-1CDB-C47D18A4A92B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CC37873F-294E-8DD4-E7CF-91E7017E19D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

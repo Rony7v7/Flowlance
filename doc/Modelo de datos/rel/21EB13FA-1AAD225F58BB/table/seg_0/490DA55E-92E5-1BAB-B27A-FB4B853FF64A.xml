@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="490DA55E-92E5-1BAB-B27A-FB4B853FF64A" name="CONTRACT">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>E02A4A8A-160D-CA26-F2E7-3F98501C3E81</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idContract" id="ADB30C0B-B2DF-9EA7-54D2-9F7C534C44E0">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>2DFB0BED-2E8B-B77C-09DB-CBF04A9BE109</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="salary" id="A4320C1C-9A9D-4EE3-D8A9-A23EE3148552">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>B19F43C8-6A34-C6BA-C1F0-56B8FEC50E41</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="body" id="DFB6FDE8-2560-0DC4-6C4C-9A5AB39284B7">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>44CF39CD-AB02-21E7-2F5B-E7F12DBC8A30</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="E2FE5BDE-03F1-BAA9-B22A-EB4248791168">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>BF0E3839-FD66-0C5A-D0F3-048CE1B8A781</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idWorker" id="325DEF3E-E9F7-8162-0FD7-D68D15A84903">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<generatorID>0EA55127-FD07-EF79-9BBA-39A9D4AF19E1</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D77E3E8B-4EC8-9BD7-8420-EC82ED2731A2" referredColumn="356E7C35-342C-C1B1-22A2-B5CD1E17151F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="92F21C3A-F44F-D177-5CEC-05CC356CBC0E" name="CONTRACT_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>FD8853BE-F58C-7A3D-D3A5-30DF6FF80DED</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="ADB30C0B-B2DF-9EA7-54D2-9F7C534C44E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B4DE8F14-E581-CCF9-1561-08B5A0A707A3" name="CONTRACT__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>8C058CBA-212E-6C11-C5C4-37483431DE87</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="325DEF3E-E9F7-8162-0FD7-D68D15A84903"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A341FC92-5023-F966-F0D2-3C5CA9D4EFAF" name="CONTRACT_WORKER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>8C058CBA-212E-6C11-C5C4-37483431DE87</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="325DEF3E-E9F7-8162-0FD7-D68D15A84903"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

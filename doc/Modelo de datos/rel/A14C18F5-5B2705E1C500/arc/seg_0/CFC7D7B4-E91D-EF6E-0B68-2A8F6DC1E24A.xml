@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKArc class="oracle.dbtools.crest.model.design.relational.FKArc" directorySegmentName="seg_0" id="CFC7D7B4-E91D-EF6E-0B68-2A8F6DC1E24A" name="FKArc_5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 23:23:44 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<mandatory>false</mandatory>
+<reverseArc>true</reverseArc>
+<table>FA58ED77-E645-09B1-3C96-4732AE3A78B4</table>
+<fkeys>
+<fkeyID>3349337F-C7D5-87AD-B689-0B4BF1B7A9A0</fkeyID>
+<fkeyID>36BF0D1E-AF5B-9FF5-9CC2-EC2333F41389</fkeyID>
+</fkeys>
+</FKArc>

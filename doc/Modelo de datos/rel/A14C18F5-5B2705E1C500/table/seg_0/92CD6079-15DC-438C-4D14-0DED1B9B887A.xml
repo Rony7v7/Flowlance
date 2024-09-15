@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="92CD6079-15DC-438C-4D14-0DED1B9B887A" name="TASK_STATUS">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>1DF60517-792F-A8E9-A9A6-B8D8FC9D3AD6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="status" id="15DC9129-716D-7A7F-84E2-BE3155757C20">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:14:22 UTC</createdTime>
+<generatorID>E1A526D6-C3E9-9F9E-5620-F2854F04FA1A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TASK_idTask" id="18587BC5-341B-704C-F2CA-DDEB43A5576D">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:47:47 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD29B14B-7742-42F5-4488-01D4A40D486B" referredColumn="F821752D-1376-53A3-C7E5-F0E73F204607"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A33BB9FA-CFE6-B2C7-BDA8-7A63B9B4ED32" name="TASK_STATUS_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:47:23 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18587BC5-341B-704C-F2CA-DDEB43A5576D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="049A1C36-F925-3F16-8F48-44A2A041C7AE" name="TASK_STATUS_TASK_STATUS_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 19:47:43 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18587BC5-341B-704C-F2CA-DDEB43A5576D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

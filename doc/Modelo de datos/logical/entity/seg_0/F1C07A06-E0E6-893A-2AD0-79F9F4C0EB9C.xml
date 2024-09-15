@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F1C07A06-E0E6-893A-2AD0-79F9F4C0EB9C" name="HITO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:18 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idHito" id="8C9EE2FF-9B58-ADF4-8B85-9E7B7AA46239">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:25 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="F62F4FF7-B5E8-0121-B4A6-01BA2267CD67">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="description" id="925C141E-6A87-D63F-F3E3-0AB06B009C09">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:41 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="startDate" id="B2157AEC-CC05-2DE0-FC46-806D68226EEA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:46 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id" id="AC2F5810-2792-5122-C480-0F004F06E2A9">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 03:55:22 UTC</createdTime>
+<generatorID>E732BAC7-C6A7-72D0-F0A6-0F714A528EFB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>728564A4-8323-F866-83AF-58E76B3D112C</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="endDate" id="A6E21BE8-B55B-4096-9400-A761A93DCA81">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:30:12 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7BBAEED6-3C2D-3A75-5D72-C1EF18EA3E5F" name="HITO PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 17:24:34 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8C9EE2FF-9B58-ADF4-8B85-9E7B7AA46239</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

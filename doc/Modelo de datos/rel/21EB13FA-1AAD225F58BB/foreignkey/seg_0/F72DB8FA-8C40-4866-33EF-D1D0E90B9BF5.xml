@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F72DB8FA-8C40-4866-33EF-D1D0E90B9BF5" containerWithKeyObject="8702BBC0-B161-6B0C-E768-8E4A4C6D9C13" localFKIndex="BECCD4AB-82D0-E23E-7E93-03C349F0FB53" name="PROJECT_FREELANCER_PROJECTv1_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>C97DD6E9-4BA9-CDB4-24B0-13DCC0D1D4E7</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<referredTableLongName>PROJECTv2</referredTableLongName>
+<arc>3B7F769B-6EC2-0468-70C5-7076219B8B8D</arc>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>9C771BA6-7F29-3B4D-693B-C364093F9318</referredTableID>
+<keyObject>50B0ABF8-12BE-7CD4-19F3-23B448E83501</keyObject>
+<referredKeyID>50B0ABF8-12BE-7CD4-19F3-23B448E83501</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>PROJECTv1_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

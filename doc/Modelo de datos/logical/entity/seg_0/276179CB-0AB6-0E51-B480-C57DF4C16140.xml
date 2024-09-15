@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="276179CB-0AB6-0E51-B480-C57DF4C16140" name="CUSTOMER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 15:40:49 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>44F2F060-307F-4855-5A6C-195107A9B3B3</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idCustomer" id="91924CDF-0270-670C-C574-22A179701FF6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 15:54:05 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nit" id="7447D380-69F9-4BA6-666F-4197B6228147">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:06:15 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="direction" id="0D665AFB-3191-F47D-49C4-CCCBF3DA4BBF">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:07:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="typeCustomer" id="D1640F55-DBD1-99BE-BC24-DD19E51E34F6">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:07:39 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="country" id="FBD8DEBB-1819-4102-311E-BE473D20CA91">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:07:50 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="legalRepresentation" id="2CE2EF02-3BA3-7F56-7A11-49AD80EC304B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 16:07:55 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="226BC599-890B-A998-1D3D-90A240299C6E">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 06:23:40 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idProfile" id="230A2F57-75C8-56CA-FA8F-691D051A0EF8">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:54:26 UTC</createdTime>
+<generatorID>C654E859-6B6C-5F83-17B1-A40388E25888</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>854C6ED8-39AF-D7DC-DAE1-FD1C1C78C53F</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="517A383C-0CC5-54E4-1B70-A9F9A26B58A5" name="CUSTOMER PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-30 15:54:25 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>91924CDF-0270-670C-C574-22A179701FF6</newElementsIDs>
+<usedAttributes>
+<attributeRef>91924CDF-0270-670C-C574-22A179701FF6</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

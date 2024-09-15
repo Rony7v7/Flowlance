@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FB4CA898-F984-6C86-7980-7C9E7DF33363" name="Relation_21">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PROJECT_idProject" id="4922BC0F-F7DB-1D16-6671-82FFB5EB02D3">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6319C635-0905-C623-7A93-E5674F6F5897" referredColumn="D118949F-D986-8D23-6783-61BB6AFCB8A8"/>
+</associations>
+</Column>
+<Column name="PORTAFOLIO_PORTAFOLIO_ID" id="DA3C7D90-A596-72B1-F0C7-1E6771042B24">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="94B0B66B-5160-AA31-0C7A-C7854C478714" referredColumn="A240ABF6-C599-356E-F0E6-923537513B4F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A401C5C9-0144-32A7-5731-B38B54CD270A" name="Relation_21_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4922BC0F-F7DB-1D16-6671-82FFB5EB02D3"/>
+<colUsage columnID="DA3C7D90-A596-72B1-F0C7-1E6771042B24"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F20DC139-2DB3-51A4-FFCE-57307093BA53" name="Relation_21_PROJECT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>245AC754-B4E5-9329-EC2B-91CDDDC6287B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4922BC0F-F7DB-1D16-6671-82FFB5EB02D3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7F7F7C8A-96FA-E566-EA97-4E6F06CB8521" name="Relation_21_PORTAFOLIO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>245AC754-B4E5-9329-EC2B-91CDDDC6287B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DA3C7D90-A596-72B1-F0C7-1E6771042B24"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

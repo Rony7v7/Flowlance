@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="27B5085B-C2C4-B743-6CBA-292F62157B76" name="Relation_21v1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PROJECT_FREELANCER_PROJECTv1_PROJECTv1_ID" id="E0F0FC3A-7202-0035-0B19-2EFE2877A5F5">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="51BAEF47-921C-8D5E-A046-51A7CF5BE668" referredColumn="619C98AF-2EE4-599E-6691-5CA332E72E34"/>
+</associations>
+</Column>
+<Column name="PORTAFOLIO_PORTAFOLIO_ID" id="4B473767-A44F-880E-C137-3F695CB338CD">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8A126A9C-1C70-A67F-04A5-6880F1D5A425" referredColumn="A240ABF6-C599-356E-F0E6-923537513B4F"/>
+</associations>
+</Column>
+<Column name="PORTAFOLIO_idPortafolio" id="6E6074C1-B5EF-C4DF-1723-B5005F9A62BD">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="75A628A1-4955-0139-6C13-93361E5D30B5" referredColumn="AE40B9C6-8664-5799-29C1-594369470B96"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BF9C58A6-26BA-6645-5A01-C349D7AF220A" name="Relation_21v1_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0F0FC3A-7202-0035-0B19-2EFE2877A5F5"/>
+<colUsage columnID="4B473767-A44F-880E-C137-3F695CB338CD"/>
+<colUsage columnID="6E6074C1-B5EF-C4DF-1723-B5005F9A62BD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E9B9B345-ED51-3C89-310C-7AE6BFF75962" name="Relation_21v1_PROJECT_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>245AC754-B4E5-9329-EC2B-91CDDDC6287B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0F0FC3A-7202-0035-0B19-2EFE2877A5F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2E1D4A7E-C537-6825-F5DC-4A075A04C887" name="Relation_21v1_PORTAFOLIO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>245AC754-B4E5-9329-EC2B-91CDDDC6287B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B473767-A44F-880E-C137-3F695CB338CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7F7F0BDF-A178-81D2-854A-A11B07D5ECCF" name="Relation_21v1_PORTAFOLIO_FKv1">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:03:42 UTC</createdTime>
+<generatorID>245AC754-B4E5-9329-EC2B-91CDDDC6287B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6E6074C1-B5EF-C4DF-1723-B5005F9A62BD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

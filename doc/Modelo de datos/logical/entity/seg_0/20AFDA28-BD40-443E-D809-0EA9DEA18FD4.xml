@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="20AFDA28-BD40-443E-D809-0EA9DEA18FD4" name="CALENDAR_ACTIVITY">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 05:15:54 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="title" id="CB122451-0B08-D10B-263E-33A997E83749">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:08:47 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="description" id="363B7B77-8CEB-298C-78D9-2D6CF62977BB">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:08:55 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="startTime" id="AC2D40FD-DFB3-9EEF-F8A4-65B51FC8A0B0">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:09:03 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="endTime" id="F8453C00-7E25-585C-C3FB-8BEB538D342C">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:09:09 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="priority" id="18E4D75A-7482-681D-F047-2FB810EF8FE2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:09:26 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idActivity" id="7B202307-B912-AB3D-A714-68D819FE1136">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:13:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idCalendar" id="A7E08553-D6D1-14E8-F09E-869F053A97CE">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:17:54 UTC</createdTime>
+<generatorID>76A8CEFE-2056-FFD6-EECF-F09E45548D45</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="true"/>
+</engineerTo>
+<referedAttribute>AD143CA5-88DB-D8AE-F45F-8BC6FBBFB513</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="890FB52B-913B-B8F0-6260-6DAC3F1BFF91" name="CALENDAR_ACTIVITY PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:13:49 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="21EB13FA-7CFE-C790-4D34-1AAD225F58BB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>7B202307-B912-AB3D-A714-68D819FE1136</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

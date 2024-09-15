@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1557953D-F1B6-3C15-AB67-A6CF0D9AF7AF" name="STATE_HITO">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>53A60646-7D4D-F3D7-A4B1-DBAE64BBB0F6</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="state" id="F85737B6-E3B4-A29C-2114-39748A5E59E2">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>CEF9792C-4E38-1FFB-BBF2-EAB37AE4804C</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idHito" id="7DD15693-649E-B717-84D3-AC372C3535FA">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>C52A91FF-9FCB-3229-5A70-E6B16158D93F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="15FCE7B7-5BC6-E99A-9115-345417A732E6" referredColumn="0370A9FB-6D03-03C2-7459-2CEC06994750"/>
+</associations>
+</Column>
+<Column name="STATE_HITO_ID" id="9D6144A3-16F9-D9A3-E73A-73AFE7AC4DBB">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="67B2D0BB-F9E5-AA04-DD77-50A517735040" name="STATE_HITO_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="9D6144A3-16F9-D9A3-E73A-73AFE7AC4DBB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5940D53F-7E51-D646-6345-8D0606B5EA7E" name="STATE_HITO__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>09E07A75-DC2B-95D4-5DE1-665866176E0A</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="7DD15693-649E-B717-84D3-AC372C3535FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="295F9F9C-27EA-79D9-EAB3-114C2542AA70" name="STATE_HITO_HITO_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>09E07A75-DC2B-95D4-5DE1-665866176E0A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7DD15693-649E-B717-84D3-AC372C3535FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

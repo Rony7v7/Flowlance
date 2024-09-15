@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B1E8DE09-0DA0-71B0-C791-A356331486C6" name="COMMENT">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>4589D75D-86AC-6916-B407-F464FAC4C40B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="commentID" id="9B280F7C-5544-5346-3BAD-F324F63A9D62">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>A1AFD672-3737-36F8-D770-56FE62AD4A7B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="body" id="56E5F286-2900-9E65-3E7B-3AF7F407514A">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>327CC1AE-7F74-4EB5-7F92-BFE9F55B9C7F</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="42D52841-7747-4086-C401-575DE4A17C8B">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>F48DF39E-DE25-4B0E-466F-AE38FA71E7FB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="idProfile" id="B04CD8F2-B450-A7A5-3ECC-151B3C333302">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>272D5FC5-C6FC-5C1C-F17F-E6924D4D7A7B</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9773EE2F-306E-8E1C-095A-837839F78672" referredColumn="3608A95F-3685-BD25-853A-38A82012E1C7"/>
+</associations>
+</Column>
+<Column name="author" id="71957736-9C28-1C8D-CCDA-5B584F2F1C21">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>8996F989-5A80-0ABC-5EFE-18F6A2FF20AB</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7554D831-99A6-3510-C971-C8D28DCA825B" name="COMMENT_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>EA260424-2595-FC12-AE24-1FEA1E157718</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9B280F7C-5544-5346-3BAD-F324F63A9D62"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CDDD7B3A-99DF-F8D1-450E-23389B373736" name="COMMENT__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>9762E1CE-D535-E2B8-5146-23B483FCD965</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B04CD8F2-B450-A7A5-3ECC-151B3C333302"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E57FEA3F-BC2A-16FD-3253-1648E30064B6" name="COMMENT_PROFILE_FREELANCER_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-08-31 06:46:35 UTC</createdTime>
+<generatorID>9762E1CE-D535-E2B8-5146-23B483FCD965</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B04CD8F2-B450-A7A5-3ECC-151B3C333302"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,70 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="24E770F7-358E-D960-A4FB-EB50763629B1" name="WORKER">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>1820987E-E064-AC2B-9288-B53442A3B3D4</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idContract" id="4703F598-7804-2C09-25B0-59BEA8B09C06">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>02B067C3-9D8C-72E5-F270-6929D2224C15</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CE5A0A4E-2D4F-1789-082C-35C7F39FF421" referredColumn="ADB30C0B-B2DF-9EA7-54D2-9F7C534C44E0"/>
+</associations>
+</Column>
+<Column name="idWorker" id="356E7C35-342C-C1B1-22A2-B5CD1E17151F">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>52BC577E-ACA7-15CF-5ED2-9E608B42E06A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8F7107E6-9122-C6C8-17E6-EF8F36CABE75" name="WORKER_PK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<generatorID>2A0ADCEB-904C-2285-27DE-D661F33D5E7A</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="356E7C35-342C-C1B1-22A2-B5CD1E17151F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DBB43406-BE67-88C6-4AE5-404FBCBB8FE3" name="WORKER__IDX">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 07:19:07 UTC</createdTime>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>8C058CBA-212E-6C11-C5C4-37483431DE87</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="4703F598-7804-2C09-25B0-59BEA8B09C06"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5E13DE00-BE6C-D0BA-2CA5-9769DC345C07" name="WORKER_CONTRACT_FK">
+<createdBy>ASUS</createdBy>
+<createdTime>2024-09-01 08:10:26 UTC</createdTime>
+<generatorID>8C058CBA-212E-6C11-C5C4-37483431DE87</generatorID>
+<ownerDesignName>DiagramaRelacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4703F598-7804-2C09-25B0-59BEA8B09C06"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
