@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import PortfolioProject, CurriculumVitae, Course
 
-# Register your models here.
+admin.site.register(PortfolioProject)
+admin.site.register(CurriculumVitae)
+admin.site.register(Course)

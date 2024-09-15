@@ -38,6 +38,7 @@ NPM_BIN_PATH = os.getenv(
 )  # Default to 'npm' if env variable is not set
 
 INSTALLED_APPS = [
+    "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

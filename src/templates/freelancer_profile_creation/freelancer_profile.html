@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white">
+
+    <div class="max-w-7xl mx-auto mb-6 ml-24">
+        <h1 class="text-3xl font-bold text-primary_black text-left">Perfil del Freelancer</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">{{ freelancer.username }}</h2> 
+        <p class="text-primary_black font-light mt-4 font-sans">
+            Correo: {{ freelancer.email }}
+        </p>
+    </div>
+
+    <!-- Mostrar proyectos del portafolio -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h2 class="text-xl font-semibold text-primary_dark">Proyectos del Portafolio</h2>
+        <ul>
+        {% for project in portfolio_projects %}
+            <li>
+                <h3>{{ project.project_name }}</h3>
+                <p>{{ project.project_description }}</p>
+                <p>Cliente: {{ project.client }}</p>
+            </li>
+        {% empty %}
+            <li>No hay proyectos en el portafolio</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Mostrar Currículum Vitae -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h2 class="text-xl font-semibold text-primary_dark">Currículum Vitae</h2>
+        {% if curriculum and curriculum.file %}
+            <a href="{{ curriculum.file.url }}">Descargar CV</a>
+        {% else %}
+            <p>No se ha subido un currículum.</p>
+        {% endif %}
+    </div>
+
+    <!-- Mostrar Cursos -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h2 class="text-xl font-semibold text-primary_dark">Cursos Completados</h2>
+        <ul>
+        {% for course in courses %}
+            <li>
+                <h3>{{ course.course_name }}</h3>
+                <p>{{ course.course_description }}</p>
+                <p>Organización: {{ course.organization }}</p>
+                {% if course.course_link %}
+                    <a href="{{ course.course_link }}">Ver curso</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No se han agregado cursos.</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
