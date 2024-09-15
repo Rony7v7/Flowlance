@@ -17,8 +17,9 @@ def chat(request):
     return render(request, building)
 
 @login_required
-def profile(request):
-    return render(request, building)
+def create_profile(request):
+    return render(request, 'dashboard/create_profile.html')
+
 
 @login_required
 def settings(request):
