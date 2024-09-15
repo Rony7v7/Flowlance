@@ -4,10 +4,10 @@ from . import views
 
 urlpatterns = [
     path(
-        "crear_proyecto/",
-        views.crear_proyecto_portafolio,
-        name="crear_proyecto_portafolio",
+        "create_project/",
+        views.create_project_portfolio,
+        name="create_project_portfolio",
     ),
-    path("subir_curriculum/", views.subir_curriculum, name="subir_curriculum"),
-    path("agregar_curso/", views.agregar_curso, name="agregar_curso"),
+    path("upload_curriculum/", views.upload_curriculum, name="upload_curriculum"),
+    path("add_course/", views.add_course, name="add_course"),
 ]
