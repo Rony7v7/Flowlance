@@ -42,12 +42,17 @@
 
             <div>
                 <label class="block text-primary_black font-medium" for="activities_done">Actividades realizadas</label>
+                <!-- Opciones predefinidas -->
                 <select name="activities_done" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium">
                     <option value="">Selecciona</option>
                     <option value="Desarrollo Web">Desarrollo Web</option>
                     <option value="Diseño Gráfico">Diseño Gráfico</option>
                     <option value="Marketing Digital">Marketing Digital</option>
                 </select>
+
+                <!-- Campo para ingresar una nueva actividad -->
+                <label class="block text-primary_black font-medium mt-4" for="custom_activity">Agregar una actividad personalizada</label>
+                <input type="text" name="custom_activity" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Escribe una nueva actividad">
             </div>
 
             <div>
@@ -81,4 +86,5 @@
         </form>
     </div>
 </div>
+
 {% endblock %}

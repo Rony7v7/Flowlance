@@ -11,16 +11,14 @@
             <!-- Información básica -->
             <div class="sm:ml-6 mt-6 sm:mt-0">
                 <h1 class="text-2xl sm:text-3xl font-bold text-primary_dark">{{ freelancer.username }}</h1>
-                <p class="text-sm text-gray-500">Cali, Valle del Cauca, Colombia</p>
+                <p class="text-sm text-gray-500">Ciudad, Departamento, Pais</p>
                 <p class="mt-2 text-lg font-medium text-primary_dark">{{ freelancer.email }}</p>
             </div>
         </div>
         <!-- Botones de acciones -->
         <div class="mt-6 flex space-x-3">
-            <button class="px-4 py-2 bg-purple-600 text-white rounded-md shadow hover:bg-purple-500">Tengo interés en...</button>
-            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md shadow hover:bg-gray-200">Añadir sección</button>
-            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md shadow hover:bg-gray-200">Mejorar perfil</button>
-            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md shadow hover:bg-gray-200">Más</button>
+            <button class="px-4 py-2 bg-purple-600 text-white rounded-md shadow hover:bg-purple-500">Editar perfil</button>
+            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md shadow hover:bg-purple-500">Editar portafolio</button>
         </div>
     </div>
 
@@ -48,54 +46,79 @@
         </div>
     </div>
 
-    <!-- Proyectos del Portafolio -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-primary_dark">Proyectos del Portafolio</h2>
-        <ul class="mt-4 space-y-4">
-        {% for project in portfolio_projects %}
-            <li class="bg-gray-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-semibold text-primary_dark">{{ project.project_name }}</h3>
-                <p class="text-gray-600">{{ project.project_description }}</p>
-                <p class="text-gray-500 text-sm">Cliente: {{ project.client }}</p>
-            </li>
-        {% empty %}
-            <li class="bg-gray-100 p-4 rounded-lg shadow">
-                No hay proyectos en el portafolio
-            </li>
-        {% endfor %}
-        </ul>
+<!-- Proyectos del Portafolio -->
+<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-xl font-bold text-primary_dark">Proyectos del Portafolio</h2>
+    <ul class="mt-4 space-y-4">
+    {% for project in portfolio_projects %}
+        <li class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-lg font-semibold text-primary_dark">{{ project.project_name }}</h3>
+            <p class="text-gray-600">{{ project.project_description }}</p>
+            <p class="text-gray-500 text-sm">Cliente: {{ project.client }}</p>
+            
+            <!-- Mostrar actividad realizada en el proyecto -->
+            <p class="text-gray-500 text-sm">Actividad Realizada: {{ project.activities_done }}</p>
+            
+            <!-- Verificar si hay un archivo adjunto del proyecto -->
+            {% if project.project_file %}
+                <a href="{{ project.project_file.url }}" class="text-purple-600 hover:text-purple-500 underline mt-2">Descargar Archivo del Proyecto</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li class="bg-gray-100 p-4 rounded-lg shadow">No hay proyectos en el portafolio</li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+
+   <!-- Currículum Vitae -->
+<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-xl font-bold text-primary_dark">Currículum Vitae</h2>
+    {% if profile.curriculum %}
+        <a href="{{ profile.curriculum.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar CV</a>
+    {% else %}
+        <p>No se ha subido un currículum.</p>
+    {% endif %}
+</div>
+
+
+ <!-- Cursos Completados -->
+<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-xl font-bold text-primary_dark">Cursos Completados</h2>
+    <ul class="mt-4 space-y-4">
+    {% for course in courses %}
+        <li class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-lg font-semibold text-primary_dark">{{ course.course_name }}</h3>
+            <p class="text-gray-600">{{ course.course_description }}</p>
+            <p class="text-gray-500 text-sm">Organización: {{ course.organization }}</p>
+            
+            <!-- Verificar si hay un enlace del curso -->
+            {% if course.course_link %}
+                <a href="{{ course.course_link }}" class="text-purple-600 hover:text-purple-500 underline">Ver curso</a>
+            {% endif %}
+            
+            <!-- Mostrar la imagen del curso si existe -->
+            {% if course.course_file %}
+                <img src="{{ course.course_file.url }}" alt="Imagen del curso" class="w-48 h-auto rounded-lg shadow-lg mt-4">
+            {% endif %}
+        </li>
+    {% empty %}
+        <li class="bg-gray-100 p-4 rounded-lg shadow">
+            No se han agregado cursos.
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+    <!-- Botón para regresar al dashboard -->
+    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8 flex justify-center">
+        <a href="{% url 'dashboard' %}" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-500">
+            Volver al Dashboard
+        </a>
     </div>
 
-    <!-- Currículum Vitae -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-primary_dark">Currículum Vitae</h2>
-        {% if curriculum and curriculum.file %}
-            <a href="{{ curriculum.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar CV</a>
-        {% else %}
-            <p>No se ha subido un currículum.</p>
-        {% endif %}
-    </div>
-
-    <!-- Cursos Completados -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-primary_dark">Cursos Completados</h2>
-        <ul class="mt-4 space-y-4">
-        {% for course in courses %}
-            <li class="bg-gray-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-semibold text-primary_dark">{{ course.course_name }}</h3>
-                <p class="text-gray-600">{{ course.course_description }}</p>
-                <p class="text-gray-500 text-sm">Organización: {{ course.organization }}</p>
-                {% if course.course_link %}
-                    <a href="{{ course.course_link }}" class="text-purple-600 hover:text-purple-500 underline">Ver curso</a>
-                {% endif %}
-            </li>
-        {% empty %}
-            <li class="bg-gray-100 p-4 rounded-lg shadow">
-                No se han agregado cursos.
-            </li>
-        {% endfor %}
-        </ul>
-    </div>
 
 </div>
 {% endblock %}

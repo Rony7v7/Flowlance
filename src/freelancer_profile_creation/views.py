@@ -11,13 +11,23 @@ from django.contrib.auth.models import User
 def create_project_portfolio(request):
     if request.method == 'POST':
         form = PortfolioProjectForm(request.POST, request.FILES)
+        
+        # Obtener la actividad personalizada, si existe
+        custom_activity = request.POST.get('custom_activity', '').strip()  # Recupera la actividad personalizada
+
         if form.is_valid():
             proyecto = form.save(commit=False)
-            proyecto.profile = request.user  # Asociate the project with the user
+            proyecto.profile = request.user  # Asociar el proyecto con el usuario
+
+            # Si hay una actividad personalizada, se usa esa en lugar de la predefinida
+            if custom_activity:
+                proyecto.activities_done = custom_activity  # Sobrescribe el valor del campo activities_done
+            
             proyecto.save()
-            return redirect('upload_curriculum')  
+            return redirect('upload_curriculum')  # Redirige al subir el CV
     else:
         form = PortfolioProjectForm()
+    
     return render(request, 'freelancer_profile_creation/create_project_portfolio.html', {'form': form})
 
 
