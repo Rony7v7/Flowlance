@@ -51,7 +51,10 @@ module.exports = {
                 primary_light: "#8D92F2",
                 primary_medium: "#636AF2",
                 primary_dark: "#3D46F2",
-            }
+            },
+            fontFamily: {
+                plus_jakarta_sans: ['Plus Jakarta Sans', 'sans-serif'],
+            },
         },
     },
     plugins: [

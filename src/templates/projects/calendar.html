@@ -1,7 +1,16 @@
-
 {% extends "projects/default_project_view.html" %}
 
+{% load static %}
+
 {% block section %}
+<h2 class="text-2xl font-bold text-primary_black mb-5">Calendario</h2>
+<div id="calendar"></div>
+<!-- Contenedor del calendario -->
 
+<!-- Incluir FullCalendar desde un CDN -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+<link href="{% static 'css/project/calendar_css.css' %}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 
+<script src="{% static 'js/project/calendar.js' %}"></script>
 {% endblock %}

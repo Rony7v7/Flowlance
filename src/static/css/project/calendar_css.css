@@ -1,0 +1,26 @@
+  /* Change the background of event titles */
+  .fc-event-title {
+      color: white;
+      /* Text color */
+      background-color: #378006;
+      /* Background color */
+      font-weight: bold;
+  }
+
+  /* Customize the header */
+  .fc-header-toolbar {
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+  }
+
+  /* Style the current day */
+  .fc-day-today {
+      background-color: #ffeaa7 !important;
+  }
+
+  /* Customize event borders */
+  .fc-event {
+      border-radius: 8px;
+      /* Rounded corners */
+      border: 2px solid #333;
+  }
