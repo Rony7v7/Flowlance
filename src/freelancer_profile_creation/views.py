@@ -3,6 +3,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import FreelancerProfile
 
+from django.shortcuts import redirect
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Calificacion
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Freelancer, Calificacion
+
+# views.py
+from django.shortcuts import render
+
+
 from .forms import (
     PortfolioProjectForm, 
     CurriculumVitaeForm, 
@@ -11,11 +27,8 @@ from .forms import (
     WorkExperienceForm
 )
 from .models import (
-    PortfolioProject, 
     CurriculumVitae, 
-    Course, 
     Skill, 
-    WorkExperience
 )
 
 
@@ -185,25 +198,11 @@ def no_freelancer_profile(request):
 
 
 
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Freelancer, Calificacion
-
-# views.py
-from django.shortcuts import render
 
 def tu_vista(request):
     freelancer = Freelancer.objects.get(user=request.user)
     return render(request, 'calification.html', {'freelancer': freelancer})
 
-
-from django.shortcuts import redirect
-from .forms import CalificacionForm
-
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Calificacion
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 @login_required
 def calificar_freelancer(request, username):

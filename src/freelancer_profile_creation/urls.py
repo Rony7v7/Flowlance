@@ -16,4 +16,4 @@ urlpatterns = [
     path('calificar/<str:username>/', views.calificar_freelancer, name='calificar_freelancer'),
     
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
