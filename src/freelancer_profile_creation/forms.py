@@ -36,3 +36,21 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = ['course_name', 'course_description', 'organization', 'course_link', 'course_image']
 
+
+# forms.py
+from django import forms
+from .models import Calificacion
+
+class CalificacionForm(forms.ModelForm):
+    class Meta:
+        model = Calificacion
+        fields = ['estrellas', 'comentario']
+        widgets = {
+            'estrellas': forms.Select(choices=[(i, i) for i in range(1, 6)]),
+            'comentario': forms.Textarea(attrs={'rows': 3}),
+        }
+
+
+
+
+

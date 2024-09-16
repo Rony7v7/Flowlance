@@ -8,4 +8,7 @@ urlpatterns = [
     path("upload_curriculum/", views.upload_curriculum, name="upload_curriculum"),
     path("add_course/", views.add_course, name="add_course"),
     path("freelancer/<str:username>/", views.freelancer_profile, name="freelancer_profile"),  # URL del perfil del freelancer
+    path('calificar/<str:username>/', views.calificar_freelancer, name='calificar_freelancer'),
+    
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

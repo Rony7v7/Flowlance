@@ -71,18 +71,86 @@ def add_course(request):
 @login_required
 def freelancer_profile(request, username):
     # Obtener el usuario freelancer a través del nombre de usuario
+
+    user = get_object_or_404(User, username=username)
+
     freelancer = get_object_or_404(User, username=username)
     
     # Obtener proyectos, CV y cursos asociados al freelancer
     portfolio_projects = freelancer.portfolio_projects.all()
     curriculum = freelancer.curriculumvitae if hasattr(freelancer, 'curriculumvitae') else None
     courses = freelancer.courses.all()
+    calificaciones = freelancer.calificaciones.all()
 
     context = {
         'freelancer': freelancer,
         'portfolio_projects': portfolio_projects,
         'curriculum': curriculum,
-        'courses': courses
+        'courses': courses,
+        'calificaciones': calificaciones
     }
     
     return render(request, 'freelancer_profile_creation/freelancer_profile.html', context)
+
+
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Freelancer, Calificacion
+
+from django.shortcuts import render, get_object_or_404
+from .models import Freelancer, Calificacion
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Freelancer, Calificacion
+from django.contrib.auth.decorators import login_required
+
+
+# views.py
+from django.shortcuts import render
+
+def tu_vista(request):
+    freelancer = Freelancer.objects.get(user=request.user)
+    return render(request, 'calification.html', {'freelancer': freelancer})
+
+
+from django.shortcuts import redirect
+from .forms import CalificacionForm
+
+@login_required
+def calificar_freelancer(request, username):
+    # Obtener el freelancer a calificar
+    freelancer = get_object_or_404(User, username=username)
+
+    if request.method == 'POST':
+        form = CalificacionForm(request.POST)
+        if form.is_valid():
+            calificacion = form.save(commit=False)
+            calificacion.freelancer = freelancer.freelancer  # Asigna el freelancer
+            calificacion.user = request.user  # Asigna el usuario que hace la calificación
+            calificacion.save()
+
+            # Redirigir al perfil del freelancer para ver la calificación
+            return redirect('freelancer_profile', username=freelancer.username)
+    else:
+        form = CalificacionForm()
+
+    return render(request, 'freelancer_profile_creation/calification.html', {'form': form, 'freelancer': freelancer})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

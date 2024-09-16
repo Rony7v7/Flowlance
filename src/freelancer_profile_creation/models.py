@@ -33,3 +33,24 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name
+    
+class Freelancer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer')
+    # Otros campos
+
+    def __str__(self):
+        return self.user.username if self.user else "Sin usuario"
+
+
+class Calificacion(models.Model):
+    freelancer = models.ForeignKey(Freelancer, related_name='calificaciones', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    estrellas = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    comentario = models.TextField(blank=True, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.estrellas} estrellas para {self.freelancer.user.username} por {self.user.username}'
+    
+
+    

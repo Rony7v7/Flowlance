@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-white">
+
+    <!-- Título de la página -->
+    <div class="max-w-7xl mx-auto mb-6 ml-24">
+        <h1 class="text-4xl font-bold text-gray-800 text-left">Calificando a: <span class="italic">{{ request.user.username }}</span></h1>
+        <p class="block text-gray-700 font-light mt-4">Selecciona una calificación y añade un comentario.</p>
+    </div>
+
+    <!-- Mostrar mensaje de éxito si existe -->
+    {% if mensaje %}
+        <div class="bg-green-200 text-green-800 p-4 rounded-md mb-4">
+            {{ mensaje }}
+        </div>
+    {% endif %}
+
+    <!-- Sección de calificación con estrellas -->
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Título de sección -->
+            <h2 class="text-xl font-semibold text-gray-700">Elige tu calificación</h2>
+
+            <div class="grid grid-cols-1 gap-4">
+                <!-- 1 estrella -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-1">
+                        <svg class="w-12 h-12 text-yellow-400" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
+                    <button type="submit" name="estrellas" value="1" 
+                            class="{% if selected_rating == 1 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                        Elegir
+                    </button>
+                </div>
+
+                <!-- 2 estrellas -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-1">
+                        {% for i in "12" %}
+                        <svg class="w-12 h-12 text-yellow-400" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" name="estrellas" value="2" 
+                            class="{% if selected_rating == 2 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                        Elegir
+                    </button>
+                </div>
+
+                <!-- 3 estrellas -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-1">
+                        {% for i in "123" %}
+                        <svg class="w-12 h-12 text-yellow-400" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" name="estrellas" value="3" 
+                            class="{% if selected_rating == 3 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                        Elegir
+                    </button>
+                </div>
+
+                <!-- 4 estrellas -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-1">
+                        {% for i in "1234" %}
+                        <svg class="w-12 h-12 text-yellow-400" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" name="estrellas" value="4" 
+                            class="{% if selected_rating == 4 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                        Elegir
+                    </button>
+                </div>
+
+                <!-- 5 estrellas -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-1">
+                        {% for i in "12345" %}
+                        <svg class="w-12 h-12 text-yellow-400" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" name="estrellas" value="5" 
+                            class="{% if selected_rating == 5 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                        Elegir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sección de comentario -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-semibold text-gray-700">Añadir una descripción</h2>
+                <textarea name="descripcion" class="w-full h-32 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#636AF2]" placeholder="Añade tus comentarios aquí"></textarea>
+            </div>
+
+            <!-- Botón de enviar -->
+            <div class="flex justify-center mt-6">
+                <button type="submit" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#636AF2]">
+                    Enviar Calificación
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
