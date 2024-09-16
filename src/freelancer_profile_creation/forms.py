@@ -11,7 +11,7 @@ class SkillForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Ingresa una nueva habilidad...'}),
         }
 
-
+# 44545
 class FreelancerSkillsForm(forms.Form):
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.filter(is_custom=False),  # Predefined skills
