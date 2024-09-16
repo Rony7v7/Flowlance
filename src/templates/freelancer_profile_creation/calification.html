@@ -19,9 +19,12 @@
 
     <!-- Sección de calificación con estrellas -->
     <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form id="rating-form" method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             
+            <!-- Campo oculto para almacenar la calificación seleccionada -->
+            <input type="hidden" id="selected-rating" name="estrellas" value="">
+
             <!-- Título de sección -->
             <h2 class="text-xl font-semibold text-gray-700">Elige tu calificación</h2>
 
@@ -33,8 +36,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.09 6.26L21 9.27l-4.91 3.6L17.18 21 12 17.27 6.82 21l1.09-7.73L3 9.27l6.91-1.01L12 2z"></path>
                         </svg>
                     </div>
-                    <button type="submit" name="estrellas" value="1" 
-                            class="{% if selected_rating == 1 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                    <button type="button" id="star-1" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
                         Elegir
                     </button>
                 </div>
@@ -48,8 +50,7 @@
                         </svg>
                         {% endfor %}
                     </div>
-                    <button type="submit" name="estrellas" value="2" 
-                            class="{% if selected_rating == 2 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                    <button type="button" id="star-2" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
                         Elegir
                     </button>
                 </div>
@@ -63,8 +64,7 @@
                         </svg>
                         {% endfor %}
                     </div>
-                    <button type="submit" name="estrellas" value="3" 
-                            class="{% if selected_rating == 3 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                    <button type="button" id="star-3" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
                         Elegir
                     </button>
                 </div>
@@ -78,8 +78,7 @@
                         </svg>
                         {% endfor %}
                     </div>
-                    <button type="submit" name="estrellas" value="4" 
-                            class="{% if selected_rating == 4 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                    <button type="button" id="star-4" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
                         Elegir
                     </button>
                 </div>
@@ -93,8 +92,7 @@
                         </svg>
                         {% endfor %}
                     </div>
-                    <button type="submit" name="estrellas" value="5" 
-                            class="{% if selected_rating == 5 %} bg-green-500 {% else %} bg-[#636AF2] {% endif %} hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
+                    <button type="button" id="star-5" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
                         Elegir
                     </button>
                 </div>
@@ -115,5 +113,20 @@
         </form>
     </div>
 </div>
+
+<script>
+    // Capturar los clics en los botones de estrellas y asignar el valor al campo oculto
+    document.querySelectorAll("button[id^='star-']").forEach(button => {
+        button.addEventListener('click', function() {
+            // Extraer el número de estrellas del ID del botón
+            const rating = this.id.split('-')[1];
+            // Asignar el valor al campo oculto
+            document.getElementById('selected-rating').value = rating;
+            // Cambiar el color del botón seleccionado
+            document.querySelectorAll("button[id^='star-']").forEach(btn => btn.classList.remove('bg-green-500'));
+            this.classList.add('bg-green-500');
+        });
+    });
+</script>
 
 {% endblock %}

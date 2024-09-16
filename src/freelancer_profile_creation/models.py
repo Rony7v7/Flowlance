@@ -43,14 +43,15 @@ class Freelancer(models.Model):
 
 
 class Calificacion(models.Model):
-    freelancer = models.ForeignKey(Freelancer, related_name='calificaciones', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    estrellas = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
-    comentario = models.TextField(blank=True, null=True)
-    fecha = models.DateTimeField(auto_now_add=True)
+    freelancer = models.ForeignKey(User, related_name="calificaciones", on_delete=models.CASCADE)  # Freelancer a quien se califica
+    usuario = models.ForeignKey(User, related_name="calificador", on_delete=models.CASCADE)  # Usuario que hace la calificación
+    estrellas = models.IntegerField()  # Número de estrellas
+    comentario = models.TextField(null=True, blank=True)  # Comentario opcional
+    fecha = models.DateTimeField(auto_now_add=True)  # Fecha de la calificación
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.user.username} por {self.user.username}'
     
 
     
+   

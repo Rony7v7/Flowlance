@@ -97,15 +97,6 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Freelancer, Calificacion
 
-from django.shortcuts import render, get_object_or_404
-from .models import Freelancer, Calificacion
-from django.contrib.auth.decorators import login_required
-
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Freelancer, Calificacion
-from django.contrib.auth.decorators import login_required
-
-
 # views.py
 from django.shortcuts import render
 
@@ -117,25 +108,34 @@ def tu_vista(request):
 from django.shortcuts import redirect
 from .forms import CalificacionForm
 
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Calificacion
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
 @login_required
 def calificar_freelancer(request, username):
-    # Obtener el freelancer a calificar
+    # Obtener el usuario freelancer basado en el username
     freelancer = get_object_or_404(User, username=username)
-
+    
     if request.method == 'POST':
-        form = CalificacionForm(request.POST)
-        if form.is_valid():
-            calificacion = form.save(commit=False)
-            calificacion.freelancer = freelancer.freelancer  # Asigna el freelancer
-            calificacion.user = request.user  # Asigna el usuario que hace la calificación
-            calificacion.save()
+        # Obtener los datos del formulario
+        estrellas = request.POST.get('estrellas')
+        comentario = request.POST.get('descripcion')
 
-            # Redirigir al perfil del freelancer para ver la calificación
-            return redirect('freelancer_profile', username=freelancer.username)
-    else:
-        form = CalificacionForm()
+        # Crear una nueva instancia de calificación
+        nueva_calificacion = Calificacion(
+            freelancer=freelancer,  # Freelancer a quien se califica
+            usuario=request.user,  # Usuario que hace la calificación
+            estrellas=estrellas,  # Número de estrellas
+            comentario=comentario  # Comentario opcional
+        )
+        nueva_calificacion.save()
 
-    return render(request, 'freelancer_profile_creation/calification.html', {'form': form, 'freelancer': freelancer})
+        # Mensaje de éxito o redirigir al perfil del freelancer
+        return redirect('freelancer_profile', username=freelancer.username)
+
+    return render(request, 'freelancer_profile_creation/calification.html', {'freelancer': freelancer})
 
 
 
