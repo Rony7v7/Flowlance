@@ -21,40 +21,10 @@
                     class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 transition">
                     {% include "icon/filter.html" with h="24" classname="" %}
                 </button>
-
-                <!-- Opciones desplegables de filtro -->
-                <div id="filter-options"
-                    class="hidden absolute top-full right-0 mt-2 w-60 bg-white shadow-lg rounded-xl border border-primary_lightest z-10">
-                    <span class="block px-4 pt-2 text-sm text-gray-500 font-semibold">Ordenar por:</span>
-                    <ul class="text-sm text-primary_black p-2 ">
-                        <!-- Ordenar por coincidencia de habilidades -->
-                        <li class="hover:bg-primary_lightest cursor-pointer rounded-lg">
-                            <label class="flex items-center p-2">
-                                <input type="radio" class="form-radio text-primary focus:ring-primary mr-2"
-                                    name="sort_option" value="skills_match">
-                                Coincidencia de habilidades
-                            </label>
-                        </li>
-
-                        <!-- Ordenar por experiencia requerida -->
-                        <li class="hover:bg-primary_lightest cursor-pointer rounded-lg">
-                            <label class="flex items-center p-2">
-                                <input type="radio" class="form-radio text-primary focus:ring-primary mr-2"
-                                    name="sort_option" value="required_experience">
-                                Experiencia requerida
-                            </label>
-                        </li>
-
-                        <!-- Ordenar por categoría del proyecto -->
-                        <li class="hover:bg-primary_lightest cursor-pointer rounded-lg">
-                            <label class="flex items-center p-2">
-                                <input type="radio" class="form-radio text-primary focus:ring-primary mr-2"
-                                    name="sort_option" value="project_category">
-                                Categoría del proyecto
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+                	
+                <!-- Opciones desplegables -->
+                 {% include "navigation/search_filters.html" %}
+       
             </div>
         </div>
     </form>
