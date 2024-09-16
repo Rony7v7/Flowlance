@@ -27,7 +27,6 @@ urlpatterns = [
     path("project/", include("project_controller.urls")), 
     path('profile/', include('freelancer_profile_creation.urls')),
     path('dashboard/', include('dashboard.urls')),  
-    path('admin/', admin.site.urls),
     path('time_line/', include('time_line.urls')),  
 ]
 

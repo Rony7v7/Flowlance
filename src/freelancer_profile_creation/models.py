@@ -65,13 +65,6 @@ class Course(models.Model):
     def __str__(self):
         return self.course_name
     
-class Freelancer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer')
-    # Otros campos
-
-    def __str__(self):
-        return self.user.username if self.user else "Sin usuario"
-
 
 class Calificacion(models.Model):
     freelancer = models.ForeignKey(User, related_name="calificaciones", on_delete=models.CASCADE)  # Freelancer a quien se califica

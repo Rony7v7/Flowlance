@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Freelancer, Calificacion
+from .models import Calificacion
 
 # views.py
 from django.shortcuts import render
@@ -200,7 +200,7 @@ def no_freelancer_profile(request):
 
 
 def tu_vista(request):
-    freelancer = Freelancer.objects.get(user=request.user)
+    freelancer = User.objects.get(user=request.user)
     return render(request, 'calification.html', {'freelancer': freelancer})
 
 
