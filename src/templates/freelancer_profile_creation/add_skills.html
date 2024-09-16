@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Selecciona tus habilidades</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <h3>Habilidades predefinidas</h3>
+                <!-- Renders predefined skills as checkboxes -->
+                {{ form.skills }}
+            </div>
+
+            <div class="form-group">
+                <h3>Añadir habilidades personalizadas</h3>
+                <!-- Text field to add custom skills -->
+                {{ form.custom_skills }}
+                <p class="text-muted">Escribe varias habilidades separadas por comas.</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar habilidades</button>
+        </form>
+    </div>
+{% endblock %}
