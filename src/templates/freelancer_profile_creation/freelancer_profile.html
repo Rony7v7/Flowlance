@@ -11,6 +11,34 @@
         </p>
     </div>
 
+    <!-- Mostrar habilidades -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h2 class="text-xl font-semibold text-primary_dark">Habilidades</h2>
+        <ul class="list-disc pl-5">
+        {% for skill in skills %}
+            <li>{{ skill.name }}</li>
+        {% empty %}
+            <li>No se han agregado habilidades.</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Mostrar experiencia laboral -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h2 class="text-xl font-semibold text-primary_dark">Experiencia Laboral</h2>
+        <ul class="list-disc pl-5">
+        {% for experience in work_experiences %}
+            <li>
+                <h3>{{ experience.title }} en {{ experience.company }}</h3>
+                <p>Desde: {{ experience.start_date }} hasta: {{ experience.end_date|default:"Actualidad" }}</p>
+                <p>{{ experience.description }}</p>
+            </li>
+        {% empty %}
+            <li>No se ha agregado experiencia laboral.</li>
+        {% endfor %}
+        </ul>
+    </div>
+
     <!-- Mostrar proyectos del portafolio -->
     <div class="max-w-7xl mx-auto mb-6">
         <h2 class="text-xl font-semibold text-primary_dark">Proyectos del Portafolio</h2>

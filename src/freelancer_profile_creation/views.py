@@ -50,13 +50,14 @@ def add_experience(request):
         form = WorkExperienceForm(request.POST)
         if form.is_valid():
             experience = form.save(commit=False)
-            experience.freelancer = request.user
+            experience.freelancer = request.user.freelancerprofile  
             experience.save()
-            return redirect('freelancer_profile', username=request.user.username) 
+            return redirect('freelancer_own_profile')  
     else:
         form = WorkExperienceForm()
 
     return render(request, 'freelancer_profile_creation/add_experience.html', {'form': form})
+
 
 
 #TODO: Change proyecto -> project
@@ -66,7 +67,7 @@ def create_project_portfolio(request):
         form = PortfolioProjectForm(request.POST, request.FILES)
         if form.is_valid():
             proyecto = form.save(commit=False)
-            proyecto.profile = request.user  # Asociate the project with the user
+            proyecto.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
             proyecto.save()
             return redirect('upload_curriculum')  
     else:
@@ -77,90 +78,86 @@ def create_project_portfolio(request):
 
 @login_required
 def upload_curriculum(request):
-    # Verify if the user already has a CV
     try:
-        curriculum = CurriculumVitae.objects.get(profile=request.user)
+        curriculum = CurriculumVitae.objects.get(profile=request.user.freelancerprofile)
     except CurriculumVitae.DoesNotExist:
         curriculum = None
 
     if request.method == 'POST':
         form = CurriculumVitaeForm(request.POST, request.FILES, instance=curriculum)
         if form.is_valid():
-            # If the user already has a CV, update it. Otherwise, create a new one
             curriculum = form.save(commit=False)
-            curriculum.profile = request.user  
+            curriculum.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
             curriculum.save()
-            return redirect('add_course') 
+            return redirect('add_course')  
     else:
-        form = CurriculumVitaeForm(instance=curriculum)  # Prepopulate the form with the user's CV
+        form = CurriculumVitaeForm(instance=curriculum)
     
     return render(request, 'freelancer_profile_creation/upload_curriculum.html', {'form': form})
 
-# Vista para agregar cursos (último paso)
+
 @login_required
 def add_course(request):
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             curso = form.save(commit=False)
-            curso.profile = request.user  
+            curso.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
             curso.save()
             return redirect('freelancer_profile', username=request.user.username)  
     else:
         form = CourseForm()
     return render(request, 'freelancer_profile_creation/add_course.html', {'form': form})
 
-
 @login_required
 def freelancer_own_profile(request):
-    # Si es un superusuario, redirigir al panel de administración
     if request.user.is_superuser:
         return redirect('/admin/')
     
     try:
-        # Intentar obtener el perfil del freelancer
         profile = request.user.freelancerprofile
     except FreelancerProfile.DoesNotExist:
-        # Si no existe el perfil, redirigir a la página de advertencia
         return redirect('no_freelancer_profile')
 
-    # Obtener información relacionada con el freelancer
     skills = profile.skills.all()
-    work_experiences = profile.user.work_experiences.all()
-    portfolio_projects = PortfolioProject.objects.filter(profile=request.user)
-    curriculum = CurriculumVitae.objects.filter(profile=request.user).first()
-    courses = Course.objects.filter(profile=request.user)
+    work_experiences = profile.work_experiences.all()
+    portfolio_projects = profile.freelancer_portfolio_projects.all()
+
+    curriculum = None
+    try:
+        curriculum = profile.freelancer_cv
+    except CurriculumVitae.DoesNotExist:
+        pass  
+    
+    courses = profile.freelancer_courses.all()
 
     context = {
         'profile': profile,
         'skills': skills,
         'work_experiences': work_experiences,
         'portfolio_projects': portfolio_projects,
-        'curriculum': curriculum,
+        'curriculum': curriculum,  
         'courses': courses,
     }
     
     return render(request, 'freelancer_profile_creation/freelancer_profile.html', context)
 
 
+
 @login_required
 def freelancer_profile(request, username):
-    # Verificar si el perfil del freelancer con el username existe
     profile_exists = FreelancerProfile.objects.filter(user__username=username).exists()
 
     if not profile_exists:
-        # Si no existe el perfil, redirigir a la página de advertencia
         return redirect('no_freelancer_profile')
 
-    # Obtener el perfil del freelancer
     profile = get_object_or_404(FreelancerProfile, user__username=username)
 
-    # Obtener información relacionada con el freelancer
-    skills = profile.skills.all()
-    work_experiences = profile.user.work_experiences.all()
-    portfolio_projects = PortfolioProject.objects.filter(profile=profile.user)
-    curriculum = CurriculumVitae.objects.filter(profile=profile.user).first()
-    courses = Course.objects.filter(profile=profile.user)
+    skills = profile.skills.all()  
+    work_experiences = profile.work_experiences.all()  
+    portfolio_projects = profile.portfolio_projects.all()
+    curriculum = profile.curriculum_vitae  
+    courses = profile.courses.all() 
 
     context = {
         'profile': profile,
