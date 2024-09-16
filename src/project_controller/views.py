@@ -2,8 +2,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from .models import Milestone, Project
-from django.http import Http404, HttpResponseBadRequest
+from django.http import Http404
 from datetime import datetime
+from django.db.models import Prefetch
 
 
 @login_required
@@ -65,7 +66,14 @@ def list_projects(request):
 @login_required
 def display_project(request, project_id, section):
     try:
-        project = Project.objects.only("title", "description").get(id=project_id)
+        # Use `prefetch_related` to reduce the number of queries
+        project = (
+            Project.objects.only("title", "description")
+            .prefetch_related(
+                Prefetch('milestones', queryset=Milestone.objects.order_by('end_date'))
+            )
+            .get(id=project_id)
+        )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
@@ -76,17 +84,18 @@ def display_project(request, project_id, section):
         "calendar": "projects/calendar.html",
     }
 
-    section_to_show = sections_map.get(section, "project/milestones.html")
+    section_to_show = sections_map.get(section, "projects/milestones.html")
 
     return render(
         request,
         section_to_show,
         {
             "project": project,
-            "milestones": project.milestones.all(),
+            "milestones": project.milestones.all(),  # Already ordered by end_date
             "section": section,
         },
     )
+
 
 
 @login_required
