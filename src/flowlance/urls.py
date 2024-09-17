@@ -23,11 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    path("", include("user_access.urls")), 
-    path("project/", include("project_controller.urls")), 
-    path('profile/', include('freelancer_profile_creation.urls')),
-    path('dashboard/', include('dashboard.urls')),  
-    path('time_line/', include('time_line.urls')),  
+    path("", include("user_access.urls")),  # Incluye las URLs de acceso de usuarios
+    path("project/", include("project_controller.urls")),  # Incluye URLs de control de proyectos
+    path('profile/', include('freelancer_profile_creation.urls')),  # Incluye URLs de creación de perfiles
+    path('dashboard/', include('dashboard.urls')),  # Incluye URLs del dashboard
+    path('time_line/', include('time_line.urls')), 
 ]
 
 # Add static and media files in debug mode

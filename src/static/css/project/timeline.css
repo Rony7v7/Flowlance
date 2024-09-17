@@ -1,0 +1,25 @@
+.vis-item {
+        background-color: #7986CB;
+        border-color: #7986CB;
+        color: white;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+    .vis-time-axis .vis-text {
+        color: #333;
+        padding-top: 10px;
+    }
+    .vis-time-axis .vis-grid.vis-minor {
+        border-width: 1px;
+        border-color: #e0e0e0;
+    }
+    .vis-labelset .vis-label {
+        color: #333;
+        font-size: 14px;
+    }
+    .vis-nested-group {
+        font-weight: bold;
+    }
+    .vis-inner-padding {
+        padding-left: 10px;
+    }

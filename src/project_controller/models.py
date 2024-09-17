@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -22,7 +23,7 @@ class Milestone(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     description = models.TextField()
-    start_date = models.DateField()
+    start_date = models.DateField(default = date.today)
     end_date = models.DateField()
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="milestones"
@@ -38,5 +39,9 @@ class Task(models.Model):
     end_date = models.DateField()
     priority = models.CharField(max_length=50)
     milestone = models.ForeignKey(
-        Milestone, on_delete=models.SET_NULL, null=True, blank=True, related_name="tasks",
+        Milestone,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="tasks",
     )
