@@ -27,7 +27,7 @@ urlpatterns = [
     path("project/", include("project_controller.urls")),  # Incluye URLs de control de proyectos
     path('profile/', include('freelancer_profile_creation.urls')),  # Incluye URLs de creación de perfiles
     path('dashboard/', include('dashboard.urls')),  # Incluye URLs del dashboard
-    path('time_line/', include('time_line.urls')),  # Incluye las URLs de time_line
+    path('time_line/', include('time_line.urls')), 
 ]
 
 # Add static and media files in debug mode
