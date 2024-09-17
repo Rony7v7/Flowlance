@@ -177,7 +177,7 @@ def freelancer_profile(request, username):
     portfolio_projects = profile.portfolio_projects.all()
     curriculum = profile.curriculum_vitae  
     courses = profile.courses.all() 
-    calificaciones = profile.calificaciones.all()
+    califications = profile.califications.all()
 
     context = {
         'profile': profile,
@@ -186,7 +186,7 @@ def freelancer_profile(request, username):
         'portfolio_projects': portfolio_projects,
         'curriculum': curriculum,
         'courses': courses,
-        'calificaciones': calificaciones,
+        'califications': califications,
     }
 
     return render(request, 'freelancer_profile_creation/freelancer_profile.html', context)

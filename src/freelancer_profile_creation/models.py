@@ -16,8 +16,7 @@ class FreelancerProfile(models.Model):
     portfolio_projects = models.ManyToManyField('PortfolioProject', related_name='freelancer_portfolio', blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
     courses = models.ManyToManyField('Course', related_name='freelancer_courses', blank=True)
-
-
+    califications = models.ManyToManyField('Calificacion', related_name='freelancer_califications', blank=True)
 
 
 class WorkExperience(models.Model):
