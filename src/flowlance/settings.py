@@ -44,13 +44,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tailwind",
     "django_browser_reload",
+    "tailwind",
     "theme",
-    "user_access",
-    "project_controller",
-    "freelancer_profile_creation",
-    "time_line",
+    "user",
+    "profile",
+    "project",
+    "dashboard",
+    "chat",
+    "payment",
+    "notifications",
 ]
 
 MIDDLEWARE = [
