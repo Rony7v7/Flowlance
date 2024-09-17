@@ -1,8 +1,9 @@
-# freelancer_profile_creation/urls.py
+# profile/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("", views.profile, name="profile"),
     path(
         "create_project/",
         views.create_project_portfolio,

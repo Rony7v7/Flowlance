@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from freelancer_profile_creation.models import PortfolioProject
+from profile.models import PortfolioProject
 
 class Tests(TestCase):
     
@@ -13,7 +13,7 @@ class Tests(TestCase):
         """Checks that the project creation view loads correctly"""
         response = self.client.get(reverse('crear_proyecto_portafolio'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'freelancer_profile_creation/crear_proyecto_portafolio.html')
+        self.assertTemplateUsed(response, 'profile/crear_proyecto_portafolio.html')
 
     def test_formulario_valido(self):
         """Checks that the form accepts valid data and saves the project"""
@@ -53,7 +53,7 @@ class Tests(TestCase):
         """Checks that the course addition view loads correctly"""
         response = self.client.get(reverse('agregar_curso'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'freelancer_profile_creation/agregar_curso.html')
+        self.assertTemplateUsed(response, 'profile/agregar_curso.html')
             
             
     def test_formulario_valido(self):
@@ -88,7 +88,7 @@ class Tests(TestCase):
         """Checks that the resume upload view loads correctly"""
         response = self.client.get(reverse('subir_curriculum'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'freelancer_profile_creation/subir_curriculum.html')
+        self.assertTemplateUsed(response, 'profile/subir_curriculum.html')
 
     def test_formulario_valido(self):
         """Checks that the form accepts a valid PDF file"""
