@@ -15,22 +15,11 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
-            return redirect("my_projects")
+            id = project.id
+            return redirect("project", project_id=id, section="milestone")
     else:
         form = ProjectForm()
     return render(request, "projects/create_project.html", {"form": form})
-
-
-@login_required
-def my_projects(request):
-    projects = Project.objects.filter(client=request.user)
-    return render(
-        request,
-        "projects/my_projects.html",
-        {
-            "projects": projects,
-        },
-    )
 
 
 @login_required
