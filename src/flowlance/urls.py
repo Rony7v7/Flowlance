@@ -30,6 +30,6 @@ urlpatterns = [
     path('time_line/', include('time_line.urls')), 
 ]
 
-# Add static and media files in debug mode
+# Add static and media files in debug modej
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
