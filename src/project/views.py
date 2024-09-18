@@ -126,12 +126,37 @@ def add_milestone(request, project_id):
 
 def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
+    project_id = milestone.project.id
 
     if request.method == "POST":
         # Get data from the POST request
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
+        start_date_str = request.POST.get("start_date")
 
+        if name == "" or description == "":
+            return redirect("project", project_id=project_id, section="milestone")
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("project", project_id=project_id, section="milestone")
+
+        try:
+            start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("project", project_id=project_id, section="milestone")
+
+        milestone.name = name
+        milestone.description = description
+        milestone.end_date = end_date
+        milestone.start_date = start_date
+        # Save changes to the database
+        milestone.save()
         # Redirect to the project view
-        return redirect("project", project_id=milestone.project.id, section="milestone")
+        return redirect("project", project_id=project_id, section="milestone")
 
     return render(
         request,
@@ -139,6 +164,6 @@ def edit_milestone(request, milestone_id):
         {
             "milestone": milestone,
             "is_editing": True,
-            "project_id": milestone.project.id,
+            "project_id": project_id,
         },
     )
