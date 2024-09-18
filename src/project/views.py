@@ -167,3 +167,11 @@ def edit_milestone(request, milestone_id):
             "project_id": project_id,
         },
     )
+
+
+def delete_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    project_id = milestone.project.id
+    if request.method == "POST":
+        milestone.delete()
+        return redirect("project", project_id=project_id, section="milestone")
