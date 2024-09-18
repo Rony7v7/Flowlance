@@ -117,17 +117,28 @@ def add_milestone(request, project_id):
         # Redirect to the project view
         return redirect("project", project_id=project_id, section="milestone")
 
-    return render(request, "projects/manage_milestone.html", {"project_id": project_id})
+    return render(
+        request,
+        "projects/manage_milestone.html",
+        {"project_id": project_id, "is_editing": False},
+    )
 
 
 def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
-    project_id = milestone.project.id
 
     if request.method == "POST":
         # Get data from the POST request
 
         # Redirect to the project view
-        return redirect("project", project_id=project_id, section="milestone")
+        return redirect("project", project_id=milestone.project.id, section="milestone")
 
-    return render(request, "projects/manage_milestone.html", {"project_id": project_id})
+    return render(
+        request,
+        "projects/manage_milestone.html",
+        {
+            "milestone": milestone,
+            "is_editing": True,
+            "project_id": milestone.project.id,
+        },
+    )
