@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-4">{{ project.title }}</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Description</h2>
+                <p class="text-gray-600">{{ project.description }}</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Requirements</h2>
+                <p class="text-gray-600">{{ project.requirements }}</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Budget</h2>
+                <p class="text-gray-600">${{ project.budget }}</p>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Timeline</h2>
+                <p class="text-gray-600">Start: {{ project.start_date }}</p>
+                <p class="text-gray-600">End: {{ project.end_date }}</p>
+            </div>
+        </div>
+        
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Milestones</h2>
+            <a href="{% url 'milestone_add' project.pk %}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                Add Milestone
+            </a>
+        </div>
+        
+        <div class="space-y-4">
+            {% for milestone in milestones %}
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="font-semibold mb-2">{{ milestone.name }}</h3>
+                <p class="text-sm text-gray-600 mb-2">{{ milestone.description }}</p>
+                <div class="flex justify-between text-sm text-gray-500">
+                    <p>Start: {{ milestone.start_date }}</p>
+                    <p>End: {{ milestone.end_date }}</p>
+                </div>
+                <div class="mt-4 flex justify-end space-x-2">
+                    <a href="{% url 'milestone_edit' project.pk milestone.pk %}" class="text-blue-500 hover:underline">Edit</a>
+                    <a href="{% url 'milestone_delete' project.pk milestone.pk %}" class="text-red-500 hover:underline">Delete</a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500">No milestones defined for this project.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-8 flex justify-between">
+            <a href="{% url 'project_edit' project.pk %}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                Edit Project
+            </a>
+            <a href="{% url 'project_delete' project.pk %}" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                Delete Project
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

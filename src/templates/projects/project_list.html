@@ -1,25 +1,29 @@
-{% extends "navigation/navigation.html" %}
+{% extends 'base.html' %}
 
-
-{% block app_content %}
-
-<div class="flex flex-row justify-between w-full mt-4 bg-bg_gray py-2 px-4 rounded-xl">
-    <div class="flex flex-row gap-2">
-        {% include 'utils/anchor_button.html' with label='Disponibles' type=1 %}
-        {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=2 %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Mis Proyectos</h1>
+        <a href="{% url 'create_project' %}" class="bg-[#636AF2] text-white px-4 py-2 rounded-lg hover:bg-[#4F54D4] transition-colors">
+            Crear nuevo Proyecto
+        </a>
     </div>
-    <div class="flex ">
-        {% url 'create_project' as create_project_url %}
-        {% include 'utils/anchor_button.html' with label='Crear Proyecto' type=1 url=create_project_url %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for project in projects %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="bg-purple-600 h-32"></div>
+            <div class="p-4">
+                <h2 class="text-xl font-semibold mb-2">{{ project.title }}</h2>
+                <p class="text-gray-600 mb-4">{{ project.description|truncatewords:20 }}</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-500">Presupuesto: ${{ project.budget }}</span>
+                    <a href="{% url 'project_detail' project.pk %}" class="text-blue-500 hover:underline">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 col-span-3">No tienes pro.</p>
+        {% endfor %}
     </div>
 </div>
-
-<div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
-    {% for project in projects %}
-    {% include 'projects/project_card.html' with title=project.title %}
-    {% endfor %}
-</div>
-
-
-{% endblock app_content %}
+{% endblock %}

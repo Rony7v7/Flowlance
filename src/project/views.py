@@ -1,9 +1,14 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project
+from .models import Milestone, Project, ProjectAvailable
 from django.http import Http404, HttpResponseBadRequest
 from datetime import datetime
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Project, Milestone, TimelineChange
+from .forms import ProjectForm, MilestoneForm
+
 
 
 @login_required
@@ -33,12 +38,12 @@ def my_projects(request):
 
 
 @login_required
-def list_projects(request):
-    # projects = Project.objects.all()
+def list_projects_Rony(request):
+    #projects = Project.objects.all()
 
     # Proyectos de prueba
 
-    projects = [
+    projects_available = [
         {
             "title": "Proyecto 1",
             "description": "Descripción del proyecto 1",
@@ -59,7 +64,7 @@ def list_projects(request):
         },
     ]
 
-    return render(request, "projects/project_list.html", {"projects": projects})
+    return render(request, "projects/project_list.html", {"projects_available": projects_available})
 
 
 @login_required
@@ -122,3 +127,107 @@ def add_milestone(request, project_id):
 
     # If not POST, redirect to the project view
     return redirect("project", project_id=project_id, section="milestone")
+
+@login_required
+def project_list_availableFreelancer(request):
+    projects = ProjectAvailable.objects.filter(client=request.user)
+    return render(request, 'projects/project_main_view.html', {'projects': projects})
+
+@login_required
+def project_list(request):
+    projects = Project.objects.filter(client=request.user)
+    return render(request, 'projects/project_list.html', {'projects': projects})
+
+@login_required
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    milestones = project.milestones.all().order_by('start_date')
+    return render(request, 'projects/project_detail.html', {'project': project, 'milestones': milestones})
+
+@login_required
+def project_edit(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('project_detail', pk=project.pk)
+    else:
+        form = ProjectForm(instance=project)
+    return render(request, 'projects/project_form.html', {'form': form, 'project': project, 'action': 'Edit'})
+
+@login_required
+def project_delete(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    if request.method == 'POST':
+        project.delete()
+        return redirect('project_list')
+    return render(request, 'projects/project_delete.html', {'project': project})
+
+@login_required
+def milestone_add(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk, client=request.user)
+    if request.method == 'POST':
+        form = MilestoneForm(request.POST)
+        if form.is_valid():
+            milestone = form.save(commit=False)
+            milestone.project = project
+            milestone.save()
+            TimelineChange.objects.create(
+                project=project,
+                user=request.user,
+                change_description=f"Added milestone: {milestone.name}"
+            )
+            return redirect('project_detail', pk=project.pk)
+    else:
+        form = MilestoneForm()
+    return render(request, 'projects/milestone_form.html', {'form': form, 'project': project, 'action': 'Add'})
+
+@login_required
+def milestone_edit(request, project_pk, milestone_pk):
+    project = get_object_or_404(Project, pk=project_pk, client=request.user)
+    milestone = get_object_or_404(Milestone, pk=milestone_pk, project=project)
+    if request.method == 'POST':
+        form = MilestoneForm(request.POST, instance=milestone)
+        if form.is_valid():
+            form.save()
+            TimelineChange.objects.create(
+                project=project,
+                user=request.user,
+                change_description=f"Edited milestone: {milestone.name}"
+            )
+            return redirect('project_detail', pk=project.pk)
+    else:
+        form = MilestoneForm(instance=milestone)
+    return render(request, 'projects/milestone_form.html', {'form': form, 'project': project, 'milestone': milestone, 'action': 'Edit'})
+
+@login_required
+def milestone_delete(request, project_pk, milestone_pk):
+    project = get_object_or_404(Project, pk=project_pk, client=request.user)
+    milestone = get_object_or_404(Milestone, pk=milestone_pk, project=project)
+    if request.method == 'POST':
+        milestone_name = milestone.name
+        milestone.delete()
+        TimelineChange.objects.create(
+            project=project,
+            user=request.user,
+            change_description=f"Deleted milestone: {milestone_name}"
+        )
+        return redirect('project_detail', pk=project.pk)
+    return render(request, 'projects/milestone_delete.html', {'project': project, 'milestone': milestone})
+
+def project_requirements(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'projects/project_requirements.html', {'project': project})
+
+
+
+
+
+
+
+
+
+
+
+
