@@ -55,3 +55,18 @@ class Task(models.Model):
         blank=True,
         related_name="tasks",
     )
+
+class Assigment(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    creator = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="assigments_created"
+    )
+    responsible = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="assigments_tasked"
+    )
+    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, related_name="assigments")
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    priority = models.CharField(max_length=50)
