@@ -17,6 +17,8 @@
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
+            <div class="w-full {{ milestone.deadline_color }} p-1"></div>
+
             <h3 class="text-lg font-semibold text-primary_black">{{ milestone.name }}</h3>
             <p class="text-sm text-primary_medium">Fecha de Inicio: {{ milestone.start_date }}</p>
             <p class="text-sm text-primary_medium">Fecha de Finalización: {{ milestone.end_date }}</p>
