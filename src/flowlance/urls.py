@@ -23,10 +23,14 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    path("", include("user_access.urls")),  # Incluye las URLs de acceso de usuarios
-    path("project/", include("project_controller.urls")),  # Incluye URLs de control de proyectos
-    path('perfil/', include('freelancer_profile_creation.urls')),  # Incluye URLs de creación de perfiles
+    path("", include("user.urls")),  # Incluye las URLs de acceso de usuarios
+    path('profile/', include('profile.urls')),  # Incluye URLs de perfiles
+    path("project/", include("project.urls")),  # Incluye URLs de control de proyectos
     path('dashboard/', include('dashboard.urls')),  # Incluye URLs del dashboard
+    path('chat/',include('chat.urls')),  # Incluye las URLs de chat
+    path('notifications/', include('notifications.urls')),  # Incluye las URLs de notificaciones
+    path('payment/', include('payment.urls')),  # Incluye las URLs de pagos
+    path('settings/', include('settings.urls')),  # Incluye las URLs de configuración
 ]
 
 # Añadir configuración para servir archivos de media durante el desarrollo

@@ -33,9 +33,9 @@ TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-# Application definition
-NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
-
+NPM_BIN_PATH = os.getenv(
+    "NPM_BIN_PATH", "npm"
+)  # Default to 'npm' if env variable is not set
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -44,12 +44,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tailwind",
     "django_browser_reload",
+    "tailwind",
     "theme",
-    "user_access",
-    "project_controller",
-    "freelancer_profile_creation",
+    "user",
+    "profile",
+    "project",
+    "dashboard",
+    "chat",
+    "payment",
+    "notifications",
 ]
 
 MIDDLEWARE = [
@@ -132,9 +136,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "theme/static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

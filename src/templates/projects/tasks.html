@@ -1,0 +1,22 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block section %}
+<h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
+
+<div class="grid grid-cols-3 gap-6 mt-4">
+    <!-- Loop through Milestones -->
+    {% for milestone in milestones %}
+    <!-- Loop through Tasks for each Milestone -->
+    {% for task in milestone.tasks.all %}
+    <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
+        <h3 class="text-lg font-semibold text-primary_black">{{ task.milestone.name }}</h3>
+        <h3 class="text-md font-bold text-primary_medium">{{ task.title }}</h3>
+        <span>Asignado a: {{task.user}}</span>
+        <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
+        <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
+        <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
