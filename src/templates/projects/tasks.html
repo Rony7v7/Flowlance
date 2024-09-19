@@ -1,7 +1,13 @@
 {% extends "projects/default_project_view.html" %}
 
 {% block section %}
-<h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
+<div class="flex justify-between items-center">
+    <h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
+
+    {% url 'create_task' project.id as add_task_url %}
+    {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
+
+</div>
 
 <div class="grid grid-cols-3 gap-6 mt-4">
     <!-- Loop through Milestones -->
@@ -9,6 +15,7 @@
     <!-- Loop through Tasks for each Milestone -->
     {% for task in milestone.tasks.all %}
     <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
+        <div class="w-full {{ task.deadline_color }} p-1"></div>
         <h3 class="text-lg font-semibold text-primary_black">{{ task.milestone.name }}</h3>
         <h3 class="text-md font-bold text-primary_medium">{{ task.title }}</h3>
         <span>Asignado a: {{task.user}}</span>
