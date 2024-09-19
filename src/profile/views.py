@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
 from .models import FreelancerProfile, WorkExperience, CurriculumVitae, Portfolio, PortfolioProject, FreelancerProfile
@@ -66,14 +66,19 @@ def upload_curriculum(request):
 
 
 @login_required
-def freelancer_profile(request):
-    profile = FreelancerProfile.objects.get(user=request.user)
-    
-    # Intentamos obtener el portafolio del freelancer
+def freelancer_profile(request, username=None):
+    # Si no se proporciona un username, mostramos el perfil del usuario logueado
+    if username is None:
+        profile = FreelancerProfile.objects.get(user=request.user)
+    else:
+        # Obtenemos el perfil del usuario solicitado
+        profile = get_object_or_404(FreelancerProfile, user__username=username)
+
+    # Intentamos obtener el portafolio y otros datos relacionados con el perfil
     try:
         portfolio = profile.portfolio_profile
-        projects = portfolio.projects.all()  # Proyectos asociados al portafolio
-        courses = portfolio.courses.all()  # Cursos asociados al portafolio
+        projects = portfolio.projects.all()
+        courses = portfolio.courses.all()
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
@@ -83,11 +88,11 @@ def freelancer_profile(request):
         'profile': profile,
         'skills': profile.skills.all(),
         'experiences': profile.freelancer_work_experience.all(),
-        # 'experiences': WorkExperience.objects.filter(freelancer=profile),  # Obtener las experiencias laborales correctas
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
     }
+
     return render(request, 'profile/freelancer_profile.html', context)
 
 
