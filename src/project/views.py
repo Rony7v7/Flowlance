@@ -203,24 +203,6 @@ def project_delete(request, pk):
         return redirect('project_list')
     return render(request, 'projects/project_delete.html', {'project': project})
 
-@login_required
-def milestone_add(request, project_pk):
-    project = get_object_or_404(Project, pk=project_pk, client=request.user)
-    if request.method == 'POST':
-        form = MilestoneForm(request.POST)
-        if form.is_valid():
-            milestone = form.save(commit=False)
-            milestone.project = project
-            milestone.save()
-            TimelineChange.objects.create(
-                project=project,
-                user=request.user,
-                change_description=f"Added milestone: {milestone.name}"
-            )
-            return redirect('project_detail', pk=project.pk)
-    else:
-        form = MilestoneForm()
-    return render(request, 'projects/milestone_form.html', {'form': form, 'project': project, 'action': 'Add'})
 
 @login_required
 def milestone_edit(request, project_pk, milestone_pk):
