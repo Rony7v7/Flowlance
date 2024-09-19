@@ -225,8 +225,10 @@ def create_task(request, project_id):
 
 @login_required
 def edit_description(request, description_id):
+    # Obtener la descripción y el proyecto relacionado a través de la tarea
     description = get_object_or_404(TaskDescription, id=description_id)
-    
+    project_id = description.task.milestone.project.id  # Obtener el ID del proyecto desde la tarea relacionada
+
     # Verificar que el usuario es el autor de la descripción o es superusuario
     if request.user != description.user and not request.user.is_superuser:
         return HttpResponseForbidden("No tienes permiso para editar esta descripción.")
@@ -234,11 +236,14 @@ def edit_description(request, description_id):
     if request.method == "POST":
         content = request.POST.get('content')
         if content:
+            # Actualizar el contenido de la descripción
             description.content = content
             description.save()
-            # Redirigir a la vista del detalle del proyecto o tarea
-            return redirect("project", project_id=1, section="task")  
-    return render(request, 'tasks/edit_description.html', {'description': description})
+            # Redirigir a la vista del proyecto con el project_id correcto
+            return redirect("project", project_id=project_id, section="task")
+
+    # Renderizar la plantilla desde la ubicación correcta
+    return render(request, 'projects/edit_description.html', {'description': description})
 
 
 
