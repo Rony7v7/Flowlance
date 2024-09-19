@@ -1,100 +1,139 @@
 from django import forms
-from .models import PortfolioProject, CurriculumVitae, Course, Skill, WorkExperience
-from django.core.exceptions import ValidationError
+from .models import Skill, FreelancerProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
 
-
-class SkillForm(forms.ModelForm):
+class AddCourseForm(forms.ModelForm):
     class Meta:
-        model = Skill
-        fields = ['name']
+        model = Course
+        fields = ['course_name', 'course_description', 'organization', 'course_link', 'course_image', 'expedition_date']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Ingresa una nueva habilidad...'}),
+            'expedition_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+        labels = {
+            'course_name': 'Nombre del Curso',
+            'course_description': 'Descripción',
+            'organization': 'Organización',
+            'course_link': 'Enlace del Curso',
+            'course_image': 'Imagen del Curso',
+            'expedition_date': 'Fecha de Expedición',
         }
 
-# 44545
-class FreelancerSkillsForm(forms.Form):
-    skills = forms.ModelMultipleChoiceField(
-        queryset=Skill.objects.filter(is_custom=False),  # Predefined skills
-        widget=forms.CheckboxSelectMultiple(),
-        required=False,
-        label="Selecciona habilidades predefinidas"
-    )
-    custom_skills = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Añadir habilidades personalizadas separadas por comas...'}),
-        required=False,
-        label="Habilidades personalizadas"
-    )
 
-class WorkExperienceForm(forms.ModelForm):
-    class Meta:
-        model = WorkExperience
-        fields = ['title', 'company', 'start_date', 'end_date', 'description']
-        widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'company': forms.TextInput(attrs={'class': 'form-control'}),
-        }
-
-    def clean(self):
-        cleaned_data = super().clean()
-        start_date = cleaned_data.get("start_date")
-        end_date = cleaned_data.get("end_date")
-
-        if end_date and start_date and end_date < start_date:
-            raise forms.ValidationError("La fecha de fin no puede ser anterior a la fecha de inicio.")
-        
-        return cleaned_data
-
-
-class CurriculumVitaeForm(forms.ModelForm):
-    class Meta:
-        model = CurriculumVitae
-        fields = ['file']
-
-    def clean_file(self):
-        file = self.cleaned_data.get('file')
-        if file:
-            if not file.name.endswith('.pdf'):
-                raise ValidationError('El currículum debe estar en formato PDF.')
-        return file
-
-class PortfolioProjectForm(forms.ModelForm):
+class AddProjectForm(forms.ModelForm):
     class Meta:
         model = PortfolioProject
-        fields = ['project_name', 'client', 'project_description', 'start_date', 'end_date', 'activities_done', 'attached_files', 'external_link']
+        fields = ['project_name', 'client', 'project_description', 'start_date', 'end_date', 'activities_done', 'attached_files', 'external_link', 'project_image']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
-
-    def clean_attached_files(self):
-        file = self.cleaned_data.get('attached_files')
-        if file:
-            if not file.name.endswith(('.png', '.jpg', '.jpeg', '.pdf', '.docx')):
-                raise ValidationError('El archivo adjunto debe ser una imagen o documento (png, jpg, pdf, docx).')
-        return file
-
-
-class CourseForm(forms.ModelForm):
-    class Meta:
-        model = Course
-        fields = ['course_name', 'course_description', 'organization', 'course_link', 'course_image']
-
-
-# forms.py
-from django import forms
-from .models import Calificacion
-
-class CalificacionForm(forms.ModelForm):
-    class Meta:
-        model = Calificacion
-        fields = ['estrellas', 'comentario']
-        widgets = {
-            'estrellas': forms.Select(choices=[(i, i) for i in range(1, 6)]),
-            'comentario': forms.Textarea(attrs={'rows': 3}),
+        labels = {
+            'project_name': 'Nombre del Proyecto',
+            'client': 'Cliente',
+            'project_description': 'Descripción del Proyecto',
+            'start_date': 'Fecha de Inicio',
+            'end_date': 'Fecha de Finalización',
+            'activities_done': 'Actividades Realizadas',
+            'attached_files': 'Archivos Adjuntos',
+            'external_link': 'Enlace Externo',
+            'project_image': 'Imagen del Proyecto',
         }
+
+
+class UploadCVForm(forms.ModelForm):
+    class Meta:
+        model = CurriculumVitae
+        fields = ['file']  # Solo queremos el archivo
+        labels = {
+            'file': 'Sube tu CV (PDF)',
+        }
+        widgets = {
+            'file': forms.ClearableFileInput(attrs={'accept': 'application/pdf'}),
+        }
+
+
+class AddSkillsForm(forms.ModelForm):
+    predefined_skills = forms.ModelMultipleChoiceField(
+        queryset=Skill.objects.filter(is_custom=False),  # Solo habilidades predefinidas
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="Habilidades Predeterminadas"
+    )
+    custom_skills = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Escribe tus habilidades personalizadas separadas por comas'}),
+        required=False,
+        label="Habilidades Personalizadas"
+    )
+
+    class Meta:
+        model = FreelancerProfile
+        fields = []  # No incluimos ningún campo directamente relacionado con el modelo
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(AddSkillsForm, self).__init__(*args, **kwargs)
+        
+        if user:
+            profile = FreelancerProfile.objects.get(user=user)
+            # Excluir las habilidades que el freelancer ya tiene
+            self.fields['predefined_skills'].queryset = Skill.objects.filter(is_custom=False).exclude(freelancers=profile)
+
+    def save(self, commit=True, user=None):
+        profile = FreelancerProfile.objects.get(user=user)
+        # Guardamos habilidades predefinidas seleccionadas
+        predefined_skills = self.cleaned_data.get('predefined_skills')
+        if predefined_skills:
+            profile.skills.add(*predefined_skills)
+
+        # Procesamos habilidades personalizadas
+        custom_skills_text = self.cleaned_data.get('custom_skills')
+        if custom_skills_text:
+            custom_skills = [skill.strip() for skill in custom_skills_text.split(',') if skill.strip()]
+            for skill_name in custom_skills:
+                skill, created = Skill.objects.get_or_create(name=skill_name, is_custom=True)
+                profile.skills.add(skill)
+
+        if commit:
+            profile.save()
+        return profile
+
+
+
+class AddWorkExperienceForm(forms.ModelForm):
+    class Meta:
+        model = WorkExperience
+        fields = ['title', 'company', 'start_date', 'end_date', 'description']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+        labels = {
+            'title': 'Título del trabajo',
+            'company': 'Compañía',
+            'start_date': 'Fecha de inicio',
+            'end_date': 'Fecha de finalización (opcional)',
+            'description': 'Descripción del trabajo',
+        }
+
+    def save(self, commit=True, user=None):
+        profile = FreelancerProfile.objects.get(user=user)
+        work_experience = super().save(commit=False)
+        work_experience.freelancer = profile  # Asociar la experiencia laboral con el perfil del freelancer
+        if commit:
+            work_experience.save()
+        return work_experience
+
+# # forms.py
+# from django import forms
+# from .models import Calificacion
+
+# class CalificacionForm(forms.ModelForm):
+#     class Meta:
+#         model = Calificacion
+#         fields = ['estrellas', 'comentario']
+#         widgets = {
+#             'estrellas': forms.Select(choices=[(i, i) for i in range(1, 6)]),
+#             'comentario': forms.Textarea(attrs={'rows': 3}),
+#         }
 
 
 

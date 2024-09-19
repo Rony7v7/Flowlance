@@ -1,155 +1,97 @@
 {% extends "navigation/navigation.html" %}
 
 {% block content %}
-<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
+<div class="flex flex-col items-start justify-center w-full h-full px-8">
 
-    <!-- Tarjeta de perfil -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        <div class="flex flex-col sm:flex-row items-center sm:items-start">
+    <!-- Información Básica del Freelancer -->
+    <div class="w-full bg-white shadow-lg rounded-lg p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-start">
             <!-- Foto de perfil -->
-            <img src="{{ freelancer.profile_picture.url }}" alt="Foto de {{ freelancer.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
+            <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
             <!-- Información básica -->
             <div class="sm:ml-6 mt-6 sm:mt-0">
-                <h1 class="text-2xl sm:text-3xl font-bold text-primary_dark">{{ freelancer.username }}</h1>
-                <p class="text-sm text-gray-500">Ciudad, Departamento, Pais</p>
-                <p class="mt-2 text-lg font-medium text-primary_dark">{{ freelancer.email }}</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">{{ profile.user.username }}</h1>
             </div>
-        </div>
-        <!-- Botones de acciones -->
-        <div class="mt-6 flex space-x-3">
-            <button class="px-4 py-2 bg-purple-600 text-white rounded-md shadow hover:bg-purple-500">Editar perfil</button>
-            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md shadow hover:bg-purple-500">Editar portafolio</button>
         </div>
     </div>
 
     <!-- Sección de Habilidades -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-        <div class="flex justify-between items-center">
-            <h2 class="text-xl font-bold text-primary_dark">Habilidades</h2>
-            <button class="text-purple-600 hover:text-purple-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-            </button>
-        </div>
-        <div class="mt-4 grid grid-cols-2 gap-4">
-            <!-- Habilidades Predefinidas -->
-            <div>
-                <h3 class="text-lg font-semibold text-gray-600">Predefinidas</h3>
-                <p class="text-gray-700">Responsable</p>
-            </div>
-            <!-- Habilidades Personalizadas -->
-            <div>
-                <h3 class="text-lg font-semibold text-gray-600">Personalizadas</h3>
-                <p class="text-gray-700">Entusiasta</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mostrar habilidades -->
-    <div class="max-w-7xl mx-auto mb-6">
-        <h2 class="text-xl font-semibold text-primary_dark">Habilidades</h2>
-        <ul class="list-disc pl-5">
-        {% for skill in skills %}
-            <li>{{ skill.name }}</li>
-        {% empty %}
-            <li>No se han agregado habilidades.</li>
-        {% endfor %}
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-gray-800">Habilidades</h2>
+        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for skill in skills %}
+            <li class="text-gray-700">{{ skill.name }}</li>
+            {% empty %}
+            <li class="text-gray-500">No se han agregado habilidades aún.</li>
+            {% endfor %}
         </ul>
     </div>
 
-    <!-- Mostrar experiencia laboral -->
-    <div class="max-w-7xl mx-auto mb-6">
-        <h2 class="text-xl font-semibold text-primary_dark">Experiencia Laboral</h2>
-        <ul class="list-disc pl-5">
-        {% for experience in work_experiences %}
-            <li>
-                <h3>{{ experience.title }} en {{ experience.company }}</h3>
-                <p>Desde: {{ experience.start_date }} hasta: {{ experience.end_date|default:"Actualidad" }}</p>
-                <p>{{ experience.description }}</p>
+    <!-- Sección de Experiencia Laboral -->
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-gray-800">Experiencia Laboral</h2>
+        <ul class="mt-4 space-y-4">
+            {% for experience in experiences %}
+            <li class="bg-gray-100 p-4 rounded-lg shadow">
+                <h3 class="text-lg font-semibold text-gray-800">{{ experience.title }}</h3>
+                <p class="text-gray-600">{{ experience.company }}</p>
+                <p class="text-gray-500 text-sm">Desde: {{ experience.start_date }}{% if experience.end_date %} hasta: {{ experience.end_date }}{% else %} hasta la fecha{% endif %}</p>
+                <p class="text-gray-700">{{ experience.description }}</p>
             </li>
-        {% empty %}
-            <li>No se ha agregado experiencia laboral.</li>
-        {% endfor %}
+            {% empty %}
+            <li class="text-gray-500">No se ha añadido experiencia laboral aún.</li>
+            {% endfor %}
         </ul>
     </div>
 
-<!-- Proyectos del Portafolio -->
-<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-    <h2 class="text-xl font-bold text-primary_dark">Proyectos del Portafolio</h2>
-    <ul class="mt-4 space-y-4">
-    {% for project in portfolio_projects %}
-        <li class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-primary_dark">{{ project.project_name }}</h3>
-            <p class="text-gray-600">{{ project.project_description }}</p>
-            <p class="text-gray-500 text-sm">Cliente: {{ project.client }}</p>
-            
-            <!-- Mostrar actividad realizada en el proyecto -->
-            <p class="text-gray-500 text-sm">Actividad Realizada: {{ project.activities_done }}</p>
-            
-            <!-- Verificar si hay un archivo adjunto del proyecto -->
-            {% if project.project_file %}
-                <a href="{{ project.project_file.url }}" class="text-purple-600 hover:text-purple-500 underline mt-2">Descargar Archivo del Proyecto</a>
-            {% endif %}
-        </li>
-    {% empty %}
-        <li class="bg-gray-100 p-4 rounded-lg shadow">No hay proyectos en el portafolio</li>
-    {% endfor %}
-    </ul>
-</div>
-
-
-
-   <!-- Currículum Vitae -->
-<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-    <h2 class="text-xl font-bold text-primary_dark">Currículum Vitae</h2>
-    {% if profile.curriculum %}
-        <a href="{{ profile.curriculum.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar CV</a>
-    {% else %}
-        <p>No se ha subido un currículum.</p>
-    {% endif %}
-</div>
-
-
- <!-- Cursos Completados -->
-<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8">
-    <h2 class="text-xl font-bold text-primary_dark">Cursos Completados</h2>
-    <ul class="mt-4 space-y-4">
-    {% for course in courses %}
-        <li class="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-primary_dark">{{ course.course_name }}</h3>
-            <p class="text-gray-600">{{ course.course_description }}</p>
-            <p class="text-gray-500 text-sm">Organización: {{ course.organization }}</p>
-            
-            <!-- Verificar si hay un enlace del curso -->
-            {% if course.course_link %}
-                <a href="{{ course.course_link }}" class="text-purple-600 hover:text-purple-500 underline">Ver curso</a>
-            {% endif %}
-            
-            <!-- Mostrar la imagen del curso si existe -->
-            {% if course.course_file %}
-                <img src="{{ course.course_file.url }}" alt="Imagen del curso" class="w-48 h-auto rounded-lg shadow-lg mt-4">
-            {% endif %}
-        </li>
-    {% empty %}
-        <li class="bg-gray-100 p-4 rounded-lg shadow">
-            No se han agregado cursos.
-        </li>
-    {% endfor %}
-    </ul>
-</div>
-
-
-    <!-- Botón para regresar al dashboard -->
-    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg mt-8 p-8 flex justify-center">
-        <a href="{% url 'dashboard' %}" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-500">
-            Volver al Dashboard
-        </a>
+    <!-- Sección de Curriculum Vitae -->
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-gray-800">Curriculum Vitae</h2>
+        {% if profile.freelancer_cv and profile.freelancer_cv.file %}
+            <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar Curriculum</a>
+        {% else %}
+            <p class="text-gray-500">No se ha subido ningún CV aún.</p>
+        {% endif %}
     </div>
 
+    <!-- Sección de Portafolio -->
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-gray-800">Portafolio</h2>
+        {% if portfolio %}
+            <h4 class="text-lg font-semibold text-gray-600 mt-4">Proyectos:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                {% for project in projects %}
+                <div class="bg-gray-100 p-4 rounded-lg shadow-lg">
+                    <img src="{{ project.project_image.url }}" alt="{{ project.project_name }}" class="w-full h-40 object-cover rounded-md mb-4">
+                    <h5 class="text-lg font-semibold text-gray-800">{{ project.project_name }}</h5>
+                    <p class="text-gray-600 mt-2">{{ project.project_description }}</p>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">No se ha creado un portafolio aún.</p>
+        {% endif %}
+    </div>
 
+    <!-- Sección de Cursos -->
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-gray-800">Cursos</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            {% for course in courses %}
+            <div class="bg-gray-100 p-4 rounded-lg shadow-lg">
+                <img src="{{ course.course_image.url }}" alt="{{ course.course_name }}" class="w-full h-40 object-cover rounded-md mb-4">
+                <h5 class="text-lg font-semibold text-gray-800">{{ course.course_name }}</h5>
+                <p class="text-gray-600 mt-2">Organización: {{ course.organization }}</p>
+                <p class="text-gray-500">Fecha de expedición: {{ course.expedition_date }}</p>
+                <a href="{{ course.course_link }}" class="text-purple-600 hover:text-purple-500 underline mt-2">Enlace del Curso</a>
+                <p class="text-gray-600 mt-2">{{ course.course_description }}</p>
+            </div>
+            {% empty %}
+            <p class="text-gray-500">No se han agregado cursos aún.</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-
-
-
 {% endblock %}

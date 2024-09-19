@@ -1,232 +1,150 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from .models import FreelancerProfile
-
-from django.shortcuts import redirect
-
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Calificacion
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-
-
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Calificacion
-
-# views.py
-from django.shortcuts import render
-
-
-from .forms import (
-    PortfolioProjectForm, 
-    CurriculumVitaeForm, 
-    CourseForm, 
-    FreelancerSkillsForm, 
-    WorkExperienceForm
-)
-from .models import (
-    CurriculumVitae, 
-    Skill, 
-)
-
+from .forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
+from .models import FreelancerProfile, WorkExperience, CurriculumVitae, Portfolio, PortfolioProject, FreelancerProfile
+from .forms import AddProjectForm, AddCourseForm
 
 @login_required
-def add_skills(request):
-    if request.method == 'POST':
-        form = FreelancerSkillsForm(request.POST)
-        if form.is_valid():
-            # Save predefined skills
-            selected_skills = form.cleaned_data['skills']
-            for skill in selected_skills:
-                request.user.freelancerprofile.skills.add(skill)
-
-            # Save custom skills
-            custom_skills = form.cleaned_data['custom_skills']
-            if custom_skills:
-                custom_skills_list = [skill.strip() for skill in custom_skills.split(',')]
-                for custom_skill in custom_skills_list:
-                    skill_obj, created = Skill.objects.get_or_create(name=custom_skill, is_custom=True)
-                    request.user.freelancerprofile.skills.add(skill_obj)
-
-            return redirect('add_experience')  
-    else:
-        form = FreelancerSkillsForm()
-
-    return render(request, 'profile/add_skills.html', {'form': form})
-
-
-@login_required
-def add_experience(request):
-    if request.method == 'POST':
-        form = WorkExperienceForm(request.POST)
-        if form.is_valid():
-            experience = form.save(commit=False)
-            experience.freelancer = request.user.freelancerprofile  
-            experience.save()
-            return redirect('/freelancer_own_profile/')  
-    else:
-        form = WorkExperienceForm()
-
-    return render(request, 'profile/add_experience.html', {'form': form})
-
-
-
-#TODO: Change proyecto -> project
-@login_required
-def create_project_portfolio(request):
-    if request.method == 'POST':
-        form = PortfolioProjectForm(request.POST, request.FILES)
-        
-        # Obtener la actividad personalizada, si existe
-        custom_activity = request.POST.get('custom_activity', '').strip()  # Recupera la actividad personalizada
-
-        if form.is_valid():
-            proyecto = form.save(commit=False)
-            proyecto.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
-            proyecto.save()
-            return redirect('upload_curriculum')  # Redirige al subir el CV
-    else:
-        form = PortfolioProjectForm()
+def add_course(request):
+    profile = FreelancerProfile.objects.get(user=request.user)
     
-    return render(request, 'profile/create_project_portfolio.html', {'form': form})
+    # Verificamos si el freelancer ya tiene un portafolio, si no, lo creamos
+    portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
 
+    if request.method == 'POST':
+        form = AddCourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.portfolio = portfolio  # Asociar el curso con el portafolio
+            course.save()
+            return redirect('freelancer_profile')  # Redirigir al perfil del freelancer
+    else:
+        form = AddCourseForm()
+
+    return render(request, 'profile/add_course.html', {'form': form})
+
+
+@login_required
+def add_project(request):
+    profile = FreelancerProfile.objects.get(user=request.user)
+    
+    # Verificamos si el freelancer ya tiene un portafolio, si no, lo creamos
+    portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
+
+    if request.method == 'POST':
+        form = AddProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.portfolio = portfolio  # Asociar el proyecto con el portafolio
+            project.save()
+            return redirect('freelancer_profile')  # Redirigir al perfil del freelancer
+    else:
+        form = AddProjectForm()
+
+    return render(request, 'profile/add_project.html', {'form': form})
 
 
 @login_required
 def upload_curriculum(request):
+    profile = FreelancerProfile.objects.get(user=request.user)
     try:
-        curriculum = CurriculumVitae.objects.get(profile=request.user.freelancerprofile)
+        curriculum = profile.freelancer_cv  # Intentamos obtener el CV existente
     except CurriculumVitae.DoesNotExist:
-        curriculum = None
+        curriculum = None  # Si no existe, es None
 
     if request.method == 'POST':
-        form = CurriculumVitaeForm(request.POST, request.FILES, instance=curriculum)
+        form = UploadCVForm(request.POST, request.FILES, instance=curriculum)
         if form.is_valid():
-            curriculum = form.save(commit=False)
-            curriculum.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
-            curriculum.save()
-            return redirect('add_course')  
+            cv = form.save(commit=False)
+            cv.profile = profile  # Asociamos el CV al perfil del freelancer
+            cv.save()
+            return redirect('freelancer_profile')
     else:
-        form = CurriculumVitaeForm(instance=curriculum)
-    
+        form = UploadCVForm(instance=curriculum)
+
     return render(request, 'profile/upload_curriculum.html', {'form': form})
 
 
 @login_required
-def add_course(request):
+def freelancer_profile(request):
+    profile = FreelancerProfile.objects.get(user=request.user)
+    
+    # Intentamos obtener el portafolio del freelancer
+    try:
+        portfolio = profile.portfolio_profile
+        projects = portfolio.projects.all()  # Proyectos asociados al portafolio
+        courses = portfolio.courses.all()  # Cursos asociados al portafolio
+    except Portfolio.DoesNotExist:
+        portfolio = None
+        projects = None
+        courses = None
+
+    context = {
+        'profile': profile,
+        'skills': profile.skills.all(),
+        'experiences': profile.freelancer_work_experience.all(),
+        # 'experiences': WorkExperience.objects.filter(freelancer=profile),  # Obtener las experiencias laborales correctas
+        'portfolio': portfolio,
+        'projects': projects,
+        'courses': courses,
+    }
+    return render(request, 'profile/freelancer_profile.html', context)
+
+
+
+
+@login_required
+def add_skills(request):
+    user = request.user  # Se obtiene el usuario logueado
+    
     if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES)
+        form = AddSkillsForm(request.POST, user=user)  # Se pasa el usuario logueado al formulario
         if form.is_valid():
-            curso = form.save(commit=False)
-            curso.profile = request.user.freelancerprofile  # Now linked to FreelancerProfile
-            curso.save()
-            return redirect('freelancer_profile', username=request.user.username)  
+            form.save(user=user)  # Ahora pasamos el usuario al método save
+        return redirect('freelancer_profile')
     else:
-        form = CourseForm()
-    return render(request, 'profile/add_course.html', {'form': form})
+        form = AddSkillsForm(user=user)
+
+    return render(request, 'profile/add_skills.html', {'form': form})
 
 @login_required
-def freelancer_own_profile(request):
-    if request.user.is_superuser:
-        return redirect('/admin/')
-    
-    try:
-        profile = request.user.freelancerprofile
-    except FreelancerProfile.DoesNotExist:
-        return redirect('no_freelancer_profile')
-
-    skills = profile.skills.all()
-    work_experiences = profile.work_experiences.all()
-    portfolio_projects = profile.freelancer_portfolio_projects.all()
-
-    curriculum = None
-    try:
-        curriculum = profile.freelancer_cv
-    except CurriculumVitae.DoesNotExist:
-        pass  
-    
-    courses = profile.freelancer_courses.all()
-
-    context = {
-        'profile': profile,
-        'skills': skills,
-        'work_experiences': work_experiences,
-        'portfolio_projects': portfolio_projects,
-        'curriculum': curriculum,  
-        'courses': courses,
-    }
-    
-    return render(request, 'profile/freelancer_profile.html', context)
-
-
-
-@login_required
-def freelancer_profile(request, username):
-    profile_exists = FreelancerProfile.objects.filter(user__username=username).exists()
-    user = get_object_or_404(User, username=username)
-
-    if not profile_exists:
-        return redirect('no_freelancer_profile')
-
-    profile = get_object_or_404(FreelancerProfile, user__username=username)
-
-    skills = profile.skills.all()  
-    work_experiences = profile.work_experiences.all()  
-    portfolio_projects = profile.portfolio_projects.all()
-    curriculum = profile.curriculum_vitae  
-    courses = profile.courses.all() 
-    califications = profile.califications.all()
-
-    context = {
-        'profile': profile,
-        'skills': skills,
-        'work_experiences': work_experiences,
-        'portfolio_projects': portfolio_projects,
-        'curriculum': curriculum,
-        'courses': courses,
-        'califications': califications,
-    }
-
-    return render(request, 'profile/freelancer_profile.html', context)
-
-
-
-def no_freelancer_profile(request):
-    return render(request, 'profile/no_freelancer_profile.html')
-
-
-
-
-def tu_vista(request):
-    freelancer = User.objects.get(user=request.user)
-    return render(request, 'calification.html', {'freelancer': freelancer})
-
-
-@login_required
-def calificar_freelancer(request, username):
-    # Obtener el usuario freelancer basado en el username
-    freelancer = get_object_or_404(User, username=username)
+def add_experience(request):
+    user = request.user
     
     if request.method == 'POST':
-        # Obtener los datos del formulario
-        estrellas = request.POST.get('estrellas')
-        comentario = request.POST.get('descripcion')
+        form = AddWorkExperienceForm(request.POST)
+        if form.is_valid():
+            form.save(user=user)  # Asociamos la experiencia con el perfil del freelancer
+            return redirect('freelancer_profile')  # Redireccionamos al perfil del freelancer
+    else:
+        form = AddWorkExperienceForm()
 
-        # Crear una nueva instancia de calificación
-        nueva_calificacion = Calificacion(
-            freelancer=freelancer,  # Freelancer a quien se califica
-            usuario=request.user,  # Usuario que hace la calificación
-            estrellas=estrellas,  # Número de estrellas
-            comentario=comentario  # Comentario opcional
-        )
-        nueva_calificacion.save()
+    return render(request, 'profile/add_experience.html', {'form': form})
 
-        # Mensaje de éxito o redirigir al perfil del freelancer
-        return redirect('freelancer_profile', username=freelancer.username)
 
-    return render(request, 'profile/calification.html', {'freelancer': freelancer})
+# @login_required
+# def calificar_freelancer(request, username):
+#     # Obtener el usuario freelancer basado en el username
+#     freelancer = get_object_or_404(User, username=username)
+    
+#     if request.method == 'POST':
+#         # Obtener los datos del formulario
+#         estrellas = request.POST.get('estrellas')
+#         comentario = request.POST.get('descripcion')
+
+#         # Crear una nueva instancia de calificación
+#         nueva_calificacion = Calificacion(
+#             freelancer=freelancer,  # Freelancer a quien se califica
+#             usuario=request.user,  # Usuario que hace la calificación
+#             estrellas=estrellas,  # Número de estrellas
+#             comentario=comentario  # Comentario opcional
+#         )
+#         nueva_calificacion.save()
+
+#         # Mensaje de éxito o redirigir al perfil del freelancer
+#         return redirect('freelancer_profile', username=freelancer.username)
+
+#     return render(request, 'profile/calification.html', {'freelancer': freelancer})
 
 
 

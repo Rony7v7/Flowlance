@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Añadir Curso al Portafolio</h2>
+<h2>Añadir Proyecto al Portafolio</h2>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Guardar Curso</button>
+    <button type="submit">Guardar Proyecto</button>
 </form>
 
 {% endblock %}
