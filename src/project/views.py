@@ -2,8 +2,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from .models import Milestone, Project
-from django.http import Http404, HttpResponseBadRequest
+from django.http import Http404
 from datetime import datetime
+from django.db.models import Prefetch
 
 
 @login_required
@@ -14,22 +15,11 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
-            return redirect("my_projects")
+            id = project.id
+            return redirect("project", project_id=id, section="milestone")
     else:
         form = ProjectForm()
     return render(request, "projects/create_project.html", {"form": form})
-
-
-@login_required
-def my_projects(request):
-    projects = Project.objects.filter(client=request.user)
-    return render(
-        request,
-        "projects/my_projects.html",
-        {
-            "projects": projects,
-        },
-    )
 
 
 @login_required
@@ -65,7 +55,14 @@ def list_projects(request):
 @login_required
 def display_project(request, project_id, section):
     try:
-        project = Project.objects.only("title", "description").get(id=project_id)
+        # Use `prefetch_related` to reduce the number of queries
+        project = (
+            Project.objects.only("title", "description")
+            .prefetch_related(
+                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date"))
+            )
+            .get(id=project_id)
+        )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
@@ -76,14 +73,14 @@ def display_project(request, project_id, section):
         "calendar": "projects/calendar.html",
     }
 
-    section_to_show = sections_map.get(section, "project/milestones.html")
+    section_to_show = sections_map.get(section, "projects/milestones.html")
 
     return render(
         request,
         section_to_show,
         {
             "project": project,
-            "milestones": project.milestones.all(),
+            "milestones": project.milestones.all(),  # Already ordered by end_date
             "section": section,
         },
     )
@@ -120,5 +117,61 @@ def add_milestone(request, project_id):
         # Redirect to the project view
         return redirect("project", project_id=project_id, section="milestone")
 
-    # If not POST, redirect to the project view
-    return redirect("project", project_id=project_id, section="milestone")
+    return render(
+        request,
+        "projects/manage_milestone.html",
+        {"project_id": project_id, "is_editing": False},
+    )
+
+
+def edit_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    project_id = milestone.project.id
+
+    if request.method == "POST":
+        # Get data from the POST request
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
+        start_date_str = request.POST.get("start_date")
+
+        if name == "" or description == "":
+            return redirect("project", project_id=project_id, section="milestone")
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("project", project_id=project_id, section="milestone")
+
+        try:
+            start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("project", project_id=project_id, section="milestone")
+
+        milestone.name = name
+        milestone.description = description
+        milestone.end_date = end_date
+        milestone.start_date = start_date
+        # Save changes to the database
+        milestone.save()
+        # Redirect to the project view
+        return redirect("project", project_id=project_id, section="milestone")
+
+    return render(
+        request,
+        "projects/manage_milestone.html",
+        {
+            "milestone": milestone,
+            "is_editing": True,
+            "project_id": project_id,
+        },
+    )
+
+
+def delete_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    project_id = milestone.project.id
+    if request.method == "POST":
+        milestone.delete()
+        return redirect("project", project_id=project_id, section="milestone")
