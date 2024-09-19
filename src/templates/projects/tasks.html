@@ -6,7 +6,6 @@
 
     {% url 'create_task' project.id as add_task_url %}
     {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
-
 </div>
 
 <div class="grid grid-cols-3 gap-6 mt-4">
@@ -18,10 +17,51 @@
         <div class="w-full {{ task.deadline_color }} p-1"></div>
         <h3 class="text-lg font-semibold text-primary_black">{{ task.milestone.name }}</h3>
         <h3 class="text-md font-bold text-primary_medium">{{ task.title }}</h3>
-        <span>Asignado a: {{task.user}}</span>
+        <span>Asignado a: {{ task.responsible.username }}</span>
         <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
         <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
         <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
+
+        <!-- Sección de Descripciones -->
+        <h4 class="text-primary_black font-semibold mt-2">Descripciones Adicionales</h4>
+        <ul class="text-left space-y-2">
+            {% for description in task.descriptions.all %}
+            <li class="border-t pt-2">
+                <strong>{{ description.user.username }}</strong> ({{ description.created_at|date:"d M Y H:i" }}):
+                <p>{{ description.content }}</p>
+            </li>
+            {% empty %}
+            <li class="text-gray-500">No hay descripciones adicionales aún.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Formulario para agregar una descripción -->
+        <form method="POST" action="{% url 'add_description' task.id %}" class="mt-2">
+            {% csrf_token %}
+            <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe una descripción..." required></textarea>
+            <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Agregar Descripción</button>
+        </form>
+
+        <!-- Sección de Comentarios -->
+        <h4 class="text-primary_black font-semibold mt-2">Comentarios</h4>
+        <ul class="text-left space-y-2">
+            {% for comment in task.comments.all %}
+            <li class="border-t pt-2">
+                <strong>{{ comment.user.username }}</strong> ({{ comment.created_at|date:"d M Y H:i" }}):
+                <p>{{ comment.content }}</p>
+            </li>
+            {% empty %}
+            <li class="text-gray-500">No hay comentarios aún.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Formulario para agregar un comentario -->
+        <form method="POST" action="{% url 'add_comment' task.id %}" class="mt-2">
+            {% csrf_token %}
+            <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe tu comentario..." required></textarea>
+            <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Agregar Comentario</button>
+        </form>
+
     </div>
     {% endfor %}
     {% endfor %}

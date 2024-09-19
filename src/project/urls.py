@@ -8,5 +8,8 @@ urlpatterns = [
     path("create_milestone/<int:project_id>",views.add_milestone,name="add_milestone"),
     path("edit_milestone/<int:milestone_id>",views.edit_milestone, name="edit_milestone"),
     path("delete_milestone/<int:milestone_id>",views.delete_milestone,name="delete_milestone"),
-    path("task/create/<int:project_id>",views.create_task,name="create_task")
+    path("task/create/<int:project_id>",views.create_task,name="create_task"),
+    path('task/<int:task_id>/add-description/', views.add_description, name='add_description'),
+    path('description/<int:description_id>/edit/', views.edit_description, name='edit_description'),
+    path('task/<int:task_id>/add-comment/', views.add_comment, name='add_comment')
 ]

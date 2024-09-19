@@ -66,6 +66,16 @@ class Task(models.Model):
             return "bg-red-400"
         else:
             return "bg-green-500"
+        
+
+class Comment(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.task.title}"
 
 class Assigment(models.Model):
     id = models.AutoField(primary_key=True)
@@ -81,3 +91,12 @@ class Assigment(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     priority = models.CharField(max_length=50)
+
+class TaskDescription(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='descriptions')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Description by {self.user.username} on {self.task.title}"

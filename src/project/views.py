@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project, Task
+from .models import Milestone, Project, Task, Comment, TaskDescription
 from django.http import Http404
 from datetime import datetime
 from django.db.models import Prefetch
+from django.http import HttpResponseForbidden
 
 
 @login_required
@@ -220,3 +221,52 @@ def create_task(request, project_id):
         "projects/task_creation.html",
         {"project_id": project_id, "milestones": milestones},
     )
+
+
+@login_required
+def add_comment(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST":
+        content = request.POST.get('content')
+        if content:
+            Comment.objects.create(
+                task=task,
+                user=request.user,
+                content=content
+            )
+        return redirect("project", project_id=1, section="task")
+    return HttpResponseForbidden()
+
+
+
+@login_required
+def add_description(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST":
+        content = request.POST.get('content')
+        if content:
+            TaskDescription.objects.create(
+                task=task,
+                user=request.user,
+                content=content
+            )
+        return redirect("project", project_id=1, section="task")
+    return HttpResponseForbidden()
+
+
+@login_required
+def edit_description(request, description_id):
+    description = get_object_or_404(TaskDescription, id=description_id)
+    
+    # Verificar que el usuario es el autor de la descripción o es superusuario
+    if request.user != description.user and not request.user.is_superuser:
+        return HttpResponseForbidden("No tienes permiso para editar esta descripción.")
+
+    if request.method == "POST":
+        content = request.POST.get('content')
+        if content:
+            description.content = content
+            description.save()
+            # Redirigir a la vista del detalle del proyecto o tarea
+            return redirect("project", project_id=1, section="task")  
+    return render(request, 'tasks/edit_description.html', {'description': description})
