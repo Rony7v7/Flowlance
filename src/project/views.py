@@ -147,7 +147,7 @@ def add_milestone(request, project_id):
 
 @login_required
 def project_list_availableFreelancer(request):
-    projects_available= ProjectAvailable.objects.all()
+    projects_available= Project.objects.all()
 
     projects_available = [
         {
