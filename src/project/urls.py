@@ -14,8 +14,6 @@ urlpatterns = [
     path('<int:project_pk>/milestone/<int:milestone_pk>/edit/', views.milestone_edit, name='milestone_edit'),
     path('<int:project_pk>/milestone/<int:milestone_pk>/delete/', views.milestone_delete, name='milestone_delete'),
     path('project/<int:project_id>/requirements/', views.project_requirements, name='project_requirements'),
-  
-    path("list/", views.list_projects, name="list_projects"),
     path("<int:project_id>/<str:section>",views.display_project,name="project"),
     path("create_milestone/<int:project_id>",views.add_milestone,name="add_milestone"),
     path("edit_milestone/<int:milestone_id>",views.edit_milestone, name="edit_milestone"),
