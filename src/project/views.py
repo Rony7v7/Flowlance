@@ -224,37 +224,6 @@ def create_task(request, project_id):
 
 
 @login_required
-def add_comment(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == "POST":
-        content = request.POST.get('content')
-        if content:
-            Comment.objects.create(
-                task=task,
-                user=request.user,
-                content=content
-            )
-        return redirect("project", project_id=1, section="task")
-    return HttpResponseForbidden()
-
-
-
-@login_required
-def add_description(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == "POST":
-        content = request.POST.get('content')
-        if content:
-            TaskDescription.objects.create(
-                task=task,
-                user=request.user,
-                content=content
-            )
-        return redirect("project", project_id=1, section="task")
-    return HttpResponseForbidden()
-
-
-@login_required
 def edit_description(request, description_id):
     description = get_object_or_404(TaskDescription, id=description_id)
     
@@ -272,14 +241,69 @@ def edit_description(request, description_id):
     return render(request, 'tasks/edit_description.html', {'description': description})
 
 
+
+@login_required
+def add_description(request, task_id):
+    # Obtener la tarea y el proyecto relacionado
+    task = get_object_or_404(Task, id=task_id)
+    project_id = task.milestone.project.id  # Obtener el ID del proyecto desde la tarea
+
+    if request.method == "POST":
+        content = request.POST.get('content')
+        if content:
+            # Crear la descripción
+            TaskDescription.objects.create(
+                task=task,
+                user=request.user,
+                content=content
+            )
+        # Redirigir a la vista de tareas del proyecto
+        return redirect("project", project_id=project_id, section="task")
+
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+
+
 @login_required
 def add_file(request, task_id):
+    # Obtener la tarea y el proyecto relacionado
     task = get_object_or_404(Task, id=task_id)
+    project_id = task.milestone.project.id  # Obtener el ID del proyecto desde la tarea
+
     if request.method == "POST" and request.FILES.get('file'):
         file = request.FILES['file']
+        # Crear el archivo relacionado con la tarea
         TaskFile.objects.create(
             task=task,
             file=file,
         )
-        return redirect("project", project_id=1, section="task")   # Ajusta según tu vista de detalle de la tarea
-    return HttpResponseForbidden()
+        # Redirigir a la vista de tareas del proyecto
+        return redirect("project", project_id=project_id, section="task")
+
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+
+
+
+@login_required
+def add_comment(request, task_id):
+    # Obtener la tarea y el proyecto relacionado
+    task = get_object_or_404(Task, id=task_id)
+    project_id = task.milestone.project.id  # Obtener el ID del proyecto desde la tarea
+
+    if request.method == "POST":
+        # Obtener el contenido del comentario desde la solicitud
+        content = request.POST.get('content')
+        if content:
+            # Crear y guardar el comentario
+            Comment.objects.create(
+                task=task,
+                user=request.user,
+                content=content
+            )
+            # Redirigir a la vista de tareas del proyecto
+            return redirect("project", project_id=project_id, section="task")
+        else:
+            # Manejar el caso en que el contenido esté vacío
+            return redirect("project", project_id=project_id, section="task")
+
+    # Renderizar la página de manejo de tareas si no es una solicitud POST
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
