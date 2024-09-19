@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project
+from .models import Milestone, Project, Task
 from django.http import Http404
 from datetime import datetime
 from django.db.models import Prefetch
@@ -175,3 +175,48 @@ def delete_milestone(request, milestone_id):
     if request.method == "POST":
         milestone.delete()
         return redirect("project", project_id=project_id, section="milestone")
+
+
+def create_task(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    milestones = project.milestones.all()
+    if request.method == "POST":
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
+        priority = request.POST.get("priority")
+        state = request.POST.get("state")
+        milestone_id = request.POST.get("milestone")
+        milestone = Milestone.objects.get(id=milestone_id)
+        if milestone == None:
+            return render(
+                request,
+                "projects/task_creation.html",
+                {"project_id": project_id, "milestones": milestones},
+            )
+
+        if name == "" or description == "":
+            return redirect("project", project_id=project_id, section="task")
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("project", project_id=project_id, section="milestone")
+
+        Task.objects.create(
+            title=name,
+            description=description,
+            end_date=end_date,
+            priority=priority,
+            state=state,
+            milestone=milestone,
+        )
+
+
+        return redirect("project", project_id=project_id, section="task")
+    return render(
+        request,
+        "projects/task_creation.html",
+        {"project_id": project_id, "milestones": milestones},
+    )
