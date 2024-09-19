@@ -36,9 +36,28 @@
             <div class="ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
-                <div class="items-center mt-4 space-y-5">
-                    <button class="block bg-primary_medium text-white px-8 py-2 rounded-xl">Editar</button>
-                    <button class=" bg-primary_medium text-white px-4 py-2 rounded-xl">Ver requerimientos</button>
+                <div class="flex space-x-4">
+                    <a href="{% url 'project_edit' project.pk %}"
+                        class="bg-[#636AF2] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Editar
+                    </a>
+                    <a href="{% url 'project_requirements' project.pk %}"
+                        class="bg-[#636AF2] text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                        Ver Requerimientos
+                    </a>
+                </div>
+
+                <!-- Boton eliminar -->
+                <div class="mt-4 flex space-x-4 justify-end">
+                    <a href="{% url 'project_delete' project.pk %}"
+                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                        Eliminar Proyecto
+                    </a>
+                    <div class="flex flex-row gap-2">
+
+                        {% url 'my_projects' as list_projects_available %}
+                        {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=1 url=list_projects_available%}
+                    </div>
                 </div>
 
             </div>

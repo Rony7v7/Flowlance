@@ -1,13 +1,13 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project, ProjectAvailable
-from django.http import Http404, HttpResponseBadRequest
+from .models import Milestone, Project
+from django.http import Http404
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Project, Milestone, TimelineChange
-from .forms import ProjectForm, MilestoneForm
+from .models import Project, Milestone
+from .forms import ProjectForm
 
 
 from .models import Milestone, Project, Task
@@ -138,7 +138,7 @@ def add_milestone(request, project_id):
         # Redirect to the project view
         return redirect("project", project_id=project_id, section="milestone")
       
-      return render(
+        return render(
         request,
         "projects/manage_milestone.html",
         {"project_id": project_id, "is_editing": False},

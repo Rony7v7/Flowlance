@@ -20,10 +20,10 @@
                 </div>
             {% endfor %}
             <div class="flex justify-end space-x-2 mt-6">
-                <a href="{% url 'project_list' %}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+                <a href="/project/{{project.id}}/milestone" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
                     Cancel
                 </a>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                <button type="submit" class="px-4 py-2 bg-primary_light text-white rounded-md hover:bg-primary_medium transition-colors">
                     {{ action }} Project
                 </button>
             </div>
