@@ -156,6 +156,7 @@ def freelancer_own_profile(request):
         'portfolio_projects': portfolio_projects,
         'curriculum': curriculum,  
         'courses': courses,
+        'califications': profile.califications.all(),
     }
     
     return render(request, 'freelancer_profile_creation/freelancer_profile.html', context)
@@ -224,7 +225,7 @@ def calificar_freelancer(request, username):
         nueva_calificacion.save()
 
         # Mensaje de éxito o redirigir al perfil del freelancer
-        return redirect('freelancer_profile', username=freelancer.username)
+        return redirect('freelancer_profile', username=freelancer.username) # Aca en vez de tener create_profile estaba freelancer_profile
 
     return render(request, 'freelancer_profile_creation/calification.html', {'freelancer': freelancer})
 

@@ -147,8 +147,56 @@
         </a>
     </div>
 
+    <!-- Sección de Calificaciones -->
+    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-primary_dark">Calificaciones</h2>
+        <table class="w-full text-left mt-4">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Estrellas</th>
+                    <th class="px-4 py-2">Comentarios cliente</th>
+                    <th class="px-4 py-2">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for calificacion in calificaciones %}
+                <tr class="bg-gray-100">
+                    <td class="px-4 py-2">
+                        <!-- Mostrar estrellas -->
+                        <div class="flex">
+                            <!-- Imprimir el número de estrellas (basado en calificacion.estrellas) -->
+                            <div class="flex">
+                                {% for i in "12345"|slice:":calificacion.estrellas" %}
+                                    <svg class="w-5 h-5 text-yellow-500 inline-block" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927C9.332 2.15 10.668 2.15 10.951 2.927l1.654 3.682 3.923.348c.816.072 1.146 1.092.557 1.617l-2.94 2.634.846 3.772c.18.803-.698 1.451-1.435 1.04L10 13.187l-3.556 1.834c-.737.411-1.615-.237-1.435-1.04l.846-3.772-2.94-2.634c-.589-.525-.259-1.545.557-1.617l3.923-.348 1.654-3.682z"/>
+                                    </svg>
+                                {% endfor %}
+                            </div>                            
+                        </div>
+                    </td>
+                    <td class="px-4 py-2">{{ calificacion.comentario }}</td>
+                    <td class="px-4 py-2">{{ calificacion.fecha|date:"d M Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-4">No hay calificaciones</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 flex space-x-3">
+        <!-- Nuevo botón para calificación -->
+        <a href="{% url 'calificar_freelancer' request.user.username %}" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-500">Calificar Freelancer</a>
+    </div>
+    
+
+
 
 </div>
+
+
 
 
 
