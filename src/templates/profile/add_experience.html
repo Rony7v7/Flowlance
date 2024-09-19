@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
+
+    <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
+        <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Experiencia Laboral</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">Experiencias</h2> 
+        <p class="block text-primary_black font-normal mt-4 font-sans semi">
+            Aquí puedes agregar información de tu experiencia laboral.
+        </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-bg_white p-8 rounded-md" id="form-container">
+        <form id="experienceForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-primary_black font-medium" for="title">Título del trabajo</label>
+                <input type="text" name="title" id="title" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Título del trabajo" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="company">Compañía</label>
+                <input type="text" name="company" id="company" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Nombre de la compañía" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="start_date">Fecha de inicio</label>
+                <input type="date" name="start_date" id="start_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="end_date">Fecha de finalización (opcional)</label>
+                <input type="date" name="end_date" id="end_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium">
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="description">Descripción del trabajo</label>
+                <textarea name="description" id="description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Describe las actividades realizadas" required></textarea>
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="flex justify-end">
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                &times;
+            </button>
+        </div>
+        <div class="text-center">
+            <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <h3 class="text-lg font-semibold text-primary_black">Información guardada exitosamente</h3>
+            <p class="text-gray-600 mt-2">¿Deseas seguir agregando experiencia?</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
+                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('experienceForm').addEventListener('submit', function (e) {
+        e.preventDefault(); 
+        document.getElementById('confirmationModal').classList.remove('hidden');
+    });
+
+    document.getElementById('addMore').addEventListener('click', function () {
+        let formData = new FormData(document.getElementById('experienceForm'));
+        
+        fetch("{% url 'add_experience' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('confirmationModal').classList.add('hidden'); 
+                document.getElementById('experienceForm').reset(); 
+                document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Hubo un error al guardar la experiencia, intenta nuevamente.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('submitForm').addEventListener('click', function () {
+        document.getElementById('confirmationModal').classList.add('hidden'); 
+        document.getElementById('experienceForm').submit(); 
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('confirmationModal').classList.add('hidden');
+    });
+</script>
+
+{% endblock %}

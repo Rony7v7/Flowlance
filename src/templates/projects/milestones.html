@@ -7,67 +7,33 @@
     <!-- Hitos Section -->
     <div class="flex justify-between items-center">
         <h2 class="text-2xl font-bold text-primary_black">Hitos</h2>
-        <button id="addMilestoneButton" class="bg-primary_medium text-white px-4 py-2 rounded-lg">Añadir</button>
+
+        {% url 'add_milestone' project.id as add_milestone_url %}
+        {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_milestone_url %}
+
     </div>
 
     <div class="grid grid-cols-3 gap-6 mt-4">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
+            <div class="w-full {{ milestone.deadline_color }} p-1"></div>
+
             <h3 class="text-lg font-semibold text-primary_black">{{ milestone.name }}</h3>
             <p class="text-sm text-primary_medium">Fecha de Inicio: {{ milestone.start_date }}</p>
             <p class="text-sm text-primary_medium">Fecha de Finalización: {{ milestone.end_date }}</p>
             <span class="text-sm text-primary_dark block">Entregables: <span
                     class="block text-black mt-2">{{milestone.deliverables }}/10</span></span>
-            <button class="mt-2 bg-primary_medium text-white px-4 py-2 rounded-lg">Ver más</button>
+            <div class="mt-10">
+                {% url 'edit_milestone' milestone.id as milestone_edit_url %}
+                {% include 'utils/anchor_button.html' with type=1 label='Ver más' url=milestone_edit_url %}
+            </div>
         </div>
         {% endfor %}
     </div>
 
-    <!-- Modal -->
-    <div id="milestoneModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex  justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-lg font-semibold text-primary_black">Añadir Hito</h3>
-            <form method="post" action="{% url 'add_milestone' project.id %}">
-                {% csrf_token %}
-                <div class="mt-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                    <input id="name" name="name" type="text"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
-                        required>
-                </div>
-                <div class="mt-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
-                    <textarea id="description" name="description" rows="3"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
-                        required></textarea>
-                </div>
-                <div class="mt-4">
-                    <label for="end_date" class="block text-sm font-medium text-gray-700">Descripción</label>
-                    <input name="end_date" type="date" id="end_date"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
-                        required>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button type="button" id="closeModal"
-                        class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2">Cancelar</button>
-                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 </div>
 
-<!-- Include JavaScript at the end of your template -->
-<script>
-    document.getElementById('addMilestoneButton').addEventListener('click', function () {
-        document.getElementById('milestoneModal').classList.remove('hidden');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('milestoneModal').classList.add('hidden');
-    });
-</script>
 
 {% endblock %}
