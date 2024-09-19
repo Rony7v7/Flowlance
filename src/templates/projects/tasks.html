@@ -29,17 +29,37 @@
             <li class="border-t pt-2">
                 <strong>{{ description.user.username }}</strong> ({{ description.created_at|date:"d M Y H:i" }}):
                 <p>{{ description.content }}</p>
+                {% if description.user == user or user.is_superuser %}
+                <a href="{% url 'edit_description' description.id %}" class="text-blue-500 hover:underline">Editar</a>
+                {% endif %}
             </li>
             {% empty %}
             <li class="text-gray-500">No hay descripciones adicionales aún.</li>
             {% endfor %}
         </ul>
 
-        <!-- Formulario para agregar una descripción -->
         <form method="POST" action="{% url 'add_description' task.id %}" class="mt-2">
             {% csrf_token %}
             <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe una descripción..." required></textarea>
             <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Agregar Descripción</button>
+        </form>
+
+        <!-- Sección de Archivos -->
+        <h4 class="text-primary_black font-semibold mt-2">Archivos</h4>
+        <ul class="text-left space-y-2">
+            {% for file in task.files.all %}
+            <li class="border-t pt-2">
+                <a href="{{ file.file.url }}" class="text-blue-500 hover:underline" target="_blank">{{ file.file.name }}</a>
+            </li>
+            {% empty %}
+            <li class="text-gray-500">No hay archivos aún.</li>
+            {% endfor %}
+        </ul>
+
+        <form method="POST" action="{% url 'add_file' task.id %}" enctype="multipart/form-data" class="mt-2">
+            {% csrf_token %}
+            <input type="file" name="file" class="mb-2">
+            <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Subir Archivo</button>
         </form>
 
         <!-- Sección de Comentarios -->
@@ -55,7 +75,6 @@
             {% endfor %}
         </ul>
 
-        <!-- Formulario para agregar un comentario -->
         <form method="POST" action="{% url 'add_comment' task.id %}" class="mt-2">
             {% csrf_token %}
             <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe tu comentario..." required></textarea>

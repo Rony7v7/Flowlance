@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project, Task, Comment, TaskDescription
+from .models import Milestone, Project, Task, Comment, TaskDescription, TaskFile
 from django.http import Http404
 from datetime import datetime
 from django.db.models import Prefetch
@@ -270,3 +270,16 @@ def edit_description(request, description_id):
             # Redirigir a la vista del detalle del proyecto o tarea
             return redirect("project", project_id=1, section="task")  
     return render(request, 'tasks/edit_description.html', {'description': description})
+
+
+@login_required
+def add_file(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST" and request.FILES.get('file'):
+        file = request.FILES['file']
+        TaskFile.objects.create(
+            task=task,
+            file=file,
+        )
+        return redirect("project", project_id=1, section="task")   # Ajusta según tu vista de detalle de la tarea
+    return HttpResponseForbidden()
