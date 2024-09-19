@@ -7,11 +7,14 @@
         <!-- Título de la Sección de Requerimientos -->
         <h1 class="text-4xl font-bold mb-6">Requerimientos del Proyecto</h1>
 
-        <!-- Contenido de los Requerimientos -->
+        <!-- Contenido de los Requerimientos con ajuste para manejo de texto largo -->
         <div>
-            <p class="text-gray-700">{{ project.requirements }}</p>
+            <p class="text-gray-700 break-words overflow-hidden max-w-full"
+               style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: pre-wrap;">
+                {{ project.requirements }}
+            </p>
         </div>
-        
+
         <!-- Botón para regresar a la página principal del proyecto -->
         <div class="mt-8">
             <a href="{% url 'project_detail' project.pk %}" class="bg-[#636AF2] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">

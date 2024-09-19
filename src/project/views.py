@@ -130,8 +130,30 @@ def add_milestone(request, project_id):
 
 @login_required
 def project_list_availableFreelancer(request):
-    projects = ProjectAvailable.objects.filter(client=request.user)
-    return render(request, 'projects/project_main_view.html', {'projects': projects})
+    projects_available= ProjectAvailable.objects.all()
+
+    projects_available = [
+        {
+            "title": "Proyecto 1",
+            "description": "Descripción del proyecto 1",
+            "budget": 1000,
+            "deadline": "2021-12-31",
+        },
+        {
+            "title": "Proyecto 2",
+            "description": "Descripción del proyecto 2",
+            "budget": 2000,
+            "deadline": "2021-12-31",
+        },
+        {
+            "title": "Proyecto 3",
+            "description": "Descripción del proyecto 3",
+            "budget": 3000,
+            "deadline": "2021-12-31",
+        },
+    ]
+    
+    return render(request, 'projects/project_main_view.html', {'projects_available': projects_available})
 
 @login_required
 def project_list(request):

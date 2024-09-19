@@ -3,21 +3,10 @@ from . import views
 
 urlpatterns = [
     path("create/", views.create_project, name="create_project"),
-    path("my_projects/", views.project_list, name="my_projects"), # ya ahora es donde se ve "Mis Proyectos" : SE DEJA 
-
-    path("list/", views.project_list_availableFreelancer, name="available_projectsFreelancer"), # Esta es para que el cliente vea "Disponibles" : SE DEJA
-
-    #path("my_projects_client/", views.project_list, name="my_projects"), # La misma URL de la path("my_projects/", views.project_list, name="my_projects")
-
-    
-    #path("listRony/", views.list_projects_Rony, name="list_projects_Rony"), # Esta tira error, pero era para ver "Disponibles" y "Mis Proyectos": SE ELIMINA
-    #path("available_projects/", views.project_list_availableFreelancer, name="available_projectsFreelancer"), # Esta es para que el freelancer vea "Disponibles" SE ELIMINA
-
-    path("<int:project_id>/<str:section>",views.display_project,name="project"),
-    path("create_milestone/<int:project_id>",views.add_milestone,name="add_milestone"),
-
-
+    path("my_projects/", views.project_list, name="my_projects"), 
+    path("list/", views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
     path('', views.project_list, name='project_list'),
+    path("create_milestone/<int:project_id>",views.add_milestone,name="add_milestone"),
     path('<int:pk>/', views.project_detail, name='project_detail'),
     path('<int:pk>/edit/', views.project_edit, name='project_edit'),
     path('<int:pk>/delete/', views.project_delete, name='project_delete'),

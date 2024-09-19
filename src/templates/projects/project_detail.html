@@ -28,13 +28,16 @@
 
             <!-- Boton eliminar -->
             <div class="mt-4 flex space-x-4 justify-end">
-        
                 <a href="{% url 'project_delete' project.pk %}" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
                     Eliminar Proyecto
                 </a>
+                <div class="flex flex-row gap-2">
+        
+                    {% url 'my_projects' as list_projects_available %}
+                    {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=1 url=list_projects_available %}
+                </div>
+                
             </div>
-
-
         </div>
     </div>
 
