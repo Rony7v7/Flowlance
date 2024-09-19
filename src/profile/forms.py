@@ -42,7 +42,7 @@ class AddProjectForm(forms.ModelForm):
 class UploadCVForm(forms.ModelForm):
     class Meta:
         model = CurriculumVitae
-        fields = ['file']  # Solo queremos el archivo
+        fields = ['file'] 
         labels = {
             'file': 'Sube tu CV (PDF)',
         }
@@ -53,7 +53,7 @@ class UploadCVForm(forms.ModelForm):
 
 class AddSkillsForm(forms.ModelForm):
     predefined_skills = forms.ModelMultipleChoiceField(
-        queryset=Skill.objects.filter(is_custom=False),  # Solo habilidades predefinidas
+        queryset=Skill.objects.filter(is_custom=False),  
         widget=forms.CheckboxSelectMultiple,
         required=False,
         label="Habilidades Predeterminadas"
@@ -66,7 +66,7 @@ class AddSkillsForm(forms.ModelForm):
 
     class Meta:
         model = FreelancerProfile
-        fields = []  # No incluimos ningún campo directamente relacionado con el modelo
+        fields = []  
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -74,17 +74,14 @@ class AddSkillsForm(forms.ModelForm):
         
         if user:
             profile = FreelancerProfile.objects.get(user=user)
-            # Excluir las habilidades que el freelancer ya tiene
             self.fields['predefined_skills'].queryset = Skill.objects.filter(is_custom=False).exclude(freelancers=profile)
 
     def save(self, commit=True, user=None):
         profile = FreelancerProfile.objects.get(user=user)
-        # Guardamos habilidades predefinidas seleccionadas
         predefined_skills = self.cleaned_data.get('predefined_skills')
         if predefined_skills:
             profile.skills.add(*predefined_skills)
 
-        # Procesamos habilidades personalizadas
         custom_skills_text = self.cleaned_data.get('custom_skills')
         if custom_skills_text:
             custom_skills = [skill.strip() for skill in custom_skills_text.split(',') if skill.strip()]
@@ -117,7 +114,7 @@ class AddWorkExperienceForm(forms.ModelForm):
     def save(self, commit=True, user=None):
         profile = FreelancerProfile.objects.get(user=user)
         work_experience = super().save(commit=False)
-        work_experience.freelancer = profile  # Asociar la experiencia laboral con el perfil del freelancer
+        work_experience.freelancer = profile 
         if commit:
             work_experience.save()
         return work_experience

@@ -1,23 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
-from .models import FreelancerProfile, WorkExperience, CurriculumVitae, Portfolio, PortfolioProject, FreelancerProfile
+from .models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile
 from .forms import AddProjectForm, AddCourseForm
 
 @login_required
 def add_course(request):
     profile = FreelancerProfile.objects.get(user=request.user)
     
-    # Verificamos si el freelancer ya tiene un portafolio, si no, lo creamos
     portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
 
     if request.method == 'POST':
         form = AddCourseForm(request.POST, request.FILES)
         if form.is_valid():
             course = form.save(commit=False)
-            course.portfolio = portfolio  # Asociar el curso con el portafolio
+            course.portfolio = portfolio  
             course.save()
-            return redirect('freelancer_profile')  # Redirigir al perfil del freelancer
+            return redirect('freelancer_profile')  
     else:
         form = AddCourseForm()
 
@@ -28,16 +27,15 @@ def add_course(request):
 def add_project(request):
     profile = FreelancerProfile.objects.get(user=request.user)
     
-    # Verificamos si el freelancer ya tiene un portafolio, si no, lo creamos
     portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
 
     if request.method == 'POST':
         form = AddProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
-            project.portfolio = portfolio  # Asociar el proyecto con el portafolio
+            project.portfolio = portfolio  
             project.save()
-            return redirect('freelancer_profile')  # Redirigir al perfil del freelancer
+            return redirect('freelancer_profile')  
     else:
         form = AddProjectForm()
 
@@ -48,15 +46,15 @@ def add_project(request):
 def upload_curriculum(request):
     profile = FreelancerProfile.objects.get(user=request.user)
     try:
-        curriculum = profile.freelancer_cv  # Intentamos obtener el CV existente
+        curriculum = profile.freelancer_cv  
     except CurriculumVitae.DoesNotExist:
-        curriculum = None  # Si no existe, es None
+        curriculum = None  
 
     if request.method == 'POST':
         form = UploadCVForm(request.POST, request.FILES, instance=curriculum)
         if form.is_valid():
             cv = form.save(commit=False)
-            cv.profile = profile  # Asociamos el CV al perfil del freelancer
+            cv.profile = profile  
             cv.save()
             return redirect('freelancer_profile')
     else:
@@ -67,14 +65,11 @@ def upload_curriculum(request):
 
 @login_required
 def freelancer_profile(request, username=None):
-    # Si no se proporciona un username, mostramos el perfil del usuario logueado
     if username is None:
         profile = FreelancerProfile.objects.get(user=request.user)
     else:
-        # Obtenemos el perfil del usuario solicitado
         profile = get_object_or_404(FreelancerProfile, user__username=username)
 
-    # Intentamos obtener el portafolio y otros datos relacionados con el perfil
     try:
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.all()
@@ -100,12 +95,12 @@ def freelancer_profile(request, username=None):
 
 @login_required
 def add_skills(request):
-    user = request.user  # Se obtiene el usuario logueado
+    user = request.user  
     
     if request.method == 'POST':
-        form = AddSkillsForm(request.POST, user=user)  # Se pasa el usuario logueado al formulario
+        form = AddSkillsForm(request.POST, user=user)  
         if form.is_valid():
-            form.save(user=user)  # Ahora pasamos el usuario al método save
+            form.save(user=user)  
         return redirect('freelancer_profile')
     else:
         form = AddSkillsForm(user=user)
@@ -119,8 +114,8 @@ def add_experience(request):
     if request.method == 'POST':
         form = AddWorkExperienceForm(request.POST)
         if form.is_valid():
-            form.save(user=user)  # Asociamos la experiencia con el perfil del freelancer
-            return redirect('freelancer_profile')  # Redireccionamos al perfil del freelancer
+            form.save(user=user)  
+            return redirect('freelancer_profile')  
     else:
         form = AddWorkExperienceForm()
 

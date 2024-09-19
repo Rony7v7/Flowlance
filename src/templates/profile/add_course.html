@@ -1,12 +1,66 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Añadir Curso al Portafolio</h2>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar Curso</button>
-</form>
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
+
+    <div class="max-w-7xl mx-auto mb-6 ml-24">
+        <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Curso al Portafolio</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">Cursos</h2> 
+        <p class="block text-primary_black font-light mt-4 font-sans">
+            Aquí puedes agregar información de cursos relevantes que hayas realizado.
+        </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-bg_white p-8 rounded-md">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-primary_black font-medium" for="course_name">Ingresa el nombre del curso</label>
+                <input type="text" name="course_name" id="course_name" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre del curso" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="course_description">Ingresa una descripción del curso</label>
+                <textarea name="course_description" id="course_description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="descripción del curso" required></textarea>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="organization">Ingresa la organización que expide el certificado</label>
+                <input type="text" name="organization" id="organization" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="nombre de la organización" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="course_link">Ingresa el enlace del curso</label>
+                <input type="url" name="course_link" id="course_link" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="https://example.com" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium">Imagen del curso</label>
+                <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600 justify-center">
+                            <label for="course_image" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
+                                <span>Arrastra tu archivo aquí</span>
+                                <input id="course_image" name="course_image" type="file" class="sr-only" required>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-500">Aquí puedes adjuntar una imagen del curso.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

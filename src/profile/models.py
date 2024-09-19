@@ -45,7 +45,7 @@ class PortfolioProject(models.Model):
     activities_done = models.TextField()
     attached_files = models.FileField(upload_to='portfolio/', blank=True, null=True)
     external_link = models.URLField(blank=True, null=True)
-    project_image = models.ImageField(upload_to='portfolio/projects/', blank=True, null=True)  # Nuevo campo para la imagen del proyecto
+    project_image = models.ImageField(upload_to='portfolio/projects/', blank=True, null=True)  
 
     def __str__(self):
         return self.project_name
@@ -53,13 +53,13 @@ class PortfolioProject(models.Model):
 
 
 class Course(models.Model):
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name="courses", null=True, blank=True)  # Permitir null y blank
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name="courses", null=True, blank=True)  
     course_name = models.CharField(max_length=100)
     course_description = models.TextField(blank=True)
     organization = models.CharField(max_length=100, blank=True, null=True)
     course_link = models.URLField(blank=True, null=True)
     course_image = models.ImageField(upload_to='courses/', blank=True, null=True)
-    expedition_date = models.DateField(null=True, blank=True)  # Fecha de expedición del curso
+    expedition_date = models.DateField(null=True, blank=True) 
 
     def __str__(self):
         return self.course_name
