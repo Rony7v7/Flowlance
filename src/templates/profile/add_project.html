@@ -1,13 +1,13 @@
-{% extends "navigation/navigation.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
-<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white">
 
     <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-8">
         <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Proyecto al Portafolio</h1>
-        <h2 class="text-lg font-semibold text-primary_dark text-left">Proyectos</h2> 
-        <p class="block text-primary_black font-light mt-4 font-sans">
+        <h2 class="text-lg font-semibold text-primary_dark text-left">Proyectos</h2>
+        <p class="block text-primary_black font-nromal mt-4 font-sans">
             Aquí puedes agregar información de proyectos relevantes que hayas realizado.
         </p>
     </div>
@@ -18,54 +18,70 @@
 
             <div>
                 <label class="block text-primary_black font-medium" for="project_name">Nombre del Proyecto</label>
-                <input type="text" name="project_name" id="project_name" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Nombre del proyecto" required>
+                <input type="text" name="project_name" id="project_name"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Nombre del proyecto" required>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="client">Cliente</label>
-                <input type="text" name="client" id="client" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Nombre del cliente" required>
+                <input type="text" name="client" id="client"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Nombre del cliente" required>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="project_description">Descripción del Proyecto</label>
-                <textarea name="project_description" id="project_description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Descripción del proyecto" required></textarea>
+                <label class="block text-primary_black font-medium" for="project_description">Descripción del
+                    Proyecto</label>
+                <textarea name="project_description" id="project_description" rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Descripción del proyecto" required></textarea>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="start_date">Fecha de Inicio</label>
-                <input type="date" name="start_date" id="start_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" required>
+                <input type="date" name="start_date" id="start_date"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="end_date">Fecha de Finalización</label>
-                <input type="date" name="end_date" id="end_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" required>
+                <input type="date" name="end_date" id="end_date"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="activities_done">Actividades Realizadas</label>
-                <textarea name="activities_done" id="activities_done" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Actividades realizadas" required></textarea>
+                <textarea name="activities_done" id="activities_done" rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Actividades realizadas" required></textarea>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium">Archivos Adjuntos</label>
-                <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
+                <div
+                    class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
                     <div class="space-y-1 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                            <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                            viewBox="0 0 48 48" aria-hidden="true">
+                            <path
+                                d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
                         </svg>
                         <div class="flex text-sm text-gray-600 justify-center">
-                            <label for="attached_files" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
+                            <label for="attached_files"
+                                class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
                                 <span>Sube tus archivos aquí</span>
                                 <input id="attached_files" name="attached_files" type="file" class="sr-only" required>
                             </label>
                         </div>
                         <p class="text-xs text-gray-500">Aquí puedes adjuntar archivos relacionados con el proyecto.</p>
-                        <!-- Icono de éxito que aparece al subir un archivo -->
-                        <div id="uploadSuccess" class="hidden text-green-600 text-sm flex items-center mt-2">
-                            <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <div id="uploadSuccess" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Archivo cargado con éxito
                         </div>
                     </div>
                 </div>
@@ -73,35 +89,43 @@
 
             <div>
                 <label class="block text-primary_black font-medium" for="external_link">Enlace Externo</label>
-                <input type="url" name="external_link" id="external_link" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="https://example.com" required>
+                <input type="url" name="external_link" id="external_link"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="https://example.com" required>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium">Imagen del Proyecto</label>
-                <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
+                <div
+                    class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
                     <div class="space-y-1 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                            <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                            viewBox="0 0 48 48" aria-hidden="true">
+                            <path
+                                d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
                         </svg>
                         <div class="flex text-sm text-gray-600 justify-center">
-                            <label for="project_image" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
+                            <label for="project_image"
+                                class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
                                 <span>Sube una imagen aquí</span>
                                 <input id="project_image" name="project_image" type="file" class="sr-only" required>
                             </label>
                         </div>
-                        <p class="text-xs text-gray-500">Aquí puedes adjuntar una imagen representativa del proyecto.</p>
-                        <div id="uploadSuccess2" class="hidden text-green-600 text-sm flex items-center mt-2">
-                            <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        <p class="text-xs text-gray-500">Aquí puedes adjuntar una imagen representativa del proyecto.
+                        </p>
+                        <div id="uploadSuccess2" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Archivo cargado con éxito
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-center">
-                <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
+                <button type="submit"
+                    class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
                     Confirmar
                 </button>
             </div>
@@ -118,14 +142,17 @@
             </button>
         </div>
         <div class="text-center">
-            <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <h3 class="text-lg font-semibold text-primary_black">Información guardada exitosamente</h3>
             <p class="text-gray-600 mt-2">¿Deseas seguir agregando proyectos?</p>
             <div class="mt-4 flex justify-center space-x-4">
-                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
-                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
+                <button id="addMore"
+                    class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
+                <button id="submitForm"
+                    class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
             </div>
         </div>
     </div>
@@ -147,13 +174,13 @@
     });
 
     document.getElementById('projectForm').addEventListener('submit', function (e) {
-        e.preventDefault(); 
+        e.preventDefault();
         document.getElementById('confirmationModal').classList.remove('hidden'); // Mostrar el modal
     });
 
     document.getElementById('addMore').addEventListener('click', function () {
         let formData = new FormData(document.getElementById('projectForm'));
-        
+
         fetch("{% url 'add_project' %}", {
             method: 'POST',
             body: formData,
@@ -161,25 +188,25 @@
                 'X-Requested-With': 'XMLHttpRequest',
             }
         })
-        .then(response => {
-            if (response.ok) {
-                document.getElementById('confirmationModal').classList.add('hidden'); 
-                document.getElementById('projectForm').reset();
-                document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' }); 
-            } else {
-                alert('Hubo un error al guardar el proyecto, intenta nuevamente.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('confirmationModal').classList.add('hidden');
+                    document.getElementById('projectForm').reset();
+                    document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Hubo un error al guardar el proyecto, intenta nuevamente.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
 
     document.getElementById('submitForm').addEventListener('click', function () {
         document.getElementById('confirmationModal').classList.add('hidden');
-        document.getElementById('projectForm').submit(); 
+        document.getElementById('projectForm').submit();
     });
 
     document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('confirmationModal').classList.add('hidden'); 
+        document.getElementById('confirmationModal').classList.add('hidden');
     });
 </script>
 

@@ -1,21 +1,18 @@
 {% extends "navigation/navigation.html" %}
 
-{% block content %}
+{% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
-    <!-- Información Básica del Freelancer -->
+
     <div class="w-full bg-white shadow-lg rounded-lg p-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-start">
-            <!-- Foto de perfil -->
             <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
-            <!-- Información básica -->
             <div class="sm:ml-6 mt-6 sm:mt-0">
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">{{ profile.user.username }}</h1>
             </div>
         </div>
     </div>
 
-    <!-- Sección de Habilidades -->
     <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Habilidades</h2>
         <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -27,7 +24,6 @@
         </ul>
     </div>
 
-    <!-- Sección de Experiencia Laboral -->
     <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Experiencia Laboral</h2>
         <ul class="mt-4 space-y-4">
@@ -44,7 +40,6 @@
         </ul>
     </div>
 
-    <!-- Sección de Curriculum Vitae -->
     <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Curriculum Vitae</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
@@ -54,7 +49,6 @@
         {% endif %}
     </div>
 
-    <!-- Sección de Portafolio -->
     <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Portafolio</h2>
         {% if portfolio %}
@@ -75,7 +69,6 @@
         {% endif %}
     </div>
 
-    <!-- Sección de Cursos -->
     <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Cursos</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
