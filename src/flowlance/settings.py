@@ -33,11 +33,13 @@ TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
 NPM_BIN_PATH = os.getenv(
     "NPM_BIN_PATH", "npm"
 )  # Default to 'npm' if env variable is not set
 
 INSTALLED_APPS = [
+    "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
