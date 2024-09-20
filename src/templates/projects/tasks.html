@@ -22,12 +22,13 @@
     {% for task in milestone.tasks.all %}
     <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
         <div class="w-full {{ task.deadline_color }} p-1"></div>
-        <h3 class="text-lg font-semibold text-primary_black">{{ task.milestone.name }}</h3>
-        <h3 class="text-md font-bold text-primary_medium">{{ task.title }}</h3>
+        <h3 class="text-lg font-semibold text-primary_black">Hito: {{ task.milestone.name }}</h3>
+        <h3 class="text-md font-bold text-primary_medium">Titulo: {{ task.title }}</h3>
         <span>Asignado a: {{ task.user }}</span>
         <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
         <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
         <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
+        <p class="text-sm text-primary_medium">Prioridad: {{ task.priority}}</p>
     </div>
     {% endfor %}
     {% endfor %}
