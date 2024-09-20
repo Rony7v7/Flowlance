@@ -222,11 +222,13 @@ def project_delete(request, pk):
     return render(request, "projects/project_delete.html", {"project": project})
 
 
+@login_required
 def project_requirements(request, project_id):
     project = Project.objects.get(pk=project_id)
     return render(request, "projects/project_requirements.html", {"project": project})
 
 
+@login_required
 def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
     project_id = milestone.project.id
@@ -272,6 +274,7 @@ def edit_milestone(request, milestone_id):
     )
 
 
+@login_required
 def delete_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
     project_id = milestone.project.id
@@ -280,6 +283,7 @@ def delete_milestone(request, milestone_id):
         return redirect("project", project_id=project_id, section="milestone")
 
 
+@login_required
 def create_task(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     milestones = project.milestones.all()
@@ -292,10 +296,14 @@ def create_task(request, project_id):
         milestone_id = request.POST.get("milestone")
         milestone = Milestone.objects.get(id=milestone_id)
 
-        allowed_prioritied = ["baja","media","alta"]        
-        allowed_states = ["pendiente","En progreso","Completada"]
+        allowed_prioritied = ["baja", "media", "alta"]
+        allowed_states = ["pendiente", "En progreso", "Completada"]
 
-        if milestone == None or priority not in allowed_prioritied or state not in allowed_states:
+        if (
+            milestone == None
+            or priority not in allowed_prioritied
+            or state not in allowed_states
+        ):
             return render(
                 request,
                 "projects/task_creation.html",
@@ -327,3 +335,11 @@ def create_task(request, project_id):
         "projects/task_creation.html",
         {"project_id": project_id, "milestones": milestones},
     )
+
+
+@login_required
+def create_assigment(request, milestone_id):
+    if request.method == "POST":
+        pass
+
+    return render(request, "projects/create_assigment.html", {"milestone_id": milestone_id})
