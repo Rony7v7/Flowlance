@@ -1,6 +1,101 @@
-<form method="post">
-    {% csrf_token %}
-    <p>{{ form.predefined_skills.label_tag }} {{ form.predefined_skills }}</p>
-    <p>{{ form.custom_skills.label_tag }} {{ form.custom_skills }}</p>
-    <button type="submit">Guardar Habilidades</button>
-</form>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
+
+    <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
+        <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Habilidades al Perfil</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">Habilidades</h2> 
+        <p class="block text-primary_black font-normal mt-4 font-sans semi">
+            Aquí puedes agregar habilidades predeterminadas y personalizadas a tu perfil. 
+        </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-bg_white p-8 rounded-md" id="form-container">
+        <form id="skillsForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-primary_black font-medium" for="predefined_skills">Habilidades Predeterminadas</label>
+                {% if form.all_skills_selected %}
+                    <p class="text-gray-600 text-center">Ya tienes todas las habilidades predeterminadas</p>
+                {% else %}
+                    {{ form.predefined_skills }}
+                {% endif %}
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium">{{ form.custom_skills.label }}</label>
+                <textarea name="custom_skills" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Escribe tus habilidades personalizadas separadas por comas" required>{{ form.custom_skills.value|default_if_none:"" }}</textarea>
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
+                    Guardar Habilidades
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="flex justify-end">
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                &times;
+            </button>
+        </div>
+        <div class="text-center">
+            <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <h3 class="text-lg font-semibold text-primary_black">Información guardada exitosamente</h3>
+            <p class="text-gray-600 mt-2">¿Deseas seguir agregando habilidades?</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
+                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('skillsForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('confirmationModal').classList.remove('hidden'); 
+    });
+
+    document.getElementById('addMore').addEventListener('click', function () {
+        let formData = new FormData(document.getElementById('skillsForm'));
+        
+        fetch("{% url 'add_skills' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('confirmationModal').classList.add('hidden');
+                document.getElementById('skillsForm').reset();
+                document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' }); 
+            } else {
+                alert('Hubo un error al guardar las habilidades, intenta nuevamente.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('submitForm').addEventListener('click', function () {
+        document.getElementById('confirmationModal').classList.add('hidden');
+        document.getElementById('skillsForm').submit(); 
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('confirmationModal').classList.add('hidden'); 
+    });
+</script>
+
+{% endblock %}
