@@ -3,44 +3,85 @@
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
-
-    <div class="w-full bg-white shadow-lg rounded-lg p-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-start">
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg p-8">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start">
             <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
             <div class="sm:ml-6 mt-6 sm:mt-0">
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">{{ profile.user.username }}</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold text-primary_medium">{{ profile.user.username }}</h1>
+                <p class="text-primary_black font-semibold">Desarrollador Full Stack</p>
+                <p class="text-primary_black mt-2">
+                    Apasionado del desarrollo web con más de 5 años de experiencia en la creación de aplicaciones robustas y escalables.
+                </p>
+                <p class="text-primary_black mt-2 flex items-center">
+                    Cali, Valle del Cauca, Colombia
+                    <span class="ml-2">
+                        {% include 'icon/LocationIcon.html' %}
+                    </span>
+                </p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="https://www.linkedin.com" aria-label="LinkedIn" class="text-primary_medium hover:text-primary_dark">
+                        {% include 'icon/LinkedInIcon.html' %}
+                    </a>
+                    <a href="https://twitter.com" aria-label="Twitter" class="text-primary_medium hover:text-primary_dark">
+                        {% include 'icon/TwitterIcon.html' %}
+                    </a>
+                    <a href="https://github.com" aria-label="GitHub" class="text-primary_medium hover:text-primary_dark">
+                        {% include 'icon/GithubIcon.html' %}
+                    </a>
+                </div>
+                <button class="mt-4 bg-primary_medium text-white font-bold py-2 px-4 rounded hover:bg-primary_dark focus:outline-none">
+                    Editar Perfil
+                </button>
             </div>
         </div>
     </div>
-
-    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-gray-800">Habilidades</h2>
-        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+    
+    
+    
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
+        <div class="mt-4 flex flex-wrap gap-2">
             {% for skill in skills %}
-            <li class="text-gray-700">{{ skill.name }}</li>
+            <span class="bg-primary_lightest text-primary_black px-3 py-1 rounded-full text-sm font-medium shadow-sm">
+                {{ skill.name }}
+            </span>
             {% empty %}
-            <li class="text-gray-500">No se han agregado habilidades aún.</li>
+            <p class="text-gray-500">No se han agregado habilidades aún.</p>
             {% endfor %}
-        </ul>
+        </div>
     </div>
+    
 
-    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-gray-800">Experiencia Laboral</h2>
-        <ul class="mt-4 space-y-4">
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-xl font-bold text-primary_black">Experiencia Laboral</h2>
+        <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
-            <li class="bg-gray-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-semibold text-gray-800">{{ experience.title }}</h3>
-                <p class="text-gray-600">{{ experience.company }}</p>
-                <p class="text-gray-500 text-sm">Desde: {{ experience.start_date }}{% if experience.end_date %} hasta: {{ experience.end_date }}{% else %} hasta la fecha{% endif %}</p>
-                <p class="text-gray-700">{{ experience.description }}</p>
+            <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                    <div class="bg-primary_medium text-white w-10 h-10 flex items-center justify-center rounded-full">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16V8a4 4 0 014-4h12m0 8h-8m4 0H4v8h12a4 4 0 004-4z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-primary_black">{{ experience.title }}</h3>
+                    <p class="text-primary_medium font-medium">{{ experience.company }}</p>
+                    <p class="text-gray-500 text-sm mt-1">
+                        Desde: {{ experience.start_date|date:"M. d, Y" }} 
+                        {% if experience.end_date %} hasta: {{ experience.end_date|date:"M. d, Y" }}{% else %} hasta la fecha{% endif %}
+                    </p>
+                    <p class="text-gray-700 mt-2">{{ experience.description }}</p>
+                </div>
             </li>
             {% empty %}
             <li class="text-gray-500">No se ha añadido experiencia laboral aún.</li>
             {% endfor %}
         </ul>
     </div>
+    
 
-    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Curriculum Vitae</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
             <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar Curriculum</a>
@@ -49,7 +90,7 @@
         {% endif %}
     </div>
 
-    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Portafolio</h2>
         {% if portfolio %}
             <h4 class="text-lg font-semibold text-gray-600 mt-4">Proyectos:</h4>
@@ -69,7 +110,7 @@
         {% endif %}
     </div>
 
-    <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-xl font-bold text-gray-800">Cursos</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {% for course in courses %}
