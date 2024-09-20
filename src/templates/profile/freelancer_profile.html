@@ -6,8 +6,8 @@
     <div class="w-full bg-bg_gray shadow-lg rounded-lg p-8">
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
             <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
-            <div class="sm:ml-6 mt-6 sm:mt-0">
-                <h1 class="text-2xl sm:text-3xl font-bold text-primary_medium">{{ profile.user.username }}</h1>
+            <div class="sm:ml-6 mt-6 sm:mt-0 flex-1">
+                <h1 class="text-3xl sm:text-3xl font-bold text-primary_medium">{{ profile.user.username }}</h1>
                 <p class="text-primary_black font-semibold">Desarrollador Full Stack</p>
                 <p class="text-primary_black mt-2">
                     Apasionado del desarrollo web con más de 5 años de experiencia en la creación de aplicaciones robustas y escalables.
@@ -34,34 +34,32 @@
                 </button>
             </div>
         </div>
-    </div>
     
-    
-    
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
-        <div class="mt-4 flex flex-wrap gap-2">
-            {% for skill in skills %}
-            <span class="bg-primary_lightest text-primary_black px-3 py-1 rounded-full text-sm font-medium shadow-sm">
-                {{ skill.name }}
-            </span>
-            {% empty %}
-            <p class="text-gray-500">No se han agregado habilidades aún.</p>
-            {% endfor %}
+        <!-- Sección de Habilidades dentro del mismo contenedor -->
+        <div class="mt-6">
+            <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
+            <div class="mt-4 flex flex-wrap gap-2">
+                {% for skill in skills %}
+                <span class="bg-primary_lightest text-primary_black px-3 py-1 rounded-full text-sm font-medium shadow-sm">
+                    {{ skill.name }}
+                </span>
+                {% empty %}
+                <p class="text-gray-500">No se han agregado habilidades aún.</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
     
+    
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-primary_black">Experiencia Laboral</h2>
+        <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
         <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
             <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
                 <div class="flex-shrink-0">
                     <div class="bg-primary_medium text-white w-10 h-10 flex items-center justify-center rounded-full">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16V8a4 4 0 014-4h12m0 8h-8m4 0H4v8h12a4 4 0 004-4z"/>
-                        </svg>
+                        {% include 'icon/ExperienceIcon.html' %}
                     </div>
                 </div>
                 <div>
@@ -79,6 +77,50 @@
             {% endfor %}
         </ul>
     </div>
+
+    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
+        <h2 class="text-2xl font-bold text-gray-800">Portafolio</h2>
+    
+        {% if portfolio %}
+            <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                {% for project in projects %}
+                <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                    <img src="{{ project.project_image.url }}" alt="{{ project.project_name }}" class="w-full h-40 object-cover rounded">
+                    <div class="p-4">
+                        <h5 class="text-lg font-semibold text-gray-800">{{ project.project_name }}</h5>
+                        <p class="text-gray-600 mt-2">{{ project.project_description }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
+                {% endfor %}
+            </div>
+    
+            <h4 class="text-xl font-semibold text-primary_medium mt-8">Cursos</h4>
+            <div class="space-y-6 mt-4">
+                {% for course in courses %}
+                <div class="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg">
+                    <img src="{{ course.course_image.url }}" alt="{{ course.course_name }}" class="w-36 h-20 object-cover rounded-md mr-6">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h5 class="text-lg font-semibold text-primary_black mb-1">{{ course.course_name }}</h5>
+                            <a href="{{ course.course_link }}" class="text-primary_medium hover:text-primary_dark ml-2 inline-flex items-center">
+                                {% include 'icon/LinkIcon.html' %}
+                            </a>
+                        </div>
+                        <p class="text-primary_dark mb-1">{{ course.organization }}</p>
+                        <p class="text-gray-500 mb-1">Expedición: {{ course.expedition_date|date:"M Y" }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">No se han agregado cursos aún.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">No se ha creado un portafolio aún.</p>
+        {% endif %}
+    </div>
     
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
@@ -89,43 +131,6 @@
             <p class="text-gray-500">No se ha subido ningún CV aún.</p>
         {% endif %}
     </div>
-
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-gray-800">Portafolio</h2>
-        {% if portfolio %}
-            <h4 class="text-lg font-semibold text-gray-600 mt-4">Proyectos:</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-                {% for project in projects %}
-                <div class="bg-gray-100 p-4 rounded-lg shadow-lg">
-                    <img src="{{ project.project_image.url }}" alt="{{ project.project_name }}" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h5 class="text-lg font-semibold text-gray-800">{{ project.project_name }}</h5>
-                    <p class="text-gray-600 mt-2">{{ project.project_description }}</p>
-                </div>
-                {% empty %}
-                <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-gray-500">No se ha creado un portafolio aún.</p>
-        {% endif %}
-    </div>
-
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-gray-800">Cursos</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-            {% for course in courses %}
-            <div class="bg-gray-100 p-4 rounded-lg shadow-lg">
-                <img src="{{ course.course_image.url }}" alt="{{ course.course_name }}" class="w-full h-40 object-cover rounded-md mb-4">
-                <h5 class="text-lg font-semibold text-gray-800">{{ course.course_name }}</h5>
-                <p class="text-gray-600 mt-2">Organización: {{ course.organization }}</p>
-                <p class="text-gray-500">Fecha de expedición: {{ course.expedition_date }}</p>
-                <a href="{{ course.course_link }}" class="text-purple-600 hover:text-purple-500 underline mt-2">Enlace del Curso</a>
-                <p class="text-gray-600 mt-2">{{ course.course_description }}</p>
-            </div>
-            {% empty %}
-            <p class="text-gray-500">No se han agregado cursos aún.</p>
-            {% endfor %}
-        </div>
-    </div>
+    
 </div>
 {% endblock %}
