@@ -33,6 +33,6 @@ urlpatterns = [
     path('settings/', include('settings.urls')),  # Incluye las URLs de configuración
 ]
 
-# Añadir configuración para servir archivos de media durante el desarrollo
+# Add static and media files in debug modej
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

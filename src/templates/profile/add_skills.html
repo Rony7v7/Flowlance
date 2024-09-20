@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <p>{{ form.predefined_skills.label_tag }} {{ form.predefined_skills }}</p>
+    <p>{{ form.custom_skills.label_tag }} {{ form.custom_skills }}</p>
+    <button type="submit">Guardar Habilidades</button>
+</form>
