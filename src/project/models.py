@@ -57,6 +57,15 @@ class Task(models.Model):
         related_name="tasks",
     )
     
+class TimelineChange(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='timeline_changes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    change_description = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.project.title} - {self.timestamp}"
+
     @property
     def deadline_color(self):
         days_remaining = (self.end_date - date.today()).days
