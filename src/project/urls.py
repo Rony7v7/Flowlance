@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path("create/", views.create_project, name="create_project"),
-    path("list/", views.list_projects, name="list_projects"),
+    path("list/", views.project_list, name="list_projects"),# David changed this line from views.lists_projects to views.project_list because that does not exist in views.py
     path("<int:project_id>/<str:section>", views.display_project, name="project"),
     path("create_milestone/<int:project_id>", views.add_milestone, name="add_milestone"),
     path('task/<int:task_id>/add-description/', views.add_description, name='add_description'),
