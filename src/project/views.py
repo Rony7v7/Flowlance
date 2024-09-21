@@ -360,7 +360,7 @@ def create_assigment(request, milestone_id):
             end_date=end_date,
         )
 
-        return redirect("project", project_id=milestone.project.id, section="milestone")
+        return redirect("edit_milestone", milestone_id=milestone_id)
 
     return render(
         request,
@@ -369,14 +369,44 @@ def create_assigment(request, milestone_id):
     )
 
 
-def edit_assigment(request, milestone_id):
-    milestone = Milestone.objects.get(id=milestone_id)
+def edit_assigment(request, assigment_id):
+    assigment = Assigment.objects.get(id=assigment_id)
+    milestone_id = assigment.milestone.id
 
     if request.method == "POST":
-        pass
+        # Get data from the POST request
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
 
+        if name == "" or description == "":
+            return redirect("create_assigment", milestone_id=milestone_id)
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("create_assigment", milestone_id=milestone_id)
+
+        assigment.title = name
+        assigment.description = description
+        assigment.end_date = end_date
+
+        # Save changes to the database
+        assigment.save()
+        # Redirect to the project view
+        return redirect("edit_milestone", milestone_id=milestone_id)
     return render(
         request,
         "projects/create_assigment.html",
-        {"milestone": milestone, "is_editing": True},
+        {"assigment": assigment, "is_editing": True},
     )
+
+
+def delete_assigment(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id)
+    milestone_id = assigment.milestone.id
+
+    if request.method == "POST":
+        assigment.delete()
+        return redirect("edit_milestone", milestone_id=milestone_id)

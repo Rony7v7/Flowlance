@@ -17,5 +17,6 @@ urlpatterns = [
     path("delete_milestone/<int:milestone_id>",views.delete_milestone,name="delete_milestone"),
     path("task/create/<int:project_id>",views.create_task,name="create_task"),
     path("assigment/create/<int:milestone_id>",views.create_assigment, name= "create_assigment"),
-    path("assigment/edit/<int:milestone_id>",views.edit_assigment,name="edit_assigment")
+    path("assigment/edit/<int:assigment_id>",views.edit_assigment,name="edit_assigment"),
+    path("assigment/delete/<int:assigment_id>",views.delete_assigment,name="delete_assigment"),
 ]
