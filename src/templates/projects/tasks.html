@@ -7,23 +7,33 @@
     {% url 'create_task' project.id as add_task_url %}
     {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
 
+    {% if messages %}
+    <!-- This block checks for Django messages -->
+    <div id="messages" class="hidden">
+        {% for message in messages %}
+        <span>{{ message }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 
 <div class="grid grid-cols-3 gap-6 mt-4">
-    <!-- Loop through Milestones -->
     {% for milestone in milestones %}
-    <!-- Loop through Tasks for each Milestone -->
     {% for task in milestone.tasks.all %}
     <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
         <div class="w-full {{ task.deadline_color }} p-1"></div>
-        <h3 class="text-lg font-semibold text-primary_black">{{ task.milestone.name }}</h3>
-        <h3 class="text-md font-bold text-primary_medium">{{ task.title }}</h3>
-        <span>Asignado a: {{task.user}}</span>
+        <h3 class="text-lg font-semibold text-primary_black">Hito: {{ task.milestone.name }}</h3>
+        <h3 class="text-md font-bold text-primary_medium">Titulo: {{ task.title }}</h3>
+        <span>Asignado a: {{ task.user }}</span>
         <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
         <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
         <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
+        <p class="text-sm text-primary_medium">Prioridad: {{ task.priority}}</p>
     </div>
     {% endfor %}
     {% endfor %}
 </div>
+
+{% include 'utils/popup_success.html' %}
+
 {% endblock %}
