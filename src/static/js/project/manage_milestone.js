@@ -53,17 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('new_milestone')) {
-        showNewMilestonePopup();
-    }
-});
 
-function showNewMilestonePopup() {
-    // Logic to open the pop-up
-    alert('New milestone created!');
-    // Replace with your modal logic
-}
 
 

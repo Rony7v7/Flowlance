@@ -418,6 +418,7 @@ def upload_assigment(request, assigment_id):
             if request.FILES.get('entregable'):
                 assigment.file = request.FILES['entregable']
                 assigment.save()
+                messages.success(request,"File uploaded correctly!")
                 return redirect('edit_milestone', milestone_id=assigment.milestone.id)
         
     return render(request, 'projects/upload_assigment_file.html', {'assigment': assigment})
