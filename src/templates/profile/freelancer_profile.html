@@ -86,7 +86,7 @@
     </div>
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-gray-800">Portafolio</h2>
+        <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
 
         {% if portfolio %}
         <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
@@ -134,7 +134,7 @@
 
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-xl font-bold text-gray-800">Curriculum Vitae</h2>
+        <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
         <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar
             Curriculum</a>
@@ -144,4 +144,91 @@
     </div>
 
 </div>
+
+<!-- Ratings and Reviews Section -->
+<div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-xl font-bold text-gray-800">Calificaciones y COmentarios</h2>
+    <div class="mt-4 space-y-4">
+        {% for rating in ratings %}
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p class="text-gray-800 font-semibold">{{ rating.stars }} stars by {{ rating.client.username }}</p>
+            <p class="text-gray-700">{{ rating.comment }}</p>
+            {% if rating.response %}
+            <div class="bg-gray-50 p-2 mt-2 rounded">
+                <p class="text-gray-600 font-semibold">Response: {{ rating.response.response_text }}</p>
+
+                <div class="flex space-x-2 mt-1">
+                    {% if rating.response.can_edit %}
+                    <a href="{% url 'edit_rating_response' rating.response.id %}"
+                        class="text-blue-600 hover:text-blue-500 underline">Edit Response</a>
+                    {% endif %}
+                    <a href="#" class="text-red-600 hover:text-red-500 underline delete-response"
+                        data-response-id="{{ rating.response.id }}">Delete Response</a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'add_rating_response' rating.id %}"
+                class="text-purple-600 hover:text-purple-500 underline mt-2">Respond to this rating</a>
+            {% endif %}
+
+            <a href="#" class="text-red-600 hover:text-red-500 underline delete-rating"
+                data-rating-id="{{ rating.id }}">Delete Rating</a>
+        </div>
+        {% empty %}
+        <p class="text-gray-500">No ratings yet.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'add_rating' profile.user.username %}"
+        class="text-purple-600 hover:text-purple-500 underline mt-4 block">Add a Rating</a>
+
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        function handleDelete(url, elementToRemove) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json()) // Intenta parsear la respuesta a JSON
+                .then(data => {
+                    if (data.status === 'success') {
+                        elementToRemove.remove();
+                        alert('Eliminado correctamente');
+                    } else {
+                        alert('No se pudo eliminar: ' + data.message);
+                        console.error('Error al eliminar:', data); // Log detallado del error
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al intentar eliminar.');
+                });
+        }
+
+        document.querySelectorAll('.delete-response').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const responseId = this.dataset.responseId;
+                handleDelete(`/delete_rating_response/${responseId}/`, this.closest('.bg-gray-50'));
+            });
+        });
+
+        document.querySelectorAll('.delete-rating').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const ratingId = this.dataset.ratingId;
+                handleDelete(`/delete_rating/${ratingId}/`, this.closest('.bg-gray-100'));
+            });
+        });
+    });
+</script>
+
 {% endblock %}

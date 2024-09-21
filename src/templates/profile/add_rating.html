@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md">
+    <h2 class="text-3xl font-bold mb-6">Calificando a: {{ freelancer.user.username }}</h2>
+    <form method="post" id="ratingForm">
+        {% csrf_token %}
+        <div class="space-y-6 mb-8">
+            {% for i in "12345" %}
+            <div class="flex items-center justify-between">
+                <div class="flex">
+                    {% for _ in ""|ljust:forloop.counter %}
+                    <svg class="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    </svg>
+                    {% endfor %}
+                </div>
+                <button type="button" class="bg-primary_medium text-white hover:bg-purple-600 px-4 py-2 rounded" onclick="setRating('{{ forloop.counter }}', this)">Elegir</button>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Añadir una descripción</h3>
+            <textarea name="comment" id="id_comment" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+        </div>
+        <input type="hidden" name="stars" id="id_stars" value="0">
+        <button type="submit" class="w-full bg-primary_medium text-white hover:bg-purple-600 px-4 py-2 rounded">Confirmar</button>
+    </form>
+</div>
+
+<script>
+    function setRating(stars, buttonElement) {
+        // Set the hidden input value to the selected number of stars
+        document.getElementById('id_stars').value = stars;
+
+        // Reset the color of all buttons to their default state
+        const buttons = document.querySelectorAll('button[onclick^="setRating"]');
+        buttons.forEach((button) => {
+            button.classList.remove('bg-purple-600');
+            button.classList.add('bg-primary_medium');
+        });
+
+        // Highlight the clicked button
+        buttonElement.classList.add('bg-purple-600');
+        buttonElement.classList.remove('bg-primary_medium');
+    }
+
+    // Form validation to ensure a rating is selected before submission
+    document.getElementById('ratingForm').addEventListener('submit', function(e) {
+        const stars = document.getElementById('id_stars').value;
+        if (stars === '0') {
+            e.preventDefault();
+            alert('Por favor, seleccione una calificación.');
+        }
+    });
+</script>
+
+{% endblock %}
