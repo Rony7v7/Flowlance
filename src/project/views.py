@@ -517,3 +517,21 @@ def update_application_status(request, application_id, action):
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect('project', project_id=application.project.id, section='milestone')
+
+@login_required
+def add_file(request, task_id):
+
+    task = get_object_or_404(Task, id=task_id)
+    project_id = task.milestone.project.id  
+
+    if request.method == "POST" and request.FILES.get('file'):
+        file = request.FILES['file']
+
+        TaskFile.objects.create(
+            task=task,
+            file=file,
+        )
+
+        return redirect("project", project_id=project_id, section="task")
+
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})

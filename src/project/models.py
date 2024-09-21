@@ -106,7 +106,7 @@ class Assigment(models.Model):
     description = models.TextField()
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
-    priority = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
 
 class TaskDescription(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='descriptions')
@@ -118,7 +118,13 @@ class TaskDescription(models.Model):
         return f"Description by {self.user.username} on {self.task.title}"
 
 
+class TaskFile(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='files')
+    file = models.FileField(upload_to='task_files/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"File for {self.task.title}"
     
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
