@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const deleteButton = document.getElementById('delete-button');
-    const confirmationModal = document.getElementById('delete_confirmation');
-    const confirmButton = document.getElementById('confirm-button');
-    const cancelButton = document.getElementById('cancel-button');
+    const deleteButton = document.getElementById('delete-assigment');
+    const confirmationModal = document.getElementById('delete-confirmation-assigment');
+    const confirmButton = document.getElementById('confirm-button-assigment');
+    const cancelButton = document.getElementById('cancel-button-assigment');
 
     let deleteUrl = '';
-    const projectId = JSON.parse(document.getElementById('project-id').textContent);
+    const milestone_id = JSON.parse(document.getElementById('milestone-id').textContent);
     deleteButton.addEventListener('click', (e) => {
         e.preventDefault();
         // Store the URL for the POST request
         deleteUrl = e.target.closest('a').href;
-
         confirmationModal.classList.remove('hidden');
     });
 
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({}) // Include any data you need to send
         }).then(response => {
             if (response.ok) {
-                window.location.href = `/project/${projectId}/milestone`; // Redirect after successful delete
+                window.location.href = `/project/edit_milestone/${milestone_id}`; // Redirect after successful delete
             } else {
                 console.error('Delete request failed');
             }
@@ -33,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    cancelButton.addEventListener('click', () => {
+    cancelButton.addEventListener('click', (e) => {
+        e.preventDefault() 
         confirmationModal.classList.add('hidden');
     });
 
@@ -52,7 +52,4 @@ document.addEventListener('DOMContentLoaded', () => {
         return cookieValue;
     }
 });
-
-
-
 

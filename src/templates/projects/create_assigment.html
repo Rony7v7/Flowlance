@@ -4,38 +4,39 @@
 
 {% block app_content %}
 
-<div class="flex justify-center items-center h-screen">
-    <h3></h3>
+<div class="flex justify-center items-center">
 
     <div class="flex flex-col mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
-                <label for="name" class="block text-md font-medium text-primary_black">Nombre de la Tarea</label>
-                <input id="name" name="name" type="text"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
-                    required>
+                <label for="name" class="block text-md font-medium text-primary_black">Nombre del Entregable</label>
+                <input id="name" name="name" type="text" {% if is_editing %} value="{{assigment.title}}" {% endif%}
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
+                focus:ring-primary_medium focus:border-primary_medium sm:text-sm" required>
             </div>
             <div class="mt-8">
-                <label for="description" class="block text-md font-medium text-primary_black">Descripción de la
-                    Tarea</label>
+                <label for="description" class="block text-md font-medium text-primary_black">Descripcion del
+                    Entregable</label>
                 <textarea id="description" name="description" rows="3"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
-                    required></textarea>
+                    required>{% if is_editing %}{{assigment.description}}{% endif %}</textarea>
             </div>
 
             <div class="w-1/2 mt-8">
                 <label for="end_date" class="block text-md font-medium text-primary_black">Fecha de
                     Finalizacion</label>
-                <input name="end_date" type="date" id="end_date" {% if is_editing and milestone.end_date %}
-                    value="{{ milestone.end_date|date:'Y-m-d' }}" {% endif %}
+                <input name="end_date" type="date" id="end_date" {% if is_editing and assigment.end_date %}
+                    value="{{ assigment.end_date|date:'Y-m-d' }}" {% endif %}
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
-
             </div>
 
-            <div class="justify-end  items-center">
-                <a href="/project/{{project_id}}/task">
+            <div class="justify-end  items-center mt-4">
+                <a {% if is_editing %} href="/project/edit_milestone/{{assigment.milestone.id}}">
+                    {% else %}
+                    href="/project/edit_milestone/{{milestone.id}}">
+                    {% endif %}
                     <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2">Cancelar</button>
                 </a>
                 <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg">Guardar</button>
@@ -45,6 +46,5 @@
 
 </div>
 
-</div>
 
 {% endblock %}

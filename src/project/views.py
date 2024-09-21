@@ -352,11 +352,73 @@ def create_assigment(request, milestone_id):
         except (TypeError, ValueError):
             return redirect("create_assigment", project_id=milestone_id)
         Assigment.objects.create(
-            title = name,
-            creator = request.user,
-            responsible = , #TODO: ADD THE RESPONSIBLE OF THE TASK
-            description = description,
-            end_date = end_date
+            title=name,
+            creator=request.user,
+            responsible=None,  # TODO: ADD THE RESPONSIBLE OF THE TASK
+            description=description,
+            milestone=milestone,
+            end_date=end_date,
         )
 
-    return render(request, "projects/create_assigment.html", {"milestone_id": milestone_id})
+        return redirect("edit_milestone", milestone_id=milestone_id)
+
+    return render(
+        request,
+        "projects/create_assigment.html",
+        {"milestone": milestone, "is_editing": False},
+    )
+
+
+def edit_assigment(request, assigment_id):
+    assigment = Assigment.objects.get(id=assigment_id)
+    milestone_id = assigment.milestone.id
+
+    if request.method == "POST":
+        # Get data from the POST request
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
+
+        if name == "" or description == "":
+            return redirect("create_assigment", milestone_id=milestone_id)
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("create_assigment", milestone_id=milestone_id)
+
+        assigment.title = name
+        assigment.description = description
+        assigment.end_date = end_date
+
+        # Save changes to the database
+        assigment.save()
+        # Redirect to the project view
+        return redirect("edit_milestone", milestone_id=milestone_id)
+    return render(
+        request,
+        "projects/create_assigment.html",
+        {"assigment": assigment, "is_editing": True},
+    )
+
+
+def delete_assigment(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id)
+    milestone_id = assigment.milestone.id
+
+    if request.method == "POST":
+        assigment.delete()
+        return redirect("edit_milestone", milestone_id=milestone_id)
+
+def upload_assigment(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id)
+        
+    if request.method == 'POST':
+            if request.FILES.get('entregable'):
+                assigment.file = request.FILES['entregable']
+                assigment.save()
+                messages.success(request,"File uploaded correctly!")
+                return redirect('edit_milestone', milestone_id=assigment.milestone.id)
+        
+    return render(request, 'projects/upload_assigment_file.html', {'assigment': assigment})
