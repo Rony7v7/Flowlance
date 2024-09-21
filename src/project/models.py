@@ -89,4 +89,4 @@ class Assigment(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    priority = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
