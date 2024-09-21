@@ -1,10 +1,10 @@
 <div class="flex w-full gap-7 items-center h-12 justify-between">
     <!-- Barra de búsqueda -->
-    <form class="relative w-full focus:shadow-sm">
+    <form action="/project/list/" method="GET" class="relative w-full focus:shadow-sm">
         <div class="flex justify-between w-full bg-white rounded-xl border-primary_lightest border px-2">
             <!-- Input de búsqueda -->
-            <input type="search" id="default-search"
-                class="w-full px-2 py-2 text-sm text-primary_black border-none rounded-xl focus:outline-none focus:ring-0  focus:border-transparent"
+            <input type="search" name="search" id="default-search"
+                class="w-full px-2 py-2 text-sm text-primary_black border-none rounded-xl focus:outline-none focus:ring-0 focus:border-transparent"
                 placeholder="Buscar proyectos" />
 
             <!-- Botón de búsqueda -->
@@ -21,13 +21,13 @@
                     class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 transition">
                     {% include "icon/filter.html" with h="24" classname="" %}
                 </button>
-                	
+
                 <!-- Opciones desplegables -->
-                 {% include "navigation/search_filters.html" %}
-       
+                {% include "navigation/search_filters.html" %}
             </div>
         </div>
     </form>
+
 
     <!-- Íconos de perfil y notificaciones -->
     <div class="flex gap-4 items-center">

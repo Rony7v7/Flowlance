@@ -147,33 +147,16 @@ def add_milestone(request, project_id):
 
 @login_required
 def project_list_availableFreelancer(request):
-    projects_available = Project.objects.all()
-
-    projects_available = [
-        {
-            "title": "Proyecto 1",
-            "description": "Descripción del proyecto 1",
-            "budget": 1000,
-            "deadline": "2021-12-31",
-        },
-        {
-            "title": "Proyecto 2",
-            "description": "Descripción del proyecto 2",
-            "budget": 2000,
-            "deadline": "2021-12-31",
-        },
-        {
-            "title": "Proyecto 3",
-            "description": "Descripción del proyecto 3",
-            "budget": 3000,
-            "deadline": "2021-12-31",
-        },
-    ]
-
+    search_query = request.GET.get('search', '')  # Captura el valor del input 'search'
+    projects = Project.objects.all()  # Obtiene todos los proyectos inicialmente
+    # Aqui se deben aplicar todos los filtros que se manden desde el front
+    if search_query:
+        projects = projects.filter(title =search_query)  # Filtra por el nombre del proyecto (title)
+  
     return render(
         request,
         "projects/project_main_view.html",
-        {"projects_available": projects_available},
+        {"projects": projects},
     )
 
 
