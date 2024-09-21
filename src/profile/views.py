@@ -135,6 +135,11 @@ def add_experience(request):
 
 
 @login_required
+def notifications(request):
+    notifications = request.user.notifications.filter(is_read=False)
+    return render(request, 'profile/notifications.html', {'notifications': notifications})
+
+
 def add_rating(request, freelancer_username):
     freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
     if request.method == 'POST':
