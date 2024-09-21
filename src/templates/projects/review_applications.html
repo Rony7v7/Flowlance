@@ -1,0 +1,33 @@
+{% extends "navigation/navigation.html" %}
+
+{% block app_content %}
+<div class="container">
+    <h2 class="text-2xl font-bold">Postulaciones para {{ project.title }}</h2>
+    <table class="min-w-full bg-white mt-4">
+        <thead>
+            <tr>
+                <th class="py-2">Freelancer</th>
+                <th class="py-2">Estado</th>
+                <th class="py-2">Fecha de Postulación</th>
+                <th class="py-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td class="py-2">{{ application.freelancer.username }}</td>
+                <td class="py-2">{{ application.status }}</td>
+                <td class="py-2">{{ application.applied_at }}</td>
+                <td class="py-2">
+                    <a href="{% url 'profile' application.freelancer.id %}" class="text-blue-500 hover:underline">Ver Perfil</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center py-4">No hay postulaciones aún.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 class Skill(models.Model):
     name = models.CharField(max_length=100)
@@ -14,7 +16,7 @@ class FreelancerProfile(models.Model):
     skills = models.ManyToManyField(Skill, related_name='freelancers', blank=True)
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
-    califications = models.ManyToManyField('Calificacion', related_name='freelancer_califications', blank=True)
+    ratings = models.ManyToManyField('Rating', related_name='freelancer_rating', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -87,13 +89,34 @@ class CurriculumVitae(models.Model):
     def __str__(self):
         return f"Curriculum Vitae de {self.profile.user.username}"
 
+class Rating(models.Model):
+    freelancer = models.ForeignKey(FreelancerProfile, on_delete=models.CASCADE, related_name='received_ratings')
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='given_ratings')
+    stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-class Calificacion(models.Model):
-    freelancer = models.ForeignKey(User, related_name="calificaciones", on_delete=models.CASCADE)  # Freelancer a quien se califica
-    usuario = models.ForeignKey(User, related_name="calificador", on_delete=models.CASCADE)  # Usuario que hace la calificación
-    estrellas = models.IntegerField()  # Número de estrellas
-    comentario = models.TextField(null=True, blank=True)  # Comentario opcional
-    fecha = models.DateTimeField(auto_now_add=True)  # Fecha de la calificación
+    def __str__(self):
+        return f"{self.client.username}'s rating for {self.freelancer.user.username}"
+
+class RatingResponse(models.Model):
+    rating = models.OneToOneField(Rating, on_delete=models.CASCADE, related_name='response')
+    response_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.username} por {self.usuario.username}'
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    message = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Response to {self.rating}"
+
+    def can_edit(self):
+        return timezone.now() - self.created_at < timezone.timedelta(hours=24)

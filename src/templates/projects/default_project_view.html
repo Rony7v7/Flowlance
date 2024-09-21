@@ -1,18 +1,19 @@
+<!-- default_project_view.html-->
+
 {% extends "navigation/navigation.html" %}
 
 {% block app_content %}
 <div class="container">
     <!-- Navigation Tabs -->
     <div class="flex items-center justify-center gap-5 bg-primary_lightest rounded-xl px-20 py-2 text-white">
-        <a href="/project/{{project.id}}/milestone"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %}">Hitos</a>
-        <a href="/project/{{project.id}}/task"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'task' %} !bg-primary_dark text-white{% endif %}">Tareas</a>
-        <a href="/project/{{project.id}}/time_line"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %}">Línea
-            de Tiempo</a>
-        <a href="/project/{{project.id}}/calendar"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
+        <a href="/project/{{ project.id }}/milestone"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %}">Hitos</a>
+        <a href="/project/{{ project.id }}/task"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'task' %} !bg-primary_dark text-white{% endif %}">Tareas</a>
+        <a href="/project/{{ project.id }}/time_line"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %}">Línea de Tiempo</a>
+        <a href="/project/{{ project.id }}/calendar"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
     </div>
 
     <!-- Panel de Control -->
@@ -23,12 +24,11 @@
             <!-- Left Section with Image -->
             <div>
                 <img src="https://picsum.photos/450/300" alt="Project Image"
-                    class=" w-[400px] h-[300px] rounded-xl mr-6">
+                     class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
                     <p class="text-lg font-semibold text-primary_black">Presupuesto: <span
-                            class="text-primary_medium">{{ project.budget}}</span>
-                    </p>
+                            class="text-primary_medium">{{ project.budget }}</span></p>
                 </div>
             </div>
 
@@ -47,6 +47,19 @@
                     </a>
                 </div>
 
+                <form method="POST" action="{% url 'apply_project' project.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
+                        Postularse a este proyecto
+                    </button>
+                </form>
+
+                <!-- Aplications list -->
+                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
+                    Ver Postulaciones
+                </button>
+              
+
                 <!-- Boton eliminar -->
                 <div class="mt-4 flex space-x-4 justify-end">
                     <a href="{% url 'project_delete' project.pk %}"
@@ -60,14 +73,64 @@
                     </div>
                 </div>
 
+                    
+                    {% if application %}
+                        <p class="text-sm text-primary_medium mt-2">Estado de la postulación: <span class="font-bold">{{ application.status }}</span></p>
+                    {% else %}
+                        <p class="text-sm text-primary_medium mt-2">No te has postulado a este proyecto aún.</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
     <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
-        {%block section %}
-
+        {% block section %}
         {% endblock %}
     </div>
 
+    <!-- Pop-up of applications -->
+    <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+            <h2 class="text-2xl font-bold mb-4">Postulaciones al Proyecto</h2>
+            <ul>
+                {% for application in applications %}
+                <li class="border-b border-gray-200 py-2 flex justify-between items-center">
+                    <div>
+                        <p>
+                            <strong>Usuario:</strong> 
+                            <a href="{% url 'freelancer_profile_view' application.user.username %}" 
+                               class="text-blue-500 hover:underline">
+                               {{ application.user.username }}
+                            </a>
+                        </p>                        <p><strong>Estado:</strong> {{ application.status }}</p>
+                        <p><strong>Fecha de Aplicación:</strong> {{ application.applied_at|date:"d M Y" }}</p>
+                    </div>
+                    {% if application.status == 'Pendiente' %}
+                    <div class="flex gap-2">
+                        <a href="{% url 'update_application_status' application.id 'accept' %}" 
+                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Aceptar</a>
+                        <a href="{% url 'update_application_status' application.id 'reject' %}" 
+                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Rechazar</a>
+                    </div>
+                    {% endif %}
+                </li>
+                {% empty %}
+                <p>No hay postulaciones para este proyecto.</p>
+                {% endfor %}
+            </ul>
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar</button>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    document.getElementById('showApplications').addEventListener('click', function() {
+        document.getElementById('applicationsModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('applicationsModal').classList.add('hidden');
+    });
+</script>
 {% endblock %}

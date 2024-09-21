@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Notificaciones</h2>
+<ul class="bg-white shadow-md rounded-lg p-4">
+    {% for notification in notifications %}
+    <li class="border-b border-gray-200 py-2">
+        <p>{{ notification.message }}</p>
+        <p class="text-sm text-gray-500">{{ notification.created_at|date:"d M Y H:i" }}</p>
+    </li>
+    {% empty %}
+    <li class="text-center py-4">No tienes notificaciones.</li>
+    {% endfor %}
+</ul>
+<a href="#" class="mt-4 inline-block text-blue-500 hover:underline" onclick="markNotificationsAsRead()">Marcar todas como leídas</a>
+
+<script>
+    function markNotificationsAsRead() {
+        // Comlete this function to mark all notifications as read
+    }
+</script>
+{% endblock %}
