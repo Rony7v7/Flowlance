@@ -1,133 +1,146 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from profile.models import PortfolioProject
+from .models import FreelancerProfile, Skill, WorkExperience, Portfolio, PortfolioProject, Course, CurriculumVitae
+from .forms import AddWorkExperienceForm, AddSkillsForm, AddCourseForm, AddProjectForm, UploadCVForm
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
 
-class Tests(TestCase):
+
+
+class ProfileModuleTests(TestCase):
     
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpass')
-        self.client.login(username='testuser', password='testpass')
+        # Create a test user and a corresponding freelancer profile
+        self.user, _ = User.objects.get_or_create(username='testuser')
+        self.profile, _ = FreelancerProfile.objects.get_or_create(user=self.user)
+        self.client.force_login(self.user)  # Log in the test client
 
-    def test_vista_creacion_proyecto(self):
-        """Checks that the project creation view loads correctly"""
-        response = self.client.get(reverse('crear_proyecto_portafolio'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'profile/crear_proyecto_portafolio.html')
+    def test_profile_creation(self):
+        # Test if profile is created correctly
+        self.assertEqual(FreelancerProfile.objects.count(), 1)
+        self.assertEqual(self.profile.user.username, 'testuser')
 
-    def test_formulario_valido(self):
-        """Checks that the form accepts valid data and saves the project"""
-        valid_data = {
-            'nombre_proyecto': 'Test Project',
-            'cliente': 'Test Client',
-            'descripcion_proyecto': 'This is a test project',
-            'fecha_inicio': '2024-01-01',
-            'fecha_fin': '2024-06-01',
-            'actividades_realizadas': 'Web Development',
-            'enlace_proyecto': 'https://example.com'
+    def test_add_skill(self):
+        # Test adding a predefined skill
+        skill = Skill.objects.create(name='Python', is_custom=False)
+        self.profile.skills.add(skill)
+        self.assertIn(skill, self.profile.skills.all())
+
+    def test_add_custom_skill(self):
+        # Test adding a custom skill through the form
+        form = AddSkillsForm(data={'custom_skills': 'Django'}, user=self.user)
+        self.assertTrue(form.is_valid())
+        form.save(user=self.user)
+        self.assertTrue(Skill.objects.filter(name='Django', is_custom=True).exists())
+
+    def test_add_course(self):
+        # Test adding a course through the form
+        portfolio = Portfolio.objects.create(freelancer_profile=self.profile)
+        form_data = {
+            'course_name': 'Django Mastery',
+            'course_description': 'Advanced Django course',
+            'organization': 'Online Academy',
+            'course_link': 'http://example.com',
+            'expedition_date': '2023-01-01'
         }
-        response = self.client.post(reverse('crear_proyecto_portafolio'), valid_data)
+        form = AddCourseForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.assertEqual(Course.objects.count(), 1)
 
-        # Verify that it redirects correctly and saves the project
-        self.assertEqual(response.status_code, 302)
+    def test_add_project(self):
+        # Test adding a project through the form
+        portfolio = Portfolio.objects.create(freelancer_profile=self.profile)
+        form_data = {
+            'project_name': 'Web App',
+            'client': 'Client A',
+            'project_description': 'Developed a web app using Django',
+            'start_date': '2023-01-01',
+            'end_date': '2023-06-01',
+            'activities_done': 'Development, Testing',
+        }
+        form = AddProjectForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        project = form.save(commit=False)
+        project.portfolio = portfolio
+        project.save()
         self.assertEqual(PortfolioProject.objects.count(), 1)
+        self.assertEqual(portfolio.projects.first().project_name, 'Web App')
 
-    def test_formulario_invalido(self):
-        """Checks that the form handles validation errors correctly"""
-        invalid_data = {
-            'cliente': 'Test Client',
-            'descripcion_proyecto': 'This is a test project',
-            'fecha_inicio': '2024-01-01',
-            'fecha_fin': '2024-06-01',
-            'actividades_realizadas': 'Web Development',
-            'enlace_proyecto': 'https://example.com'
+    def test_add_work_experience(self):
+        # Test adding work experience
+        form_data = {
+            'title': 'Software Developer',
+            'company': 'Tech Co',
+            'start_date': '2022-01-01',
+            'end_date': '2023-01-01',
+            'description': 'Developed various web applications.',
         }
-        response = self.client.post(reverse('crear_proyecto_portafolio'), invalid_data)
+        form = AddWorkExperienceForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        form.save(user=self.user)  # Pass the user during save, not init
+        self.assertEqual(WorkExperience.objects.count(), 1)
+        self.assertEqual(self.profile.freelancer_work_experience.first().title, 'Software Developer')
 
-        # The response should return to the page with the error and not save the project
+
+    def test_upload_cv(self):
+        # Test uploading a CV
+        cv_file = SimpleUploadedFile("cv.pdf", b"file_content", content_type="application/pdf")
+
+        # Check if the profile has an associated CV, if not, set the instance to None
+        if hasattr(self.profile, 'freelancer_cv'):
+            instance = self.profile.freelancer_cv
+        else:
+            instance = None
+
+        form = UploadCVForm(data={}, files={'file': cv_file}, instance=instance)
+        self.assertTrue(form.is_valid())
+        cv = form.save(commit=False)
+        cv.profile = self.profile
+        cv.save()
+        self.assertEqual(CurriculumVitae.objects.count(), 1)
+        self.assertEqual(self.profile.freelancer_cv.file.name, 'resumes/cv.pdf')
+
+
+
+    def test_view_own_profile(self):
+        # Test viewing own freelancer profile
+        response = self.client.get(reverse('freelancer_profile'))
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'nombre_proyecto', 'This field is required.')
-        self.assertEqual(PortfolioProject.objects.count(), 0)
+        self.assertContains(response, self.user.username)
 
-    def test_vista_agregar_curso(self):
-        """Checks that the course addition view loads correctly"""
-        response = self.client.get(reverse('agregar_curso'))
+    def test_view_other_profile(self):
+        # Test viewing another user's freelancer profile
+        other_user = User.objects.create(username='otheruser')
+        # No need to manually create FreelancerProfile; it should be created automatically by signals
+        response = self.client.get(reverse('freelancer_profile_view', args=[other_user.username]))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'profile/agregar_curso.html')
-            
-            
-    def test_formulario_valido(self):
-        """Checks that the form accepts valid data and saves the course"""
-        valid_data = {
-            'nombre_curso': 'Test Course',
-            'descripcion_curso': 'This is a test course',
-            'organizacion': 'Test Organization',
-            'enlace_curso': 'https://example.com',
+        self.assertContains(response, other_user.username)
+        
+        
+
+    def test_add_experience_view(self):
+        # Test adding work experience through the view
+        form_data = {
+            'title': 'Backend Developer',
+            'company': 'Tech Innovators',
+            'start_date': '2022-05-01',
+            'end_date': '2023-04-01',
+            'description': 'Worked on backend systems using Django.',
         }
-        response = self.client.post(reverse('agregar_curso'), valid_data)
 
-        # Verify that it redirects correctly and saves the course
-        self.assertEqual(response.status_code, 302)  # Expected redirection after success
-        self.assertEqual(Curso.objects.count(), 1)  # Check that the course was saved
-        
-    def test_formulario_invalido(self):
-        """Checks that the form handles validation errors correctly"""
-        invalid_data = {
-            'descripcion_curso': 'This is a test course',
-            'organizacion': 'Test Organization',
-            'enlace_curso': 'https://example.com',
-        }
-        response = self.client.post(reverse('agregar_curso'), invalid_data)
+        # Perform a POST request to the add_experience view
+        response = self.client.post(reverse('add_experience'), data=form_data)
 
-        # The response should return to the page with the error
-        self.assertEqual(response.status_code, 200)  # The page reloads with the error
-        self.assertFormError(response, 'form', 'nombre_curso', 'This field is required.')
-        self.assertEqual(Curso.objects.count(), 0)  # Nothing should be saved to the DB
-        
-    def test_vista_subir_curriculum(self):
-        """Checks that the resume upload view loads correctly"""
-        response = self.client.get(reverse('subir_curriculum'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'profile/subir_curriculum.html')
+        # Check that the response redirects to the freelancer profile view
+        self.assertRedirects(response, reverse('freelancer_profile'))
 
-    def test_formulario_valido(self):
-        """Checks that the form accepts a valid PDF file"""
-        # Simulate a PDF file
-        pdf_file = SimpleUploadedFile("resume.pdf", b"binary file content", content_type="application/pdf")
+        # Verify that the work experience was added correctly
+        self.assertEqual(WorkExperience.objects.count(), 1)
+        work_experience = WorkExperience.objects.first()
+        self.assertEqual(work_experience.title, 'Backend Developer')
+        self.assertEqual(work_experience.company, 'Tech Innovators')
+        self.assertEqual(work_experience.description, 'Worked on backend systems using Django.')
+        self.assertEqual(work_experience.freelancer, self.profile)
 
-        # Form data with the file
-        valid_data = {
-            'curriculum': pdf_file,
-        }
-        response = self.client.post(reverse('subir_curriculum'), valid_data)
-
-        # Verify redirection after success
-        self.assertEqual(response.status_code, 302)  # Redirection after successful upload
-        # Here, we can verify that the file was correctly saved in the database or filesystem if necessary.
-        
-    def test_formulario_invalido_archivo_no_pdf(self):
-        """Checks that the form handles invalid (non-PDF) files"""
-        # Simulate a text file instead of PDF
-        non_pdf_file = SimpleUploadedFile("file.txt", b"binary file content", content_type="text/plain")
-
-        # Submit the form with an invalid file
-        invalid_data = {
-            'curriculum': non_pdf_file,
-        }
-        response = self.client.post(reverse('subir_curriculum'), invalid_data)
-
-        # Verify that the form reloads with the error
-        self.assertEqual(response.status_code, 200)  # The form reloads with an error
-        self.assertFormError(response, 'form', 'curriculum', 'The file must be a PDF.')
-        
-        
-    def test_formulario_invalido_sin_archivo(self):
-        """Checks that submitting a form without an attached file is not allowed"""
-        # Submit the form without attaching a file
-        invalid_data = {}  # No file included
-
-        response = self.client.post(reverse('subir_curriculum'), invalid_data)
-
-        # Verify that the form reloads with an error
-        self.assertEqual(response.status_code, 200)  # The form reloads with an error
-        self.assertFormError(response, 'form', 'curriculum', 'This field is required.')

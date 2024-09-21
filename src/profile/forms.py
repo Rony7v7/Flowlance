@@ -50,10 +50,9 @@ class UploadCVForm(forms.ModelForm):
             'file': forms.ClearableFileInput(attrs={'accept': 'application/pdf'}),
         }
 
-
 class AddSkillsForm(forms.ModelForm):
     predefined_skills = forms.ModelMultipleChoiceField(
-        queryset=Skill.objects.filter(is_custom=False),  
+        queryset=Skill.objects.filter(is_custom=False),
         widget=forms.CheckboxSelectMultiple,
         required=False,
         label="Habilidades Predeterminadas"
@@ -63,18 +62,22 @@ class AddSkillsForm(forms.ModelForm):
         required=False,
         label="Habilidades Personalizadas"
     )
+    all_skills_selected = False  
 
     class Meta:
         model = FreelancerProfile
-        fields = []  
+        fields = []
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(AddSkillsForm, self).__init__(*args, **kwargs)
-        
+
         if user:
             profile = FreelancerProfile.objects.get(user=user)
             self.fields['predefined_skills'].queryset = Skill.objects.filter(is_custom=False).exclude(freelancers=profile)
+
+            if not self.fields['predefined_skills'].queryset.exists():
+                self.all_skills_selected = True
 
     def save(self, commit=True, user=None):
         profile = FreelancerProfile.objects.get(user=user)
@@ -92,6 +95,7 @@ class AddSkillsForm(forms.ModelForm):
         if commit:
             profile.save()
         return profile
+
 
 
 
