@@ -1,5 +1,5 @@
 from django import forms
-from .models import Skill, FreelancerProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
 
 class AddCourseForm(forms.ModelForm):
     class Meta:
@@ -119,18 +119,16 @@ class AddWorkExperienceForm(forms.ModelForm):
             work_experience.save()
         return work_experience
 
-# # forms.py
-# from django import forms
-# from .models import Calificacion
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['stars', 'comment']
+        widgets = {
+            'stars': forms.NumberInput(attrs={'min': 1, 'max': 5}),
+        }
 
-# class CalificacionForm(forms.ModelForm):
-#     class Meta:
-#         model = Calificacion
-#         fields = ['estrellas', 'comentario']
-#         widgets = {
-#             'estrellas': forms.Select(choices=[(i, i) for i in range(1, 6)]),
-#             'comentario': forms.Textarea(attrs={'rows': 3}),
-#         }
-
-
+class RatingResponseForm(forms.ModelForm):
+    class Meta:
+        model = RatingResponse
+        fields = ['response_text']
 

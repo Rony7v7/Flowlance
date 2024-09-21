@@ -1,5 +1,7 @@
 {% extends "navigation/navigation.html" %}
 
+{% csrf_token %}
+
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
@@ -86,5 +88,93 @@
             {% endfor %}
         </div>
     </div>
+
+   <!-- Ratings and Reviews Section -->
+   <div class="w-full bg-white shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-xl font-bold text-gray-800">Ratings and Reviews</h2>
+    <div class="mt-4 space-y-4">
+        {% for rating in ratings %}
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p class="text-gray-800 font-semibold">{{ rating.stars }} stars by {{ rating.client.username }}</p>
+            <p class="text-gray-700">{{ rating.comment }}</p>
+            {% if rating.response %}
+            <div class="bg-gray-50 p-2 mt-2 rounded">
+                <p class="text-gray-600 font-semibold">Response: {{ rating.response.response_text }}</p>
+                {% if user == profile.user %}
+                <div class="flex space-x-2 mt-1">
+                    {% if rating.response.can_edit %}
+                    <a href="{% url 'edit_rating_response' rating.response.id %}" class="text-blue-600 hover:text-blue-500 underline">Edit Response</a>
+                    {% endif %}
+                    <a href="#" class="text-red-600 hover:text-red-500 underline delete-response" data-response-id="{{ rating.response.id }}">Delete Response</a>
+                </div>
+                
+                {% endif %}
+            </div>
+            {% elif user == profile.user %}
+            <a href="{% url 'add_rating_response' rating.id %}" class="text-purple-600 hover:text-purple-500 underline mt-2">Respond to this rating</a>
+            {% endif %}
+            
+            {% if user == profile.user %} 
+            <a href="#" class="text-red-600 hover:text-red-500 underline delete-rating" data-rating-id="{{ rating.id }}">Delete Rating</a>
+            {% endif %} 
+        </div>
+        {% empty %}
+        <p class="text-gray-500">No ratings yet.</p>
+        {% endfor %}
+    </div>
+    
+    
+    <a href="{% url 'add_rating' profile.user.username %}" class="text-purple-600 hover:text-purple-500 underline mt-4 block">Add a Rating</a>
+    
 </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+        function handleDelete(url, elementToRemove) {
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    elementToRemove.remove();
+                    alert('Deleted successfully');
+                } else {
+                    alert('Failed to delete: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting');
+            });
+        }
+    
+        document.querySelectorAll('.delete-response').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const responseId = this.dataset.responseId;
+                if (confirm('Are you sure you want to delete this response?')) {
+                    handleDelete(`/delete_rating_response/${responseId}/`, this.closest('.bg-gray-50'));
+                }
+            });
+        });
+    
+        document.querySelectorAll('.delete-rating').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const ratingId = this.dataset.ratingId;
+                if (confirm('Are you sure you want to delete this rating?')) {
+                    handleDelete(`/delete_rating/${ratingId}/`, this.closest('.bg-gray-100'));
+                }
+            });
+        });
+    });
+    </script>
 {% endblock %}
