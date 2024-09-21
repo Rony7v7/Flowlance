@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from .forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
 from .models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile
 from .forms import AddProjectForm, AddCourseForm
+from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .models import Rating, RatingResponse
+from .forms import RatingForm, RatingResponseForm
+
+
 
 @login_required
 def add_course(request):
@@ -74,10 +82,13 @@ def freelancer_profile(request, username=None):
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.all()
         courses = portfolio.courses.all()
+           
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
+
+    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
 
     context = {
         'profile': profile,
@@ -86,6 +97,7 @@ def freelancer_profile(request, username=None):
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
+        'ratings': ratings,
     }
 
     return render(request, 'profile/freelancer_profile.html', context)
@@ -128,35 +140,84 @@ def notifications(request):
     return render(request, 'profile/notifications.html', {'notifications': notifications})
 
 
+def add_rating(request, freelancer_username):
+    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.freelancer = freelancer
+            rating.client = request.user
+            rating.save()
+            messages.success(request, 'Your rating has been submitted successfully.')
+            return redirect('freelancer_profile', username=freelancer_username)
+    else:
+        form = RatingForm()
+    return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
 
-# @login_required
-# def calificar_freelancer(request, username):
-#     # Obtener el usuario freelancer basado en el username
-#     freelancer = get_object_or_404(User, username=username)
+
+
+@login_required
+def add_rating_response(request, rating_id):
+    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user)
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST)
+        if form.is_valid():
+            response = form.save(commit=False)
+            response.rating = rating
+            response.save()
+            messages.success(request, 'Your response has been added successfully.')
+            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+    else:
+        form = RatingResponseForm()
+    return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
+
+@login_required
+def edit_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user)
+    if not response.can_edit():
+        messages.error(request, 'You can no longer edit this response.')
+        return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
     
-#     if request.method == 'POST':
-#         # Obtener los datos del formulario
-#         estrellas = request.POST.get('estrellas')
-#         comentario = request.POST.get('descripcion')
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST, instance=response)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your response has been updated successfully.')
+            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+    else:
+        form = RatingResponseForm(instance=response)
+    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+    
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST, instance=response)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your response has been updated successfully.')
+            return redirect('freelancer_profile', username=request.user.username)
+    else:
+        form = RatingResponseForm(instance=response)
+    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
 
-#         # Crear una nueva instancia de calificación
-#         nueva_calificacion = Calificacion(
-#             freelancer=freelancer,  # Freelancer a quien se califica
-#             usuario=request.user,  # Usuario que hace la calificación
-#             estrellas=estrellas,  # Número de estrellas
-#             comentario=comentario  # Comentario opcional
-#         )
-#         nueva_calificacion.save()
-
-#         # Mensaje de éxito o redirigir al perfil del freelancer
-#         return redirect('freelancer_profile', username=freelancer.username)
-
-#     return render(request, 'profile/calification.html', {'freelancer': freelancer})
+@login_required
+@require_POST
+def delete_rating(request, rating_id):
+    rating = get_object_or_404(Rating, id=rating_id)
+    if request.method == "POST":
+        rating.delete()
+        return redirect('freelancer_profile', id=rating.freelancer.user.username)
+    
 
 
 
+      
 
-
+@login_required
+@require_POST
+def delete_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id)
+    response.delete()
+    return JsonResponse({'status': 'success'})
 
 
 
