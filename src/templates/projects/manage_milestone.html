@@ -87,29 +87,8 @@
 
 
         {% if is_editing %}
-        <div class="mt-8 h-full w-full">
-
-            <h3 class="text-lg font-semibold text-primary_black">Entregables</h3>
-            <div class="flex justify-center items-center h-full w-full">
-
-                <div class="mt-8">
-                    {% url 'create_assigment' milestone.id as new_assigment %}
-                    {% include 'utils/anchor_button.html' with type=1 label='Crear Entregable' url=new_assigment %}
-                </div>
-                {% for assigment in milestone.assigments.all %}
-                <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
-                    <h3 class="text-lg font-semibold text-primary_black">Hito: {{ assigment.milestone.name }}</h3>
-                    <h3 class="text-md font-bold text-primary_medium">Titulo: {{ assigment.title }}</h3>
-                    <span>Asignado a: {{ assigment.responsible.username }}</span>
-                    <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
-                    <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
-                    <p class="text-sm text-primary_medium">Estado: {{ assigment.state}}</p>
-                    {% include 'utils/anchor_button.html' with type=1 label='Subir Entrega' %}
-                </div>
-                {% endfor %}
-                {% endif %}
-            </div>
-        </div>
+        {% include 'project/manage_milestone.html' %}
+        {% endif %}
 
         <script src="{% static 'js/project/manage_milestone.js' %}" type="text/javascript"></script>
 

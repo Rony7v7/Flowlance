@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Milestone, Project
+from .models import Assigment, Milestone, Project
 from django.http import Http404
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
@@ -339,7 +339,24 @@ def create_task(request, project_id):
 
 @login_required
 def create_assigment(request, milestone_id):
+    milestone = Milestone.objects.get(id=milestone_id)
+
     if request.method == "POST":
-        pass
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        end_date_str = request.POST.get("end_date")
+
+        # Validate and parse end_date
+        try:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        except (TypeError, ValueError):
+            return redirect("create_assigment", project_id=milestone_id)
+        Assigment.objects.create(
+            title = name,
+            creator = request.user,
+            responsible = , #TODO: ADD THE RESPONSIBLE OF THE TASK
+            description = description,
+            end_date = end_date
+        )
 
     return render(request, "projects/create_assigment.html", {"milestone_id": milestone_id})
