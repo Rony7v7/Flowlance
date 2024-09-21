@@ -122,6 +122,13 @@ def add_experience(request):
     return render(request, 'profile/add_experience.html', {'form': form})
 
 
+@login_required
+def notifications(request):
+    notifications = request.user.notifications.filter(is_read=False)
+    return render(request, 'profile/notifications.html', {'notifications': notifications})
+
+
+
 # @login_required
 # def calificar_freelancer(request, username):
 #     # Obtener el usuario freelancer basado en el username

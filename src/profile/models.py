@@ -97,3 +97,13 @@ class Calificacion(models.Model):
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.username} por {self.usuario.username}'
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    message = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Notification for {self.user.username} - {self.message}"

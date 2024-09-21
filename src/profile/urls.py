@@ -11,5 +11,5 @@ urlpatterns = [
     path('upload_curriculum/', views.upload_curriculum, name='upload_curriculum'),
     path('add_project/', views.add_project, name='add_project'),
     path('add_course/', views.add_course, name='add_course'),   
-
+    path('notifications/', views.notifications, name='notifications'),
 ]

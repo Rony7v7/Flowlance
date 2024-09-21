@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
+from profile.models import Notification  # Asegúrate de importar el modelo Notification
 
 
 from .forms import ProjectForm
@@ -466,7 +467,6 @@ def display_project(request, project_id, section):
     )
     
     
-
 @login_required
 def update_application_status(request, application_id, action):
     application = get_object_or_404(Application, id=application_id)
@@ -476,13 +476,17 @@ def update_application_status(request, application_id, action):
 
     if action == 'accept':
         application.status = 'Aceptada'
+        message = f"Tu postulación al proyecto '{application.project.title}' ha sido aceptada."
     elif action == 'reject':
         application.status = 'Rechazada'
+        message = f"Tu postulación al proyecto '{application.project.title}' ha sido rechazada."
     else:
         messages.error(request, "Acción inválida.")
         return redirect('project', project_id=application.project.id, section='milestone')
 
     application.save()
+
+    Notification.objects.create(user=application.user, message=message)
+
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect('project', project_id=application.project.id, section='milestone')
-
