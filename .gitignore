@@ -166,4 +166,7 @@ cython_debug/
 src/flowlance_virtual_enviroment/
 .vscode/
 .idea/
+
+# Node
 src/node_modules/
+src/package-lock.json
