@@ -44,7 +44,9 @@ class Task(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tasks" , null=True) #TODO:QUITAR EL HECHO DE QUE PUEDE SER NULL (LO HICE ASI PQ AUN NO TENGO USUARIO ASIGNADOS A PROYECTOS)
+    responsible = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="tasks", null=True
+    )  # TODO:QUITAR EL HECHO DE QUE PUEDE SER NULL (LO HICE ASI PQ AUN NO TENGO USUARIO ASIGNADOS A PROYECTOS)
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
     priority = models.CharField(max_length=50)
@@ -56,9 +58,12 @@ class Task(models.Model):
         blank=True,
         related_name="tasks",
     )
-    
+
+
 class TimelineChange(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='timeline_changes')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="timeline_changes"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     change_description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -76,6 +81,7 @@ class TimelineChange(models.Model):
         else:
             return "bg-green-500"
 
+
 class Assigment(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -83,10 +89,12 @@ class Assigment(models.Model):
         User, on_delete=models.CASCADE, related_name="assigments_created"
     )
     responsible = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="assigments_tasked"
+        User, on_delete=models.CASCADE, related_name="assigments_tasked", null=True #TODO: CAMBIAR ESTO
     )
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, related_name="assigments")
+    milestone = models.ForeignKey(
+        Milestone, on_delete=models.CASCADE, related_name="assigments"
+    )
     description = models.TextField()
-    start_date = models.DateField()
+    start_date = models.DateField(default=date.today)
     end_date = models.DateField()
-    state = models.CharField(max_length=50,default="INICIADO")
+    state = models.CharField(max_length=50, default="INICIADO")

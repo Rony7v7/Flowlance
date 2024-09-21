@@ -352,11 +352,16 @@ def create_assigment(request, milestone_id):
         except (TypeError, ValueError):
             return redirect("create_assigment", project_id=milestone_id)
         Assigment.objects.create(
-            title = name,
-            creator = request.user,
-            responsible = , #TODO: ADD THE RESPONSIBLE OF THE TASK
-            description = description,
-            end_date = end_date
+            title=name,
+            creator=request.user,
+            responsible=None,  # TODO: ADD THE RESPONSIBLE OF THE TASK
+            description=description,
+            milestone=milestone,
+            end_date=end_date,
         )
 
-    return render(request, "projects/create_assigment.html", {"milestone_id": milestone_id})
+        return redirect("project", project_id=milestone.project.id, section="milestone")
+
+    return render(
+        request, "projects/create_assigment.html", {"milestone_id": milestone_id}
+    )

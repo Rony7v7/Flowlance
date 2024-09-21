@@ -5,7 +5,7 @@
 {% block app_content %}
 {{ project_id|json_script:"project-id" }}
 
-<div class="flex justify-center items-center h-screen">
+<div class="flex justify-center items-center">
 
 
     <div class="flex flex-col mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
@@ -87,8 +87,9 @@
 
 
         {% if is_editing %}
-        {% include 'project/manage_milestone.html' %}
+            {% include 'projects/assigment_section.html' %}
         {% endif %}
+
 
         <script src="{% static 'js/project/manage_milestone.js' %}" type="text/javascript"></script>
 
