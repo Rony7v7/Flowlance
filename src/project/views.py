@@ -1,11 +1,14 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from datetime import datetime
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Prefetch
+from django.http import Http404, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render, redirect
+
 from .forms import ProjectForm
 from .models import Milestone, Project, Task, Comment, TaskDescription, TaskFile, Application
-from django.http import Http404
-from datetime import datetime
-from django.db.models import Prefetch
-from django.http import HttpResponseForbidden
+
 
 
 @login_required
@@ -24,12 +27,23 @@ def create_project(request):
 
 
 @login_required
-def list_projects(request):
-    # projects = Project.objects.all()
+def my_projects(request):
+    projects = Project.objects.filter(client=request.user)
+    return render(
+        request,
+        "projects/my_projects.html",
+        {
+            "projects": projects,
+        },
+    )
 
+
+@login_required
+def list_projects_Rony(request):
+    # projects = Project.objects.all()
     # Proyectos de prueba
 
-    projects = [
+    projects_available = [
         {
             "title": "Proyecto 1",
             "description": "Descripción del proyecto 1",
@@ -50,7 +64,11 @@ def list_projects(request):
         },
     ]
 
-    return render(request, "projects/project_list.html", {"projects": projects})
+    return render(
+        request,
+        "projects/project_list.html",
+        {"projects_available": projects_available},
+    )
 
 
 @login_required
@@ -125,6 +143,86 @@ def add_milestone(request, project_id):
     )
 
 
+@login_required
+def project_list_availableFreelancer(request):
+    projects_available = Project.objects.all()
+
+    projects_available = [
+        {
+            "title": "Proyecto 1",
+            "description": "Descripción del proyecto 1",
+            "budget": 1000,
+            "deadline": "2021-12-31",
+        },
+        {
+            "title": "Proyecto 2",
+            "description": "Descripción del proyecto 2",
+            "budget": 2000,
+            "deadline": "2021-12-31",
+        },
+        {
+            "title": "Proyecto 3",
+            "description": "Descripción del proyecto 3",
+            "budget": 3000,
+            "deadline": "2021-12-31",
+        },
+    ]
+
+    return render(
+        request,
+        "projects/project_main_view.html",
+        {"projects_available": projects_available},
+    )
+
+
+@login_required
+def project_list(request):
+    projects = Project.objects.filter(client=request.user)
+    return render(request, "projects/project_list.html", {"projects": projects})
+
+
+@login_required
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    milestones = project.milestones.all().order_by("start_date")
+    return render(
+        request,
+        "projects/project_detail.html",
+        {"project": project, "milestones": milestones},
+    )
+
+
+@login_required
+def project_edit(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    if request.method == "POST":
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect("project_detail", pk=project.pk)
+    else:
+        form = ProjectForm(instance=project)
+    return render(
+        request,
+        "projects/project_form.html",
+        {"form": form, "project": project, "action": "Edit"},
+    )
+
+
+@login_required
+def project_delete(request, pk):
+    project = get_object_or_404(Project, pk=pk, client=request.user)
+    if request.method == "POST":
+        project.delete()
+        return redirect("project_list")
+    return render(request, "projects/project_delete.html", {"project": project})
+
+
+def project_requirements(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    return render(request, "projects/project_requirements.html", {"project": project})
+
+
 def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
     project_id = milestone.project.id
@@ -189,7 +287,11 @@ def create_task(request, project_id):
         state = request.POST.get("state")
         milestone_id = request.POST.get("milestone")
         milestone = Milestone.objects.get(id=milestone_id)
-        if milestone == None:
+
+        allowed_prioritied = ["baja","media","alta"]        
+        allowed_states = ["pendiente","En progreso","Completada"]
+
+        if milestone == None or priority not in allowed_prioritied or state not in allowed_states:
             return render(
                 request,
                 "projects/task_creation.html",
@@ -214,7 +316,7 @@ def create_task(request, project_id):
             milestone=milestone,
         )
 
-
+        messages.success(request, "task created")
         return redirect("project", project_id=project_id, section="task")
     return render(
         request,

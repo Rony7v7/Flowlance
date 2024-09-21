@@ -1,0 +1,15 @@
+
+{% load static %}
+<div id="success-notification"
+    class="mt-10 hidden fixed top-5 right-10 bg-green-500 text-white p-5 px-7 rounded-lg shadow-lg flex items-start justify-between space-x-4">
+    <div class="flex items-center">
+        <span id="notification-message"></span>
+    </div>
+    <button onclick="hideNotification()" class="text-white focus:outline-none hover:text-gray-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+</div>
+
+<script src="{% static 'js/utils/popup_notifications.js' %}"></script>
