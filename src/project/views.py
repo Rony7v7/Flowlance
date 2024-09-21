@@ -363,5 +363,20 @@ def create_assigment(request, milestone_id):
         return redirect("project", project_id=milestone.project.id, section="milestone")
 
     return render(
-        request, "projects/create_assigment.html", {"milestone_id": milestone_id}
+        request,
+        "projects/create_assigment.html",
+        {"milestone": milestone, "is_editing": False},
+    )
+
+
+def edit_assigment(request, milestone_id):
+    milestone = Milestone.objects.get(id=milestone_id)
+
+    if request.method == "POST":
+        pass
+
+    return render(
+        request,
+        "projects/create_assigment.html",
+        {"milestone": milestone, "is_editing": True},
     )
