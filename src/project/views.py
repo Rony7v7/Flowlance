@@ -410,3 +410,14 @@ def delete_assigment(request, assigment_id):
     if request.method == "POST":
         assigment.delete()
         return redirect("edit_milestone", milestone_id=milestone_id)
+
+def upload_assigment(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id)
+        
+    if request.method == 'POST':
+            if request.FILES.get('entregable'):
+                assigment.file = request.FILES['entregable']
+                assigment.save()
+                return redirect('edit_milestone', milestone_id=assigment.milestone.id)
+        
+    return render(request, 'projects/upload_assigment_file.html', {'assigment': assigment})

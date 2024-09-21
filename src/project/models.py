@@ -98,3 +98,5 @@ class Assigment(models.Model):
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
     state = models.CharField(max_length=50, default="INICIADO")
+    file = models.FileField(upload_to='entregables/', null=True, blank=True)
+
