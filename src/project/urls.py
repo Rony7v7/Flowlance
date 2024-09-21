@@ -8,7 +8,6 @@ urlpatterns = [
     path("<int:project_id>/<str:section>", views.display_project, name="project"),
     path("create_milestone/<int:project_id>", views.add_milestone, name="add_milestone"),
     path('task/<int:task_id>/add-description/', views.add_description, name='add_description'),
-    path('task/<int:task_id>/add-file/', views.add_file, name='add_file'),
     path('description/<int:description_id>/edit/', views.edit_description, name='edit_description'),
     path('task/<int:task_id>/add-comment/', views.add_comment, name='add_comment'),
     path("apply/<int:project_id>/", views.apply_project, name="apply_project"),

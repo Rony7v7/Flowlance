@@ -14,7 +14,7 @@ from profile.models import Notification  # Asegúrate de importar el modelo Noti
 
 
 from .forms import ProjectForm
-from .models import Milestone, Project, Task, Comment, TaskDescription, TaskFile, Application
+from .models import Milestone, Project, Task, Comment, TaskDescription, Application
 
 
 
