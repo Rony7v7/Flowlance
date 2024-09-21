@@ -16,7 +16,8 @@
                         <div class="flex gap-4">
                             <!-- botton de borar -->
                             <a href="/project/assigment/delete/{{assigment.id}}" id="delete-assigment">
-                                <button class="rounded-lg p-1 px-2 text-white">{% include 'icon/DeleteIcon.html' with h=24 w=24 %}</button>
+                                <button class="rounded-lg p-1 px-2 text-white">{% include 'icon/DeleteIcon.html' with
+                                    h=24 w=24 %}</button>
                             </a>
                             <!-- botton de editar -->
                             <a href="/project/assigment/edit/{{assigment.id}}">
@@ -29,7 +30,7 @@
                     <p class="text-sm text-primary_medium">Fecha de Finalización: {{ assigment.end_date }}</p>
                     <p class="text-sm text-primary_medium">Estado: {{ assigment.state }}</p>
                     <div class="mt-2 text-center">
-                        {% include 'utils/anchor_button.html' with type=1 label='Subir Entrega' %}
+                        {% include 'utils/anchor_button.html' with type=1 label='Subir Entrega' id='upload-file' %}
                     </div>
                 </div>
                 {% endfor %}
