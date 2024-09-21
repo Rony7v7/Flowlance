@@ -14,8 +14,12 @@
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
-    {% for projects_available in projects_available %}
+    {% for projects in projects %}
         {% include 'projects/project_card.html' %}
+
+        {% empty %}
+        <p class="text-gray-500 col-span-3">Sin resultados.</p>
+
     {% endfor %}
 </div>
 
