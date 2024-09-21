@@ -150,12 +150,7 @@ def add_rating(request, freelancer_username):
         form = RatingForm()
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
 
-@login_required
-@require_POST
-def delete_rating(request, rating_id):
-    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user)
-    rating.delete()
-    
+
 
 @login_required
 def add_rating_response(request, rating_id):
@@ -203,21 +198,21 @@ def edit_rating_response(request, response_id):
 @require_POST
 def delete_rating(request, rating_id):
     rating = get_object_or_404(Rating, id=rating_id)
-    rating.delete()
+    if request.method == "POST":
+        rating.delete()
+        return redirect('freelancer_profile', id=rating.freelancer.user.username)
+    
+
+
+
       
 
 @login_required
 @require_POST
 def delete_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id)
-    
-    # Check if the user is authorized to delete the response
-    if request.user == response.rating.freelancer.user:
-        response.delete()
-        return JsonResponse({'status': 'success'})
-    else:
-        return JsonResponse({'status': 'error', 'message': 'You are not authorized to delete this response.'}, status=403)
-
+    response.delete()
+    return JsonResponse({'status': 'success'})
 
 
 
