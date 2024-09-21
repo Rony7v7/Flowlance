@@ -1,3 +1,5 @@
+<!-- default_project_view.html-->
+
 {% extends "navigation/navigation.html" %}
 
 {% block app_content %}
@@ -51,6 +53,11 @@
                         Postularse a este proyecto
                     </button>
                 </form>
+
+                <!-- Aplications list -->
+                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
+                    Ver Postulaciones
+                </button>
               
 
                 <!-- Boton eliminar -->
@@ -81,5 +88,49 @@
         {% endblock %}
     </div>
 
+    <!-- Pop-up of applications -->
+    <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+            <h2 class="text-2xl font-bold mb-4">Postulaciones al Proyecto</h2>
+            <ul>
+                {% for application in applications %}
+                <li class="border-b border-gray-200 py-2 flex justify-between items-center">
+                    <div>
+                        <p>
+                            <strong>Usuario:</strong> 
+                            <a href="{% url 'freelancer_profile_view' application.user.username %}" 
+                               class="text-blue-500 hover:underline">
+                               {{ application.user.username }}
+                            </a>
+                        </p>                        <p><strong>Estado:</strong> {{ application.status }}</p>
+                        <p><strong>Fecha de Aplicación:</strong> {{ application.applied_at|date:"d M Y" }}</p>
+                    </div>
+                    {% if application.status == 'Pendiente' %}
+                    <div class="flex gap-2">
+                        <a href="{% url 'update_application_status' application.id 'accept' %}" 
+                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Aceptar</a>
+                        <a href="{% url 'update_application_status' application.id 'reject' %}" 
+                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Rechazar</a>
+                    </div>
+                    {% endif %}
+                </li>
+                {% empty %}
+                <p>No hay postulaciones para este proyecto.</p>
+                {% endfor %}
+            </ul>
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar</button>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    document.getElementById('showApplications').addEventListener('click', function() {
+        document.getElementById('applicationsModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('applicationsModal').classList.add('hidden');
+    });
+</script>
 {% endblock %}

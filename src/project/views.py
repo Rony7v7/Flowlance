@@ -6,6 +6,7 @@ from django.db.models import Prefetch
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 
+
 from .forms import ProjectForm
 from .models import Milestone, Project, Task, Comment, TaskDescription, TaskFile, Application
 
@@ -419,10 +420,8 @@ def add_comment(request, task_id):
 def apply_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
 
-    
     application, created = Application.objects.get_or_create(user=request.user, project=project)
 
-    
     return redirect("project", project_id=project_id, section="milestone")
 
 @login_required
@@ -438,6 +437,9 @@ def display_project(request, project_id, section):
         )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
+    
+    # Get all applications for the project
+    applications = project.applications.all()
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -458,6 +460,29 @@ def display_project(request, project_id, section):
             "project": project,
             "milestones": project.milestones.all(),
             "section": section,
-            "application": application, 
+            "application": application,
+             "applications": applications, 
         },
     )
+    
+    
+
+@login_required
+def update_application_status(request, application_id, action):
+    application = get_object_or_404(Application, id=application_id)
+
+    if request.user != application.project.client:
+        return HttpResponseForbidden("No tienes permiso para modificar esta postulación.")
+
+    if action == 'accept':
+        application.status = 'Aceptada'
+    elif action == 'reject':
+        application.status = 'Rechazada'
+    else:
+        messages.error(request, "Acción inválida.")
+        return redirect('project', project_id=application.project.id, section='milestone')
+
+    application.save()
+    messages.success(request, f"La postulación ha sido {application.status.lower()}.")
+    return redirect('project', project_id=application.project.id, section='milestone')
+
