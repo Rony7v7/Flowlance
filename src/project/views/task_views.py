@@ -142,7 +142,7 @@ def add_comment(request, task_id):
 
 
 
-# views.py
+
 @login_required
 def add_file(request, task_id):
     task = get_object_or_404(Task, id=task_id)
