@@ -12,8 +12,9 @@ class Project(models.Model):
     budget = models.DecimalField(max_digits=10, decimal_places=2)
     start_date = models.DateField()
     end_date = models.DateField()
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projects")
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
     created_at = models.DateTimeField(auto_now_add=True)
+    members = models.ManyToManyField(User, related_name="projects")
 
     def __str__(self):
         return self.title
@@ -39,12 +40,25 @@ class Milestone(models.Model):
         else:
             return "bg-green-500"
 
+    def __str__(self):
+        return self.name 
+
+    @property
+    def amount_completed(self):
+        total_deliverables = self.assigments.count()
+        if total_deliverables == 0:
+            return 0  # Avoid division by zero if there are no deliverables
+        completed_deliverables = self.assigments.filter(state='COMPLETADO').count()
+        return completed_deliverables
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tasks" , null=True) #TODO:QUITAR EL HECHO DE QUE PUEDE SER NULL (LO HICE ASI PQ AUN NO TENGO USUARIO ASIGNADOS A PROYECTOS)
+    responsible = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="tasks"
+    )  
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
     priority = models.CharField(max_length=50)
@@ -56,9 +70,15 @@ class Task(models.Model):
         blank=True,
         related_name="tasks",
     )
-    
+
+    def __str__(self):
+        return self.title 
+
+
 class TimelineChange(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='timeline_changes')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="timeline_changes"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     change_description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -93,13 +113,15 @@ class Assigment(models.Model):
         User, on_delete=models.CASCADE, related_name="assigments_created"
     )
     responsible = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="assigments_tasked"
+        User, on_delete=models.CASCADE, related_name="assigments_tasked" 
     )
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, related_name="assigments")
+    milestone = models.ForeignKey(
+        Milestone, on_delete=models.CASCADE, related_name="assigments"
+    )
     description = models.TextField()
-    start_date = models.DateField()
+    start_date = models.DateField(default=date.today)
     end_date = models.DateField()
-    priority = models.CharField(max_length=50)
+    state = models.CharField(max_length=50,default="INICIADO")
 
 class TaskDescription(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='descriptions')

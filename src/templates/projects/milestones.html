@@ -23,7 +23,7 @@
             <p class="text-sm text-primary_medium">Fecha de Inicio: {{ milestone.start_date }}</p>
             <p class="text-sm text-primary_medium">Fecha de Finalización: {{ milestone.end_date }}</p>
             <span class="text-sm text-primary_dark block">Entregables: <span
-                    class="block text-black mt-2">{{milestone.deliverables }}/10</span></span>
+                    class="block text-black mt-2"> {{milestone.amount_completed }} / {{milestone.assigments.count }}</span></span>
             <div class="mt-10">
                 {% url 'edit_milestone' milestone.id as milestone_edit_url %}
                 {% include 'utils/anchor_button.html' with type=1 label='Ver más' url=milestone_edit_url %}
