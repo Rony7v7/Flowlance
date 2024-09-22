@@ -15,7 +15,6 @@ urlpatterns = [
     path('<int:pk>/delete/', project_views.project_delete, name='project_delete'),
     path('application/<int:application_id>/<str:action>/', project_views.update_application_status, name='update_application_status'),
     path('<int:project_id>/requirements/', project_views.project_requirements, name='project_requirements'),
-    path("<int:project_id>/<str:section>",project_views.display_project,name="project"),
     path("create_milestone/<int:project_id>", milestone_views.add_milestone, name="add_milestone"),
     path("create_milestone/<int:project_id>",milestone_views.add_milestone,name="add_milestone"),
     path("edit_milestone/<int:milestone_id>", milestone_views.edit_milestone, name="edit_milestone"),

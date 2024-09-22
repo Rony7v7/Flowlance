@@ -30,14 +30,14 @@
     <!-- Proyectos Link -->
     {% if 'project' in request.path %}
       {% with icon_property="bold" %}
-        <a href="{% url 'project' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+        <a href="{% url 'project_list' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
           {% include 'icon/slider-vertical.html' with property=icon_property %}
           Proyectos
         </a>
       {% endwith %}
     {% else %}
       {% with icon_property="outline" %}
-        <a href="{% url 'project' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
+        <a href="{% url 'project_list' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
           {% include 'icon/slider-vertical.html' with property=icon_property %}
           Proyectos
         </a>
