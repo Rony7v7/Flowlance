@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
-from .models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile
-from .forms import AddProjectForm, AddCourseForm
+from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
+from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
+from ..forms import AddProjectForm, AddCourseForm
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import Rating, RatingResponse
-from .forms import RatingForm, RatingResponseForm
+from ..models import Rating, RatingResponse
+from ..forms import RatingForm, RatingResponseForm
+
 
 
 
@@ -132,7 +133,6 @@ def add_experience(request):
         form = AddWorkExperienceForm()
 
     return render(request, 'profile/add_experience.html', {'form': form})
-
 
 @login_required
 def notifications(request):

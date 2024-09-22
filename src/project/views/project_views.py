@@ -106,16 +106,27 @@ def project_detail(request, pk):
     )
 
 
+
 @login_required
 def project_edit(request, pk):
+    
     project = get_object_or_404(Project, pk=pk, client=request.user)
+    
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
+
+            
+            Notification.objects.create(
+                user=request.user,
+                message=f"El proyecto '{project.title}' ha sido editado exitosamente."
+            )
+
             return redirect("project_detail", pk=project.pk)
     else:
         form = ProjectForm(instance=project)
+
     return render(
         request,
         "projects/project_form.html",
@@ -123,13 +134,30 @@ def project_edit(request, pk):
     )
 
 
+
+
+
 @login_required
 def project_delete(request, pk):
+    
     project = get_object_or_404(Project, pk=pk, client=request.user)
+    
     if request.method == "POST":
+        
+        project_title = project.title
         project.delete()
+
+        
+        Notification.objects.create(
+            user=request.user,
+            message=f"El proyecto '{project_title}' ha sido eliminado exitosamente."
+        )
+
+        
         return redirect("project_list")
+    
     return render(request, "projects/project_delete.html", {"project": project})
+
 
 
 @login_required
@@ -141,11 +169,34 @@ def project_requirements(request, project_id):
 def apply_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
 
+    
     application, created = Application.objects.get_or_create(
         user=request.user, project=project
     )
 
+    if created:
+        
+        Notification.objects.create(
+            user=request.user,
+            message=f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión."
+        )
+
+        
+        Notification.objects.create(
+            user=project.client,
+            message=f"{request.user.username} se ha postulado a tu proyecto '{project.title}'."
+        )
+
+    else:
+       
+        Notification.objects.create(
+            user=request.user,
+            message=f"Ya te has postulado anteriormente al proyecto '{project.title}'."
+        )
+
+   
     return redirect("project", project_id=project_id, section="milestone")
+
 
 
 @login_required

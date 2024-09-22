@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from project.models import Comment, Milestone, Project, Task, TaskDescription, TaskFile
+from profile.models import Notification
 
 @login_required
 def create_task(request, project_id):
@@ -113,31 +114,37 @@ def add_description(request, task_id):
         request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
     )
 
-
 @login_required
 def add_comment(request, task_id):
-
     task = get_object_or_404(Task, id=task_id)
     project_id = task.milestone.project.id
-    if request.method == "POST":
 
+    if request.method == "POST":
         content = request.POST.get("content")
         if content:
 
             Comment.objects.create(task=task, user=request.user, content=content)
 
-            return redirect("project", project_id=project_id, section="task")
-        else:
+            Notification.objects.create(
+                user=request.user,
+                message=f"Has añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
+            )
 
-            return redirect("project", project_id=project_id, section="task")
+            if task.responsible and task.responsible != request.user:
+                Notification.objects.create(
+                    user=task.responsible,
+                    message=f"{request.user.username} ha añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
+                )
 
-    return render(
-        request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
-    )
+        return redirect("project", project_id=project_id, section="task")
+
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+
+
+
 
 @login_required
 def add_file(request, task_id):
-
     task = get_object_or_404(Task, id=task_id)
     project_id = task.milestone.project.id
 
@@ -149,8 +156,18 @@ def add_file(request, task_id):
             file=file,
         )
 
+        Notification.objects.create(
+            user=request.user,
+            message=f"Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
+        )
+
+        if task.responsible and task.responsible != request.user:
+            Notification.objects.create(
+                user=task.responsible,
+                message=f"{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
+            )
+
+        
         return redirect("project", project_id=project_id, section="task")
 
-    return render(
-        request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
-    )
+    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
