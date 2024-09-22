@@ -170,4 +170,9 @@ src/flowlance_virtual_enviroment/
 # Node
 src/node_modules/
 src/package-lock.json
-src/*/migrations/
+
+# Ignora todas las migraciones
+src/**/migrations/*
+
+# ¡Pero no ignores el archivo __init__.py!
+!src/**/migrations/__init__.py
