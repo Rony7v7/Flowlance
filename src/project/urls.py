@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from views import project_views , milestone_views , task_views , assigment_views
+from .views import project_views , milestone_views , task_views , assigment_views
 
 urlpatterns = [
     path("create/", project_views.create_project, name="create_project"),
