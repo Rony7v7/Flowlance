@@ -1,8 +1,6 @@
 from django.urls import path
 
-from . import profile_views
-from . import data_views
-from . import calification_views
+from .views import profile_views, data_views, calification_views
 from django.conf import settings
 from django.conf.urls.static import static
 
