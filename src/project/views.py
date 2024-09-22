@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from .models import Assigment, Milestone, Project
+from .models import Assigment, Milestone, Project, TaskFile
 from django.http import Http404
 from datetime import datetime
-
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
@@ -15,7 +15,6 @@ from profile.models import Notification  # Asegúrate de importar el modelo Noti
 
 from .forms import ProjectForm
 from .models import Milestone, Project, Task, Comment, TaskDescription, Application
-
 
 
 @login_required
@@ -77,10 +76,11 @@ def list_projects_Rony(request):
         {"projects_available": projects_available},
     )
 
+
 @login_required
 def display_project(request, project_id, section):
     try:
-        
+
         project = (
             Project.objects.only("title", "description")
             .prefetch_related(
@@ -90,7 +90,7 @@ def display_project(request, project_id, section):
         )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
-    
+
     # Get all applications for the project
     applications = project.applications.all()
 
@@ -103,7 +103,6 @@ def display_project(request, project_id, section):
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
 
-    
     application = project.applications.filter(user=request.user).first()
 
     return render(
@@ -114,7 +113,7 @@ def display_project(request, project_id, section):
             "milestones": project.milestones.all(),
             "section": section,
             "application": application,
-            "applications": applications, 
+            "applications": applications,
         },
     )
 
@@ -159,12 +158,14 @@ def add_milestone(request, project_id):
 
 @login_required
 def project_list_availableFreelancer(request):
-    search_query = request.GET.get('search', '')  # Captura el valor del input 'search'
+    search_query = request.GET.get("search", "")  # Captura el valor del input 'search'
     projects = Project.objects.all()  # Obtiene todos los proyectos inicialmente
     # Aqui se deben aplicar todos los filtros que se manden desde el front
     if search_query:
-        projects = projects.filter(title =search_query)  # Filtra por el nombre del proyecto (title)
-  
+        projects = projects.filter(
+            title=search_query
+        )  # Filtra por el nombre del proyecto (title)
+
     return render(
         request,
         "projects/project_main_view.html",
@@ -280,18 +281,20 @@ def delete_milestone(request, milestone_id):
 def create_task(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     milestones = project.milestones.all()
+
+    print(project.members.all())
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
         end_date_str = request.POST.get("end_date")
         priority = request.POST.get("priority")
         state = request.POST.get("state")
+        user_id = request.POST.get("user")
         milestone_id = request.POST.get("milestone")
         milestone = Milestone.objects.get(id=milestone_id)
-
+        user = get_object_or_404(User, id=user_id)
         allowed_prioritied = ["baja", "media", "alta"]
         allowed_states = ["pendiente", "En progreso", "Completada"]
-
         if (
             milestone == None
             or priority not in allowed_prioritied
@@ -300,7 +303,11 @@ def create_task(request, project_id):
             return render(
                 request,
                 "projects/task_creation.html",
-                {"project_id": project_id, "milestones": milestones},
+                {
+                    "project_id": project_id,
+                    "milestones": milestones,
+                    "members": project.members.all(),
+                },
             )
 
         if name == "" or description == "":
@@ -319,6 +326,7 @@ def create_task(request, project_id):
             priority=priority,
             state=state,
             milestone=milestone,
+            responsible=user,
         )
 
         messages.success(request, "task created")
@@ -326,7 +334,11 @@ def create_task(request, project_id):
     return render(
         request,
         "projects/task_creation.html",
-        {"project_id": project_id, "milestones": milestones},
+        {
+            "project_id": project_id,
+            "milestones": milestones,
+            "members": project.members.all(),
+        },
     )
 
 
@@ -404,128 +416,137 @@ def delete_assigment(request, assigment_id):
         assigment.delete()
         return redirect("edit_milestone", milestone_id=milestone_id)
 
+
 def upload_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment, id=assigment_id)
-        
-    if request.method == 'POST':
-            if request.FILES.get('entregable'):
-                assigment.file = request.FILES['entregable']
-                assigment.save()
-                messages.success(request,"File uploaded correctly!")
-                return redirect('edit_milestone', milestone_id=assigment.milestone.id)
-        
-    return render(request, 'projects/upload_assigment_file.html', {'assigment': assigment})
+
+    if request.method == "POST":
+        if request.FILES.get("entregable"):
+            assigment.file = request.FILES["entregable"]
+            assigment.save()
+            messages.success(request, "Archivos subido con exito!")
+            return redirect("edit_milestone", milestone_id=assigment.milestone.id)
+
+    return render(
+        request, "projects/upload_assigment_file.html", {"assigment": assigment}
+    )
+
 
 def edit_description(request, description_id):
-    
-    description = get_object_or_404(TaskDescription, id=description_id)
-    project_id = description.task.milestone.project.id  
 
-    
+    description = get_object_or_404(TaskDescription, id=description_id)
+    project_id = description.task.milestone.project.id
+
     if request.user != description.user and not request.user.is_superuser:
         return HttpResponseForbidden("No tienes permiso para editar esta descripción.")
 
     if request.method == "POST":
-        content = request.POST.get('content')
+        content = request.POST.get("content")
         if content:
-            
+
             description.content = content
             description.save()
-            
+
             return redirect("project", project_id=project_id, section="task")
 
     # Renderizar la plantilla desde la ubicación correcta
-    return render(request, 'projects/edit_description.html', {'description': description})
-
+    return render(
+        request, "projects/edit_description.html", {"description": description}
+    )
 
 
 @login_required
 def add_description(request, task_id):
-    
+
     task = get_object_or_404(Task, id=task_id)
-    project_id = task.milestone.project.id  
+    project_id = task.milestone.project.id
 
     if request.method == "POST":
-        content = request.POST.get('content')
+        content = request.POST.get("content")
         if content:
-            
+
             TaskDescription.objects.create(
-                task=task,
-                user=request.user,
-                content=content
+                task=task, user=request.user, content=content
             )
-        
+
         return redirect("project", project_id=project_id, section="task")
 
-    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+    return render(
+        request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
+    )
 
 
 @login_required
 def add_comment(request, task_id):
-    
+
     task = get_object_or_404(Task, id=task_id)
-    project_id = task.milestone.project.id 
+    project_id = task.milestone.project.id
     if request.method == "POST":
-        
-        content = request.POST.get('content')
+
+        content = request.POST.get("content")
         if content:
-            
-            Comment.objects.create(
-                task=task,
-                user=request.user,
-                content=content
-            )
-            
+
+            Comment.objects.create(task=task, user=request.user, content=content)
+
             return redirect("project", project_id=project_id, section="task")
         else:
-            
+
             return redirect("project", project_id=project_id, section="task")
 
-    
-    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+    return render(
+        request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
+    )
 
 
 @login_required
 def apply_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
 
-    application, created = Application.objects.get_or_create(user=request.user, project=project)
+    application, created = Application.objects.get_or_create(
+        user=request.user, project=project
+    )
 
     return redirect("project", project_id=project_id, section="milestone")
 
-    
+
 @login_required
 def update_application_status(request, application_id, action):
     application = get_object_or_404(Application, id=application_id)
 
     if request.user != application.project.client:
-        return HttpResponseForbidden("No tienes permiso para modificar esta postulación.")
+        return HttpResponseForbidden(
+            "No tienes permiso para modificar esta postulación."
+        )
 
-    if action == 'accept':
-        application.status = 'Aceptada'
+    if action == "accept":
+        application.status = "Aceptada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido aceptada."
-    elif action == 'reject':
-        application.status = 'Rechazada'
+        application.project.members.add(application.user)
+    elif action == "reject":
+        application.status = "Rechazada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido rechazada."
     else:
         messages.error(request, "Acción inválida.")
-        return redirect('project', project_id=application.project.id, section='milestone')
+        return redirect(
+            "project", project_id=application.project.id, section="milestone"
+        )
 
     application.save()
 
     Notification.objects.create(user=application.user, message=message)
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
-    return redirect('project', project_id=application.project.id, section='milestone')
+    return redirect("project", project_id=application.project.id, section="milestone")
+
 
 @login_required
 def add_file(request, task_id):
 
     task = get_object_or_404(Task, id=task_id)
-    project_id = task.milestone.project.id  
+    project_id = task.milestone.project.id
 
-    if request.method == "POST" and request.FILES.get('file'):
-        file = request.FILES['file']
+    if request.method == "POST" and request.FILES.get("file"):
+        file = request.FILES["file"]
 
         TaskFile.objects.create(
             task=task,
@@ -534,4 +555,6 @@ def add_file(request, task_id):
 
         return redirect("project", project_id=project_id, section="task")
 
-    return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+    return render(
+        request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
+    )

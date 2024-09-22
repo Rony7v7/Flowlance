@@ -33,6 +33,18 @@
 
             </div>
 
+
+            <div class="mt-8 w-1/2">
+                <label for="user" class="block text-md font-medium text-primary_black">Usuario encargado</label>
+
+                <select name="user" id="user"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
+                    {% for user in members %}
+                    <option value="{{user.id}}">{{user.username}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             <div class="mt-8">
                 <label for="priority" class="block text-md font-medium text-primary_black">Prioridad</label>
 

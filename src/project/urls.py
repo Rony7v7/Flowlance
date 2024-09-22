@@ -14,7 +14,6 @@ urlpatterns = [
     path("apply/<int:project_id>/", views.apply_project, name="apply_project"),
     path("my_projects/", views.project_list, name="my_projects"), 
     path("list/", views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
-    path('', views.project_list, name='project_list'),
     path('', views.project_list_availableFreelancer, name='project_list'),
     path("create_milestone/<int:project_id>",views.add_milestone,name="add_milestone"),
     path('<int:pk>/', views.project_detail, name='project_detail'),
