@@ -1,61 +1,115 @@
-<nav class="flex flex-col h-screen w-full p-4 bg-white shadow-lg">
+<nav class="flex flex-col h-screen w-full px-3 pt-8 bg-white shadow-lg">
 
   <!-- Logo -->
-  <div class="text-2xl font-bold mb-8">
-    <a href="{% url 'home' %}" class="text-[#6C4EF4] flex items-center space-x-2">
+  <div class="text-2xl font-bold">
+    <a href="{% url 'home' %}" class="text-primary_medium flex gap-2 px-3 items-center">
       <i> {% include 'icon/flowlance.html' with w='32' h='32' %} </i>
       <span>Flowlance</span>
     </a>
   </div>
 
   <!-- Main Menu -->
-  <div class="uppercase text-gray-400 mb-4">Main Menu</div>
+  <div class="text-primary_lightest p-3 mt-3">MAIN MENU</div>
 
-  <!-- Dashboard Link -->
-  <a href="{% url 'dashboard' %}" class="flex items-center p-2 bg-[#6C4EF4] text-white rounded">
-    {% include 'icon/home.html' with property="bold" %}
-    Dashboard
-  </a>
+  <div class="flex flex-col gap-1">
+    <!-- Dashboard Link -->
+    {% if request.resolver_match.url_name == 'dashboard' %}
+        {% with icon_property="bold" %}
+            <a href="{% url 'dashboard' %}" 
+               class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+              {% include 'icon/home.html' with property=icon_property %}
+              Dashboard
+            </a>
+        {% endwith %}
+    {% else %}
+        {% with icon_property="outline" %}
+            <a href="{% url 'dashboard' %}" 
+               class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
+              {% include 'icon/home.html' with property=icon_property %}
+              Dashboard
+            </a>
+        {% endwith %}
+    {% endif %}
 
-  <!-- Proyectos Link -->
-  <a href="/project/list" class="flex items-center p-2 mt-4 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
+    <!-- Proyectos Link -->
+    {% if request.resolver_match.url_name == 'project' %}
+        {% with icon_property="bold" %}
+            <a href="/project/list" 
+               class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+              {% include 'icon/slider-vertical.html' with property=icon_property %}
+              Proyectos
+            </a>
+        {% endwith %}
+    {% else %}
+        {% with icon_property="outline" %}
+            <a href="/project/list" 
+               class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
+              {% include 'icon/slider-vertical.html' with property=icon_property %}
+              Proyectos
+            </a>
+        {% endwith %}
+    {% endif %}
 
-    {% include 'icon/slider-vertical.html' with property="outline" %}
-    Proyectos
-  </a>
+    <!-- Chat Link -->
+    {% if request.resolver_match.url_name == 'chat' %}
+        {% with icon_property="bold" %}
+            <a href="{% url 'chat' %}" 
+               class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+              {% include 'icon/message.html' with property=icon_property %}
+              Chat
+            </a>
+        {% endwith %}
+    {% else %}
+        {% with icon_property="outline" %}
+            <a href="{% url 'chat' %}" 
+               class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
+              {% include 'icon/message.html' with property=icon_property %}
+              Chat
+            </a>
+        {% endwith %}
+    {% endif %}
 
-  <!-- Chat Link -->
-  <a href="{% url 'chat' %}" class="flex items-center p-2 mt-4 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
-    {% include 'icon/message.html' with property="outline" %}
-    Chat
-  </a>
-
-  <!-- Mi Perfil Link -->
-  <a href="{% url 'profile' %}" class="flex items-center p-2 mt-4 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
-    {% include 'icon/profile.html' with property="outline" %}
-    Mi Perfil
-  </a>
+    <!-- Mi Perfil Link -->
+    {% if request.resolver_match.url_name == 'profile' %}
+        {% with icon_property="bold" %}
+            <a href="{% url 'profile' %}" 
+               class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+              {% include 'icon/profile.html' with property=icon_property %}
+              Mi Perfil
+            </a>
+        {% endwith %}
+    {% else %}
+        {% with icon_property="outline" %}
+            <a href="{% url 'profile' %}" 
+               class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
+              {% include 'icon/profile.html' with property=icon_property %}
+              Mi Perfil
+            </a>
+        {% endwith %}
+    {% endif %}
+</div>
 
   <!-- Preferences Section -->
-  <div class="mt-8">
-    <div class="uppercase text-gray-400 mb-4">Preferencias</div>
+  <div class="text-primary_lightest p-3 mt-3">PREFERENCIAS</div>
 
+  <div class="flex flex-col gap-1">
     <!-- Ajustes Link -->
-    <a href="{% url 'settings' %}" class="flex items-center p-2 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
+    <a href="{% url 'settings' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
       {% include 'icon/settings.html' with property="outline" %}
       Ajustes
     </a>
 
-     <!-- Ayuda y Soporte Link -->
-  <a href="{% url 'support' %}" class="flex items-center p-2 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
+    <!-- Ayuda y Soporte Link -->
+  <a href="{% url 'support' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
     {% include 'icon/info-circle.html' with property="outline" %}
     Ayuda y Soporte
   </a>
 
     <!-- Log Out Link -->
-    <a href="{% url 'logout' %}" class="flex items-center p-2 text-[#6C4EF4] hover:bg-[#DED3F9] rounded">
+    <a href="{% url 'logout' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-[#DED3F9] rounded">
       {% include 'icon/logout.html' with property="outline" %}
       Log Out
     </a>
-  </div>
+</div>
+
 </nav>
