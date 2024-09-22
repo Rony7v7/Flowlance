@@ -133,3 +133,88 @@ def add_experience(request):
         form = AddWorkExperienceForm()
 
     return render(request, 'profile/add_experience.html', {'form': form})
+
+@login_required
+def notifications(request):
+    notifications = request.user.notifications.filter(is_read=False)
+    return render(request, 'profile/notifications.html', {'notifications': notifications})
+
+@login_required
+def add_rating(request, freelancer_username):
+    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.freelancer = freelancer
+            rating.client = request.user
+            rating.save()
+            messages.success(request, 'Your rating has been submitted successfully.')
+            return redirect('freelancer_profile', username=freelancer_username)
+    else:
+        form = RatingForm()
+    return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
+
+@login_required
+def add_rating_response(request, rating_id):
+    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user)
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST)
+        if form.is_valid():
+            response = form.save(commit=False)
+            response.rating = rating
+            response.save()
+            messages.success(request, 'Your response has been added successfully.')
+            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+    else:
+        form = RatingResponseForm()
+    return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
+
+@login_required
+def edit_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user)
+    if not response.can_edit():
+        messages.error(request, 'You can no longer edit this response.')
+        return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+    
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST, instance=response)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your response has been updated successfully.')
+            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+    else:
+        form = RatingResponseForm(instance=response)
+    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+    
+    if request.method == 'POST':
+        form = RatingResponseForm(request.POST, instance=response)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your response has been updated successfully.')
+            return redirect('freelancer_profile', username=request.user.username)
+    else:
+        form = RatingResponseForm(instance=response)
+    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+
+@require_POST
+@login_required
+def delete_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id)
+    if request.user == response.rating.client or request.user.is_superuser:
+        response.delete()
+        messages.success(request, 'Respuesta eliminada correctamente.')
+    else:
+        messages.error(request, 'No tienes permisos para eliminar esta respuesta.')
+    return redirect('freelancer_profile')  # Ajusta según la página de redirección
+
+@require_POST
+@login_required
+def delete_rating(request, rating_id):
+    rating = get_object_or_404(Rating, id=rating_id)
+    if request.user == rating.client or request.user.is_superuser:
+        rating.delete()
+        messages.success(request, 'Calificación eliminada correctamente.')
+    else:
+        messages.error(request, 'No tienes permisos para eliminar esta calificación.')
+    return redirect('freelancer_profile')  # Ajusta según la página de redirección
