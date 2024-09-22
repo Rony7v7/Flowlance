@@ -102,7 +102,6 @@ def display_project(request, project_id, section):
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
-
     application = project.applications.filter(user=request.user).first()
 
     return render(

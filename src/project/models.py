@@ -43,6 +43,14 @@ class Milestone(models.Model):
     def __str__(self):
         return self.name 
 
+    @property
+    def amount_completed(self):
+        total_deliverables = self.assigments.count()
+        if total_deliverables == 0:
+            return 0  # Avoid division by zero if there are no deliverables
+        completed_deliverables = self.assigments.filter(state='COMPLETADO').count()
+        return completed_deliverables
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
