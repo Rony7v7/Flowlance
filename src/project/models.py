@@ -105,7 +105,7 @@ class Assigment(models.Model):
         User, on_delete=models.CASCADE, related_name="assigments_created"
     )
     responsible = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="assigments_tasked", null=True #TODO: CAMBIAR ESTO
+        User, on_delete=models.CASCADE, related_name="assigments_tasked" 
     )
     milestone = models.ForeignKey(
         Milestone, on_delete=models.CASCADE, related_name="assigments"
@@ -113,7 +113,7 @@ class Assigment(models.Model):
     description = models.TextField()
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
-    state = models.CharField(max_length=50)
+    state = models.CharField(max_length=50,default="INICIADO")
 
 class TaskDescription(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='descriptions')

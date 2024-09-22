@@ -310,7 +310,7 @@ def create_task(request, project_id):
                 },
             )
 
-        if name == "" or description == "":
+        if name == "" or description == "" or user not in project.members.all():
             return redirect("project", project_id=project_id, section="task")
 
         # Validate and parse end_date
@@ -345,11 +345,16 @@ def create_task(request, project_id):
 @login_required
 def create_assigment(request, milestone_id):
     milestone = Milestone.objects.get(id=milestone_id)
-
+    print(milestone.project.members.all())
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
         end_date_str = request.POST.get("end_date")
+        user_id = request.POST.get("user")
+        user = get_object_or_404(User,id=user_id)
+
+        if user not in milestone.project.members.all():
+            return redirect("create_assigment", project_id=milestone_id)
 
         # Validate and parse end_date
         try:
@@ -359,7 +364,7 @@ def create_assigment(request, milestone_id):
         Assigment.objects.create(
             title=name,
             creator=request.user,
-            responsible=None,  # TODO: ADD THE RESPONSIBLE OF THE TASK
+            responsible= user,  
             description=description,
             milestone=milestone,
             end_date=end_date,
@@ -370,21 +375,23 @@ def create_assigment(request, milestone_id):
     return render(
         request,
         "projects/create_assigment.html",
-        {"milestone": milestone, "is_editing": False},
+        {"milestone": milestone, "is_editing": False,"members":milestone.project.members.all()},
     )
 
 
 def edit_assigment(request, assigment_id):
     assigment = Assigment.objects.get(id=assigment_id)
     milestone_id = assigment.milestone.id
+    
 
     if request.method == "POST":
         # Get data from the POST request
         name = request.POST.get("name")
         description = request.POST.get("description")
         end_date_str = request.POST.get("end_date")
-
-        if name == "" or description == "":
+        user_id = request.POST.get("user")
+        user = get_object_or_404(User, id = user_id)
+        if name == "" or description == "" or user not in assigment.milestone.project.members.all():
             return redirect("create_assigment", milestone_id=milestone_id)
 
         # Validate and parse end_date
@@ -396,6 +403,7 @@ def edit_assigment(request, assigment_id):
         assigment.title = name
         assigment.description = description
         assigment.end_date = end_date
+        assigment.responsible = user
 
         # Save changes to the database
         assigment.save()
@@ -404,7 +412,7 @@ def edit_assigment(request, assigment_id):
     return render(
         request,
         "projects/create_assigment.html",
-        {"assigment": assigment, "is_editing": True},
+        {"assigment": assigment, "is_editing": True,"members":assigment.milestone.project.members.all()},
     )
 
 
