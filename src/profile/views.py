@@ -139,7 +139,7 @@ def notifications(request):
     notifications = request.user.notifications.filter(is_read=False)
     return render(request, 'profile/notifications.html', {'notifications': notifications})
 
-
+@login_required
 def add_rating(request, freelancer_username):
     freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
     if request.method == 'POST':
@@ -154,8 +154,6 @@ def add_rating(request, freelancer_username):
     else:
         form = RatingForm()
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
-
-
 
 @login_required
 def add_rating_response(request, rating_id):
@@ -199,34 +197,24 @@ def edit_rating_response(request, response_id):
         form = RatingResponseForm(instance=response)
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
 
-@login_required
 @require_POST
-def delete_rating(request, rating_id):
-    rating = get_object_or_404(Rating, id=rating_id)
-    if request.method == "POST":
-        rating.delete()
-        return redirect('freelancer_profile', id=rating.freelancer.user.username)
-    
-
-
-
-      
-
 @login_required
-@require_POST
 def delete_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id)
-    response.delete()
-    return JsonResponse({'status': 'success'})
+    if request.user == response.rating.client or request.user.is_superuser:
+        response.delete()
+        messages.success(request, 'Respuesta eliminada correctamente.')
+    else:
+        messages.error(request, 'No tienes permisos para eliminar esta respuesta.')
+    return redirect('freelancer_profile')  # Ajusta según la página de redirección
 
-
-
-
-
-
-
-
-
-
-
-
+@require_POST
+@login_required
+def delete_rating(request, rating_id):
+    rating = get_object_or_404(Rating, id=rating_id)
+    if request.user == rating.client or request.user.is_superuser:
+        rating.delete()
+        messages.success(request, 'Calificación eliminada correctamente.')
+    else:
+        messages.error(request, 'No tienes permisos para eliminar esta calificación.')
+    return redirect('freelancer_profile')  # Ajusta según la página de redirección
