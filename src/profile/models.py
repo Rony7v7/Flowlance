@@ -116,7 +116,7 @@ class Notification(models.Model):
     is_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Response to {self.rating}"
+        return f"Notification for {self.user.username}: {self.message}"
 
     def can_edit(self):
         return timezone.now() - self.created_at < timezone.timedelta(hours=24)
