@@ -1,25 +1,32 @@
-.vis-item {
-        background-color: #7986CB;
-        border-color: #7986CB;
-        color: white;
-        font-size: 12px;
-        border-radius: 3px;
-    }
-    .vis-time-axis .vis-text {
-        color: #333;
-        padding-top: 10px;
-    }
-    .vis-time-axis .vis-grid.vis-minor {
-        border-width: 1px;
-        border-color: #e0e0e0;
-    }
-    .vis-labelset .vis-label {
-        color: #333;
-        font-size: 14px;
-    }
-    .vis-nested-group {
+    /* Group styling */
+    .vis-group-content {
         font-weight: bold;
+        color: white;
+        background-color: #4A5568;
+        padding: 5px;
+        border-radius: 5px;
     }
-    .vis-inner-padding {
-        padding-left: 10px;
+
+    /* Milestone styling */
+    .vis-item {
+        border-color: #3182CE !important; /* Border color of the item */
+        background-color: #63B3ED !important; /* Background color of the item */
+        border-radius: 4px;
+        color: white;
+    }
+
+    .vis-item .content {
+        padding: 8px;
+    }
+
+    /* Tooltip styling */
+    .tooltip {
+        position: absolute;
+        background-color: #1A202C;
+        color: #F7FAFC;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        display: none;
+        z-index: 1000;
     }

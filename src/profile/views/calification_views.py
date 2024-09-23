@@ -75,15 +75,7 @@ def edit_rating_response(request, response_id):
         form = RatingResponseForm(instance=response)
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
     
-    if request.method == 'POST':
-        form = RatingResponseForm(request.POST, instance=response)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your response has been updated successfully.')
-            return redirect('freelancer_profile', username=request.user.username)
-    else:
-        form = RatingResponseForm(instance=response)
-    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+
 
 @login_required
 @require_POST
@@ -91,19 +83,15 @@ def delete_rating(request, rating_id):
     rating = get_object_or_404(Rating, id=rating_id)
     if request.method == "POST":
         rating.delete()
-        return redirect('freelancer_profile', id=rating.freelancer.user.username)
+        return redirect('freelancer_profile', username=rating.freelancer.user.username)
 
-      
 
 @login_required
 @require_POST
 def delete_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id)
     response.delete()
-    return JsonResponse({'status': 'success'})
-
-
-
+    return redirect('freelancer_profile')
 
 
 
