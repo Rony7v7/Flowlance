@@ -124,9 +124,6 @@ def project_edit(request, pk):
     )
 
 
-
-
-
 @login_required
 def project_delete(request, pk):
     
