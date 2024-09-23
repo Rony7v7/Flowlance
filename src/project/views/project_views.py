@@ -15,6 +15,7 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
+            project.members.add(request.user)
             id = project.id
             return redirect("project", project_id=id, section="milestone")
     else:
@@ -48,6 +49,19 @@ def display_project(request, project_id, section):
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
+    milestones = project.milestones.all()
+
+    milestone_data = [
+        {
+            'id': milestone.id,
+            'group': milestone.project.id,  # Group by project or another criterion
+            'content': milestone.name,
+            'start': milestone.start_date.strftime('%Y-%m-%d'),
+            'end': milestone.end_date.strftime('%Y-%m-%d'),
+        }
+        for milestone in milestones
+    ]
+
     # Get all applications for the project
     applications = project.applications.all()
 
@@ -66,7 +80,8 @@ def display_project(request, project_id, section):
         section_to_show,
         {
             "project": project,
-            "milestones": project.milestones.all(),
+            "milestones": milestones,
+            "milestone_data": milestone_data,  # Pass serialized data to template
             "section": section,
             "application": application,
             "applications": applications,
