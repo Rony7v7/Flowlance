@@ -1,81 +1,152 @@
-# Flow Lance
+# **FlowLance**
 
-Simple overview of use/purpose.
+## **Description**
 
-## Description
+FlowLance is a cutting-edge online platform designed to connect freelancers with clients seeking specialized services. The primary goal of the project is to streamline interactions between freelancers and clients by offering features such as detailed profiles, project management tools, an internal messaging system, and secure payment processing. FlowLance stands out by providing innovative functionalities that enhance the user experience, ensuring efficient and secure interactions in a competitive marketplace.
 
-FlowLance es una plataforma en línea diseñada para conectar freelancers con clientes que buscan contratar servicios especializados. El objetivo principal del proyecto es facilitar la interacción entre freelancers y clientes mediante la creación de perfiles detallados, la gestión de proyectos, un sistema de mensajería interna y un procesamiento seguro de pagos. La aplicación destaca por ofrecer funcionalidades innovadoras que optimizan la experiencia del usuario, asegurando una interacción fluida y segura en un entorno competitivo.
+## **Getting Started - IMPORTANT TO CHECK LAST FEATURES**
 
+### **Dependencies**
 
-## Getting Started
+Ensure the following dependencies are installed:
 
-### Dependencies
+- Python 3.10 or higher
+- Python package manager (`pip`)
+- Node.js and npm
 
-* Python version 3.10 or above.
-* Python package manager (`pip`)
-* PostgreSQL
+### **Project Installation Guide**
 
-### Installing
+Follow these steps to set up and run the Django project on your local machine:
 
-0. If you haven't installed the package to ceate the virtual enviroment please do:
-`
-        pip install virtualenv
-`
+#### **0. Prerequisites**
 
-1. git pull `https://github.com/2024-2-PI1-G3/202402-proyecto-gecko-team`
-2. cd into the project (the src folder)
-3. Start the virtual enviroment 
-    * Linux: `source flowlance_virtual_enviroment/bin/activate`
-    * Windows: `flowlance_virtual_enviroment\Scripts\activate`
-5. Install all the requirements with: `pip install -r requirements.txt`
+Ensure you have Python and Git installed on your machine. If you haven't installed the virtual environment package, do so by running:
 
-### Executing program
-
-* First make the Django Migrations
-    ```
-        python manage.py makemigrations
-        python manage.py migrate
-
-    ```
-
-* Run the server `python manage.py runserver`
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
+```bash
+pip install virtualenv
 ```
 
-## Authors
+#### **1. Clone the Repository**
 
-- Rony Farid Ordoñez Código: A00397968
+Clone the project repository to your local environment:
 
-- Juan José De La Pava Código: A00381213
+```bash
+git clone https://github.com/2024-2-PI1-G3/202402-proyecto-gecko-team
+```
 
-- Juan Pablo Parra Código: A00398004
+#### **2. Navigate to the Project Directory**
 
-- David Artunduaga Código: A00396342
+Change into the project folder, specifically the `src` directory:
 
-- Pablo Andrés Guzmán Código: A00399523
+```bash
+cd 202402-proyecto-gecko-team/src
+```
 
-## Version History
+#### **3. Set Up the Virtual Environment**
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+Create and activate a virtual environment to manage your project's dependencies:
 
-## License
+- **Linux / macOS:**
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+    ```bash
+    python3 -m venv env
+    source env/bin/activate
+    ```
 
-## Acknowledgments
+- **Windows:**
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+    ```bash
+    python -m venv env
+    env\Scripts\activate
+    ```
+
+#### **4. Install Project Dependencies**
+
+Install the required Python packages listed in the `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+Additionally, install the necessary Node modules to ensure Tailwind CSS works correctly:
+
+```bash
+npm install
+```
+
+### **Running the Project**
+
+To start using the Django project, follow these steps:
+
+#### **1. Apply Database Migrations**
+
+Before running the server, apply database migrations to set up the initial database schema:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+#### **2. Run the Development Server**
+
+Start the Django development server:
+
+```bash
+python manage.py runserver
+```
+
+In a separate terminal window, start the Tailwind server:
+
+```bash
+python manage.py tailwind start
+```
+
+#### **3. Access the Application**
+
+Once the server is running, access the application in your web browser by navigating to:
+
+```
+http://127.0.0.1:8000
+```
+
+#### **4. Testing the Latest Functionalities**
+
+To test the latest features, first create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+Login through the `/login` URL using the superuser credentials. However, to access functionalities in the `/profile` section, you must log in with a freelancer user account, which should be created from the `/admin/` panel.
+
+Some functionalities do not have a direct flow, so please refer to **JIRA** and the following URLs to check specific modules:
+
+**Profile Module**
+
+- [Upload Curriculum](http://127.0.0.1:8000/profile/upload_curriculum/):  
+  `http://127.0.0.1:8000/profile/upload_curriculum/`
+
+- [Add Experience](http://127.0.0.1:8000/profile/add_experience/):  
+  `http://127.0.0.1:8000/profile/add_experience/`
+
+- [Add Skills](http://127.0.0.1:8000/profile/add_skills/):  
+  `http://127.0.0.1:8000/profile/add_skills/`
+
+- [Add Project](http://127.0.0.1:8000/profile/add_project/):  
+  `http://127.0.0.1:8000/profile/add_project/`
+
+- [Add Course](http://127.0.0.1:8000/profile/add_course/):  
+  `http://127.0.0.1:8000/profile/add_course/`
+
+### **Additional Tips**
+
+- If you encounter errors related to missing dependencies, ensure your virtual environment is activated and try re-running `pip install -r requirements.txt`.
+- Use `python manage.py createsuperuser` to set up an admin account for accessing the Django admin panel.
+
+## **Authors**
+
+- Rony Farid Ordoñez, Code: A00397968
+- Juan José De La Pava, Code: A00381213
+- Juan Pablo Parra, Code: A00398004
+- David Artunduaga, Code: A00396342
+- Pablo Andrés Guzmán, Code: A00399523
