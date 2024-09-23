@@ -3,7 +3,7 @@
 {% block app_content %}
 <div class="flex flex-row justify-between w-full mt-4 bg-bg_gray py-2 px-4 rounded-xl">
     <div class="flex flex-row gap-2">
-        {% url 'available_projectsFreelancer' as project_main_view %}
+        {% url 'project_list' as project_main_view %}
         {% include 'utils/anchor_button.html' with label='Disponibles' type=2 url=project_main_view %}
         
         {% url 'my_projects' as list_projects_available %}

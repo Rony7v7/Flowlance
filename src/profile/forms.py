@@ -74,7 +74,18 @@ class AddSkillsForm(forms.ModelForm):
 
         if user:
             profile = FreelancerProfile.objects.get(user=user)
-            self.fields['predefined_skills'].queryset = Skill.objects.filter(is_custom=False).exclude(freelancers=profile)
+            predefined_skills_queryset = Skill.objects.filter(is_custom=False)
+            
+            if not predefined_skills_queryset.exists():
+                predefined_skills = [
+                    Skill(name='Python', is_custom=False),
+                    Skill(name='Django', is_custom=False),
+                    Skill(name='JavaScript', is_custom=False)
+                ]
+                Skill.objects.bulk_create(predefined_skills)
+                predefined_skills_queryset = Skill.objects.filter(is_custom=False)
+
+            self.fields['predefined_skills'].queryset = predefined_skills_queryset.exclude(freelancers=profile)
 
             if not self.fields['predefined_skills'].queryset.exists():
                 self.all_skills_selected = True
