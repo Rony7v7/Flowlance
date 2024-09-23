@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from project.models import Comment, Milestone, Project, Task, TaskDescription, TaskFile
 from profile.models import Notification
+from django.contrib.auth.models import User
 
 @login_required
 def create_task(request, project_id):
@@ -21,7 +22,7 @@ def create_task(request, project_id):
         user_id = request.POST.get("user")
         milestone_id = request.POST.get("milestone")
         milestone = Milestone.objects.get(id=milestone_id)
-        user = get_object_or_404(user, id=user_id)
+        user = get_object_or_404(User, id=user_id)
         allowed_prioritied = ["baja", "media", "alta"]
         allowed_states = ["pendiente", "En progreso", "Completada"]
         if (

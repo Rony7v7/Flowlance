@@ -10,7 +10,6 @@ urlpatterns = [
     path("my_projects/", project_views.project_list, name="my_projects"), 
     path("list/", project_views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
     path('', project_views.project_list_availableFreelancer, name='project_list'),
-    path('<int:pk>/', project_views.project_detail, name='project_detail'),
     path('<int:pk>/edit/', project_views.project_edit, name='project_edit'),
     path('<int:pk>/delete/', project_views.project_delete, name='project_delete'),
     path('application/<int:application_id>/<str:action>/', project_views.update_application_status, name='update_application_status'),

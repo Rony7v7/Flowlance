@@ -95,17 +95,6 @@ def project_list(request):
     return render(request, "projects/project_list.html", {"projects": projects})
 
 
-@login_required
-def project_detail(request, pk):
-    project = get_object_or_404(Project, pk=pk, client=request.user)
-    milestones = project.milestones.all().order_by("start_date")
-    return render(
-        request,
-        "projects/project_detail.html",
-        {"project": project, "milestones": milestones},
-    )
-
-
 
 @login_required
 def project_edit(request, pk):
@@ -123,7 +112,8 @@ def project_edit(request, pk):
                 message=f"El proyecto '{project.title}' ha sido editado exitosamente."
             )
 
-            return redirect("project_detail", pk=project.pk)
+        return redirect("project", project_id=project.pk, section="milestone")
+
     else:
         form = ProjectForm(instance=project)
 
