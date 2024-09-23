@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-6">Eliminar Proyecto</h1>
+        <p class="mb-4">Are you sure you want to delete the project "{{ project.title }}"?</p>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex justify-end space-x-2">
+                <a href="/project/{{project.id}}/milestone" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+                    Cancel
+                </a>
+                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                    Eliminar Proyecto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

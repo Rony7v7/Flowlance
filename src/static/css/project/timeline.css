@@ -1,0 +1,32 @@
+    /* Group styling */
+    .vis-group-content {
+        font-weight: bold;
+        color: white;
+        background-color: #4A5568;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    /* Milestone styling */
+    .vis-item {
+        border-color: #3182CE !important; /* Border color of the item */
+        background-color: #63B3ED !important; /* Background color of the item */
+        border-radius: 4px;
+        color: white;
+    }
+
+    .vis-item .content {
+        padding: 8px;
+    }
+
+    /* Tooltip styling */
+    .tooltip {
+        position: absolute;
+        background-color: #1A202C;
+        color: #F7FAFC;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        display: none;
+        z-index: 1000;
+    }
