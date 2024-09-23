@@ -58,9 +58,6 @@ class MilestoneViewsTest(TestCase):
         
         # Check that the context has 'is_editing' set to True
         self.assertTrue(response.context['is_editing'])
-        
-        # Optionally, verify the form is in editing mode by checking for specific text or elements
-        # self.assertContains(response, 'Editar Hito')  # Ensure the page shows "Edit Milestone" text
 
 
     def test_edit_milestone_POST_valid(self):

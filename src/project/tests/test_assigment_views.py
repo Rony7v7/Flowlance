@@ -10,7 +10,6 @@ class AssigmentViewsTest(TestCase):
         self.user = User.objects.create_user(username='testuser', password='12345')
         self.client.login(username='testuser', password='12345')
 
-        # Crear un proyecto y milestone
         self.project = Project.objects.create(
             title="Test Project",
             description="Test Description",

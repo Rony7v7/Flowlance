@@ -8,7 +8,7 @@ class LoginViewTests(TestCase):
         # Set up the test client and create a user
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
-        self.login_url = reverse('login')  # Adjust this if the URL name is different
+        self.login_url = reverse('login')  
 
     def test_login_view_GET(self):
         # Test the GET request to render the login page

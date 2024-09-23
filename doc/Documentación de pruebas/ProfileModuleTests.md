@@ -7,6 +7,7 @@
 | profile      | FreelancerProfile   | Perfil de freelancer asociado al usuario de prueba  |
 | autenticado  | TestClient          | El usuario de prueba está autenticado en el sistema |
 
+---
 
 ## Pruebas
 
@@ -40,6 +41,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que el perfil de freelancer se crea y asocia correctamente con el usuario `testuser`.
 
+
+---
+
 **Test:** `test_view_own_profile`
 
 **Objetivo:** Este test verifica que un usuario pueda visualizar correctamente su propio perfil de freelancer. Se asegura de que la página del perfil del freelancer se cargue correctamente y que contenga información específica del usuario autenticado.
@@ -72,6 +76,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que el usuario puede visualizar su propio perfil de freelancer correctamente.
 
+
+---
+
 **Test:** `test_view_other_profile`
 
 **Objetivo:** Este test verifica que un usuario pueda visualizar correctamente el perfil de freelancer de otro usuario. Se asegura de que la página del perfil del otro usuario se cargue correctamente y contenga información específica de ese usuario.
@@ -103,6 +110,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 **Resultados Obtenidos**
 
 - El test pasa exitosamente, lo que confirma que un usuario puede visualizar correctamente el perfil de otro usuario de freelancer.
+
+
+---
 
 **Test:** `test_add_skill`
 
@@ -137,6 +147,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que la habilidad predefinida se agrega correctamente al perfil de freelancer del usuario.
 
+
+---
+
 **Test:** `test_add_custom_skill`
 
 **Objetivo:** Este test verifica que un usuario pueda agregar una habilidad personalizada a su perfil de freelancer mediante el formulario `AddSkillsForm`. Se asegura de que la habilidad personalizada se guarde correctamente en la base de datos y se asocie con el perfil del usuario.
@@ -170,6 +183,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 **Resultados Obtenidos**
 
 - El test pasa exitosamente, lo que confirma que la habilidad personalizada se agrega correctamente al perfil del freelancer a través del formulario.
+
+
+---
 
 
 **Test:** `test_add_work_experience`
@@ -216,6 +232,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 - El test pasa exitosamente, lo que confirma que la funcionalidad de agregar experiencia laboral funciona como se espera.
 
 
+---
+
+
 **Test:** `test_add_experience_view`
 
 **Objetivo:** Este test verifica que un usuario pueda agregar una experiencia laboral a su perfil de freelancer mediante la vista `add_experience`. Se asegura de que la experiencia se guarde correctamente en la base de datos y que el usuario sea redirigido al perfil tras agregar la experiencia.
@@ -256,6 +275,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 **Resultados Obtenidos**
 
 - El test pasa exitosamente, lo que confirma que la experiencia laboral se agrega correctamente a través de la vista y que el usuario es redirigido al perfil.
+
+
+---
 
 **Test:** `test_add_project`
 
@@ -301,6 +323,8 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 - El test pasa exitosamente, lo que confirma que el proyecto se agrega correctamente al portafolio del freelancer a través del formulario.
 
 
+---
+
 **Test:** `test_upload_cv`
 
 **Objetivo:** Este test verifica que un usuario pueda subir correctamente un archivo de Curriculum Vitae (CV) a su perfil de freelancer mediante el formulario `UploadCVForm`. Se asegura de que el archivo se guarde en la ruta esperada y se asocie al perfil del freelancer.
@@ -339,6 +363,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que el CV se sube y guarda correctamente en la ruta esperada, asociado al perfil del freelancer.
 
+
+
+---
 
 **Test:** `test_add_project_with_attachments`
 
@@ -384,6 +411,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que el proyecto con archivos adjuntos se agrega y guarda correctamente en el portafolio del freelancer.
 
+
+---
+
 **Test:** `test_add_project_with_external_link`
 
 **Objetivo:** Este test verifica que un usuario pueda agregar un proyecto con un enlace externo a su portafolio de freelancer mediante el formulario `AddProjectForm`. Se asegura de que el proyecto y el enlace externo se guarden correctamente en la base de datos y se asocien al portafolio del perfil del freelancer.
@@ -428,6 +458,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 
 - El test pasa exitosamente, lo que confirma que el proyecto con un enlace externo se agrega y guarda correctamente en el portafolio del freelancer.
 
+---
+
+
 **Test:** `test_portfolio_visibility`
 
 **Objetivo:** Este test verifica que el portafolio de un freelancer sea visible en su perfil. Se asegura de que la página del perfil del freelancer cargue correctamente y muestre el contenido asociado al portafolio, como los proyectos.
@@ -469,6 +502,9 @@ No se requieren datos de entrada específicos para este test, ya que verifica la
 **Resultados Obtenidos**
 
 - El test pasa exitosamente, lo que confirma que el portafolio es visible en el perfil del freelancer y muestra el contenido correctamente.
+
+
+---
 
 **Test:** `test_add_course`
 
