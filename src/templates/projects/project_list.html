@@ -1,4 +1,4 @@
-{% extends 'navigation/navigation.html' %}
+{% extends "navigation/navigation.html" %}
 
 {% block app_content %}
 <div class="flex flex-row justify-between w-full mt-4 bg-bg_gray py-2 px-4 rounded-xl">
@@ -20,12 +20,15 @@
         <h1 class="text-3xl font-bold">Mis Proyectos</h1>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
         {% for project in projects %}
             {% include 'projects/project_card.html' %}
-        {% empty %}
-        <p class="text-gray-500 col-span-3">No tienes proyectos.</p>
+    
+            {% empty %}
+            <p class="text-gray-500 col-span-3">Sin resultados.</p>
+    
         {% endfor %}
     </div>
+    
 </div>
 {% endblock app_content %}
