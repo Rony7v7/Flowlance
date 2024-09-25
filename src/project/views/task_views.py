@@ -9,10 +9,8 @@ from django.contrib.auth.models import User
 
 @login_required
 def create_task(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    milestones = project.milestones.all()
-
-    print(project.members.all())
+    project = get_object_or_404(Project, id=project_id,is_deleted=False)
+    milestones = project.milestones.filter(is_deleted=False)
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
@@ -74,7 +72,7 @@ def create_task(request, project_id):
 @login_required
 def edit_description(request, description_id):
 
-    description = get_object_or_404(TaskDescription, id=description_id)
+    description = get_object_or_404(TaskDescription, id=description_id,is_deleted=False)
     project_id = description.task.milestone.project.id
 
     if request.user != description.user and not request.user.is_superuser:
@@ -98,7 +96,7 @@ def edit_description(request, description_id):
 @login_required
 def add_description(request, task_id):
 
-    task = get_object_or_404(Task, id=task_id)
+    task = get_object_or_404(Task, id=task_id,is_deleted=False)
     project_id = task.milestone.project.id
 
     if request.method == "POST":
@@ -117,7 +115,7 @@ def add_description(request, task_id):
 
 @login_required
 def add_comment(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
+    task = get_object_or_404(Task, id=task_id,is_deleted=False)
     project_id = task.milestone.project.id
 
     if request.method == "POST":
@@ -146,7 +144,7 @@ def add_comment(request, task_id):
 
 @login_required
 def add_file(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
+    task = get_object_or_404(Task, id=task_id,is_deleted=False)
     project_id = task.milestone.project.id
 
     if request.method == "POST" and request.FILES.get("file"):

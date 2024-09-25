@@ -16,26 +16,26 @@ from ..forms import RatingForm, RatingResponseForm
 @login_required
 def freelancer_profile(request, username=None):
     if username is None:
-        profile = FreelancerProfile.objects.get(user=request.user)
+        profile = get_object_or_404(FreelancerProfile,user=request.user, is_deleted=False)
     else:
-        profile = get_object_or_404(FreelancerProfile, user__username=username)
+        profile = get_object_or_404(FreelancerProfile, user__username=username, is_deleted = False)
 
     try:
         portfolio = profile.portfolio_profile
-        projects = portfolio.projects.all()
-        courses = portfolio.courses.all()
+        projects = portfolio.projects.filter(is_deleted=False)
+        courses = portfolio.courses.filter(is_deleted=False)
            
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
+    ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
 
     context = {
         'profile': profile,
-        'skills': profile.skills.all(),
-        'experiences': profile.freelancer_work_experience.all(),
+        'skills': profile.skills.filter(is_deleted=False),
+        'experiences': profile.freelancer_work_experience.filter(is_deleted=False),
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
