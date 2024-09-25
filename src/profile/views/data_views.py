@@ -5,7 +5,6 @@ from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
 from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
 from ..forms import AddProjectForm, AddCourseForm
 from django.contrib import messages
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm

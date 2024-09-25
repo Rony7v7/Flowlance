@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
-from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
-from ..forms import AddProjectForm, AddCourseForm
+from ..models import FreelancerProfile, FreelancerProfile, Notification
 from django.contrib import messages
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
@@ -90,9 +87,8 @@ def delete_rating(request, rating_id):
 @login_required
 @require_POST
 def delete_rating_response(request, response_id):
-    response = get_object_or_404(RatingResponse, id=response_id,is_deleted=False)
-    response.is_deleted=True
-    response.save()
+    response = get_object_or_404(RatingResponse, id=response_id)
+    response.delete()
     return redirect('freelancer_profile')
 
 
