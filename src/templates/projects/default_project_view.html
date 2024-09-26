@@ -5,16 +5,26 @@
 {% block app_content %}
 <div class="container">
     <!-- Navigation Tabs -->
-    <div class="flex items-center justify-center gap-5 bg-primary_lightest rounded-xl px-20 py-2 text-white">
+    <div class="flex items-center justify-center gap-5 bg-primary_lightest rounded-xl px-4 py-2 text-white flex-wrap">
         <a href="/project/{{ project.id }}/milestone"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %}">Hitos</a>
+           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            Hitos
+        </a>
         <a href="/project/{{ project.id }}/task"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110 {% if section == 'task' %} !bg-primary_dark text-white{% endif %}">Tareas</a>
+           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            Tareas
+        </a>
         <a href="/project/{{ project.id }}/time_line"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %}">Línea de Tiempo</a>
+           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
+            Línea de Tiempo
+        </a>
         <a href="/project/{{ project.id }}/calendar"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
+           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            Calendario
+        </a>
     </div>
+    
+    
     
 
     <!-- Panel de Control -->

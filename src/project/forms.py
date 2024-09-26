@@ -13,6 +13,14 @@ class ProjectForm(forms.ModelForm):
             "start_date",
             "end_date",
         ]
+        labels = {
+            'title': 'Titulo del Proyecto',
+            'description': 'Descripción',
+            'requirements': 'Requerimientos',
+            'budget': 'Presupuesto',
+            'start_date': 'Fecha de Inicio',
+            'end_date': 'Fecha de Finalización',
+        }
         widgets = {
             "start_date": forms.DateInput(
                 attrs={
