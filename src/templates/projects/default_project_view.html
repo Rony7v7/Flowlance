@@ -139,9 +139,9 @@
                     {% if application.status == 'Pendiente' %}
                     <div class="flex gap-2">
                         <a href="{% url 'update_application_status' application.id 'accept' %}" 
-                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Aceptar</a>
+                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
                         <a href="{% url 'update_application_status' application.id 'reject' %}" 
-                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Rechazar</a>
+                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
                     </div>
                     {% endif %}
                 </li>
@@ -149,7 +149,7 @@
                 <p>No hay postulaciones para este proyecto.</p>
                 {% endfor %}
             </ul>
-            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl">Cerrar</button>
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Cerrar</button>
         </div>
     </div>
 

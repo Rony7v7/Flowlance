@@ -53,15 +53,20 @@ module.exports = {
                 primary_dark: "#3D46F2",
             },
             fontFamily: {
-                plus_jakarta_sans: ['Plus Jakarta Sans', 'sans-serif'],        
+                plus_jakarta_sans: ['Plus Jakarta Sans', 'sans-serif'],
             },
             animation: {
-                'wiggle': 'wiggle 0.5s ease-in-out infinite', // Añade una animación llamada "wiggle"
-              },
-              keyframes: {
+                'wiggle': 'wiggle 0.5s ease-in-out infinite',
+                'upDown': 'upDown 0.5s ease-in-out infinite',
+            },
+            keyframes: {
                 wiggle: {
-                  '0%, 100%': { transform: 'translateX(0px)' }, // Posición inicial y final
-                  '50%': { transform: 'translateX(5px)' }, // Movimiento hacia la derecha
+                    '0%, 100%': { transform: 'translateX(0px)' },
+                    '50%': { transform: 'translateX(5px)' },
+                },
+                upDown: {
+                    '0%, 100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(5px)' },
                 },
             }
         },
@@ -77,5 +82,5 @@ module.exports = {
         require('@tailwindcss/aspect-ratio'),
     ],
 
-    
+
 }
