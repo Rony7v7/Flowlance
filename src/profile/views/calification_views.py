@@ -13,6 +13,7 @@ from ..forms import RatingForm, RatingResponseForm
 @login_required
 def add_rating(request, freelancer_username):
     freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
+    
     if request.method == 'POST':
         form = RatingForm(request.POST)
         if form.is_valid():
@@ -28,9 +29,15 @@ def add_rating(request, freelancer_username):
             )
 
             messages.success(request, 'Your rating has been submitted successfully.')
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'success'}, status=200)
             return redirect('freelancer_profile', username=freelancer_username)
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'errors': form.errors}, status=400)
     else:
         form = RatingForm()
+    
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
 
 

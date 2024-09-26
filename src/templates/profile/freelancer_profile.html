@@ -3,6 +3,7 @@
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
+    <!-- Información del Freelancer -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg p-8">
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
             <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}"
@@ -56,8 +57,7 @@
         </div>
     </div>
 
-
-
+    <!-- Experiencia Laboral -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
         <ul class="mt-4 space-y-6">
@@ -85,6 +85,7 @@
         </ul>
     </div>
 
+    <!-- Portafolio -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
 
@@ -132,7 +133,7 @@
         {% endif %}
     </div>
 
-
+    <!-- Curriculum Vitae -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
@@ -142,59 +143,160 @@
         <p class="text-gray-500">No se ha subido ningún CV aún.</p>
         {% endif %}
     </div>
+<!-- Calificaciones y Comentarios -->
+<div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
+    <h2 class="text-2xl font-bold text-primary_black">Calificaciones y Comentarios</h2>
 
-    <!-- Ratings and Reviews Section -->
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Calificaciones y Comentarios</h2>
+    <div class="mt-4 space-y-4">
+        {% for rating in ratings %}
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p class="text-gray-800 font-semibold">{{ rating.stars }} estrellas por {{ rating.client.username }}</p>
+            <p class="text-gray-700">{{ rating.comment }}</p>
+            {% if rating.response %}
+            <div class="bg-gray-50 p-2 mt-2 rounded">
+                <p class="text-gray-600 font-semibold">Respuesta: {{ rating.response.response_text }}</p>
 
-        <div class="mt-4 space-y-4">
-            {% for rating in ratings %}
-            <div class="bg-gray-100 p-4 rounded-lg shadow">
-                <p class="text-gray-800 font-semibold">{{ rating.stars }} estrellas por {{ rating.client.username }}</p>
-                <p class="text-gray-700">{{ rating.comment }}</p>
-                {% if rating.response %}
-                <div class="bg-gray-50 p-2 mt-2 rounded">
-                    <p class="text-gray-600 font-semibold">Respuesta: {{ rating.response.response_text }}</p>
+                <div class="flex space-x-2 mt-1">
+                    {% if rating.response.can_edit %}
+                    <a href="{% url 'edit_rating_response' rating.response.id %}"
+                        class="bg-primary_medium text-white py-1 px-3 rounded hover:bg-primary_dark transition-colors">
+                        Editar Respuesta
+                    </a>
+                    {% endif %}
 
-                    <div class="flex space-x-2 mt-1">
-                        {% if rating.response.can_edit %}
-                        <a href="{% url 'edit_rating_response' rating.response.id %}"
-                            class="text-blue-600 hover:text-blue-500 underline">Editar Respuesta</a>
-                        {% endif %}
-
-                        <!-- Formulario para eliminar respuesta -->
-                        <form action="{% url 'delete_rating_response' rating.response.id %}" method="post"
-                            class="inline">
-                            {% csrf_token %}
-                            <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                                Eliminar respuesta
-                            </button>
-                        </form>
-                    </div>
+                    <!-- Formulario para eliminar respuesta -->
+                    <form action="{% url 'delete_rating_response' rating.response.id %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-colors">
+                            Eliminar respuesta
+                        </button>
+                    </form>
                 </div>
-                {% else %}
-                <a href="{% url 'add_rating_response' rating.id %}"
-                    class="text-purple-600 hover:text-purple-500 underline mt-2">Responder a esta calificación</a>
-                {% endif %}
-
-                <!-- Formulario para eliminar calificación -->
-                <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
-                    {% csrf_token %}
-                    <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                        Eliminar Calificación
-                    </button>
-                </form>
             </div>
-            {% empty %}
-            <p class="text-gray-500">Sin calificaciones</p>
-            {% endfor %}
-        </div>
+            {% else %}
+            <a href="{% url 'add_rating_response' rating.id %}"
+                class="bg-primary_medium text-white py-1 px-3 rounded hover:bg-primary_dark transition-colors mt-2 inline-block">
+                Responder a esta calificación
+            </a>
+            {% endif %}
 
-        <a href="{% url 'add_rating' profile.user.username %}"
-            class="text-purple-600 hover:text-purple-500 underline mt-4 block">Calificar</a>
+            <!-- Formulario para eliminar calificación -->
+            <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit"
+                    class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-colors mt-2">
+                    Eliminar Calificación
+                </button>
+            </form>
+        </div>
+        {% empty %}
+        <p class="text-gray-500">Sin calificaciones</p>
+        {% endfor %}
     </div>
 
+    <!-- Botón para agregar calificación -->
+    <a href="javascript:void(0)" onclick="openRatingModal()"
+        class="bg-primary_medium text-white py-2 px-4 rounded hover:bg-primary_dark transition-colors mt-4 inline-block">
+        Calificar
+    </a>
+</div>
 
+
+    <!-- Modal para Agregar Calificación -->
+    <div id="ratingModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 relative">
+            <button class="absolute top-2 right-2 text-primary_dark" onclick="closeRatingModal()">&times;</button>
+            <h2 class="text-2xl font-bold mb-4 text-primary_black">Calificar a {{ profile.user.username }}</h2>
+
+            <form id="ratingForm" method="POST">
+                {% csrf_token %}
+                <!-- Estrellas Interactivas -->
+                <div class="flex items-center space-x-1 mb-4" id="starContainer">
+                    {% for i in "12345" %}
+                    <svg id="star-{{ forloop.counter }}" data-value="{{ forloop.counter }}" class="w-10 h-10 text-primary_lightest cursor-pointer transition-colors duration-300 hover:text-primary_dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 .587l3.668 7.431 8.167 1.178-5.917 5.758 1.397 8.146L12 18.897l-7.315 3.847 1.397-8.146L.165 9.196l8.167-1.178L12 .587z"></path>
+                    </svg>
+                    {% endfor %}
+                </div>
+
+                <!-- Campo de Comentario -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-primary_black">Añadir una descripción</h3>
+                    <textarea name="comment" id="id_comment" rows="4" class="w-full p-4 border border-gray-300 rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
+                </div>
+
+                <!-- Campo oculto para el número de estrellas -->
+                <input type="hidden" name="stars" id="id_stars" value="0">
+
+                <!-- Botón de Confirmación -->
+                <button type="submit"
+                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Enviar
+                    Calificación</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script para manejar el modal y la selección de estrellas -->
+    <script>
+        // Abrir y cerrar modal
+        function openRatingModal() {
+            document.getElementById('ratingModal').classList.remove('hidden');
+            document.getElementById('id_stars').value = '0';  // Resetear la selección de estrellas
+            resetStars();
+        }
+
+        function closeRatingModal() {
+            document.getElementById('ratingModal').classList.add('hidden');
+        }
+
+        // Manejar la selección de estrellas
+        function resetStars() {
+            document.querySelectorAll('#starContainer svg').forEach(star => {
+                star.classList.remove('text-primary_medium', 'text-primary_dark');
+                star.classList.add('text-primary_lightest');
+            });
+        }
+
+        document.querySelectorAll('#starContainer svg').forEach(star => {
+            star.addEventListener('click', function () {
+                const ratingValue = this.getAttribute('data-value');
+                document.getElementById('id_stars').value = ratingValue;
+                resetStars(); // Resetear todas las estrellas antes de aplicar color
+
+                // Colorear todas las estrellas hasta la seleccionada
+                for (let i = 1; i <= ratingValue; i++) {
+                    document.getElementById(`star-${i}`).classList.add('text-primary_dark');
+                }
+            });
+        });
+
+        // Envío del formulario dentro del modal
+        document.getElementById('ratingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch("{% url 'add_rating' profile.user.username %}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Calificación enviada con éxito.');
+                        closeRatingModal();
+                        location.reload(); // Recargar la página para mostrar la nueva calificación
+                    } else if (data.errors) {
+                        alert('Error al enviar la calificación: ' + JSON.stringify(data.errors));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 </div>
 
 {% endblock %}
