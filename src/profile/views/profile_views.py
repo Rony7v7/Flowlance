@@ -10,16 +10,25 @@ from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
 
-
+from flowlance.decorators import attach_profile_info
 
 
 @login_required
-def freelancer_profile(request, username=None):
-    if username is None:
-        profile = FreelancerProfile.objects.get(user=request.user)
-    else:
-        profile = get_object_or_404(FreelancerProfile, user__username=username)
+@attach_profile_info
+def my_profile(request, username=None): 
 
+    profile = request.profile
+    profile_type = request.profile_type
+
+    if profile_type == 'freelancer':
+        return my_freelancer_profile(request, profile)
+    elif profile_type == 'client':
+        return my_client_profile(profile)
+    else:
+        return redirect('home')
+
+
+def my_freelancer_profile(request, profile):
     try:
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.all()
@@ -44,6 +53,8 @@ def freelancer_profile(request, username=None):
 
     return render(request, 'profile/freelancer_profile.html', context)
 
+def my_client_profile(request, profile):
+    return redirect('home') # TODO: Redirect to the client profile view
 
 @login_required
 def notifications(request):
