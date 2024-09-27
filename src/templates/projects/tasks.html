@@ -4,8 +4,10 @@
 <div class="flex justify-between items-center">
     <h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
 
+    <!-- Botón para añadir una nueva tarea -->
     {% url 'create_task' project.id as add_task_url %}
     {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
+
     {% if messages %}
     <div id="messages" class="hidden">
         {% for message in messages %}
@@ -15,8 +17,28 @@
     {% endif %}
 </div>
 
+<!-- Filtro por Hito -->
+<div class="flex justify-between items-center mt-4">
+    <form method="GET" id="milestoneFilterForm" class="flex items-center space-x-4">
+        <label for="milestone" class="text-primary_black font-semibold">Filtrar por Hito:</label>
+        <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded">
+            <option value="">Todos los hitos</option>
+            {% for milestone in milestones %}
+            <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
+                {{ milestone.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-colors">
+            Filtrar
+        </button>
+    </form>
+</div>
+
+<!-- Sección de Tareas -->
 <div class="grid grid-cols-3 gap-6 mt-4">
     {% for milestone in milestones %}
+    {% if not request.GET.milestone or request.GET.milestone == milestone.id|stringformat:"s" %}
     {% for task in milestone.tasks.all %}
     <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
         <div class="w-full {{ task.deadline_color }} p-1"></div>
@@ -27,7 +49,8 @@
         <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
         <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
         <p class="text-sm text-primary_medium">Prioridad: {{ task.priority }}</p>
-        
+
+
         <!-- Sección para Actualizar Estado -->
         <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
             {% csrf_token %}
@@ -36,7 +59,6 @@
                 <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
                 <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
                 <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
-               
             </select>
             <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>
         </form>
@@ -57,7 +79,6 @@
             {% endfor %}
         </ul>
 
-        <!-- Agregar descripción -->
         <form method="POST" action="{% url 'add_description' task.id %}" class="mt-2">
             {% csrf_token %}
             <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe una descripción..." required></textarea>
@@ -100,10 +121,13 @@
             <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe tu comentario..." required></textarea>
             <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Agregar Comentario</button>
         </form>
+
     </div>
     {% endfor %}
+    {% endif %}
     {% endfor %}
 </div>
 
 {% include 'utils/popup_success.html' %}
+
 {% endblock %}
