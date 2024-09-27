@@ -55,6 +55,20 @@ module.exports = {
             fontFamily: {
                 plus_jakarta_sans: ['Plus Jakarta Sans', 'sans-serif'],
             },
+            animation: {
+                'wiggle': 'wiggle 0.5s ease-in-out infinite',
+                'upDown': 'upDown 0.5s ease-in-out infinite',
+            },
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': { transform: 'translateX(0px)' },
+                    '50%': { transform: 'translateX(5px)' },
+                },
+                upDown: {
+                    '0%, 100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(5px)' },
+                },
+            }
         },
     },
     plugins: [
@@ -67,4 +81,6 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
     ],
+
+
 }

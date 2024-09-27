@@ -30,7 +30,7 @@
 
             {% if is_editing %}
             <a href="/project/delete_milestone/{{milestone.id}}" id="delete-button">
-                <button class="bg-red-600 rounded-lg p-1 px-2 text-white">Delete</button>
+                <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Eliminar</button>
             </a>
 
             <!-- Modal -->
@@ -41,7 +41,7 @@
                     <div class="flex justify-end">
                         <button id="confirm-button"
                             class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
-                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg">Cancelar</button>
+                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -91,9 +91,9 @@
             {% endif %}
             <div class="justify-end  items-center">
                 <a href="/project/{{project_id}}/milestone">
-                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2">Cancelar</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
                 </a>
-                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg">Guardar</button>
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">Guardar</button>
             </div>
         </form>
 
