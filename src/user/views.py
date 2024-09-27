@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .LoginForm import LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from email_service.email_service import send_email
 
 def home(request):
     return render(request, "homepage/home.html")
