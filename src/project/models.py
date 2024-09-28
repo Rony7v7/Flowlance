@@ -127,6 +127,7 @@ class Assigment(models.Model):
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
     state = models.CharField(max_length=50,default="INICIADO")
+    file = models.FileField(null = True , blank= True)
     is_deleted = models.BooleanField(default=False, null=False)
 
 class TaskDescription(models.Model):
