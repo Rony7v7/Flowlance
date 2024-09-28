@@ -7,7 +7,7 @@ from project.models import Milestone, Project
 @login_required
 def add_milestone(request, project_id):
     # Retrieve the project or raise a 404 error if not found
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id,is_deleted=False)
 
     if request.method == "POST":
         # Get data from the POST request
@@ -43,9 +43,9 @@ def add_milestone(request, project_id):
 
 @login_required
 def edit_milestone(request, milestone_id):
-    milestone = get_object_or_404(Milestone, id=milestone_id)
+    milestone = get_object_or_404(Milestone, id=milestone_id,is_deleted=False)
     project_id = milestone.project.id
-
+    assigments = milestone.assigments.filter(is_deleted=False)
     if request.method == "POST":
         # Get data from the POST request
         name = request.POST.get("name")
@@ -83,14 +83,16 @@ def edit_milestone(request, milestone_id):
             "milestone": milestone,
             "is_editing": True,
             "project_id": project_id,
+            "assigments":assigments,
         },
     )
 
 
 @login_required
 def delete_milestone(request, milestone_id):
-    milestone = get_object_or_404(Milestone, id=milestone_id)
+    milestone = get_object_or_404(Milestone, id=milestone_id,is_deleted=False)
     project_id = milestone.project.id
     if request.method == "POST":
-        milestone.delete()
+        milestone.is_deleted = True
+        milestone.save()
         return redirect("project", project_id=project_id, section="milestone")

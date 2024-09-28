@@ -25,7 +25,7 @@ def create_project(request):
 
 @login_required
 def my_projects(request):
-    projects = Project.objects.filter(client=request.user)
+    projects = Project.objects.filter(client=request.user,is_deleted=False)
     return render(
         request,
         "projects/my_projects.html",
@@ -39,17 +39,18 @@ def my_projects(request):
 def display_project(request, project_id, section):
     try:
 
-        project = (
+        project = get_object_or_404(
             Project.objects.only("title", "description")
             .prefetch_related(
                 Prefetch("milestones", queryset=Milestone.objects.order_by("end_date"))
-            )
-            .get(id=project_id)
+            ),
+            id=project_id,
+            is_deleted=False
         )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
-    milestones = project.milestones.all()
+    milestones = project.milestones.filter(is_deleted=False)
 
     milestone_data = [
         {
@@ -63,7 +64,7 @@ def display_project(request, project_id, section):
     ]
 
     # Get all applications for the project
-    applications = project.applications.all()
+    applications = project.applications.filter(is_deleted=False)
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -73,7 +74,7 @@ def display_project(request, project_id, section):
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
-    application = project.applications.filter(user=request.user).first()
+    application = project.applications.filter(user=request.user,is_deleted=False).first()
 
     return render(
         request,
@@ -91,7 +92,7 @@ def display_project(request, project_id, section):
 @login_required
 def project_list_availableFreelancer(request):
     search_query = request.GET.get("search", "")  # Captura el valor del input 'search'
-    projects = Project.objects.all()  # Obtiene todos los proyectos inicialmente
+    projects = Project.objects.filter(is_deleted = False)  # Obtiene todos los proyectos inicialmente
     # Aqui se deben aplicar todos los filtros que se manden desde el front
     if search_query:
         projects = projects.filter(
@@ -106,7 +107,7 @@ def project_list_availableFreelancer(request):
 
 @login_required
 def project_list(request):
-    projects = Project.objects.filter(client=request.user)
+    projects = Project.objects.filter(client=request.user,is_deleted=False)
     return render(request, "projects/project_list.html", {"projects": projects})
 
 
@@ -114,7 +115,7 @@ def project_list(request):
 @login_required
 def project_edit(request, pk):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user)
+    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
     
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
@@ -142,12 +143,13 @@ def project_edit(request, pk):
 @login_required
 def project_delete(request, pk):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user)
+    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
     
     if request.method == "POST":
         
         project_title = project.title
-        project.delete()
+        project.is_deleted = True
+        project.save()
 
         
         Notification.objects.create(
@@ -164,12 +166,12 @@ def project_delete(request, pk):
 
 @login_required
 def project_requirements(request, project_id):
-    project = Project.objects.get(pk=project_id)
+    project = get_object_or_404(Project,pk=project_id,is_deleted=False)
     return render(request, "projects/project_requirements.html", {"project": project})
 
 @login_required
 def apply_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id,is_deleted=False)
 
     
     application, created = Application.objects.get_or_create(
@@ -203,7 +205,7 @@ def apply_project(request, project_id):
 
 @login_required
 def update_application_status(request, application_id, action):
-    application = get_object_or_404(Application, id=application_id)
+    application = get_object_or_404(Application, id=application_id,is_deleted=False)
 
     if request.user != application.project.client:
         return HttpResponseForbidden(

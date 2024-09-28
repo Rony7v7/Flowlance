@@ -3,7 +3,6 @@ from .LoginForm import LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 
-
 def home(request):
     return render(request, "homepage/home.html")
 

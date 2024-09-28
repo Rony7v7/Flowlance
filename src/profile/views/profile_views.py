@@ -27,24 +27,23 @@ def my_profile(request, username=None):
     else:
         return redirect('home')
 
-
 def my_freelancer_profile(request, profile):
     try:
         portfolio = profile.portfolio_profile
-        projects = portfolio.projects.all()
-        courses = portfolio.courses.all()
+        projects = portfolio.projects.filter(is_deleted=False)
+        courses = portfolio.courses.filter(is_deleted=False)
            
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
+    ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
 
     context = {
         'profile': profile,
-        'skills': profile.skills.all(),
-        'experiences': profile.freelancer_work_experience.all(),
+        'skills': profile.skills.filter(is_deleted=False),
+        'experiences': profile.freelancer_work_experience.filter(is_deleted=False),
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,

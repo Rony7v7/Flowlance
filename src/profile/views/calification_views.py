@@ -1,18 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
-from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
-from ..forms import AddProjectForm, AddCourseForm
+from ..models import FreelancerProfile, FreelancerProfile, Notification
 from django.contrib import messages
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
 
 @login_required
 def add_rating(request, freelancer_username):
-    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
+    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username,is_deleted=False)
     if request.method == 'POST':
         form = RatingForm(request.POST)
         if form.is_valid():
@@ -37,7 +34,7 @@ def add_rating(request, freelancer_username):
 
 @login_required
 def add_rating_response(request, rating_id):
-    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user)
+    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user,is_deleted=False)
     if request.method == 'POST':
         form = RatingResponseForm(request.POST)
         if form.is_valid():
@@ -60,7 +57,7 @@ def add_rating_response(request, rating_id):
 
 @login_required
 def edit_rating_response(request, response_id):
-    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user)
+    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user,is_deleted=False)
     if not response.can_edit():
         messages.error(request, 'You can no longer edit this response.')
         return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
@@ -80,9 +77,10 @@ def edit_rating_response(request, response_id):
 @login_required
 @require_POST
 def delete_rating(request, rating_id):
-    rating = get_object_or_404(Rating, id=rating_id)
+    rating = get_object_or_404(Rating, id=rating_id,is_deleted=False)
     if request.method == "POST":
-        rating.delete()
+        rating.is_deleted = True
+        rating.save()
         return redirect('freelancer_profile', username=rating.freelancer.user.username)
 
 
@@ -92,6 +90,7 @@ def delete_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id)
     response.delete()
     return redirect('freelancer_profile')
+
 
 
 

@@ -88,4 +88,4 @@ class MilestoneViewsTest(TestCase):
         # Test the POST request to actually delete the milestone
         response = self.client.post(reverse('delete_milestone', args=[self.milestone.id]))
         self.assertEqual(response.status_code, 302)  # Should redirect after deletion
-        self.assertFalse(Milestone.objects.filter(id=self.milestone.id).exists())  # Milestone should be deleted
+        self.assertFalse(Milestone.objects.filter(id=self.milestone.id,is_deleted=False).exists())  # Milestone should be deleted

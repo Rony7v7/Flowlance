@@ -7,6 +7,7 @@ from django.utils import timezone
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     is_custom = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.name
@@ -17,7 +18,7 @@ class FreelancerProfile(models.Model):
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
     ratings = models.ManyToManyField('Rating', related_name='freelancer_rating', blank=True)
-
+    is_deleted = models.BooleanField(default=False, null=False)
     def __str__(self):
         return self.user.username
 
@@ -28,6 +29,8 @@ class Portfolio(models.Model):
         related_name="portfolio_profile"  
     )
     
+    is_deleted = models.BooleanField(default=False, null=False)
+
     def __str__(self):
         return f"Portfolio of {self.freelancer_profile}"
 
@@ -46,6 +49,7 @@ class PortfolioProject(models.Model):
     attached_files = models.FileField(upload_to='portfolio/', blank=True, null=True)
     external_link = models.URLField(blank=True, null=True)
     project_image = models.ImageField(upload_to='portfolio/projects/', blank=True, null=True)  
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.project_name
@@ -58,6 +62,7 @@ class Course(models.Model):
     course_link = models.URLField(blank=True, null=True)
     course_image = models.ImageField(upload_to='courses/', blank=True, null=True)
     expedition_date = models.DateField(null=True, blank=True) 
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.course_name
@@ -69,6 +74,7 @@ class WorkExperience(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     description = models.TextField()
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"{self.title} en {self.company}"
@@ -76,6 +82,7 @@ class WorkExperience(models.Model):
 class CurriculumVitae(models.Model):
     profile = models.OneToOneField(FreelancerProfile, on_delete=models.CASCADE, related_name="freelancer_cv")  
     file = models.FileField(upload_to='resumes/', blank=True, null=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"Curriculum Vitae de {self.profile.user.username}"
@@ -86,6 +93,7 @@ class Rating(models.Model):
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"{self.client.username}'s rating for {self.freelancer.user.username}"
@@ -117,9 +125,10 @@ class Notification(models.Model):
     message = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
-        return f"Response to {self.rating}"
+        return f"Notification for {self.user.username}: {self.message}"
 
     def can_edit(self):
         return timezone.now() - self.created_at < timezone.timedelta(hours=24)
