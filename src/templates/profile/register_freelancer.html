@@ -16,7 +16,6 @@
             {% csrf_token %}
             {{ form.non_field_errors }}
 
-            <!-- Campo de Nombre de Usuario -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_username">Nombre de Usuario</label>
                 <input type="text" name="username" id="id_username" value="{{ form.username.value|default_if_none:'' }}"
@@ -27,7 +26,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo de ID de Identificación -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_identification">ID de Identificación</label>
                 <input type="text" name="identification" id="id_identification"
@@ -39,7 +37,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo de Teléfono -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_phone">Teléfono</label>
                 <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default_if_none:'' }}"
@@ -50,7 +47,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo de Correo Electrónico -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_email">Correo Electrónico</label>
                 <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:'' }}"
@@ -61,7 +57,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo de Contraseña -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_password1">Contraseña</label>
                 <input type="password" name="password1" id="id_password1"
@@ -72,7 +67,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo de Confirmar Contraseña -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_password2">Confirmar Contraseña</label>
                 <input type="password" name="password2" id="id_password2"
@@ -82,32 +76,32 @@
                 <div class="text-red-500 text-sm">{{ form.password2.errors.0 }}</div>
                 {% endif %}
             </div>
-<!-- Campo de Foto de Perfil -->
-<div>
-    <label class="block text-primary_black font-medium">Foto de Perfil (opcional)</label>
-    <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
-        <div class="space-y-1 text-center">
-            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
-            </svg>
-            <div class="flex text-sm text-gray-600 justify-center">
-                <label for="id_photo" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
-                    <span>Selecciona la imagen aquí</span>
-                    <input id="id_photo" name="photo" type="file" class="sr-only">
-                </label>
+
+            <div>
+                <label class="block text-primary_black font-medium">Foto de Perfil (opcional)</label>
+                <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M8 19v11a2 2 0 002 2h28a2 2 0 002-2V19M16 7h16v6a2 2 0 01-2 2H18a2 2 0 01-2-2V7z" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600 justify-center">
+                            <label for="id_photo" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
+                                <span>Selecciona la imagen aquí</span>
+                                <input id="id_photo" name="photo" type="file" class="sr-only">
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-500">Puedes adjuntar un archivo aquí</p>
+                        <div id="uploadSuccess" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                {% if form.photo.errors %}
+                <div class="text-red-500 text-sm mt-2">{{ form.photo.errors.0 }}</div>
+                {% endif %}
             </div>
-            <p class="text-xs text-gray-500">Puedes adjuntar un archivo aquí</p>
-            <div id="uploadSuccess" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-            </div>
-        </div>
-    </div>
-    {% if form.photo.errors %}
-    <div class="text-red-500 text-sm mt-2">{{ form.photo.errors.0 }}</div>
-    {% endif %}
-</div>
 
 
 
@@ -121,8 +115,7 @@
     </div>
     {% endif %}
 
-    <!-- Pop-Up de Confirmación -->
-    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <div class="text-center">
                 <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor"
@@ -139,7 +132,6 @@
         </div>
     </div>
 
-    <!-- JavaScript para el Pop-Up -->
     <script>
 
         
@@ -149,25 +141,23 @@
             const acceptButton = document.getElementById('acceptButton');
             const closeModal = document.getElementById('closeModal');
 
-            // Muestra el modal si el registro fue exitoso
             if (registrationSuccessful) {
                 modal.classList.remove('hidden');
             }
 
-            // Cierra el modal y redirige al dashboard al hacer clic en aceptar
             acceptButton.addEventListener('click', function() {
                 window.location.href = "/dashboard/";
             });
             
             
         });
-        
+
         document.getElementById('id_photo').addEventListener('change', function () {
             if (this.files.length > 0) {
                 document.getElementById('uploadSuccess').classList.remove('hidden');
                 setTimeout(() => {
                     document.getElementById('uploadSuccess').classList.add('hidden');
-                }, 3000); // Oculta el mensaje después de 3 segundos
+                }, 3000); 
             }
         });
         </script>

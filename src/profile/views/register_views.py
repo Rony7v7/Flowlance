@@ -28,9 +28,8 @@ def register_company(request):
                 user = form.save()
                 login(request, user)
                 registration_successful = True
-                # No renderices el formulario nuevamente si el registro es exitoso
                 return render(request, 'profile/register_company.html', {
-                    'form': CompanyRegisterForm(),  # Limpia el formulario
+                    'form': CompanyRegisterForm(),
                     'registration_successful': registration_successful
                 })
             except IntegrityError:
