@@ -113,6 +113,7 @@ def project_list_availableFreelancer(request):
     )
 
 @login_required
+@attach_profile_info
 def project_list(request):
     projects = Project.objects.filter(client=request.user,is_deleted=False)
     return render(request, "projects/project_list.html", {"projects": projects})

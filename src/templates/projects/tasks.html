@@ -7,9 +7,7 @@
 
     {% url 'create_task' project.id as add_task_url %}
 
-    {% if user_is_owner %}
-      {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
-    {% endif %}
+    {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
 
     {% if messages %}
     <div id="messages" class="hidden">
