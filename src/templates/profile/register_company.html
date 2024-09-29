@@ -10,12 +10,12 @@
         </p>
     </div>
 
+    {% if not registration_successful %}
     <div class="max-w-2xl mx-auto bg-bg_white p-8 rounded-md" id="form-container">
         <form method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             {{ form.non_field_errors }}
 
-            {# Muestra los errores de cada campo #}
             {% for field in form %}
                 <div>
                     <label class="block text-primary_black font-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -33,5 +33,52 @@
             </div>
         </form>
     </div>
+    {% endif %}
+
+    <!-- Pop-Up de Confirmación -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div class="flex justify-end">
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    &times;
+                </button>
+            </div>
+            <div class="text-center">
+                <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-primary_black">Registro Exitoso</h3>
+                <p class="text-gray-600 mt-2">Tu información ha sido guardada exitosamente.</p>
+                <div class="mt-4 flex justify-center">
+                    <button id="acceptButton" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para el Pop-Up -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationSuccessful = {{ registration_successful|yesno:"true,false" }};
+            const modal = document.getElementById('confirmationModal');
+            const acceptButton = document.getElementById('acceptButton');
+            const closeModal = document.getElementById('closeModal');
+
+            // Muestra el modal si el registro fue exitoso
+            if (registrationSuccessful) {
+                modal.classList.remove('hidden');
+            }
+
+            // Cierra el modal y redirige al dashboard al hacer clic en aceptar
+            acceptButton.addEventListener('click', function() {
+                window.location.href = "/dashboard/";
+            });
+
+            // Cierra el modal al hacer clic en la "x"
+            closeModal.addEventListener('click', function() {
+                modal.classList.add('hidden');
+            });
+        });
+    </script>
 </div>
 {% endblock %}
