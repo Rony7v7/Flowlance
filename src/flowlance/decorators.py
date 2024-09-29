@@ -15,6 +15,7 @@ def attach_profile_info(func):
 def freelancer_required(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
+        profile, user_type = request.user.get_profile_info()
         if user_type == 'freelancer':
             return func(request, *args, **kwargs)
         return render(request, 'errors/error_generic.html', {'error_type':'custom_permission'}) # temporal render
