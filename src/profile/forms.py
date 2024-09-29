@@ -1,5 +1,9 @@
 from django import forms
-from .models import Rating, RatingResponse, Skill, FreelancerProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from django.db import IntegrityError
+
 
 class AddCourseForm(forms.ModelForm):
     class Meta:
@@ -147,3 +151,71 @@ class RatingResponseForm(forms.ModelForm):
         model = RatingResponse
         fields = ['response_text']
 
+class FreelancerRegisterForm(UserCreationForm):
+    identification = forms.CharField(max_length=20, required=True)
+    phone = forms.CharField(max_length=15, required=True)
+    photo = forms.ImageField(required=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            try:
+                # Intentamos crear el perfil del freelancer
+                FreelancerProfile.objects.create(
+                    user=user,
+                    identification=self.cleaned_data['identification'],
+                    phone=self.cleaned_data['phone'],
+                    photo=self.cleaned_data.get('photo')
+                )
+            except IntegrityError as e:
+                # Si ocurre un error de integridad, agregamos el error al formulario
+                self.add_error('identification', 'Este ID ya está registrado. Por favor, usa otro.')
+                user.delete()  # Borra el usuario para evitar usuarios sin perfiles
+                raise e  # Lanza la excepción para ser manejada en la vista
+        return user
+
+
+class CompanyRegisterForm(UserCreationForm):
+    company_name = forms.CharField(max_length=100, required=True)
+    nit = forms.CharField(max_length=20, required=True)
+    business_type = forms.CharField(max_length=50, required=True)
+    country = forms.CharField(max_length=50, required=True)
+    business_vertical = forms.CharField(max_length=50, required=True)
+    address = forms.CharField(max_length=150, required=True)
+    legal_representative = forms.CharField(max_length=100, required=True)
+    phone = forms.CharField(max_length=15, required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        try:
+            if commit:
+                user.save()
+                CompanyProfile.objects.create(
+                    user=user,
+                    company_name=self.cleaned_data['company_name'],
+                    nit=self.cleaned_data['nit'],
+                    business_type=self.cleaned_data['business_type'],
+                    country=self.cleaned_data['country'],
+                    business_vertical=self.cleaned_data['business_vertical'],
+                    address=self.cleaned_data['address'],
+                    legal_representative=self.cleaned_data['legal_representative'],
+                    phone=self.cleaned_data['phone']
+                )
+        except IntegrityError as e:
+            # Verificamos cuál es el campo que genera el error de integridad
+            if 'unique constraint' in str(e).lower() and 'nit' in str(e).lower():
+                self.add_error('nit', 'Este NIT ya está registrado. Por favor, usa otro.')
+            if 'unique constraint' in str(e).lower() and 'username' in str(e).lower():
+                self.add_error('username', 'Este nombre de usuario ya está registrado. Elige otro.')
+            user.delete()  # Borra el usuario para evitar usuarios sin perfiles
+            raise e  # Lanza la excepción para ser manejada en la vista
+        return user

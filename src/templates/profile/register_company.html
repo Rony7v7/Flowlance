@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white">
+    <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
+        <h1 class="text-3xl font-bold text-primary_black text-left">Registro de Freelancer</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">Datos Personales</h2>
+        <p class="block text-primary_black font-normal mt-4 font-sans semi">
+            Por favor, completa los siguientes campos para crear tu perfil de freelancer.
+        </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-bg_white p-8 rounded-md" id="form-container">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            {# Muestra los errores de cada campo #}
+            {% for field in form %}
+                <div>
+                    <label class="block text-primary_black font-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-red-500 text-sm">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
+                    Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -13,6 +13,9 @@ class Skill(models.Model):
 
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    identification = models.CharField(max_length=20, unique=True)
+    phone = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='freelancers/', blank=True, null=True)
     skills = models.ManyToManyField(Skill, related_name='freelancers', blank=True)
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
@@ -21,6 +24,19 @@ class FreelancerProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
+    nit = models.CharField(max_length=20, unique=True)
+    business_type = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    business_vertical = models.CharField(max_length=50)
+    address = models.CharField(max_length=150)
+    legal_representative = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.company_name
 
 class Portfolio(models.Model):
     freelancer_profile = models.OneToOneField(
