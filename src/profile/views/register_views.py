@@ -6,16 +6,18 @@ from django.db import IntegrityError
 
 
 def register_freelancer(request):
+    registration_successful = False  
     if request.method == 'POST':
         form = FreelancerRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return render(request, 'profile/register_freelancer.html', {'form': form, 'registration_successful': True})
+            registration_successful = True  
+            return render(request, 'profile/register_freelancer.html', {'form': FreelancerRegisterForm(), 'registration_successful': registration_successful})
 
     else:
         form = FreelancerRegisterForm()
-    return render(request, 'profile/register_freelancer.html', {'form': form})
+    return render(request, 'profile/register_freelancer.html', {'form': form, 'registration_successful': registration_successful})
 
 
 

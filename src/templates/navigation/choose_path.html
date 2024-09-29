@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white flex flex-col items-center">
+    <h1 class="text-2xl sm:text-3xl font-bold text-primary_black text-center mb-8">
+        ¿Cuál es tu camino en FlowLance?
+    </h1>
+
+    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+        <!-- Freelancer Card -->
+        <a href="{% url 'register_freelancer' %}" class="w-full sm:w-64 border border-primary_light p-6 rounded-lg text-center hover:shadow-lg transition-transform transform hover:-translate-y-1 duration-300">
+            <div class="flex justify-center items-center mb-4">
+                <div class="bg-blue-100 rounded-full p-3">
+                    <svg class="h-10 w-10 text-primary_medium" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 14l-2-2m0 0l-2-2m2 2h8M4 18l16 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-lg font-semibold text-primary_medium">Freelancer</h2>
+            <p class="text-primary_black mt-2">
+                Ofrece tus habilidades al mundo, encuentra proyectos que te apasionen.
+            </p>
+        </a>
+
+        <!-- Client Card -->
+        <a href="{% url 'register_company' %}" class="w-full sm:w-64 border border-primary_light p-6 rounded-lg text-center hover:shadow-lg transition-transform transform hover:-translate-y-1 duration-300">
+            <div class="flex justify-center items-center mb-4">
+                <div class="bg-blue-100 rounded-full p-3">
+                    <svg class="h-10 w-10 text-primary_medium" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 10h4m4 0h4m4 0h4M3 6h18M3 14h18M3 18h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-lg font-semibold text-primary_medium">Cliente</h2>
+            <p class="text-primary_black mt-2">
+                Encuentra el talento perfecto para impulsar tus proyectos.
+            </p>
+        </a>
+    </div>
+</div>
+{% endblock %}

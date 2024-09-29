@@ -37,6 +37,7 @@
                 {% endif %}
             </div>
 
+
             <div>
                 <label class="block text-primary_black font-medium" for="id_phone">Teléfono</label>
                 <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default_if_none:'' }}"
@@ -103,8 +104,6 @@
                 {% endif %}
             </div>
 
-
-
             <div class="flex justify-center">
                 <button type="submit"
                     class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
@@ -115,7 +114,7 @@
     </div>
     {% endif %}
 
-    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <div class="text-center">
                 <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor"
@@ -133,23 +132,18 @@
     </div>
 
     <script>
-
-        
         document.addEventListener('DOMContentLoaded', function() {
             const registrationSuccessful = {{ registration_successful|yesno:"true,false" }};
             const modal = document.getElementById('confirmationModal');
             const acceptButton = document.getElementById('acceptButton');
-            const closeModal = document.getElementById('closeModal');
 
-            if (registrationSuccessful) {
+            if (registrationSuccessful === true) {
                 modal.classList.remove('hidden');
             }
 
             acceptButton.addEventListener('click', function() {
                 window.location.href = "/dashboard/";
             });
-            
-            
         });
 
         document.getElementById('id_photo').addEventListener('change', function () {
@@ -157,9 +151,9 @@
                 document.getElementById('uploadSuccess').classList.remove('hidden');
                 setTimeout(() => {
                     document.getElementById('uploadSuccess').classList.add('hidden');
-                }, 3000); 
+                }, 3000);
             }
         });
-        </script>
+    </script>
 </div>
 {% endblock %}
