@@ -7,25 +7,22 @@
     <!-- Navigation Tabs -->
     <div class="flex items-center justify-center gap-5 bg-primary_lightest rounded-xl px-4 py-2 text-white flex-wrap">
         <a href="/project/{{ project.id }}/milestone"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
             Hitos
         </a>
         <a href="/project/{{ project.id }}/task"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
             Tareas
         </a>
         <a href="/project/{{ project.id }}/time_line"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
+            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
             Línea de Tiempo
         </a>
         <a href="/project/{{ project.id }}/calendar"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
             Calendario
         </a>
     </div>
-    
-    
-    
 
     <!-- Panel de Control -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">Panel de control</h1>
@@ -35,7 +32,7 @@
             <!-- Left Section with Image -->
             <div>
                 <img src="https://picsum.photos/450/300" alt="Project Image"
-                     class="w-[400px] h-[300px] rounded-xl mr-6">
+                    class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
                     <p class="text-lg font-semibold text-primary_black">Presupuesto: <span
@@ -48,28 +45,78 @@
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
                 <div class="flex space-x-4">
-                    <a href="{% url 'project_edit' project.pk %}"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
-                        Editar
-                    </a>
                     <a href="{% url 'project_requirements' project.pk %}"
                         class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         Ver Requerimientos
                     </a>
                 </div>
 
+                {% if request.profile_type == 'freelancer' %}
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                    <button type="submit"
+                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         Postularse a este proyecto
                     </button>
                 </form>
 
+                <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
+                    {% if application %}
+                    <div class="flex items-center space-x-2">
+                        {% if application.status == "Rechazada" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-red-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% elif application.status == "Aceptada" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-green-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-yellow-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <p class="text-lg text-primary_black font-semibold mt-2">
+                        No te has postulado a este proyecto aún.
+                    </p>
+                    {% endif %}
+                </div>
+
+                {% endif %}
+
+                {% if user_is_owner %}
+
+                <a href="{% url 'project_edit' project.pk %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
+                    Editar
+                </a>
+
                 <!-- Aplications list -->
-                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                <button id="showApplications"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     Ver Postulaciones
                 </button>
-              
+
 
                 <!-- Boton eliminar -->
                 <div class="mt-4 flex space-x-4 items-center">
@@ -77,53 +124,21 @@
                         class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
                         Eliminar Proyecto
                     </a>
-                    
+
                     <!-- <a href="{% url 'my_projects' %}"
                         class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
                         Mis Proyectos
                     </a> -->
                 </div>
-                
-                <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
-                    {% if application %}
-                        <div class="flex items-center space-x-2">
-                            {% if application.status == "Rechazada" %}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
-                                    <span class="text-red-500 font-bold">{{ application.status }}</span>
-                                </p>
-                            {% elif application.status == "Aceptada" %}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
-                                    <span class="text-green-500 font-bold">{{ application.status }}</span>
-                                </p>
-                            {% else %}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
-                                    <span class="text-yellow-500 font-bold">{{ application.status }}</span>
-                                </p>
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        <p class="text-lg text-primary_black font-semibold mt-2">
-                            No te has postulado a este proyecto aún.
-                        </p>
-                    {% endif %}
-                </div>
-                
-                
+                {% endif %}
+
+
+
+
             </div>
         </div>
     </div>
+
     <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
         {% block section %}
         {% endblock %}
@@ -138,20 +153,21 @@
                 <li class="border-b border-gray-200 py-2 flex justify-between items-center">
                     <div>
                         <p>
-                            <strong>Usuario:</strong> 
-                            <a href="{% url 'freelancer_profile_view' application.user.username %}" 
-                               class="text-blue-500 hover:underline">
-                               {{ application.user.username }}
+                            <strong>Usuario:</strong>
+                            <a href="{% url 'freelancer_profile_view' application.user.username %}"
+                                class="text-blue-500 hover:underline">
+                                {{ application.user.username }}
                             </a>
-                        </p>                        <p><strong>Estado:</strong> {{ application.status }}</p>
+                        </p>
+                        <p><strong>Estado:</strong> {{ application.status }}</p>
                         <p><strong>Fecha de Aplicación:</strong> {{ application.applied_at|date:"d M Y" }}</p>
                     </div>
                     {% if application.status == 'Pendiente' %}
                     <div class="flex gap-2">
-                        <a href="{% url 'update_application_status' application.id 'accept' %}" 
-                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
-                        <a href="{% url 'update_application_status' application.id 'reject' %}" 
-                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
+                        <a href="{% url 'update_application_status' application.id 'accept' %}"
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
+                        <a href="{% url 'update_application_status' application.id 'reject' %}"
+                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
                     </div>
                     {% endif %}
                 </li>
@@ -159,18 +175,19 @@
                 <p>No hay postulaciones para este proyecto.</p>
                 {% endfor %}
             </ul>
-            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Cerrar</button>
+            <button id="closeModal"
+                class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Cerrar</button>
         </div>
     </div>
 
 </div>
 
 <script>
-    document.getElementById('showApplications').addEventListener('click', function() {
+    document.getElementById('showApplications').addEventListener('click', function () {
         document.getElementById('applicationsModal').classList.remove('hidden');
     });
 
-    document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('closeModal').addEventListener('click', function () {
         document.getElementById('applicationsModal').classList.add('hidden');
     });
 </script>
