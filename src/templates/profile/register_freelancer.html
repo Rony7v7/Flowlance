@@ -15,7 +15,6 @@
             {% csrf_token %}
             {{ form.non_field_errors }}
 
-            {# Muestra los errores de cada campo #}
             {% for field in form %}
                 <div>
                     <label class="block text-primary_black font-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
