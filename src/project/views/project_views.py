@@ -92,6 +92,7 @@ def display_project(request, project_id, section):
             "section": section,
             "application": application,
             "applications": applications,
+            "user_is_owner": request.user == project.client,
         },
     )
 
