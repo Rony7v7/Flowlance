@@ -62,11 +62,10 @@ def add_rating_response(request, rating_id):
                 message=f"{request.user.username} ha respondido a tu calificación."
             )
 
-            messages.success(request, 'Your response has been added successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
-    else:
-        form = RatingResponseForm()
-    return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+
 
 
 @login_required
@@ -92,6 +91,12 @@ def edit_rating_response(request, response_id):
         form = RatingResponseForm(instance=response)
     
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+
+
+@login_required
+def get_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id)
+    return JsonResponse({'response_text': response.response_text})
 
     
 
