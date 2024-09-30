@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
-# Freelancer Profile ---------------------------------------
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     is_custom = models.BooleanField(default=False)
@@ -124,19 +123,6 @@ class RatingResponse(models.Model):
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.username} por {self.usuario.username}'
-
-
-# Client Profile ---------------------------------------
-
-class ClientProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-
-
-# Temporary model ---------------------------------------
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
