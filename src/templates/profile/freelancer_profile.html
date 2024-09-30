@@ -15,120 +15,8 @@
                     Apasionado del desarrollo web con más de 5 años de experiencia en la creación de aplicaciones
                     robustas y escalables.
                 </p>
-                <p class="text-primary_black mt-2 flex items-center">
-                    Cali, Valle del Cauca, Colombia
-                    <span class="ml-2">
-                        {% include 'icon/LocationIcon.html' %}
-                    </span>
-                </p>
-                <div class="flex space-x-4 mt-4">
-                    <a href="https://www.linkedin.com" aria-label="LinkedIn"
-                        class="text-primary_medium hover:text-primary_dark">
-                        {% include 'icon/LinkedInIcon.html' %}
-                    </a>
-                    <a href="https://twitter.com" aria-label="Twitter"
-                        class="text-primary_medium hover:text-primary_dark">
-                        {% include 'icon/TwitterIcon.html' %}
-                    </a>
-                    <a href="https://github.com" aria-label="GitHub"
-                        class="text-primary_medium hover:text-primary_dark">
-                        {% include 'icon/GithubIcon.html' %}
-                    </a>
-                </div>
-                <button class="mt-4 bg-primary_medium text-white font-bold py-2 px-4 rounded hover:bg-primary_dark focus:outline-none">
-                    Editar Perfil
-                </button>
             </div>
         </div>
-
-        <div class="mt-6">
-            <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
-            <div class="mt-4 flex flex-wrap gap-2">
-                {% for skill in skills %}
-                <span class="bg-primary_lightest text-primary_black px-3 py-1 rounded-full text-sm font-medium shadow-sm">
-                    {{ skill.name }}
-                </span>
-                {% empty %}
-                <p class="text-gray-500">No se han agregado habilidades aún.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    <!-- Experiencia Laboral -->
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
-        <ul class="mt-4 space-y-6">
-            {% for experience in experiences %}
-            <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
-                <div class="flex-shrink-0">
-                    <div class="bg-primary_medium text-white w-10 h-10 flex items-center justify-center rounded-full">
-                        {% include 'icon/ExperienceIcon.html' %}
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-primary_black">{{ experience.title }}</h3>
-                    <p class="text-primary_medium font-medium">{{ experience.company }}</p>
-                    <p class="text-gray-500 text-sm mt-1">
-                        Desde: {{ experience.start_date|date:"M. d, Y" }}
-                        {% if experience.end_date %} hasta: {{ experience.end_date|date:"M. d, Y" }}{% else %} hasta la
-                        fecha{% endif %}
-                    </p>
-                    <p class="text-gray-700 mt-2">{{ experience.description }}</p>
-                </div>
-            </li>
-            {% empty %}
-            <li class="text-gray-500">No se ha añadido experiencia laboral aún.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Portafolio -->
-    <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
-
-        {% if portfolio %}
-        <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-            {% for project in projects %}
-            <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ project.project_image.url }}" alt="{{ project.project_name }}"
-                    class="w-full h-40 object-cover rounded">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold text-gray-800">{{ project.project_name }}</h5>
-                    <p class="text-gray-600 mt-2">{{ project.project_description }}</p>
-                </div>
-            </div>
-            {% empty %}
-            <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
-            {% endfor %}
-        </div>
-
-        <h4 class="text-xl font-semibold text-primary_medium mt-8">Cursos</h4>
-        <div class="space-y-6 mt-4">
-            {% for course in courses %}
-            <div class="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg">
-                <img src="{{ course.course_image.url }}" alt="{{ course.course_name }}"
-                    class="w-36 h-20 object-cover rounded-md mr-6">
-                <div class="flex-1">
-                    <div class="flex items-center justify-between">
-                        <h5 class="text-lg font-semibold text-primary_black mb-1">{{ course.course_name }}</h5>
-                        <a href="{{ course.course_link }}"
-                            class="text-primary_medium hover:text-primary_dark ml-2 inline-flex items-center">
-                            {% include 'icon/LinkIcon.html' %}
-                        </a>
-                    </div>
-                    <p class="text-primary_dark mb-1">{{ course.organization }}</p>
-                    <p class="text-gray-500 mb-1">Expedición: {{ course.expedition_date|date:"M Y" }}</p>
-                </div>
-            </div>
-            {% empty %}
-            <p class="text-gray-500">No se han agregado cursos aún.</p>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="text-gray-500">No se ha creado un portafolio aún.</p>
-        {% endif %}
     </div>
 
     <!-- Calificaciones y Comentarios -->
@@ -142,7 +30,8 @@
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-4">
                         <p class="text-xl font-semibold text-primary_black">{{ rating.stars }} estrellas</p>
-                        <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username }}</strong></p>
+                        <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username
+                        </strong></p>
                     </div>
                     <p class="text-gray-400 text-sm">{{ rating.created_at|date:"d M Y" }}</p>
                 </div>
@@ -239,7 +128,6 @@
                     {% endfor %}
                 </div>
                 <input type="hidden" name="stars" id="id_stars" value="0">
-                
 
                 <!-- Campo de Comentario -->
                 <div class="mb-6">
@@ -247,9 +135,6 @@
                     <textarea name="comment" id="id_comment" rows="4"
                         class="w-full p-4 border border-gray-300 rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
                 </div>
-
-                <!-- Campo oculto para el número de estrellas -->
-                <input type="hidden" name="stars" id="id_stars" value="0">
 
                 <!-- Botón de Confirmación -->
                 <button type="submit"
@@ -290,22 +175,21 @@
         }
 
         function setRating(ratingValue) {
-    // Guardar el valor de las estrellas seleccionadas en el input oculto
-    document.getElementById('id_stars').value = ratingValue;
+            // Guardar el valor de las estrellas seleccionadas en el input oculto
+            document.getElementById('id_stars').value = ratingValue;
 
-    // Resetear todas las estrellas al color claro
-    document.querySelectorAll('#starContainer svg').forEach(star => {
-        star.classList.remove('text-primary_dark');
-        star.classList.add('text-primary_lightest');
-    });
+            // Resetear todas las estrellas al color claro
+            document.querySelectorAll('#starContainer svg').forEach(star => {
+                star.classList.remove('text-primary_dark');
+                star.classList.add('text-primary_lightest');
+            });
 
-    // Cambiar el color de todas las estrellas hasta la seleccionada
-    for (let i = 1; i <= ratingValue; i++) {
-        document.getElementById(`star-${i}`).classList.remove('text-primary_lightest');
-        document.getElementById(`star-${i}`).classList.add('text-primary_dark');
-    }
-}
-
+            // Cambiar el color de todas las estrellas hasta la seleccionada
+            for (let i = 1; i <= ratingValue; i++) {
+                document.getElementById(`star-${i}`).classList.remove('text-primary_lightest');
+                document.getElementById(`star-${i}`).classList.add('text-primary_dark');
+            }
+        }
 
         document.getElementById('responseForm').addEventListener('submit', function (event) {
             event.preventDefault();
@@ -341,25 +225,32 @@
         document.getElementById('ratingForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
+            const stars = document.getElementById('id_stars').value;
+            if (stars < 1) {
+                alert("Debes seleccionar al menos 1 estrella.");
+                return;
+            }
+
             const formData = new FormData(this);
 
             fetch("{% url 'add_rating' profile.user.username %}", {
                 method: 'POST',
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}',  
                 },
                 body: formData
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        closeRatingModal();
-                        location.reload();
-                    } else if (data.errors) {
-                        alert('Error al enviar la calificación ' );
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    closeRatingModal();
+                    location.reload();
+                } else if (data.errors) {
+                    alert('Error al enviar la calificación: ' + JSON.stringify(data.errors));
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
     </script>
 </div>

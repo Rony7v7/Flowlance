@@ -28,17 +28,21 @@ def add_rating(request, freelancer_username):
                 message=f"Has recibido una nueva calificación de {request.user.username}."
             )
 
-            messages.success(request, 'Your rating has been submitted successfully.')
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({'status': 'success'}, status=200)
-            return redirect('freelancer_profile', username=freelancer_username)
+            else:
+                messages.success(request, 'Tu calificación ha sido enviada exitosamente.')
+                return redirect('freelancer_profile', username=freelancer_username)
         else:
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({'errors': form.errors}, status=400)
+            else:
+                messages.error(request, 'Error al enviar la calificación.')
     else:
         form = RatingForm()
     
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
+
 
 
 
