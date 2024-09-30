@@ -52,7 +52,7 @@ def my_freelancer_profile(request, profile):
 
     return render(request, 'profile/freelancer_profile.html', context)
 
-def my_company_profile(request, profile):
+def my_company_profile(request):
     return redirect('home') # TODO: Redirect to the client profile view
 
 @login_required
