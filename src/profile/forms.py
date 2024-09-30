@@ -237,6 +237,12 @@ class CompanyRegisterForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Este correo electrónico ya está registrado. Por favor, usa otro.')
         return email
+    
+    def clean_nit(self):
+        nit = self.cleaned_data.get('nit')
+        if CompanyProfile.objects.filter(nit=nit).exists():
+            raise forms.ValidationError('Este NIT ya está registrado. Por favor, usa otro.')
+        return nit
 
     def save(self, commit=True):
         user = super().save(commit=False)
