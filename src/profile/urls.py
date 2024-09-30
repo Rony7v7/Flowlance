@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import profile_views, data_views, calification_views
+from .views import profile_views, data_views, calification_views, register_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -22,7 +22,8 @@ urlpatterns = [
     path('delete_rating/<int:rating_id>/', calification_views.delete_rating, name='delete_rating'),
     path('delete_rating_response/<int:response_id>/', calification_views.delete_rating_response, name='delete_rating_response'),
     path('freelancer_profile/<str:username>/', profile_views.my_profile, name='freelancer_profile'),  # URL for finshing edit the RatingResponse
+    path('register/freelancer/', register_views.register_freelancer, name='register_freelancer'),
+    path('register/company/', register_views.register_company, name='register_company'),
 
 
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
