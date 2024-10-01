@@ -5,8 +5,8 @@
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg p-8">
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
-            <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}"
-                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
+            <img src="{% if profile.photo %}{{ profile.photo.url }}{% else %}https://avatars.githubusercontent.com/u/1561955?v=4{% endif %}"
+                alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
             <div class="sm:ml-6 mt-6 sm:mt-0 flex-1">
                 <h1 class="text-3xl sm:text-3xl font-bold text-primary_medium">{{ profile.user.username }}</h1>
                 <p class="text-primary_black font-semibold">Desarrollador Full Stack</p>
@@ -40,6 +40,7 @@
                 </button>
             </div>
         </div>
+
 
         <div class="mt-6">
             <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>

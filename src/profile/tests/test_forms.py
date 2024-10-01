@@ -107,7 +107,7 @@ class RatingFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_rating_form_invalid(self):
-        form_data = {'stars': 6}  # Stars should be between 1 and 5
+        form_data = {'stars': 6}  
         form = RatingForm(data=form_data)
         self.assertFalse(form.is_valid())
 

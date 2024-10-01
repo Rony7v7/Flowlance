@@ -6,7 +6,11 @@
   <div>
     <ul class="flex gap-4">
         <li><a href="/login">Ingresa</a></li>
-        <li>{% include 'utils/anchor_button.html' with label='Regístrate' type=1 %}</li>
+        <li>
+          <a href="{% url 'choose_path' %}" class="bg-primary_medium text-white font-semibold py-2 px-4 rounded-md hover:bg-primary_dark transition-colors">
+              Regístrate
+          </a>
+      </li>    
     </ul>
   </div>
 </div>

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
-# Freelancer Profile ---------------------------------------
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     is_custom = models.BooleanField(default=False)
@@ -14,6 +13,9 @@ class Skill(models.Model):
 
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    identification = models.CharField(max_length=20, unique=True)
+    phone = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='freelancers/', blank=True, null=True)
     skills = models.ManyToManyField(Skill, related_name='freelancers', blank=True)
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
@@ -21,6 +23,21 @@ class FreelancerProfile(models.Model):
     is_deleted = models.BooleanField(default=False, null=False)
     def __str__(self):
         return self.user.username
+
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
+    nit = models.CharField(max_length=20, unique=True)
+    business_type = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    business_vertical = models.CharField(max_length=50)
+    address = models.CharField(max_length=150)
+    legal_representative = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='companies/', blank=True, null=True)
+
+    def __str__(self):
+        return self.company_name
 
 class Portfolio(models.Model):
     freelancer_profile = models.OneToOneField(
@@ -106,19 +123,6 @@ class RatingResponse(models.Model):
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.username} por {self.usuario.username}'
-
-
-# Client Profile ---------------------------------------
-
-class ClientProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-
-
-# Temporary model ---------------------------------------
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
