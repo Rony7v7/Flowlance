@@ -11,9 +11,11 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    identification = models.CharField(max_length=20, unique=True)
+    phone = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='freelancers/', blank=True, null=True)
     skills = models.ManyToManyField(Skill, related_name='freelancers', blank=True)
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
@@ -22,6 +24,20 @@ class FreelancerProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
+    nit = models.CharField(max_length=20, unique=True)
+    business_type = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    business_vertical = models.CharField(max_length=50)
+    address = models.CharField(max_length=150)
+    legal_representative = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='companies/', blank=True, null=True)
+
+    def __str__(self):
+        return self.company_name
 
 class Portfolio(models.Model):
     freelancer_profile = models.OneToOneField(
@@ -34,7 +50,6 @@ class Portfolio(models.Model):
 
     def __str__(self):
         return f"Portfolio of {self.freelancer_profile}"
-
 
 class PortfolioProject(models.Model):
     portfolio = models.ForeignKey(
@@ -56,8 +71,6 @@ class PortfolioProject(models.Model):
     def __str__(self):
         return self.project_name
 
-
-
 class Course(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name="courses", null=True, blank=True)  
     course_name = models.CharField(max_length=100)
@@ -71,10 +84,6 @@ class Course(models.Model):
     def __str__(self):
         return self.course_name
 
-
-
-
-
 class WorkExperience(models.Model):
     freelancer = models.ForeignKey(FreelancerProfile, on_delete=models.CASCADE, related_name="freelancer_work_experience")  
     title = models.CharField(max_length=100)
@@ -86,7 +95,6 @@ class WorkExperience(models.Model):
 
     def __str__(self):
         return f"{self.title} en {self.company}"
-
 
 class CurriculumVitae(models.Model):
     profile = models.OneToOneField(FreelancerProfile, on_delete=models.CASCADE, related_name="freelancer_cv")  
@@ -115,7 +123,6 @@ class RatingResponse(models.Model):
 
     def __str__(self):
         return f'{self.estrellas} estrellas para {self.freelancer.username} por {self.usuario.username}'
-
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')

@@ -7,6 +7,10 @@ def home(request):
     return render(request, "homepage/home.html")
 
 
+def choose_path_view(request):
+    return render(request, 'navigation/choose_path.html')  
+
+
 def login_view(request):
     if request.method == "POST":
         form = LoginForm(data=request.POST)
