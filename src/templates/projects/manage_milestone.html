@@ -31,7 +31,7 @@
 
             {% if is_editing %}
             <a href="/project/delete_milestone/{{milestone.id}}" id="delete-button">
-                <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Eliminar</button>
+                <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Eliminar" %}</button>
             </a>
 
             <!-- Modal -->
@@ -42,7 +42,7 @@
                     <div class="flex justify-end">
                         <button id="confirm-button"
                             class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
-                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
+                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
-                <label for="name" class="block text-md font-medium text-primary_black">Nombre</label>
+                <label for="name" class="block text-md font-medium text-primary_black">{% translate "Nombre" %}</label>
                 <input id="name" name="name" type="text" {% if is_editing %} value="{{milestone.name}}" {% endif %}
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
@@ -91,9 +91,9 @@
             {% endif %}
             <div class="justify-end  items-center">
                 <a href="/project/{{project_id}}/milestone">
-                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                 </a>
-                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">Guardar</button>
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
             </div>
         </form>
 

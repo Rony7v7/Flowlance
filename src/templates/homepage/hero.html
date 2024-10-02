@@ -79,7 +79,7 @@
         <div class="text-white text-2xl font-bold mb-6">
             {% translate "Únete a nuestra red de freelancers y descubre proyectos adaptados a ti" %}
         </div>
-        <a href="#"
+        <a href="{% url 'choose_path' %}"
             class="bg-[#3D46F2] text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-[#3D46F2] transition ease-in-out duration-300">
             {% translate "Regístrate ahora!" %}
         </a>
@@ -90,7 +90,7 @@
     <div>
         <p class="text-md text-gray-600">
             {% translate "¿Ya tienes una cuenta?" %}
-            <a href="#" class="text-[#3D46F2] font-bold hover:underline">
+            <a href="/login" class="text-[#3D46F2] font-bold hover:underline">
                 {% translate "Inicia sesión aquí" %}
             </a>.
         </p>

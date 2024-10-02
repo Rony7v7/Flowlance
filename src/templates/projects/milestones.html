@@ -10,23 +10,27 @@
         <h2 class="text-2xl font-bold text-primary_black">{% translate "Hitos" %}</h2>
 
         {% url 'add_milestone' project.id as add_milestone_url %}
-        {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_milestone_url %}
+        {% trans "Añadir" as translated_button %}
+        {% include 'utils/anchor_button.html' with type=1 label=translated_button url=add_milestone_url %}
     </div>
 
     <div class="grid grid-cols-3 gap-6 mt-4">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
-        <div class="bg-bg_white p-4 rounded-lg text-center space-y-4 transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
+        <div
+            class="bg-bg_white p-4 rounded-lg text-center space-y-4 transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
             <div class="w-full {{ milestone.deadline_color }} p-1"></div>
 
             <h3 class="text-lg font-semibold text-primary_black">{{ milestone.name }}</h3>
             <p class="text-sm text-primary_medium">{% translate "Fecha de Inicio: "%}{{ milestone.start_date }}</p>
             <p class="text-sm text-primary_medium">{% translate "Fecha de Finalización: "%}{{ milestone.end_date }}</p>
-            <span class="text-sm text-primary_dark block">{% translate "Entregables:" %} <span class="block text-black mt-2">{{ milestone.amount_completed }} / {{ milestone.assigments.count }}</span>
+            <span class="text-sm text-primary_dark block">{% translate "Entregables:" %} <span
+                    class="block text-black mt-2">{{ milestone.amount_completed }} / {{ milestone.assigments.count}}</span>
             </span>
             <div class="mt-10">
                 {% url 'edit_milestone' milestone.id as milestone_edit_url %}
-                {% include 'utils/anchor_button.html' with type=1 label='Ver más' url=milestone_edit_url %}
+                {% trans "Ver mas" as translated_see_more %}
+                {% include 'utils/anchor_button.html' with type=1 label=translated_see_more url=milestone_edit_url %}
             </div>
         </div>
         {% endfor %}
