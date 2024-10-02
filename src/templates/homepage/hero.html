@@ -1,9 +1,10 @@
+{% load i18n %}
 <div class="flex flex-col items-center justify-center py-10 px-4 md:px-8 lg:px-16">
     <!-- Header Text -->
     <div class="flex flex-col items-center justify-center gap-4 mb-12">
         <h1 class="text-5xl font-extrabold italic text-[#3D46F2]">FlowLance</h1>
         <p class="text-2xl font-extrabold italic text-[#3D46F2]">
-            Tu plataforma de freelancers
+            {% translate "Tu plataforma de freelancers" %}
         </p>
     </div>
 
@@ -11,15 +12,17 @@
     <div class="flex flex-col lg:flex-row items-start justify-between w-full max-w-6xl gap-16 mb-16">
         <!-- Left part: Text -->
         <div class="lg:w-1/2 text-left lg:pr-8 space-y-12">
+            {% blocktranslate %}
             <p class="text-3xl font-semibold text-[#121670]">
                 Donde los <span class="text-[#636AF2] font-bold">proyectos</span> encuentran a los
                 <span class="text-[#F2AE30] font-bold"> profesionales</span>
             </p>
+            {% endblocktranslate %}
             <p class="text-xl text-[#121670] mt-9"> <!-- Added mt-4 to create space between the paragraphs -->
-                Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel
+                {% translate "Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel" %}
             </p>
         </div>
-        
+
 
         <!-- Right part: Images -->
         <div class="lg:w-1/2 relative h-96">
@@ -40,8 +43,10 @@
             <div
                 class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
                 <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">CALIDAD</h3>
-                <p class="px-4 py-2 text-lg text-white">Acceso a miles de freelancers verificados</p>
+                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "CALIDAD" %}</h3>
+                <p class="px-4 py-2 text-lg text-white">
+                    {% translate "Acceso a miles de freelancers verificados" %}
+                </p>
                 <img src="https://img.freepik.com/fotos-premium/persona-escribiendo-computadora-portatil-pantalla-que-dice-palabra-ella_889227-13444.jpg?w=900"
                     class="w-full h-60 object-cover" />
             </div>
@@ -50,8 +55,8 @@
             <div
                 class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
                 <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">EFECTIVIDAD</h3>
-                <p class="px-4 py-2 text-lg text-white">Procesos de contratación rápidos y seguros</p>
+                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "EFECTIVIDAD" %}</h3>
+                <p class="px-4 py-2 text-lg text-white">{% translate "Procesos de contratación rápidos y seguros" %}</p>
                 <img src="https://sosliem.com/wp/wp-content/uploads/2022/03/Nosotros.jpg"
                     class="w-full h-60 object-cover" />
             </div>
@@ -60,8 +65,8 @@
             <div
                 class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
                 <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">AMIGABLE</h3>
-                <p class="px-12 py-2 text-lg text-white">Plataforma intuitiva y fácil de usar</p>
+                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "AMIGABLE" %}</h3>
+                <p class="px-12 py-2 text-lg text-white">{% translate "Plataforma intuitiva y fácil de usar" %}</p>
                 <img src="https://images.pexels.com/photos/2422293/pexels-photo-2422293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                     class="w-full h-60 object-cover" />
             </div>
@@ -71,11 +76,12 @@
     <!-- Hero Image and Call to Action -->
     <div class="relative w-full max-w-6xl h-96 rounded-lg mt-2 mb-8 flex flex-col items-center justify-center text-center p-8 bg-cover bg-center"
         style="background-image: url('https://spacecloudec.com/wp-content/uploads/2024/03/13-1-1000x500.jpg');">
-        <div class="text-white text-2xl font-bold mb-6">Únete a nuestra red de freelancers y descubre proyectos
-            adaptados a ti</div>
+        <div class="text-white text-2xl font-bold mb-6">
+            {% translate "Únete a nuestra red de freelancers y descubre proyectos adaptados a ti" %}
+        </div>
         <a href="#"
             class="bg-[#3D46F2] text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-[#3D46F2] transition ease-in-out duration-300">
-            Regístrate ahora!
+            {% translate "Regístrate ahora!" %}
         </a>
     </div>
 
@@ -83,9 +89,9 @@
     <!-- Login Link -->
     <div>
         <p class="text-md text-gray-600">
-            ¿Ya tienes una cuenta?
+            {% translate "¿Ya tienes una cuenta?" %}
             <a href="#" class="text-[#3D46F2] font-bold hover:underline">
-                Inicia sesión aquí
+                {% translate "Inicia sesión aquí" %}
             </a>.
         </p>
     </div>

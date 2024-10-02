@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load i18n %}
 {% block content %}
 <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md">
-    <h2 class="text-3xl font-bold mb-6">Calificando a: {{ freelancer.user.username }}</h2>
+    <h2 class="text-3xl font-bold mb-6">{% translate "Calificando a: {{ freelancer.user.username }}" %}</h2>
     <form method="post" id="ratingForm">
         {% csrf_token %}
         <div class="space-y-6 mb-8">
@@ -21,11 +22,11 @@
             {% endfor %}
         </div>
         <div class="mb-6">
-            <h3 class="text-xl font-semibold mb-2">Añadir una descripción</h3>
+            <h3 class="text-xl font-semibold mb-2">{% translate "Añadir una descripción" %}</h3>
             <textarea name="comment" id="id_comment" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
         </div>
         <input type="hidden" name="stars" id="id_stars" value="0">
-        <button type="submit" class="w-full bg-primary_medium text-white hover:bg-purple-600 px-4 py-2 rounded">Confirmar</button>
+        <button type="submit" class="w-full bg-primary_medium text-white hover:bg-purple-600 px-4 py-2 rounded">{% translate "Confirmar" %}</button>
     </form>
 </div>
 

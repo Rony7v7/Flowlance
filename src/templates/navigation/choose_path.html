@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% block content %}
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white flex flex-col items-center">
     <h1 class="text-2xl sm:text-3xl font-bold text-primary_black text-center mb-8">
-        ¿Cuál es tu camino en FlowLance?
+        {% translate "¿Cuál es tu camino en FlowLance?" %}
     </h1>
 
     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
@@ -21,9 +22,9 @@
 
                 </div>
             </div>
-            <h2 class="text-lg font-semibold text-primary_medium">Freelancer</h2>
+            <h2 class="text-lg font-semibold text-primary_medium">{% translate "Freelancer" %}</h2>
             <p class="text-primary_black mt-2">
-                Ofrece tus habilidades al mundo, encuentra proyectos que te apasionen.
+                {% translate "Ofrece tus habilidades al mundo, encuentra proyectos que te apasionen." %}
             </p>
         </a>
 
@@ -45,7 +46,7 @@
             </div>
             <h2 class="text-lg font-semibold text-primary_medium">Cliente</h2>
             <p class="text-primary_black mt-2">
-                Encuentra el talento perfecto para impulsar tus proyectos.
+                {% translate "Encuentra el talento perfecto para impulsar tus proyectos." %}
             </p>
         </a>
     </div>

@@ -2,13 +2,14 @@
 
 {% block content %}
 
+{% load i18n %}
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
 
     <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
-        <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Experiencia Laboral</h1>
-        <h2 class="text-lg font-semibold text-primary_dark text-left">Experiencias</h2> 
+        <h1 class="text-3xl font-bold text-primary_black text-left">{% translate "Añadir Experiencia Laboral" %}</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Experiencias" %}</h2> 
         <p class="block text-primary_black font-normal mt-4 font-sans semi">
-            Aquí puedes agregar información de tu experiencia laboral.
+            {% translate "Aquí puedes agregar información de tu experiencia laboral." %}
         </p>
     </div>
 
@@ -17,33 +18,33 @@
             {% csrf_token %}
 
             <div>
-                <label class="block text-primary_black font-medium" for="title">Título del trabajo</label>
+                <label class="block text-primary_black font-medium" for="title">{% translate "Título del trabajo" %}</label>
                 <input type="text" name="title" id="title" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Título del trabajo" required>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="company">Compañía</label>
+                <label class="block text-primary_black font-medium" for="company">{% translate "Compañía" %}</label>
                 <input type="text" name="company" id="company" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Nombre de la compañía" required>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="start_date">Fecha de inicio</label>
+                <label class="block text-primary_black font-medium" for="start_date">{% translate "Fecha de inicio" %}</label>
                 <input type="date" name="start_date" id="start_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" required>
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="end_date">Fecha de finalización (opcional)</label>
+                <label class="block text-primary_black font-medium" for="end_date">{% translate "Fecha de finalización (opcional)" %}</label>
                 <input type="date" name="end_date" id="end_date" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium">
             </div>
 
             <div>
-                <label class="block text-primary_black font-medium" for="description">Descripción del trabajo</label>
+                <label class="block text-primary_black font-medium" for="description">{% translate "Descripción del trabajo" %}</label>
                 <textarea name="description" id="description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Describe las actividades realizadas" required></textarea>
             </div>
 
             <div class="flex justify-center">
                 <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
-                    Confirmar
+                    {% translate "Confirmar" %}
                 </button>
             </div>
         </form>
@@ -61,11 +62,11 @@
             <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
-            <h3 class="text-lg font-semibold text-primary_black">Información guardada exitosamente</h3>
-            <p class="text-gray-600 mt-2">¿Deseas seguir agregando experiencia?</p>
+            <h3 class="text-lg font-semibold text-primary_black">{% translate "Información guardada exitosamente" %}</h3>
+            <p class="text-gray-600 mt-2">{% translate "¿Deseas seguir agregando experiencia?" %}</p>
             <div class="mt-4 flex justify-center space-x-4">
-                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
-                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
+                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">{% translate "Sí" %}</button>
+                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">{% translate "No" %}</button>
             </div>
         </div>
     </div>

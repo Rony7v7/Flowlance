@@ -1,5 +1,6 @@
 {% extends "navigation/navigation.html" %}
 
+{% load i18n %}
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
@@ -43,7 +44,7 @@
 
 
         <div class="mt-6">
-            <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
+            <h2 class="text-xl font-bold text-primary_black">{% translate "Habilidades" %}</h2>
             <div class="mt-4 flex flex-wrap gap-2">
                 {% for skill in skills %}
                 <span
@@ -51,7 +52,7 @@
                     {{ skill.name }}
                 </span>
                 {% empty %}
-                <p class="text-gray-500">No se han agregado habilidades aún.</p>
+                <p class="text-gray-500">{% translate "No se han agregado habilidades aún." %}</p>
                 {% endfor %}
             </div>
         </div>
@@ -60,7 +61,7 @@
 
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Experiencia Laboral" %}</h2>
         <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
             <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
@@ -73,24 +74,23 @@
                     <h3 class="text-lg font-semibold text-primary_black">{{ experience.title }}</h3>
                     <p class="text-primary_medium font-medium">{{ experience.company }}</p>
                     <p class="text-gray-500 text-sm mt-1">
-                        Desde: {{ experience.start_date|date:"M. d, Y" }}
-                        {% if experience.end_date %} hasta: {{ experience.end_date|date:"M. d, Y" }}{% else %} hasta la
-                        fecha{% endif %}
+                        {% translate "Desde:"%} {{ experience.start_date|date:"M. d, Y" }}
+                        {% if experience.end_date %} {% translate "hasta:"%} {{ experience.end_date|date:"M. d, Y" }}{% else %} {% translate "hasta la fecha" %} {% endif %}
                     </p>
                     <p class="text-gray-700 mt-2">{{ experience.description }}</p>
                 </div>
             </li>
             {% empty %}
-            <li class="text-gray-500">No se ha añadido experiencia laboral aún.</li>
+            <li class="text-gray-500">{% translate "No se ha añadido experiencia laboral aún." %}</li>
             {% endfor %}
         </ul>
     </div>
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Portafolio" %}</h2>
 
         {% if portfolio %}
-        <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
+        <h4 class="text-xl font-semibold text-primary_medium mt-4">{% translate "Proyectos" %}</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {% for project in projects %}
             <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
@@ -102,7 +102,7 @@
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
+            <p class="text-gray-500">{% translate "No hay proyectos registrados en el portafolio aún." %}</p>
             {% endfor %}
         </div>
 
@@ -121,46 +121,45 @@
                         </a>
                     </div>
                     <p class="text-primary_dark mb-1">{{ course.organization }}</p>
-                    <p class="text-gray-500 mb-1">Expedición: {{ course.expedition_date|date:"M Y" }}</p>
+                    <p class="text-gray-500 mb-1">{% translate "Expedición:" %} {{ course.expedition_date|date:"M Y" }}</p>
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-500">No se han agregado cursos aún.</p>
+            <p class="text-gray-500">{% translate "No se han agregado cursos aún." %}</p>
             {% endfor %}
         </div>
         {% else %}
-        <p class="text-gray-500">No se ha creado un portafolio aún.</p>
+        <p class="text-gray-500">{% translate "No se ha creado un portafolio aún." %}</p>
         {% endif %}
     </div>
 
 
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Curriculum Vitae" %}</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
-        <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar
-            Curriculum</a>
+        <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">{% translate "Descargar Curriculum" %}</a>
         {% else %}
-        <p class="text-gray-500">No se ha subido ningún CV aún.</p>
+        <p class="text-gray-500">{% translate "No se ha subido ningún CV aún." %}</p>
         {% endif %}
     </div>
 
     <!-- Ratings and Reviews Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Calificaciones y Comentarios</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Calificaciones y Comentarios" %}</h2>
 
         <div class="mt-4 space-y-4">
             {% for rating in ratings %}
             <div class="bg-gray-100 p-4 rounded-lg shadow">
-                <p class="text-gray-800 font-semibold">{{ rating.stars }} estrellas por {{ rating.client.username }}</p>
+                <p class="text-gray-800 font-semibold">{{ rating.stars }} {% translate "estrellas por" %} {{ rating.client.username }}</p>
                 <p class="text-gray-700">{{ rating.comment }}</p>
                 {% if rating.response %}
                 <div class="bg-gray-50 p-2 mt-2 rounded">
-                    <p class="text-gray-600 font-semibold">Respuesta: {{ rating.response.response_text }}</p>
+                    <p class="text-gray-600 font-semibold">{% translate "Respuesta:" %} {{ rating.response.response_text }}</p>
 
                     <div class="flex space-x-2 mt-1">
                         {% if rating.response.can_edit %}
                         <a href="{% url 'edit_rating_response' rating.response.id %}"
-                            class="text-blue-600 hover:text-blue-500 underline">Editar Respuesta</a>
+                            class="text-blue-600 hover:text-blue-500 underline">{% translate "Editar Respuesta" %}</a>
                         {% endif %}
 
                         <!-- Formulario para eliminar respuesta -->
@@ -168,26 +167,26 @@
                             class="inline">
                             {% csrf_token %}
                             <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                                Eliminar respuesta
+                                {% translate "Eliminar respuesta" %}
                             </button>
                         </form>
                     </div>
                 </div>
                 {% else %}
                 <a href="{% url 'add_rating_response' rating.id %}"
-                    class="text-purple-600 hover:text-purple-500 underline mt-2">Responder a esta calificación</a>
+                    class="text-purple-600 hover:text-purple-500 underline mt-2">{% translate "Responder a esta calificación" %}</a>
                 {% endif %}
 
                 <!-- Formulario para eliminar calificación -->
                 <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
                     {% csrf_token %}
                     <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                        Eliminar Calificación
+                        {% translate "Eliminar Calificación" %}
                     </button>
                 </form>
             </div>
             {% empty %}
-            <p class="text-gray-500">Sin calificaciones</p>
+            <p class="text-gray-500">{% translate "Sin calificaciones" %}</p>
             {% endfor %}
         </div>
 
