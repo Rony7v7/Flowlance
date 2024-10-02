@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -71,6 +72,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -83,7 +85,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
             'client_id': "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
-            'secret': "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",
+            'secret': os.getenv("GOOGLE-SECRET"),
         },
         'SCOPE': ["profile", "email"],
         'AUTH_PARAMS': {'access_type': 'online'},
@@ -149,13 +151,21 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+
+LOCALE_PATHS = [(os.path.join(BASE_DIR,"locale"))]
+
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ('en',_("English")),
+    ('es',_("Español"))
+)
 
 
 # Static files (CSS, JavaScript, Images)

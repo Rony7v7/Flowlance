@@ -1,6 +1,7 @@
 {% extends "navigation/navigation.html" %}
 
 
+{% load i18n %}
 {% load static %}
 {% block app_content %}
 {{ project_id|json_script:"project-id" }}
@@ -12,9 +13,9 @@
         <div class="flex justify-between">
             <h3 class="text-lg font-semibold text-primary_black">
                 {% if is_editing %}
-                Editar Hito
+                {% translate "Editar Hito" %}
                 {% else %}
-                Añadir Hito
+                {% translate "Añadir Hito" %}
                 {% endif %}
             </h3>
 
@@ -30,18 +31,18 @@
 
             {% if is_editing %}
             <a href="/project/delete_milestone/{{milestone.id}}" id="delete-button">
-                <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Eliminar</button>
+                <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Eliminar" %}</button>
             </a>
 
             <!-- Modal -->
             <div id="delete_confirmation"
                 class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                 <div class="bg-white rounded-lg p-4 w-80">
-                    <h3 class="text-lg mb-4">¿Estás seguro de borrar la tarea `{{milestone.name}}`?</h3>
+                    <h3 class="text-lg mb-4">{% translate "¿Estás seguro de borrar la tarea `{{milestone.name}}`?" %}</h3>
                     <div class="flex justify-end">
                         <button id="confirm-button"
                             class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
-                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
+                        <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                     </div>
                 </div>
             </div>
@@ -51,13 +52,13 @@
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
-                <label for="name" class="block text-md font-medium text-primary_black">Nombre</label>
+                <label for="name" class="block text-md font-medium text-primary_black">{% translate "Nombre" %}</label>
                 <input id="name" name="name" type="text" {% if is_editing %} value="{{milestone.name}}" {% endif %}
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
             </div>
             <div class="mt-8">
-                <label for="description" class="block text-md font-medium text-primary_black">Descripción</label>
+                <label for="description" class="block text-md font-medium text-primary_black">{% translate "Descripción" %}</label>
                 <textarea id="description" name="description" rows="3"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>{% if is_editing %}{{milestone.description}} {% endif %}</textarea>
@@ -66,8 +67,7 @@
             <div class="flex justify-between space-x-40 mt-8">
 
                 <div class="w-1/2">
-                    <label for="end_date" class="block text-md font-medium text-primary_black">Fecha de
-                        Finalizacion</label>
+                    <label for="end_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Finalizacion" %}</label>
                     <input name="end_date" type="date" id="end_date" {% if is_editing and milestone.end_date %}
                         value="{{ milestone.end_date|date:'Y-m-d' }}" {% endif %}
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
@@ -77,7 +77,7 @@
 
                 {% if is_editing %}
                 <div class="w-1/2">
-                    <label for="start_date" class="block text-md font-medium text-primary_black">Fecha de Inicio</label>
+                    <label for="start_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Inicio" %}</label>
                     <input name="start_date" type="date" {% if is_editing and milestone.end_date %}
                         value="{{ milestone.start_date|date:'Y-m-d' }}" {%endif %}
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
@@ -91,9 +91,9 @@
             {% endif %}
             <div class="justify-end  items-center">
                 <a href="/project/{{project_id}}/milestone">
-                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">Cancelar</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                 </a>
-                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">Guardar</button>
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
             </div>
         </form>
 

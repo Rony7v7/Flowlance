@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="flex w-full gap-7 items-center h-12 justify-between">
     <!-- Barra de búsqueda -->
     <form action="/project/list/" method="GET" class="relative w-full focus:shadow-sm">
@@ -5,7 +6,7 @@
             <!-- Input de búsqueda -->
             <input type="search" name="search" id="default-search"
                 class="w-full px-2 py-2 text-sm text-primary_black border-none rounded-xl focus:outline-none focus:ring-0 focus:border-transparent"
-                placeholder="Buscar proyectos" />
+                placeholder="{% translate "Buscar proyectos"%}" />
 
             <!-- Botón de búsqueda -->
             <button type="submit" class="px-2 transition-transform duration-300 hover:scale-110">

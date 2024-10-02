@@ -1,9 +1,10 @@
 {% extends "projects/default_project_view.html" %}
 {% load static %}
 
+{% load i18n %}
 {% block section %}
 
-<h2 class="text-2xl font-bold text-primary_black mb-5">Linea de Tiempo</h2>
+<h2 class="text-2xl font-bold text-primary_black mb-5">{% translate "Linea de Tiempo" %}</h2>
 <div id="visualization"></div>
 
 <script type="text/javascript" src="https://unpkg.com/moment@latest"></script>
