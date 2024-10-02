@@ -170,3 +170,27 @@ def add_file(request, task_id):
         return redirect("project", project_id=project_id, section="task")
 
     return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
+
+
+@login_required
+def update_task_state(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    # Verifica que el usuario tenga permisos para editar el estado de la tarea
+    if request.user != task.responsible and not request.user.is_superuser:
+        return HttpResponseForbidden("No tienes permisos para actualizar esta tarea.")
+
+    if request.method == 'POST':
+        new_state = request.POST.get('state')
+        task.state = new_state
+        task.save()
+
+        # Crear la notificación para el responsable de la tarea
+        Notification.objects.create(
+            user=task.responsible,
+            message=f"{request.user.username} ha cambiado el estado de la tarea '{task.title}' a '{new_state}' en el proyecto '{task.milestone.project.title}'."
+        )
+
+        return redirect('project', project_id=task.milestone.project.id, section='task')
+
+    return redirect('project', project_id=task.milestone.project.id, section='task')

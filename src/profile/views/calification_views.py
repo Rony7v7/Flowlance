@@ -9,6 +9,7 @@ from ..forms import RatingForm, RatingResponseForm
 
 @login_required
 def add_rating(request, freelancer_username):
+
     freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username,is_deleted=False)
     if request.method == 'POST':
         form = RatingForm(request.POST)
@@ -24,11 +25,21 @@ def add_rating(request, freelancer_username):
                 message=f"Has recibido una nueva calificación de {request.user.username}."
             )
 
-            messages.success(request, 'Your rating has been submitted successfully.')
-            return redirect('freelancer_profile', username=freelancer_username)
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'success'}, status=200)
+            else:
+                messages.success(request, 'Tu calificación ha sido enviada exitosamente.')
+                return redirect('freelancer_profile', username=freelancer_username)
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'errors': form.errors}, status=400)
+            else:
+                messages.error(request, 'Error al enviar la calificación.')
     else:
         form = RatingForm()
+    
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
+
 
 
 
@@ -48,29 +59,46 @@ def add_rating_response(request, rating_id):
                 message=f"{request.user.username} ha respondido a tu calificación."
             )
 
-            messages.success(request, 'Your response has been added successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
-    else:
-        form = RatingResponseForm()
-    return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+
 
 
 @login_required
 def edit_rating_response(request, response_id):
+
     response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user,is_deleted=False)
     if not response.can_edit():
         messages.error(request, 'You can no longer edit this response.')
         return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
-    
+
     if request.method == 'POST':
         form = RatingResponseForm(request.POST, instance=response)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your response has been updated successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+
+            # Notificar al cliente que la respuesta fue editada
+            Notification.objects.create(
+                user=response.rating.client,
+                message=f"{request.user.username} ha editado la respuesta de la calificación."
+            )
+
+            messages.success(request, 'Respuesta editada con éxito.')
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
     else:
         form = RatingResponseForm(instance=response)
+    
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
+
+
+@login_required
+def get_rating_response(request, response_id):
+    response = get_object_or_404(RatingResponse, id=response_id)
+    return JsonResponse({'response_text': response.response_text})
+
     
 
 

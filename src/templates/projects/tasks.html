@@ -5,8 +5,10 @@
   <div class="flex justify-between items-center mb-8">
     <h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
 
+    <!-- Botón para añadir una nueva tarea -->
     {% url 'create_task' project.id as add_task_url %}
     {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
+
     {% if messages %}
     <div id="messages" class="hidden">
       {% for message in messages %}
@@ -15,6 +17,68 @@
     </div>
     {% endif %}
   </div>
+
+  <!-- Filtro por Hito -->
+<div class="flex justify-between items-center mt-4">
+    <form method="GET" id="milestoneFilterForm" class="flex items-center space-x-4">
+        <label for="milestone" class="text-primary_black font-semibold">Filtrar por Hito:</label>
+        <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded">
+            <option value="">Todos los hitos</option>
+            {% for milestone in milestones %}
+            <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
+                {{ milestone.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-colors">
+            Filtrar
+        </button>
+    </form>
+</div>
+
+<!-- Sección de Tareas -->
+<div class="grid grid-cols-3 gap-6 mt-4">
+    {% for milestone in milestones %}
+    {% if not request.GET.milestone or request.GET.milestone == milestone.id|stringformat:"s" %}
+    {% for task in milestone.tasks.all %}
+    <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
+        <div class="w-full {{ task.deadline_color }} p-1"></div>
+        <h3 class="text-lg font-semibold text-primary_black">Hito: {{ task.milestone.name }}</h3>
+        <h3 class="text-md font-bold text-primary_medium">Titulo: {{ task.title }}</h3>
+        <span>Asignado a: {{ task.responsible.username }}</span>
+        <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
+        <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
+        <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
+        <p class="text-sm text-primary_medium">Prioridad: {{ task.priority }}</p>
+
+
+        <!-- Sección para Actualizar Estado -->
+        <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
+            {% csrf_token %}
+            <label for="state" class="block text-sm font-medium text-primary_black">Estado Actual: {{ task.state }}</label>
+            <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
+                <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
+                <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
+            </select>
+            <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>
+        </form>
+
+        <!-- Sección de Descripciones -->
+        <h4 class="text-primary_black font-semibold mt-2">Descripciones Adicionales</h4>
+        <ul class="text-left space-y-2">
+            {% for description in task.descriptions.all %}
+            <li class="border-t pt-2">
+                <strong>{{ description.user.username }}</strong> ({{ description.created_at|date:"d M Y H:i" }}):
+                <p>{{ description.content }}</p>
+                {% if description.user == user or user.is_superuser %}
+                <a href="{% url 'edit_description' description.id %}" class="text-blue-500 hover:underline">Editar</a>
+                {% endif %}
+            </li>
+            {% empty %}
+            <li class="text-gray-500">No hay descripciones adicionales aún.</li>
+            {% endfor %}
+        </ul>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for milestone in milestones %}
@@ -38,6 +102,7 @@
             <div class="inline-block px-3 py-1 text-xs font-semibold text-bg_white bg-primary_medium rounded-full">
               La prioridad es: {{ task.priority }}
             </div>
+
 
             <!-- Additional Descriptions Section -->
             <div class="space-y-4">
@@ -115,6 +180,7 @@
           </div>
         </div>
       {% endfor %}
+
     {% endfor %}
   </div>
 </div>
