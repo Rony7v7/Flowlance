@@ -3,9 +3,12 @@ from .LoginForm import LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 
-
 def home(request):
     return render(request, "homepage/home.html")
+
+
+def choose_path_view(request):
+    return render(request, 'navigation/choose_path.html')  
 
 
 def login_view(request):

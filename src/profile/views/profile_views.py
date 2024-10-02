@@ -10,32 +10,40 @@ from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
 
-
+from flowlance.decorators import attach_profile_info
 
 
 @login_required
-def freelancer_profile(request, username=None):
-    if username is None:
-        profile = FreelancerProfile.objects.get(user=request.user)
-    else:
-        profile = get_object_or_404(FreelancerProfile, user__username=username)
+@attach_profile_info
+def my_profile(request, username=None): 
 
+    profile = request.profile
+    profile_type = request.profile_type
+
+    if profile_type == 'freelancer':
+        return my_freelancer_profile(request, profile)
+    elif profile_type == 'company':
+        return my_company_profile(profile)
+    else:
+        return redirect('home')
+
+def my_freelancer_profile(request, profile):
     try:
         portfolio = profile.portfolio_profile
-        projects = portfolio.projects.all()
-        courses = portfolio.courses.all()
+        projects = portfolio.projects.filter(is_deleted=False)
+        courses = portfolio.courses.filter(is_deleted=False)
            
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
+    ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
 
     context = {
         'profile': profile,
-        'skills': profile.skills.all(),
-        'experiences': profile.freelancer_work_experience.all(),
+        'skills': profile.skills.filter(is_deleted=False),
+        'experiences': profile.freelancer_work_experience.filter(is_deleted=False),
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
@@ -44,6 +52,8 @@ def freelancer_profile(request, username=None):
 
     return render(request, 'profile/freelancer_profile.html', context)
 
+def my_company_profile(request):
+    return redirect('home') # TODO: Redirect to the client profile view
 
 @login_required
 def notifications(request):

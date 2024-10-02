@@ -74,7 +74,7 @@ class AssigmentViewsTest(TestCase):
     def test_delete_assigment_POST(self):
         response = self.client.post(reverse('delete_assigment', args=[self.assigment.id]))
         self.assertEqual(response.status_code, 302)
-        self.assertFalse(Assigment.objects.filter(id=self.assigment.id).exists())
+        self.assertFalse(Assigment.objects.filter(id=self.assigment.id,is_deleted=False).exists())
 
     def test_upload_assigment_GET(self):
         response = self.client.get(reverse('upload_assigment', args=[self.assigment.id]))
