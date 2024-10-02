@@ -2,25 +2,26 @@
 
 {% extends "navigation/navigation.html" %}
 
+{% load i18n %}
 {% block app_content %}
 <div class="container">
     <!-- Navigation Tabs -->
     <div class="flex items-center justify-center gap-5 bg-primary_lightest rounded-xl px-4 py-2 text-white flex-wrap">
         <a href="/project/{{ project.id }}/milestone"
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            Hitos
+            {% translate "Hitos" %}
         </a>
         <a href="/project/{{ project.id }}/task"
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            Tareas
+            {% translate "Tareas" %}
         </a>
         <a href="/project/{{ project.id }}/time_line"
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
-            Línea de Tiempo
+            {% translate "Línea de Tiempo" %}
         </a>
         <a href="/project/{{ project.id }}/calendar"
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            Calendario
+            {% translate "Calendario" %}
         </a>
     </div>
     
@@ -28,7 +29,7 @@
     
 
     <!-- Panel de Control -->
-    <h1 class="text-primary_black text-2xl font-bold mt-4">Panel de control</h1>
+    <h1 class="text-primary_black text-2xl font-bold mt-4">{% translate "Panel de control" %}</h1>
 
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
         <div class="flex pt-10">
@@ -38,7 +39,7 @@
                      class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
-                    <p class="text-lg font-semibold text-primary_black">Presupuesto: <span
+                    <p class="text-lg font-semibold text-primary_black">{% translate "Presupuesto:" %} <span
                             class="text-primary_medium">{{ project.budget }}</span></p>
                 </div>
             </div>
@@ -50,24 +51,24 @@
                 <div class="flex space-x-4">
                     <a href="{% url 'project_edit' project.pk %}"
                         class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
-                        Editar
+                        {% translate "Editar" %}
                     </a>
                     <a href="{% url 'project_requirements' project.pk %}"
                         class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-                        Ver Requerimientos
+                        {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
 
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
                     <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-                        Postularse a este proyecto
+                        {% translate "Postularse a este proyecto" %}
                     </button>
                 </form>
 
                 <!-- Aplications list -->
                 <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-                    Ver Postulaciones
+                    {% translate "Ver Postulaciones" %}
                 </button>
               
 
@@ -75,13 +76,9 @@
                 <div class="mt-4 flex space-x-4 items-center">
                     <a href="{% url 'project_delete' project.pk %}"
                         class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
-                        Eliminar Proyecto
+                        {% translate "Eliminar Proyecto" %}
                     </a>
                     
-                    <!-- <a href="{% url 'my_projects' %}"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
-                        Mis Proyectos
-                    </a> -->
                 </div>
                 
                 <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
@@ -92,7 +89,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
+                                    {% translate "Estado de la postulación: " %}
                                     <span class="text-red-500 font-bold">{{ application.status }}</span>
                                 </p>
                             {% elif application.status == "Aceptada" %}
@@ -100,7 +97,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
+                                    {% translate "Estado de la postulación: " %}
                                     <span class="text-green-500 font-bold">{{ application.status }}</span>
                                 </p>
                             {% else %}
@@ -108,14 +105,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <p class="text-lg text-primary_black font-semibold">
-                                    Estado de la postulación: 
+                                    {% translate "Estado de la postulación: " %}
                                     <span class="text-yellow-500 font-bold">{{ application.status }}</span>
                                 </p>
                             {% endif %}
                         </div>
                     {% else %}
                         <p class="text-lg text-primary_black font-semibold mt-2">
-                            No te has postulado a este proyecto aún.
+                            {% translate "No te has postulado a este proyecto aún." %}
                         </p>
                     {% endif %}
                 </div>
@@ -132,19 +129,20 @@
     <!-- Pop-up of applications -->
     <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-xl shadow-lg w-1/2">
-            <h2 class="text-2xl font-bold mb-4">Postulaciones al Proyecto</h2>
+            <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
             <ul>
                 {% for application in applications %}
                 <li class="border-b border-gray-200 py-2 flex justify-between items-center">
                     <div>
                         <p>
-                            <strong>Usuario:</strong> 
+                            <strong>{% translate "Usuario:" %}</strong> 
                             <a href="{% url 'freelancer_profile_view' application.user.username %}" 
                                class="text-blue-500 hover:underline">
                                {{ application.user.username }}
                             </a>
-                        </p>                        <p><strong>Estado:</strong> {{ application.status }}</p>
-                        <p><strong>Fecha de Aplicación:</strong> {{ application.applied_at|date:"d M Y" }}</p>
+                        </p>                     
+                        <p><strong>{% translate "Estado:" %}</strong> {{ application.status }}</p>
+                        <p><strong>{% translate "Fecha de Aplicación:"%}</strong> {{ application.applied_at|date:"d M Y" }}</p>
                     </div>
                     {% if application.status == 'Pendiente' %}
                     <div class="flex gap-2">
@@ -156,7 +154,7 @@
                     {% endif %}
                 </li>
                 {% empty %}
-                <p>No hay postulaciones para este proyecto.</p>
+                <p>{% translate "No hay postulaciones para este proyecto." %}</p>
                 {% endfor %}
             </ul>
             <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Cerrar</button>

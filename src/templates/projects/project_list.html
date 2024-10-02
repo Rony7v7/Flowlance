@@ -1,5 +1,6 @@
 {% extends "navigation/navigation.html" %}
 
+{% load i18n %}
 {% block app_content %}
 <div class="container mx-auto px-4 py-6">
     <div class="flex flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-xl mb-4">
@@ -17,14 +18,14 @@
     </div>
 
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">Mis Proyectos</h1>
+        <h1 class="text-3xl font-bold">{% translate "Mis Proyectos" %}</h1>
     </div>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
         {% for project in projects %}
             {% include 'projects/project_card.html' %}
         {% empty %}
-            <p class="text-gray-500 col-span-3">Sin resultados.</p>
+            <p class="text-gray-500 col-span-3">{% translate "Sin resultados." %}</p>
         {% endfor %}
     </div>
 </div>
