@@ -26,4 +26,5 @@ urlpatterns = [
     path('assigment/<int:assigment_id>/upload/', assigment_views.upload_assigment, name='upload_assigment'),
     path("assigment/edit/<int:assigment_id>",assigment_views.edit_assigment,name="edit_assigment"),
     path("assigment/delete/<int:assigment_id>",assigment_views.delete_assigment,name="delete_assigment"),
+    path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
 ]
