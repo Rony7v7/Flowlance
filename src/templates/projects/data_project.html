@@ -1,0 +1,23 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block section %}
+<div>
+    <h1 class="text-primary_black text-2xl font-bold mt-4">Informes del Proyecto</h1>
+
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <p>Aquí se mostrará el informe detallado de los progresos, presupuestos, entregables y métricas del proyecto.</p>
+
+        <div class="mt-8">
+            <!-- Ejemplo de reporte de progreso -->
+            <h2 class="text-xl font-bold text-primary_black">Progreso General</h2>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <p><strong>Progreso Actual:</strong> {{ project.progress|default:"0%" }}</p>
+                <p><strong>Presupuesto Utilizado:</strong> {{ project.budget_used|default:"$0.00" }} de {{ project.budget|default:"$0.00" }}</p>
+                <p><strong>Entregables Completados:</strong> {{ project.completed_deliverables|default:"0" }} de {{ project.total_deliverables|default:"0" }}</p>
+            </div>
+
+            <!-- Agrega más secciones con datos relevantes al informe del proyecto -->
+        </div>
+    </div>
+</div>
+{% endblock %}

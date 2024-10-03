@@ -70,6 +70,7 @@ def display_project(request, project_id, section):
         "task": "projects/tasks.html",
         "time_line": "projects/time_line.html",
         "calendar": "projects/calendar.html",
+        "data_project": "projects/data_project.html",
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
@@ -85,6 +86,7 @@ def display_project(request, project_id, section):
             "section": section,
             "application": application,
             "applications": applications,
+            
         },
     )
 
@@ -229,5 +231,17 @@ def update_application_status(request, application_id, action):
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect("project", project_id=application.project.id, section="milestone")
+
+@login_required
+def data_project_view(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    context = {
+        'project': project,
+        'section': 'data_project',  # Aseguramos que la pestaña "Informes" esté activa
+    }
+    return render(request, 'projects/data_project.html', context)
+
+
+
 
 

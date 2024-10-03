@@ -1,4 +1,4 @@
-<!-- default_project_view.html-->
+<!-- default_project_view.html -->
 
 {% extends "navigation/navigation.html" %}
 
@@ -14,6 +14,8 @@
            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %}">Línea de Tiempo</a>
         <a href="/project/{{ project.id }}/calendar"
            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
+        <a href="/project/{{ project.id }}/data_project"
+            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">Informes</a>
     </div>
 
     <!-- Panel de Control -->
@@ -58,7 +60,6 @@
                 <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
                     Ver Postulaciones
                 </button>
-              
 
                 <!-- Boton eliminar -->
                 <div class="mt-4 flex space-x-4 justify-end">
@@ -67,22 +68,20 @@
                         Eliminar Proyecto
                     </a>
                     <div class="flex flex-row gap-2">
-
                         {% url 'my_projects' as list_projects_available %}
-                        {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=1 url=list_projects_available%}
+                        {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=1 url=list_projects_available %}
                     </div>
                 </div>
 
-                    
-                    {% if application %}
-                        <p class="text-sm text-primary_medium mt-2">Estado de la postulación: <span class="font-bold">{{ application.status }}</span></p>
-                    {% else %}
-                        <p class="text-sm text-primary_medium mt-2">No te has postulado a este proyecto aún.</p>
-                    {% endif %}
-                </div>
+                {% if application %}
+                    <p class="text-sm text-primary_medium mt-2">Estado de la postulación: <span class="font-bold">{{ application.status }}</span></p>
+                {% else %}
+                    <p class="text-sm text-primary_medium mt-2">No te has postulado a este proyecto aún.</p>
+                {% endif %}
             </div>
         </div>
     </div>
+
     <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
         {% block section %}
         {% endblock %}
@@ -102,7 +101,8 @@
                                class="text-blue-500 hover:underline">
                                {{ application.user.username }}
                             </a>
-                        </p>                        <p><strong>Estado:</strong> {{ application.status }}</p>
+                        </p>                        
+                        <p><strong>Estado:</strong> {{ application.status }}</p>
                         <p><strong>Fecha de Aplicación:</strong> {{ application.applied_at|date:"d M Y" }}</p>
                     </div>
                     {% if application.status == 'Pendiente' %}
@@ -121,7 +121,6 @@
             <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar</button>
         </div>
     </div>
-
 </div>
 
 <script>
