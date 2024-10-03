@@ -5,13 +5,35 @@
     <!-- Panel de Control de Progreso -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">Informes del Proyecto</h1>
 
-    <!-- Progreso General -->
-    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
-        <h2 class="text-xl font-bold text-primary_black">Progreso General</h2>
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <p><strong>Progreso Actual:</strong> {{ progress }}%</p>
+<!-- Progreso General -->
+<div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+    <h2 class="text-xl font-bold text-primary_black">Progreso General</h2>
+    <div class="bg-white p-4 rounded-lg shadow-md">
+        <p class="mb-4"><strong>Progreso Actual:</strong> {{ progress }}%</p>
+        
+<!-- Barra de Progreso -->
+<div class="w-full bg-gray-200 rounded-full h-6">
+    <div id="progress-bar" class="bg-primary_medium h-6 rounded-full text-center text-white text-sm leading-none">
+        {{ progress|floatformat:0|default_if_none:0 }}%
+    </div>
+</div>
+
+<script>
+    // Establecer el ancho de la barra de progreso dinámicamente usando JavaScript
+    document.getElementById('progress-bar').style.width = "{{ progress|floatformat:0|default_if_none:0 }}%";
+</script>
+
+
+
+
+        <!-- Indicador de Compleción -->
+        <div class="flex justify-between mt-2">
+            <span class="text-sm text-primary_dark">0%</span>
+            <span class="text-sm text-primary_dark">100%</span>
         </div>
     </div>
+</div>
+
 
     <!-- Sección de Tareas -->
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
@@ -33,17 +55,6 @@
                         Estado: {{ task.state }}
                     </p>
 
-                    <!-- Opciones para cambiar el estado de la tarea -->
-                    <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
-                        {% csrf_token %}
-                        <label for="state" class="block text-sm font-medium text-primary_black">Actualizar Estado:</label>
-                        <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
-                            <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                            <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
-                            <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
-                        </select>
-                        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>
-                    </form>
                 </div>
                 {% endfor %}
             </div>
