@@ -39,23 +39,29 @@ def my_projects(request):
 def display_project(request, project_id, section):
     try:
         project = (
-            Project.objects.only("title", "description")
-            .prefetch_related(
-                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date"))
-            )
-            .get(id=project_id)
+            Project.objects.prefetch_related(
+                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date").prefetch_related("tasks"))
+            ).get(id=project_id)
         )
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
-    # Obtener todas las tareas asociadas a los hitos del proyecto
     milestones = project.milestones.all()
-    tasks = Task.objects.filter(milestone__in=milestones)
 
-    # Progreso de las tareas
+    # Progreso de Tareas
+    tasks = Task.objects.filter(milestone__in=milestones)
     total_tasks = tasks.count()
     completed_tasks = tasks.filter(state="Completada").count()
-    progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
+    task_progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
+
+    # Progreso de Hitos
+    total_milestones = milestones.count()
+    completed_milestones = 0
+    for milestone in milestones:
+        if milestone.amount_completed == milestone.assigments.count():
+            completed_milestones += 1
+
+    milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -73,11 +79,13 @@ def display_project(request, project_id, section):
         {
             "project": project,
             "tasks": tasks,
-            "progress": progress,
             "milestones": milestones,
+            "task_progress": task_progress,
+            "milestone_progress": milestone_progress,
             "section": section,
         },
     )
+
 
 
 
