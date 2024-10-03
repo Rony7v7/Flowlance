@@ -35,12 +35,11 @@
                     </a>
                 </div>
                 <button
-                class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     Editar Perfil
                 </button>
             </div>
         </div>
-
 
         <div class="mt-6">
             <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
@@ -57,10 +56,15 @@
         </div>
     </div>
 
-
-
+    <!-- Experiencia Laboral Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
+            <a href="{% url 'add_experience' %}"
+                class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                Añadir
+            </a>
+        </div>
         <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
             <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
@@ -85,9 +89,21 @@
             {% endfor %}
         </ul>
     </div>
-
+    <!-- Portafolio Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
+            <div class="space-x-4">
+                <a href="{% url 'add_project' %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                    Añadir Proyecto
+                </a>
+                <a href="{% url 'add_course' %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                    Añadir Curso
+                </a>
+            </div>
+        </div>
 
         {% if portfolio %}
         <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
@@ -134,8 +150,16 @@
     </div>
 
 
+    <!-- Curriculum Vitae Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
+            <a href="{% url 'upload_curriculum' %}"
+                class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                Añadir
+            </a>
+        </div>
+
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
         <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar
             Curriculum</a>
@@ -194,7 +218,6 @@
         <a href="{% url 'add_rating' profile.user.username %}"
             class="text-purple-600 hover:text-purple-500 underline mt-4 block">Calificar</a>
     </div>
-
 
 </div>
 
