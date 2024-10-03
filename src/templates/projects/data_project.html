@@ -73,7 +73,42 @@
         </div>
     </div>
 
+    <!-- Progreso General de los Entregables -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Progreso de Entregables</h2>
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <p class="mb-4"><strong>Progreso Actual de Entregables:</strong></p>
+
+            <!-- Barra de Progreso para los Entregables -->
+            <div class="w-full bg-gray-200 rounded-full h-6">
+                <div id="deliverables-progress-bar" class="
+                    {% if deliverable_progress < 34 %}
+                        bg-red-500
+                    {% elif deliverable_progress < 67 %}
+                        bg-yellow-500
+                    {% else %}
+                        bg-green-500
+                    {% endif %}
+                    h-6 rounded-full text-center text-white text-sm leading-none">
+                    {{ deliverable_progress|floatformat:0|default_if_none:0 }}%
+                </div>
+            </div>
+
+            <script>
+                // Establecer el ancho de la barra de progreso de los entregables dinámicamente
+                document.getElementById('deliverables-progress-bar').style.width = "{{ deliverable_progress|floatformat:0|default_if_none:0 }}%";
+            </script>
+
+            <!-- Indicador de Compleción para los Entregables -->
+            <div class="flex justify-between mt-2">
+                <span class="text-sm text-primary_dark">0%</span>
+                <span class="text-sm text-primary_dark">100%</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 
     
@@ -131,4 +166,97 @@
     </div>
 
 </div>
+
+<div class="container">
+    <!-- Panel de Control de Progreso -->
+    <h1 class="text-primary_black text-2xl font-bold mt-4">Tablero Kanban</h1>
+
+    <div class="grid grid-cols-3 gap-4 mt-6">
+        <!-- Columna para "Pendiente" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">Pendiente</h2>
+            {% for task in tasks %}
+                {% if task.state == 'Pendiente' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Columna para "En Progreso" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">En Progreso</h2>
+            {% for task in tasks %}
+                {% if task.state == 'En Progreso' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Columna para "Completada" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">Completada</h2>
+            {% for task in tasks %}
+                {% if task.state == 'Completada' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
+
+    <div id="ganttChart" class="mt-6" style="height: 400px;"></div>
+
+    <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        // Definir los datos para el diagrama de Gantt (hitos y tareas)
+        var items = new vis.DataSet([
+            {% for milestone in milestones %}
+            {id: {{ milestone.id }}, content: '{{ milestone.name }}', start: '{{ milestone.start_date }}', end: '{{ milestone.end_date }}'},
+            {% for task in milestone.tasks.all %}
+            {id: {{ task.id }}, content: '{{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}'},
+            {% endfor %}
+            {% endfor %}
+        ]);
+
+        // Configuración del diagrama de Gantt
+        var options = {
+            stack: false,
+            horizontalScroll: true,
+            showCurrentTime: true,
+            zoomable: true,
+            moveable: true,
+        };
+
+        // Inicializar el gráfico
+        var container = document.getElementById('ganttChart');
+        var timeline = new vis.Timeline(container, items, options);
+    </script>
+</div>
 {% endblock %}
+

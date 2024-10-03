@@ -63,6 +63,15 @@ def display_project(request, project_id, section):
 
     milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
 
+    # Progreso de Entregables
+    total_deliverables = 0
+    completed_deliverables = 0
+    for milestone in milestones:
+        total_deliverables += milestone.assigments.count()
+        completed_deliverables += milestone.amount_completed
+
+    deliverable_progress = (completed_deliverables / total_deliverables) * 100 if total_deliverables > 0 else 0
+
     sections_map = {
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
@@ -82,6 +91,7 @@ def display_project(request, project_id, section):
             "milestones": milestones,
             "task_progress": task_progress,
             "milestone_progress": milestone_progress,
+            "deliverable_progress": deliverable_progress,
             "section": section,
         },
     )
