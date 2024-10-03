@@ -40,6 +40,7 @@ NPM_BIN_PATH = os.getenv(
     "NPM_BIN_PATH", "npm"
 )  # Default to 'npm' if env variable is not set
 
+SITE_ID = 1
 
 INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
@@ -53,6 +54,11 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "user",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     "profile",
     "project",
     "dashboard",
@@ -70,7 +76,21 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "allauth.account.middleware.AccountMiddleware"
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
+            'secret': "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",
+        },
+        'SCOPE': ["profile", "email"],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        "METHOD": "oauth2",
+        "VERIFIED_EMAIL": True,
+    }
+}
 
 ROOT_URLCONF = "flowlance.urls"
 
@@ -157,3 +177,11 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+LOGIN_REDIRECT_URL = 'dashboard'
+

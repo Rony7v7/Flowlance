@@ -3,10 +3,11 @@
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
+    <!-- Información del Freelancer -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg p-8">
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
-            <img src="https://avatars.githubusercontent.com/u/1561955?v=4" alt="Foto de {{ profile.user.username }}"
-                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
+            <img src="{% if profile.photo %}{{ profile.photo.url }}{% else %}https://avatars.githubusercontent.com/u/1561955?v=4{% endif %}"
+                alt="Foto de {{ profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
             <div class="sm:ml-6 mt-6 sm:mt-0 flex-1">
                 <h1 class="text-3xl sm:text-3xl font-bold text-primary_medium">{{ profile.user.username }}</h1>
                 <p class="text-primary_black font-semibold">Desarrollador Full Stack</p>
@@ -35,11 +36,12 @@
                     </a>
                 </div>
                 <button
-                    class="mt-4 bg-primary_medium text-white font-bold py-2 px-4 rounded hover:bg-primary_dark focus:outline-none">
+                class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     Editar Perfil
                 </button>
             </div>
         </div>
+
 
         <div class="mt-6">
             <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
@@ -56,8 +58,7 @@
         </div>
     </div>
 
-
-
+    <!-- Experiencia Laboral -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
         <ul class="mt-4 space-y-6">
@@ -85,6 +86,7 @@
         </ul>
     </div>
 
+    <!-- Portafolio -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
 
@@ -132,7 +134,7 @@
         {% endif %}
     </div>
 
-
+    <!-- Curriculum Vitae -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
@@ -143,58 +145,266 @@
         {% endif %}
     </div>
 
-    <!-- Ratings and Reviews Section -->
+    <!-- Calificaciones y Comentarios -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Calificaciones y Comentarios</h2>
+        <h2 class="text-3xl font-bold text-primary_black mb-6">Calificaciones y Comentarios</h2>
 
-        <div class="mt-4 space-y-4">
+        <!-- Contenedor de Calificaciones -->
+        <div class="space-y-6">
             {% for rating in ratings %}
-            <div class="bg-gray-100 p-4 rounded-lg shadow">
-                <p class="text-gray-800 font-semibold">{{ rating.stars }} estrellas por {{ rating.client.username }}</p>
-                <p class="text-gray-700">{{ rating.comment }}</p>
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary_medium transition-transform duration-300 hover:shadow-lg hover:scale-105">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <p class="text-xl font-semibold text-primary_black">{{ rating.stars }} estrellas</p>
+                        <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username }}</strong></p>
+                    </div>
+                    <p class="text-gray-400 text-sm">{{ rating.created_at|date:"d M Y" }}</p>
+                </div>
+                <p class="mt-4 text-gray-700 text-md">{{ rating.comment }}</p>
+
+                <!-- Botones para acciones del comentario (Editar o Eliminar) -->
+                <div class="flex justify-end space-x-4 mt-2">
+                    <!-- Eliminar comentario -->
+                    <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
+                            Eliminar Calificación
+                        </button>
+                    </form>
+                </div>
+
                 {% if rating.response %}
-                <div class="bg-gray-50 p-2 mt-2 rounded">
-                    <p class="text-gray-600 font-semibold">Respuesta: {{ rating.response.response_text }}</p>
+                <!-- Respuesta del Freelancer -->
+                <div class="mt-4 bg-gray-100 rounded-lg p-4 border border-gray-200">
+                    <p class="text-sm text-gray-600"><strong>Respuesta:</strong> {{ rating.response.response_text }}</p>
+                    <div class="flex justify-end space-x-4 mt-2">
+                        <!-- Editar respuesta -->
+                        <a href="javascript:void(0)" onclick="openEditResponseModal('{{ rating.response.id }}')" class="text-primary_medium hover:underline text-sm font-semibold">Editar Respuesta</a>
 
-                    <div class="flex space-x-2 mt-1">
-                        {% if rating.response.can_edit %}
-                        <a href="{% url 'edit_rating_response' rating.response.id %}"
-                            class="text-blue-600 hover:text-blue-500 underline">Editar Respuesta</a>
-                        {% endif %}
-
-                        <!-- Formulario para eliminar respuesta -->
-                        <form action="{% url 'delete_rating_response' rating.response.id %}" method="post"
-                            class="inline">
+                        <!-- Eliminar respuesta -->
+                        <form action="{% url 'delete_rating_response' rating.response.id %}" method="post" class="inline">
                             {% csrf_token %}
-                            <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                                Eliminar respuesta
+                            <button type="submit"
+                                class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
+                                Eliminar Respuesta
                             </button>
                         </form>
                     </div>
                 </div>
                 {% else %}
-                <a href="{% url 'add_rating_response' rating.id %}"
-                    class="text-purple-600 hover:text-purple-500 underline mt-2">Responder a esta calificación</a>
+                <!-- Botón para responder si no hay respuesta -->
+                <div class="mt-4">
+                    <a href="javascript:void(0)" onclick="openResponseModal('{{ rating.id }}')"
+                        class="inline-block bg-primary_medium text-white px-4 py-2 rounded-md hover:bg-primary_dark transition-colors">
+                        Responder a esta calificación
+                    </a>
+                </div>
                 {% endif %}
-
-                <!-- Formulario para eliminar calificación -->
-                <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
-                    {% csrf_token %}
-                    <button type="submit" class="text-red-600 hover:text-red-500 underline">
-                        Eliminar Calificación
-                    </button>
-                </form>
             </div>
             {% empty %}
-            <p class="text-gray-500">Sin calificaciones</p>
+            <p class="text-gray-500">Sin calificaciones aún. Sé el primero en calificar.</p>
             {% endfor %}
         </div>
 
-        <a href="{% url 'add_rating' profile.user.username %}"
-            class="text-purple-600 hover:text-purple-500 underline mt-4 block">Calificar</a>
+        <!-- Botón para agregar calificación -->
+        <div class="mt-8 text-center">
+            <a href="javascript:void(0)" onclick="openRatingModal()"
+                class="inline-block bg-primary_medium text-white px-6 py-3 rounded-lg hover:bg-primary_dark transition-colors">
+                Calificar
+            </a>
+        </div>
     </div>
 
+    <!-- Modal para Responder a la Calificación -->
+    <div id="responseModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-bg_white p-6 rounded-lg shadow-lg w-1/2 relative">
+            <button class="absolute top-2 right-2 text-primary_dark hover:text-primary_medium" onclick="closeResponseModal()">&times;</button>
+            <h2 class="text-2xl font-bold mb-4 text-primary_black">Responder a la Calificación</h2>
 
+            <form id="responseForm" method="POST">
+                {% csrf_token %}
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-primary_black">Tu Respuesta</h3>
+                    <textarea name="response_text" id="id_response_text" rows="4"
+                        class="w-full p-4 border border-primary_light rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Enviar Respuesta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar Calificación -->
+    <div id="ratingModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 relative">
+            <button class="absolute top-2 right-2 text-primary_dark" onclick="closeRatingModal()">&times;</button>
+            <h2 class="text-2xl font-bold mb-4 text-primary_black">Calificar a {{ profile.user.username }}</h2>
+
+            <form id="ratingForm" method="POST">
+                {% csrf_token %}
+                <div class="flex items-center space-x-1 mb-4" id="starContainer">
+                    {% for i in "12345" %}
+                    <svg id="star-{{ forloop.counter }}" data-value="{{ forloop.counter }}" class="w-10 h-10 text-primary_lightest cursor-pointer transition-colors duration-300 hover:text-primary_dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" onclick="setRating('{{ forloop.counter }}')">
+                        <path d="M12 .587l3.668 7.431 8.167 1.178-5.917 5.758 1.397 8.146L12 18.897l-7.315 3.847 1.397-8.146L.165 9.196l8.167-1.178L12 .587z"></path>
+                    </svg>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="stars" id="id_stars" value="0">
+
+                <!-- Campo de Comentario -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-primary_black">Añadir una descripción</h3>
+                    <textarea name="comment" id="id_comment" rows="4"
+                        class="w-full p-4 border border-gray-300 rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
+                </div>
+
+                <!-- Botón de Confirmación -->
+                <button type="submit"
+                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Enviar
+                    Calificación</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script para manejar el modal -->
+    <script>
+        let ratingId; // Variable para almacenar el ID de la calificación
+        let responseId; // Variable para almacenar el ID de la respuesta en caso de edición
+
+        // Abre el modal para crear una nueva respuesta
+        function openResponseModal(id) {
+            ratingId = id; 
+            document.getElementById('responseModal').classList.remove('hidden');
+            document.getElementById('id_response_text').value = ''; // Limpiar campo de texto
+        }
+
+        // Abre el modal para editar una respuesta existente
+        function openEditResponseModal(id) {
+            responseId = id;
+            document.getElementById('responseModal').classList.remove('hidden');
+            
+            // Rellenar el textarea con la respuesta existente
+            fetch(`/profile/get_rating_response/${responseId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('id_response_text').value = data.response_text;
+            })
+            .catch(error => console.error('Error al obtener la respuesta:', error));
+        }
+
+        // Cierra el modal de respuesta
+        function closeResponseModal() {
+            document.getElementById('responseModal').classList.add('hidden');
+        }
+
+        // Manejador del formulario de respuesta (para crear o editar)
+        document.getElementById('responseForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            const url = responseId 
+                ? `/profile/edit_rating_response/${responseId}/`  // URL de edición
+                : `/profile/add_rating_response/${ratingId}/`;   // URL de creación
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    closeResponseModal();
+                    location.reload();
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data && data.errors) {
+                    alert('Error al enviar la respuesta: ' + JSON.stringify(data.errors));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ha ocurrido un error. Intenta nuevamente.');
+            });
+        });
+
+        // Manejador del formulario de calificación
+        document.getElementById('ratingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const stars = document.getElementById('id_stars').value;
+            if (stars < 1) {
+                alert("Debes seleccionar al menos 1 estrella.");
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            fetch("{% url 'add_rating' profile.user.username %}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}',  
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    closeRatingModal();
+                    location.reload();
+                } else if (data.errors) {
+                    alert('Error al enviar la calificación: ' + JSON.stringify(data.errors));
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Cierra el modal de calificación
+        function closeRatingModal() {
+            document.getElementById('ratingModal').classList.add('hidden');
+        }
+
+        function openRatingModal() {
+            document.getElementById('ratingModal').classList.remove('hidden');
+            document.getElementById('id_stars').value = '0';  // Resetear la selección de estrellas
+            resetStars();
+        }
+
+        function resetStars() {
+            document.querySelectorAll('#starContainer svg').forEach(star => {
+                star.classList.remove('text-primary_dark');
+                star.classList.add('text-primary_lightest');
+            });
+        }
+
+        function setRating(ratingValue) {
+            // Guardar el valor de las estrellas seleccionadas en el input oculto
+            document.getElementById('id_stars').value = ratingValue;
+
+            // Resetear todas las estrellas al color claro
+            document.querySelectorAll('#starContainer svg').forEach(star => {
+                star.classList.remove('text-primary_dark');
+                star.classList.add('text-primary_lightest');
+            });
+
+            // Cambiar el color de todas las estrellas hasta la seleccionada
+            for (let i = 1; i <= ratingValue; i++) {
+                document.getElementById(`star-${i}`).classList.remove('text-primary_lightest');
+                document.getElementById(`star-${i}`).classList.add('text-primary_dark');
+            }
+        }
+    </script>
 </div>
-
 {% endblock %}

@@ -22,8 +22,8 @@ def my_profile(request, username=None):
 
     if profile_type == 'freelancer':
         return my_freelancer_profile(request, profile)
-    elif profile_type == 'client':
-        return my_client_profile(profile)
+    elif profile_type == 'company':
+        return my_company_profile(profile)
     else:
         return redirect('home')
 
@@ -52,7 +52,7 @@ def my_freelancer_profile(request, profile):
 
     return render(request, 'profile/freelancer_profile.html', context)
 
-def my_client_profile(request, profile):
+def my_company_profile(request):
     return redirect('home') # TODO: Redirect to the client profile view
 
 @login_required
