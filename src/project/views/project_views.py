@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
 from project.forms import ProjectForm
-from project.models import Application, Milestone, Project
+from project.models import Application, Milestone, Project, Task
 from django.contrib import messages
 
 @login_required
@@ -38,7 +38,6 @@ def my_projects(request):
 @login_required
 def display_project(request, project_id, section):
     try:
-
         project = (
             Project.objects.only("title", "description")
             .prefetch_related(
@@ -49,21 +48,14 @@ def display_project(request, project_id, section):
     except Project.DoesNotExist:
         raise Http404("No Project with that id")
 
+    # Obtener todas las tareas asociadas a los hitos del proyecto
     milestones = project.milestones.all()
+    tasks = Task.objects.filter(milestone__in=milestones)
 
-    milestone_data = [
-        {
-            'id': milestone.id,
-            'group': milestone.project.id,  # Group by project or another criterion
-            'content': milestone.name,
-            'start': milestone.start_date.strftime('%Y-%m-%d'),
-            'end': milestone.end_date.strftime('%Y-%m-%d'),
-        }
-        for milestone in milestones
-    ]
-
-    # Get all applications for the project
-    applications = project.applications.all()
+    # Progreso de las tareas
+    total_tasks = tasks.count()
+    completed_tasks = tasks.filter(state="Completada").count()
+    progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -74,21 +66,21 @@ def display_project(request, project_id, section):
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
-    application = project.applications.filter(user=request.user).first()
 
     return render(
         request,
         section_to_show,
         {
             "project": project,
+            "tasks": tasks,
+            "progress": progress,
             "milestones": milestones,
-            "milestone_data": milestone_data,  # Pass serialized data to template
             "section": section,
-            "application": application,
-            "applications": applications,
-            
         },
     )
+
+
+
 
 @login_required
 def project_list_availableFreelancer(request):

@@ -1,23 +1,62 @@
 {% extends "projects/default_project_view.html" %}
 
 {% block section %}
-<div>
+<div class="container">
+    <!-- Panel de Control de Progreso -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">Informes del Proyecto</h1>
 
+    <!-- Progreso General -->
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
-        <p>Aquí se mostrará el informe detallado de los progresos, presupuestos, entregables y métricas del proyecto.</p>
-
-        <div class="mt-8">
-            <!-- Ejemplo de reporte de progreso -->
-            <h2 class="text-xl font-bold text-primary_black">Progreso General</h2>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <p><strong>Progreso Actual:</strong> {{ project.progress|default:"0%" }}</p>
-                <p><strong>Presupuesto Utilizado:</strong> {{ project.budget_used|default:"$0.00" }} de {{ project.budget|default:"$0.00" }}</p>
-                <p><strong>Entregables Completados:</strong> {{ project.completed_deliverables|default:"0" }} de {{ project.total_deliverables|default:"0" }}</p>
-            </div>
-
-            <!-- Agrega más secciones con datos relevantes al informe del proyecto -->
+        <h2 class="text-xl font-bold text-primary_black">Progreso General</h2>
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <p><strong>Progreso Actual:</strong> {{ progress }}%</p>
         </div>
     </div>
+
+    <!-- Sección de Tareas -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Tareas</h2>
+
+        {% if tasks %}
+            <div class="grid grid-cols-1 gap-6 mt-4">
+                {% for task in tasks %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-primary_black">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Prioridad:</strong> {{ task.priority }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+
+                    <!-- Estado de la Tarea con colores -->
+                    <p class="{% if task.state == 'Completada' %}text-green-500{% elif task.state == 'En Progreso' %}text-yellow-500{% else %}text-red-500{% endif %}">
+                        Estado: {{ task.state }}
+                    </p>
+
+                    <!-- Opciones para cambiar el estado de la tarea -->
+                    <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
+                        {% csrf_token %}
+                        <label for="state" class="block text-sm font-medium text-primary_black">Actualizar Estado:</label>
+                        <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
+                            <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                            <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
+                            <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
+                        </select>
+                        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">No hay tareas para este proyecto aún.</p>
+        {% endif %}
+    </div>
+
+    <!-- Gantt Section (para el futuro desarrollo de diagramas de Gantt) -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Diagrama de Gantt (Próximamente)</h2>
+        <p>Aquí se mostrarán los hitos y tareas del proyecto en un diagrama de Gantt.</p>
+    </div>
+
 </div>
 {% endblock %}
