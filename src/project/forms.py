@@ -1,6 +1,6 @@
 from django import forms
 from .models import Project
-
+from django.utils.translation import gettext as _
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -14,12 +14,12 @@ class ProjectForm(forms.ModelForm):
             "end_date",
         ]
         labels = {
-            'title': 'Titulo del Proyecto',
-            'description': 'Descripción',
-            'requirements': 'Requerimientos',
-            'budget': 'Presupuesto',
-            'start_date': 'Fecha de Inicio',
-            'end_date': 'Fecha de Finalización',
+            'title': _('Titulo del Proyecto'),
+            'description': _('Descripción'),
+            'requirements': _('Requerimientos'),
+            'budget': _('Presupuesto'),
+            'start_date': _('Fecha de Inicio'),
+            'end_date': _('Fecha de Finalización'),
         }
         widgets = {
             "start_date": forms.DateInput(
