@@ -5,7 +5,7 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-3xl font-bold mb-6">{% translate "Eliminar Proyecto" %}</h1>
-        <p class="mb-4">{% translate "Estas seguro que deseas eliminar este proyecto ""%}{{ project.title }}"?</p>
+        <p class="mb-4">{% translate "Estas seguro que deseas eliminar este proyecto " %}{{ project.title }}"?</p>
         <form method="post" class="space-y-4">
             {% csrf_token %}
             <div class="flex justify-end space-x-2">

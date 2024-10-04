@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from ..forms import FreelancerRegisterForm
 from ..models import FreelancerProfile
+from django.utils.translation import gettext as _
 
 class FreelancerRegisterFormTest(TestCase):
     def test_valid_freelancer_registration(self):
@@ -31,8 +32,8 @@ class FreelancerRegisterFormTest(TestCase):
         }
         form = FreelancerRegisterForm(data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Este correo electrónico ya está registrado. Por favor, usa otro.', form.errors['email'])
-
+        self.assertIn(_('Este correo electrónico ya está registrado. Por favor, usa otro.'), form.errors['email'])
+#please keep in mind that this _() translates the string insid
     def test_freelancer_registration_duplicate_identification(self):
         user = User.objects.create_user(username='freelancer1', email='freelancer1@example.com', password='securePassword123!')
         FreelancerProfile.objects.create(user=user, identification='1234567890', phone='3001234567')
@@ -47,4 +48,4 @@ class FreelancerRegisterFormTest(TestCase):
         }
         form = FreelancerRegisterForm(data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Este ID ya está registrado. Por favor, usa otro.', form.errors['identification'])
+        self.assertIn(_('Este ID ya está registrado. Por favor, usa otro.'), form.errors['identification']) #please keep in mind that this _() translates the string insid

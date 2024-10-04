@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from ..forms import CompanyRegisterForm
 from ..models import CompanyProfile
+from django.utils.translation import gettext as _
 
 class CompanyRegisterFormTest(TestCase):
     def test_valid_company_registration(self):
@@ -46,4 +47,4 @@ class CompanyRegisterFormTest(TestCase):
         
         form = CompanyRegisterForm(data)
         self.assertFalse(form.is_valid())  
-        self.assertIn('Este NIT ya está registrado. Por favor, usa otro.', form.errors['nit'])
+        self.assertIn(_('Este NIT ya está registrado. Por favor, usa otro.'), form.errors['nit']) #please keep in mind that this _() translates the string inside
