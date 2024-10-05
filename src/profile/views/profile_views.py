@@ -15,7 +15,7 @@ from flowlance.decorators import attach_profile_info
 
 @login_required
 @attach_profile_info
-def my_profile(request, username=None): 
+def my_profile(request): 
 
     profile = request.profile
     profile_type = request.profile_type
@@ -27,7 +27,10 @@ def my_profile(request, username=None):
     else:
         return redirect('home')
 
-def my_freelancer_profile(request, profile):
+@login_required
+@attach_profile_info
+def my_freelancer_profile(request,profile):
+    profile = request.profile
     try:
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.filter(is_deleted=False)
@@ -48,12 +51,18 @@ def my_freelancer_profile(request, profile):
         'projects': projects,
         'courses': courses,
         'ratings': ratings,
+        'is_owner': (request.user == profile.user),
     }
 
     return render(request, 'profile/freelancer_profile.html', context)
 
 def my_company_profile(request):
     return redirect('home') # TODO: Redirect to the client profile view
+
+@login_required
+def freelancer_profile_view(request, username=None):
+    request.profile = get_object_or_404(FreelancerProfile, user__username=username)
+    return my_freelancer_profile(request)
 
 @login_required
 def notifications(request):
