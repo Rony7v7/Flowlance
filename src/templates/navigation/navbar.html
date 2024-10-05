@@ -68,7 +68,7 @@
       <!-- Mi Perfil Link -->
       {% if 'profile' in request.path %}
       {% with icon_property="bold" %}
-      <a href="{% url 'freelancer_profile' %}"
+      <a href="{% url 'my_profile' %}"
         class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/profile.html' with property=icon_property %}
         Mi Perfil
@@ -76,7 +76,7 @@
       {% endwith %}
       {% else %}
       {% with icon_property="outline" %}
-      <a href="{% url 'freelancer_profile' %}"
+      <a href="{% url 'my_profile' %}"
         class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/profile.html' with property=icon_property %}
         Mi Perfil

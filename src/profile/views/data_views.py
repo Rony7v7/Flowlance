@@ -25,7 +25,7 @@ def add_course(request):
             course = form.save(commit=False)
             course.portfolio = portfolio  
             course.save()
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddCourseForm()
 
@@ -44,7 +44,7 @@ def add_project(request):
             project = form.save(commit=False)
             project.portfolio = portfolio  
             project.save()
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddProjectForm()
 
@@ -65,7 +65,7 @@ def upload_curriculum(request):
             cv = form.save(commit=False)
             cv.profile = profile  
             cv.save()
-            return redirect('freelancer_profile')
+            return redirect('my_profile')
     else:
         form = UploadCVForm(instance=curriculum)
 
@@ -114,7 +114,7 @@ def add_skills(request):
         form = AddSkillsForm(request.POST, user=user)  
         if form.is_valid():
             form.save(user=user)  
-        return redirect('freelancer_profile')
+        return redirect('my_profile')
     else:
         form = AddSkillsForm(user=user)
 
@@ -128,7 +128,7 @@ def add_experience(request):
         form = AddWorkExperienceForm(request.POST)
         if form.is_valid():
             form.save(user=user)  
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddWorkExperienceForm()
 
@@ -150,7 +150,7 @@ def add_rating(request, freelancer_username):
             rating.client = request.user
             rating.save()
             messages.success(request, 'Your rating has been submitted successfully.')
-            return redirect('freelancer_profile', username=freelancer_username)
+            return redirect('my_profile', username=freelancer_username)
     else:
         form = RatingForm()
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
@@ -165,7 +165,7 @@ def add_rating_response(request, rating_id):
             response.rating = rating
             response.save()
             messages.success(request, 'Your response has been added successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+            return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     else:
         form = RatingResponseForm()
     return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
@@ -175,14 +175,14 @@ def edit_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user,is_deleted=False)
     if not response.can_edit():
         messages.error(request, 'You can no longer edit this response.')
-        return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+        return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     
     if request.method == 'POST':
         form = RatingResponseForm(request.POST, instance=response)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your response has been updated successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+            return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     else:
         form = RatingResponseForm(instance=response)
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
@@ -197,7 +197,7 @@ def delete_rating_response(request, response_id):
         messages.success(request, 'Respuesta eliminada correctamente.')
     else:
         messages.error(request, 'No tienes permisos para eliminar esta respuesta.')
-    return redirect('freelancer_profile')  # Ajusta según la página de redirección
+    return redirect('my_profile')  # Ajusta según la página de redirección
 
 @require_POST
 @login_required
@@ -209,4 +209,4 @@ def delete_rating(request, rating_id):
         messages.success(request, 'Calificación eliminada correctamente.')
     else:
         messages.error(request, 'No tienes permisos para eliminar esta calificación.')
-    return redirect('freelancer_profile')  # Ajusta según la página de redirección
+    return redirect('my_profile')  # Ajusta según la página de redirección
