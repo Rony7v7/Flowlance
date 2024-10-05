@@ -8,16 +8,18 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!-- Logo -->
 	<link rel="icon" href="{% static 'img/logo.svg' %}" type="image/svg+xml">
-	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-	
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+		rel="stylesheet">
+
 	<title>{% block title %}Flowlance{% endblock %}</title>
 	{% tailwind_css %}
 </head>
 
 <body class="bg-bg_white flex flex-col p-0 m-0 font-plus_jakarta_sans">
 
+
 	<!-- Header or navbar can go here -->
-	<div class= "flex flex-col justify-start w-full">
+	<div class="flex flex-col justify-start w-full">
 		{% block content %}
 		{% endblock %}
 	</div>

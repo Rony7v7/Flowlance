@@ -2,12 +2,13 @@
 
 {% block content %}
 
+{% load i18n %}
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-white">
 
     <!-- Título de la página -->
     <div class="max-w-7xl mx-auto mb-6 ml-24">
-        <h1 class="text-4xl font-bold text-gray-800 text-left">Calificando a: <span class="italic">{{ request.user.username }}</span></h1>
-        <p class="block text-gray-700 font-light mt-4">Selecciona una calificación y añade un comentario.</p>
+        <h1 class="text-4xl font-bold text-gray-800 text-left">{% translate "Calificando a:" %} <span class="italic">{{ request.user.username }}</span></h1>
+        <p class="block text-gray-700 font-light mt-4">{% translate "Selecciona una calificación y añade un comentario." %}</p>
     </div>
 
     <!-- Mostrar mensaje de éxito si existe -->
@@ -26,7 +27,7 @@
             <input type="hidden" id="selected-rating" name="estrellas" value="">
 
             <!-- Título de sección -->
-            <h2 class="text-xl font-semibold text-gray-700">Elige tu calificación</h2>
+            <h2 class="text-xl font-semibold text-gray-700">{% translate "Elige tu calificación" %}</h2>
 
             <div class="grid grid-cols-1 gap-4">
                 <!-- 1 estrella -->
@@ -37,7 +38,7 @@
                         </svg>
                     </div>
                     <button type="button" id="star-1" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
-                        Elegir
+                        {% translate "Elegir" %}
                     </button>
                 </div>
 
@@ -51,7 +52,7 @@
                         {% endfor %}
                     </div>
                     <button type="button" id="star-2" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
-                        Elegir
+                        {% translate "Elegir" %}
                     </button>
                 </div>
 
@@ -65,7 +66,7 @@
                         {% endfor %}
                     </div>
                     <button type="button" id="star-3" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
-                        Elegir
+                        {% translate "Elegir" %}
                     </button>
                 </div>
 
@@ -79,7 +80,7 @@
                         {% endfor %}
                     </div>
                     <button type="button" id="star-4" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
-                        Elegir
+                        {% translate "Elegir" %}
                     </button>
                 </div>
 
@@ -93,21 +94,21 @@
                         {% endfor %}
                     </div>
                     <button type="button" id="star-5" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-semibold py-2 px-6 rounded-lg">
-                        Elegir
+                        {% translate "Elegir" %}
                     </button>
                 </div>
             </div>
 
             <!-- Sección de comentario -->
             <div class="mt-8">
-                <h2 class="text-2xl font-semibold text-gray-700">Añadir una descripción</h2>
+                <h2 class="text-2xl font-semibold text-gray-700">{% translate "Añadir una descripción" %}</h2>
                 <textarea name="descripcion" class="w-full h-32 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#636AF2]" placeholder="Añade tus comentarios aquí"></textarea>
             </div>
 
             <!-- Botón de enviar -->
             <div class="flex justify-center mt-6">
                 <button type="submit" class="bg-[#636AF2] hover:bg-[#5056e5] text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#636AF2]">
-                    Enviar Calificación
+                    {% translate "Enviar Calificación" %}
                 </button>
             </div>
         </form>

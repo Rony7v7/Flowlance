@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% block content %}
 <div class="container mx-auto px-4 py-12">
     <!-- Sección de Requerimientos del proyecto -->
     <div class="bg-white rounded-xl shadow-lg p-8 lg:p-10">
         <!-- Título de la Sección de Requerimientos -->
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 border-b-2 border-gray-200 pb-4">Requerimientos del Proyecto</h1>
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 border-b-2 border-gray-200 pb-4">{% translate "Requerimientos del Proyecto" %}</h1>
 
         <!-- Contenido de los Requerimientos con ajuste para manejo de texto largo -->
         <div class="bg-gray-50 p-6 rounded-lg overflow-hidden border border-gray-200">
@@ -18,7 +19,7 @@
         <div class="mt-10 flex justify-end">
             <a href="/project/{{ project.id }}/milestone" 
                class="inline-flex items-center justify-center bg-blue-500 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                Volver al Proyecto
+                {% translate "Volver al Proyecto" %}
             </a>
         </div>
     </div>

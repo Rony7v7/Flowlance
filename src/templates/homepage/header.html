@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="flex items-center justify-between px-10 w-screen m-0 h-20 border-b-2 border-bg_gray ">
   <div class="flex items-center gap-2">
     <i> {% include 'icon/flowlance.html' with w='32' h='32' %} </i>
@@ -5,10 +6,11 @@
   </div>
   <div>
     <ul class="flex gap-4">
-        <li><a href="/login">Ingresa</a></li>
+        <li><a href="/login">{% translate "Ingresa" %}</a></li>
+        
         <li>
           <a href="{% url 'choose_path' %}" class="bg-primary_medium text-white font-semibold py-2 px-4 rounded-md hover:bg-primary_dark transition-colors">
-              Regístrate
+              {% translate "Regístrate" %}
           </a>
       </li>    
     </ul>

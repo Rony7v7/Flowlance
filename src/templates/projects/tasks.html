@@ -1,13 +1,16 @@
 {% extends "projects/default_project_view.html" %}
 
+{% load i18n %}
+
 {% block section %}
 <div class="container mx-auto px-4 py-8">
   <div class="flex justify-between items-center mb-8">
-    <h2 class="text-primary_black text-2xl font-bold">Tareas</h2>
+    <h2 class="text-primary_black text-2xl font-bold">{% translate "Tareas" %}</h2>
 
     <!-- Botón para añadir una nueva tarea -->
     {% url 'create_task' project.id as add_task_url %}
-    {% include 'utils/anchor_button.html' with type=1 label='Añadir' url=add_task_url %}
+    {% trans "Añadir" as translated_label %}
+    {% include 'utils/anchor_button.html' with type=1 label=translated_label url=add_task_url %}
 
     {% if messages %}
     <div id="messages" class="hidden">
@@ -19,172 +22,140 @@
   </div>
 
   <!-- Filtro por Hito -->
-<div class="flex justify-between items-center mt-4">
+  <div class="flex justify-between items-center mt-4">
     <form method="GET" id="milestoneFilterForm" class="flex items-center space-x-4">
-        <label for="milestone" class="text-primary_black font-semibold">Filtrar por Hito:</label>
-        <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded">
-            <option value="">Todos los hitos</option>
-            {% for milestone in milestones %}
-            <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
-                {{ milestone.name }}
-            </option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-colors">
-            Filtrar
-        </button>
+      <label for="milestone" class="text-primary_black font-semibold">{% translate "Filtrar por Hito:" %}</label>
+      <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded">
+        <option value="">{% translate "Todos los hitos" %}</option>
+        {% for milestone in milestones %}
+        <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
+          {{ milestone.name }}
+        </option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-colors">
+        {% translate "Filtrar" %}
+      </button>
     </form>
-</div>
+  </div>
 
-<!-- Sección de Tareas -->
-<div class="grid grid-cols-3 gap-6 mt-4">
+  <!-- Sección de Tareas -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
     {% for milestone in milestones %}
-    {% if not request.GET.milestone or request.GET.milestone == milestone.id|stringformat:"s" %}
-    {% for task in milestone.tasks.all %}
-    <div class="bg-bg_white p-4 rounded-lg text-center space-y-4">
-        <div class="w-full {{ task.deadline_color }} p-1"></div>
-        <h3 class="text-lg font-semibold text-primary_black">Hito: {{ task.milestone.name }}</h3>
-        <h3 class="text-md font-bold text-primary_medium">Titulo: {{ task.title }}</h3>
-        <span>Asignado a: {{ task.responsible.username }}</span>
-        <p class="text-sm text-primary_medium">Fecha de Inicio: {{ task.start_date }}</p>
-        <p class="text-sm text-primary_medium">Fecha de Finalización: {{ task.end_date }}</p>
-        <p class="text-sm text-primary_medium">{{ task.description|truncatewords:50 }}</p>
-        <p class="text-sm text-primary_medium">Prioridad: {{ task.priority }}</p>
+      {% if not request.GET.milestone or request.GET.milestone == milestone.id|stringformat:"s" %}
+        {% for task in milestone.tasks.all %}
+          <div class="bg-bg_white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+            <div class="w-full {{ task.deadline_color }} h-2"></div>
+            <div class="p-6 space-y-4">
+              <div class="text-sm font-medium text-primary_medium">{% translate "Hito: " %}{{ task.milestone.name }}</div>
+              <h3 class="text-lg font-semibold text-primary_black">{{ task.title }}</h3>
+              <div class="flex items-center text-sm text-primary_medium">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                {% translate "Asignado a:" %} {{ task.responsible.username }}
+              </div>
+              <div class="flex justify-between text-sm text-primary_medium">
+                <span>{% translate "Inicio: " %}{{ task.start_date|date:"d M Y" }}</span>
+                <span>{% translate "Fin: " %}{{ task.end_date|date:"d M Y" }}</span>
+              </div>
+              <p class="text-sm text-primary_medium">{{ task.description|truncatewords:30 }}</p>
+              <div class="inline-block px-3 py-1 text-xs font-semibold text-bg_white bg-primary_medium rounded-full">
+                {% translate "Prioridad:" %} {{ task.priority }}
+              </div>
 
-
-        <!-- Sección para Actualizar Estado -->
-        <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
-            {% csrf_token %}
-            <label for="state" class="block text-sm font-medium text-primary_black">Estado Actual: {{ task.state }}</label>
-            <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
-                <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
-                <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
-            </select>
-            <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>
-        </form>
-
-        <!-- Sección de Descripciones -->
-        <h4 class="text-primary_black font-semibold mt-2">Descripciones Adicionales</h4>
-        <ul class="text-left space-y-2">
-            {% for description in task.descriptions.all %}
-            <li class="border-t pt-2">
-                <strong>{{ description.user.username }}</strong> ({{ description.created_at|date:"d M Y H:i" }}):
-                <p>{{ description.content }}</p>
-                {% if description.user == user or user.is_superuser %}
-                <a href="{% url 'edit_description' description.id %}" class="text-blue-500 hover:underline">Editar</a>
-                {% endif %}
-            </li>
-            {% empty %}
-            <li class="text-gray-500">No hay descripciones adicionales aún.</li>
-            {% endfor %}
-        </ul>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {% for milestone in milestones %}
-      {% for task in milestone.tasks.all %}
-        <div class="bg-bg_white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-          <div class="w-full {{ task.deadline_color }} h-2"></div>
-          <div class="p-6 space-y-4">
-            <div class="text-sm font-medium text-primary_medium">Hito: {{ task.milestone.name }}</div>
-            <h3 class="text-lg font-semibold text-primary_black">{{ task.title }}</h3>
-            <div class="flex items-center text-sm text-primary_medium">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-              Asignado a: {{ task.responsible.username }}
-            </div>
-            <div class="flex justify-between text-sm text-primary_medium">
-              <span>Inicio: {{ task.start_date|date:"d M Y" }}</span>
-              <span>Fin: {{ task.end_date|date:"d M Y" }}</span>
-            </div>
-            <p class="text-sm text-primary_medium">{{ task.description|truncatewords:30 }}</p>
-            <div class="inline-block px-3 py-1 text-xs font-semibold text-bg_white bg-primary_medium rounded-full">
-              La prioridad es: {{ task.priority }}
-            </div>
-
-
-            <!-- Additional Descriptions Section -->
-            <div class="space-y-4">
-              <h4 class="font-semibold text-primary_black">Descripciones Adicionales</h4>
-              <ul class="space-y-2">
-                {% for description in task.descriptions.all %}
-                  <li class="border-t border-primary_medium/20 pt-2">
-                    <div class="flex justify-between items-center">
-                      <span class="font-medium text-primary_black">{{ description.user.username }}</span>
-                      <span class="text-xs text-primary_medium">{{ description.created_at|date:"d M Y H:i" }}</span>
-                    </div>
-                    <p class="text-sm text-primary_medium mt-1">{{ description.content }}</p>
-                    {% if description.user == user or user.is_superuser %}
-                      <a href="{% url 'edit_description' description.id %}" class="text-sm text-primary_medium hover:underline">Editar</a>
-                    {% endif %}
-                  </li>
-                {% empty %}
-                  <li class="text-sm text-primary_medium">No hay descripciones adicionales aún.</li>
-                {% endfor %}
-              </ul>
-
-              <form method="POST" action="{% url 'add_description' task.id %}" class="space-y-2">
+              <!-- Sección para Actualizar Estado -->
+              <form method="POST" action="{% url 'update_task_state' task.id %}" class="mt-2">
                 {% csrf_token %}
-                <textarea name="content" class="w-full border border-primary_medium/20 rounded p-2 text-sm text-primary_black" placeholder="Escribe una descripción..." required></textarea>
-                <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">Agregar Descripción</button>
+                <label for="state" class="block text-sm font-medium text-primary_black">{% translate "Estado Actual:" %} {{ task.state }}</label>
+                <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
+                  <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>{% translate "Pendiente" %}</option>
+                  <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>{% translate "En Progreso" %}</option>
+                  <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>{% translate "Completada" %}</option>
+                </select>
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">{% translate "Actualizar Estado" %}</button>
               </form>
-            </div>
 
-            <!-- Files Section -->
-            <div class="space-y-4">
-              <h4 class="font-semibold text-primary_black">Archivos</h4>
-              <ul class="space-y-2">
-                {% for file in task.files.all %}
-                  <li class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-primary_medium" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
-                    </svg>
-                    <a href="{{ file.file.url }}" class="text-sm text-primary_medium hover:underline" target="_blank">{{ file.file.name }}</a>
-                  </li>
-                {% empty %}
-                  <li class="text-sm text-primary_medium">No hay archivos aún.</li>
-                {% endfor %}
-              </ul>
+              <!-- Additional Descriptions Section -->
+              <div class="space-y-4">
+                <h4 class="font-semibold text-primary_black">{% translate "Descripciones Adicionales" %}</h4>
+                <ul class="space-y-2">
+                  {% for description in task.descriptions.all %}
+                    <li class="border-t border-primary_medium/20 pt-2">
+                      <div class="flex justify-between items-center">
+                        <span class="font-medium text-primary_black">{{ description.user.username }}</span>
+                        <span class="text-xs text-primary_medium">{{ description.created_at|date:"d M Y H:i" }}</span>
+                      </div>
+                      <p class="text-sm text-primary_medium mt-1">{{ description.content }}</p>
+                      {% if description.user == user or user.is_superuser %}
+                        <a href="{% url 'edit_description' description.id %}" class="text-sm text-primary_medium hover:underline">{% translate "Editar" %}</a>
+                      {% endif %}
+                    </li>
+                  {% empty %}
+                    <li class="text-sm text-primary_medium">{% translate "No hay descripciones adicionales aún." %}</li>
+                  {% endfor %}
+                </ul>
 
-              <form method="POST" action="{% url 'add_file' task.id %}" enctype="multipart/form-data" class="space-y-2">
-                {% csrf_token %}
-                <input type="file" name="file" class="text-sm text-primary_medium">
-                <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">Subir Archivo</button>
-              </form>
-            </div>
+                <form method="POST" action="{% url 'add_description' task.id %}" class="space-y-2">
+                  {% csrf_token %}
+                  <textarea name="content" class="w-full border border-primary_medium/20 rounded p-2 text-sm text-primary_black" placeholder="{% translate 'Escribe una descripción...' %}" required></textarea>
+                  <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">{% translate "Agregar Descripción" %}</button>
+                </form>
+              </div>
 
-            <!-- Comments Section -->
-            <div class="space-y-4">
-              <h4 class="font-semibold text-primary_black">Comentarios</h4>
-              <ul class="space-y-2">
-                {% for comment in task.comments.all %}
-                  <li class="border-t border-primary_medium/20 pt-2">
-                    <div class="flex justify-between items-center">
-                      <span class="font-medium text-primary_black">{{ comment.user.username }}</span>
-                      <span class="text-xs text-primary_medium">{{ comment.created_at|date:"d M Y H:i" }}</span>
-                    </div>
-                    <p class="text-sm text-primary_medium mt-1">{{ comment.content }}</p>
-                  </li>
-                {% empty %}
-                  <li class="text-sm text-primary_medium">No hay comentarios aún.</li>
-                {% endfor %}
-              </ul>
+              <!-- Files Section -->
+              <div class="space-y-4">
+                <h4 class="font-semibold text-primary_black">{% translate "Archivos" %}</h4>
+                <ul class="space-y-2">
+                  {% for file in task.files.all %}
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary_medium" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                      </svg>
+                      <a href="{{ file.file.url }}" class="text-sm text-primary_medium hover:underline" target="_blank">{{ file.file.name }}</a>
+                    </li>
+                  {% empty %}
+                    <li class="text-sm text-primary_medium">{% translate "No hay archivos aún." %}</li>
+                  {% endfor %}
+                </ul>
 
-              <form method="POST" action="{% url 'add_comment' task.id %}" class="space-y-2">
-                {% csrf_token %}
-                <textarea name="content" class="w-full border border-primary_medium/20 rounded p-2 text-sm text-primary_black" placeholder="Escribe tu comentario..." required></textarea>
-                <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">Agregar Comentario</button>
-              </form>
+                <form method="POST" action="{% url 'add_file' task.id %}" enctype="multipart/form-data" class="space-y-2">
+                  {% csrf_token %}
+                  <input type="file" name="file" class="text-sm text-primary_medium">
+                  <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">{% translate "Subir Archivo" %}</button>
+                </form>
+              </div>
+
+              <!-- Comments Section -->
+              <div class="space-y-4">
+                <h4 class="font-semibold text-primary_black">{% translate "Comentarios" %}</h4>
+                <ul class="space-y-2">
+                  {% for comment in task.comments.all %}
+                    <li class="border-t border-primary_medium/20 pt-2">
+                      <div class="flex justify-between items-center">
+                        <span class="font-medium text-primary_black">{{ comment.user.username }}</span>
+                        <span class="text-xs text-primary_medium">{{ comment.created_at|date:"d M Y H:i" }}</span>
+                      </div>
+                      <p class="text-sm text-primary_medium mt-1">{{ comment.content }}</p>
+                    </li>
+                  {% empty %}
+                    <li class="text-sm text-primary_medium">{% translate "No hay comentarios aún." %}</li>
+                  {% endfor %}
+                </ul>
+
+                <form method="POST" action="{% url 'add_comment' task.id %}" class="space-y-2">
+                  {% csrf_token %}
+                  <textarea name="content" class="w-full border border-primary_medium/20 rounded p-2 text-sm text-primary_black" placeholder="{% translate 'Escribe tu comentario...' %}" required></textarea>
+                  <button type="submit" class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">{% translate "Agregar Comentario" %}</button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      {% endfor %}
-
+        {% endfor %}
+      {% endif %}
     {% endfor %}
   </div>
 </div>
 
 {% include 'utils/popup_success.html' %}
-
 {% endblock %}

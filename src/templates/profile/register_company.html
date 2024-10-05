@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% load i18n %}
 {% block content %}
 <div class="min-h-screen flex bg-gray-100">
     <div class="flex w-full lg:flex lg:flex-row bg-white shadow-lg">
@@ -9,15 +10,15 @@
                 <i> {% include 'icon/flowlance.html' with w='32' h='32' %} </i>
             </div>
 
-            <h2 class="text-4xl font-bold text-primary_black mb-4">Bienvenido a <span class="text-primary_medium">Flowlance</span></h2>
-            <p class="text-gray-600 mb-8">Únete a nuestra comunidad de freelancers y descubre nuevas oportunidades de crecimiento profesional.</p>
+            <h2 class="text-4xl font-bold text-primary_black mb-4">{% translate "Bienvenido a"%} <span class="text-primary_medium">Flowlance</span></h2>
+            <p class="text-gray-600 mb-8">{% translate "Únete a nuestra comunidad de freelancers y descubre nuevas oportunidades de crecimiento profesional." %}</p>
 
             <form method="POST" enctype="multipart/form-data" class="space-y-6">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_username">Nombre de Usuario</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_username">{% translate "Nombre de Usuario" %}</label>
                     <input type="text" name="username" id="id_username"
                         value="{{ form.username.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_company_name">Nombre de la Empresa</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_company_name">{% translate "Nombre de la Empresa" %}</label>
                     <input type="text" name="company_name" id="id_company_name"
                         value="{{ form.company_name.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_business_type">Tipo de Negocio</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_business_type">{% translate "Tipo de Negocio" %}</label>
                     <input type="text" name="business_type" id="id_business_type"
                         value="{{ form.business_type.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -61,7 +62,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_country">País</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_country">{% translate "País" %}</label>
                     <input type="text" name="country" id="id_country"
                         value="{{ form.country.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -72,7 +73,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_business_vertical">Vertical de Negocio</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_business_vertical">{% translate "Vertical de Negocio" %}</label>
                     <input type="text" name="business_vertical" id="id_business_vertical"
                         value="{{ form.business_vertical.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -83,7 +84,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_address">Dirección</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_address">{% translate "Dirección" %}</label>
                     <input type="text" name="address" id="id_address"
                         value="{{ form.address.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -94,7 +95,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_legal_representative">Representante Legal</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_legal_representative">{% translate "Representante Legal" %}</label>
                     <input type="text" name="legal_representative" id="id_legal_representative"
                         value="{{ form.legal_representative.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -105,7 +106,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_phone">Teléfono</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_phone">{% translate "Teléfono" %}</label>
                     <input type="text" name="phone" id="id_phone"
                         value="{{ form.phone.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -116,7 +117,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_email">Correo Electrónico</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_email">{% translate "Correo Electrónico" %}</label>
                     <input type="email" name="email" id="id_email"
                         value="{{ form.email.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
@@ -127,7 +128,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_password1">Contraseña</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_password1">{% translate "Contraseña" %}</label>
                     <input type="password" name="password1" id="id_password1"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="Contraseña" required>
@@ -137,7 +138,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_password2">Confirmar Contraseña</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_password2">{% translate "Confirmar Contraseña" %}</label>
                     <input type="password" name="password2" id="id_password2"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="Confirmar Contraseña" required>
@@ -147,7 +148,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700">Foto de Perfil (opcional)</label>
+                    <label class="block text-sm font-medium text-gray-700">{% translate "Foto de Perfil (opcional)" %}</label>
                     <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
                         <div class="space-y-1 text-center">
                             <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -155,11 +156,11 @@
                             </svg>
                             <div class="flex text-sm text-gray-600 justify-center">
                                 <label for="id_photo" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
-                                    <span>Selecciona la imagen aquí</span>
+                                    <span>{% translate "Selecciona la imagen aquí" %}</span>
                                     <input id="id_photo" name="photo" type="file" class="sr-only">
                                 </label>
                             </div>
-                            <p class="text-xs text-gray-500">Puedes adjuntar un archivo aquí</p>
+                            <p class="text-xs text-gray-500">{% translate "Puedes adjuntar un archivo aquí" %}</p>
                         </div>
                         <div id="uploadSuccess" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,7 +172,7 @@
 
                 <div class="flex justify-center">
                     <button type="submit" class="w-1/3 bg-primary_dark text-white font-bold py-3 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
-                        Registrar
+                        {% translate "Registrar" %}
                     </button>
                 </div>
             </form>
@@ -188,10 +189,10 @@
                 <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <h3 class="text-lg font-semibold text-primary_black">Registro Exitoso</h3>
-                <p class="text-gray-600 mt-2">Tu información ha sido guardada exitosamente.</p>
+                <h3 class="text-lg font-semibold text-primary_black">{% translate "Registro Exitoso" %}</h3>
+                <p class="text-gray-600 mt-2">{% translate "Tu información ha sido guardada exitosamente." %}</p>
                 <div class="mt-4 flex justify-center">
-                    <button id="acceptButton" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Aceptar</button>
+                    <button id="acceptButton" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">{% translate "Aceptar" %}</button>
                 </div>
             </div>
         </div>

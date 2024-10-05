@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load i18n %}
 {% block content %}
 <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Responder a la Calificación</h2>
+    <h2 class="text-2xl font-bold mb-4">{% translate "Responder a la Calificación" %}</h2>
     <div class="mb-4">
-        <p class="font-semibold">Calificación: {{ rating.stars }} estrellas</p>
-        <p>Comentario: {{ rating.comment }}</p>
+        <p class="font-semibold">{% translate "Calificación: {{ rating.stars }} estrellas" %}</p>
+        <p>{% translate "Comentario: {{ rating.comment }}" %}</p>
     </div>
     <form method="post">
         {% csrf_token %}
         <div class="mb-6">
-            <h3 class="text-xl font-semibold mb-2">Tu Respuesta</h3>
+            <h3 class="text-xl font-semibold mb-2">{% translate "Tu Respuesta" %}</h3>
             <textarea name="response_text" id="id_response_text" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
         </div>
-        <button type="submit" class="w-full bg-purple-500 text-white hover:bg-purple-600 px-4 py-2 rounded">Enviar Respuesta</button>
+        <button type="submit" class="w-full bg-purple-500 text-white hover:bg-purple-600 px-4 py-2 rounded">{% translate "Enviar Respuesta" %}</button>
     </form>
 </div>
 {% endblock %}

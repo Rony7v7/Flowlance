@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
         /* Estilos básicos para el pie de página */
         .footer {
             display: flex;
-            justify-content: space-between; /* Alinea los elementos a los extremos */
+            justify-content: space-between;
+            /* Alinea los elementos a los extremos */
             padding: 10px 20px;
             background-color: #F9F9F9;
             border-top: 1px solid #eaeaea;
@@ -17,13 +19,16 @@
 
         /* Estilos para los enlaces */
         .footer-links a {
-            margin-right: 15px; /* Espacio entre los enlaces */
+            margin-right: 15px;
+            /* Espacio entre los enlaces */
             color: #121670;
-            text-decoration: none; /* Sin subrayado */
+            text-decoration: none;
+            /* Sin subrayado */
         }
 
         .footer-links a:hover {
-            text-decoration: underline; /* Subrayado al pasar el ratón */
+            text-decoration: underline;
+            /* Subrayado al pasar el ratón */
         }
 
         /* Estilos para el selector de idioma */
@@ -34,26 +39,40 @@
         }
     </style>
 </head>
+
 <body>
+
+    {% load i18n %}
 
     <!-- Pie de página -->
     <div class="footer">
         <!-- Parte izquierda: Enlaces -->
         <div class="footer-links">
-            <a href="#">Términos de servicio</a>
-            <a href="#">Política de privacidad</a>
-            <a href="#">Sobre nosotros</a>
-            <a href="#">Configuración</a>
+            <a href="#">{% translate "Términos de servicio" %}</a>
+            <a href="#">{% translate "Política de privacidad" %}</a>
+            <a href="#">{% translate "Sobre nosotros" %}</a>
+            <a href="#">{% translate "Configuración" %}</a>
         </div>
 
         <!-- Parte derecha: Selector de idioma -->
         <div class="language-select">
-            <select>
-                <option value="es">Español (Latinoamérica)</option>
-                <option value="en">English (US)</option>
-            </select>
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go">
+            </form>
         </div>
     </div>
 
 </body>
+
 </html>

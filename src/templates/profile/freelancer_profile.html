@@ -1,5 +1,6 @@
 {% extends "navigation/navigation.html" %}
 
+{% load i18n %}
 {% block app_content %}
 <div class="flex flex-col items-start justify-center w-full h-full px-8">
 
@@ -44,7 +45,7 @@
 
 
         <div class="mt-6">
-            <h2 class="text-xl font-bold text-primary_black">Habilidades</h2>
+            <h2 class="text-xl font-bold text-primary_black">{% translate "Habilidades" %}</h2>
             <div class="mt-4 flex flex-wrap gap-2">
                 {% for skill in skills %}
                 <span
@@ -52,7 +53,7 @@
                     {{ skill.name }}
                 </span>
                 {% empty %}
-                <p class="text-gray-500">No se han agregado habilidades aún.</p>
+                <p class="text-gray-500">{% translate "No se han agregado habilidades aún." %}</p>
                 {% endfor %}
             </div>
         </div>
@@ -60,7 +61,7 @@
 
     <!-- Experiencia Laboral -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Experiencia Laboral</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Experiencia Laboral" %}</h2>
         <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
             <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
@@ -73,25 +74,24 @@
                     <h3 class="text-lg font-semibold text-primary_black">{{ experience.title }}</h3>
                     <p class="text-primary_medium font-medium">{{ experience.company }}</p>
                     <p class="text-gray-500 text-sm mt-1">
-                        Desde: {{ experience.start_date|date:"M. d, Y" }}
-                        {% if experience.end_date %} hasta: {{ experience.end_date|date:"M. d, Y" }}{% else %} hasta la
-                        fecha{% endif %}
+                        {% translate "Desde:"%} {{ experience.start_date|date:"M. d, Y" }}
+                        {% if experience.end_date %} {% translate "hasta:"%} {{ experience.end_date|date:"M. d, Y" }}{% else %} {% translate "hasta la fecha" %} {% endif %}
                     </p>
                     <p class="text-gray-700 mt-2">{{ experience.description }}</p>
                 </div>
             </li>
             {% empty %}
-            <li class="text-gray-500">No se ha añadido experiencia laboral aún.</li>
+            <li class="text-gray-500">{% translate "No se ha añadido experiencia laboral aún." %}</li>
             {% endfor %}
         </ul>
     </div>
 
     <!-- Portafolio -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Portafolio</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Portafolio" %}</h2>
 
         {% if portfolio %}
-        <h4 class="text-xl font-semibold text-primary_medium mt-4">Proyectos</h4>
+        <h4 class="text-xl font-semibold text-primary_medium mt-4">{% translate "Proyectos" %}</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {% for project in projects %}
             <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
@@ -103,7 +103,7 @@
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-500">No hay proyectos registrados en el portafolio aún.</p>
+            <p class="text-gray-500">{% translate "No hay proyectos registrados en el portafolio aún." %}</p>
             {% endfor %}
         </div>
 
@@ -122,32 +122,31 @@
                         </a>
                     </div>
                     <p class="text-primary_dark mb-1">{{ course.organization }}</p>
-                    <p class="text-gray-500 mb-1">Expedición: {{ course.expedition_date|date:"M Y" }}</p>
+                    <p class="text-gray-500 mb-1">{% translate "Expedición:" %} {{ course.expedition_date|date:"M Y" }}</p>
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-500">No se han agregado cursos aún.</p>
+            <p class="text-gray-500">{% translate "No se han agregado cursos aún." %}</p>
             {% endfor %}
         </div>
         {% else %}
-        <p class="text-gray-500">No se ha creado un portafolio aún.</p>
+        <p class="text-gray-500">{% translate "No se ha creado un portafolio aún." %}</p>
         {% endif %}
     </div>
 
     <!-- Curriculum Vitae -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">Curriculum Vitae</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Curriculum Vitae" %}</h2>
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
-        <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">Descargar
-            Curriculum</a>
+        <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">{% translate "Descargar Curriculum" %}</a>
         {% else %}
-        <p class="text-gray-500">No se ha subido ningún CV aún.</p>
+        <p class="text-gray-500">{% translate "No se ha subido ningún CV aún." %}</p>
         {% endif %}
     </div>
 
     <!-- Calificaciones y Comentarios -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-3xl font-bold text-primary_black mb-6">Calificaciones y Comentarios</h2>
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Calificaciones y Comentarios" %}</h2>
 
         <!-- Contenedor de Calificaciones -->
         <div class="space-y-6">
@@ -155,8 +154,8 @@
             <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary_medium transition-transform duration-300 hover:shadow-lg hover:scale-105">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-4">
-                        <p class="text-xl font-semibold text-primary_black">{{ rating.stars }} estrellas</p>
-                        <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username }}</strong></p>
+                        <p class="text-xl font-semibold text-primary_black">{{ rating.stars }} {% trans "estrellas" %}</p>
+                        <p class="text-gray-500 text-sm"> {% translate "por" %} <strong>{{ rating.client.username }}</strong></p>
                     </div>
                     <p class="text-gray-400 text-sm">{{ rating.created_at|date:"d M Y" }}</p>
                 </div>
@@ -169,7 +168,7 @@
                         {% csrf_token %}
                         <button type="submit"
                             class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
-                            Eliminar Calificación
+                            {% translate "Eliminar Calificación" %}
                         </button>
                     </form>
                 </div>
@@ -177,7 +176,7 @@
                 {% if rating.response %}
                 <!-- Respuesta del Freelancer -->
                 <div class="mt-4 bg-gray-100 rounded-lg p-4 border border-gray-200">
-                    <p class="text-sm text-gray-600"><strong>Respuesta:</strong> {{ rating.response.response_text }}</p>
+                    <p class="text-sm text-gray-600"><strong>{% translate "Respuesta:" %}</strong> {{ rating.response.response_text }}</p>
                     <div class="flex justify-end space-x-4 mt-2">
                         <!-- Editar respuesta -->
                         <a href="javascript:void(0)" onclick="openEditResponseModal('{{ rating.response.id }}')" class="text-primary_medium hover:underline text-sm font-semibold">Editar Respuesta</a>
@@ -187,7 +186,7 @@
                             {% csrf_token %}
                             <button type="submit"
                                 class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
-                                Eliminar Respuesta
+                                {% translate "Eliminar respuesta" %}
                             </button>
                         </form>
                     </div>
@@ -197,13 +196,13 @@
                 <div class="mt-4">
                     <a href="javascript:void(0)" onclick="openResponseModal('{{ rating.id }}')"
                         class="inline-block bg-primary_medium text-white px-4 py-2 rounded-md hover:bg-primary_dark transition-colors">
-                        Responder a esta calificación
+                        {% translate "Responder a esta calificación" %}
                     </a>
                 </div>
                 {% endif %}
             </div>
             {% empty %}
-            <p class="text-gray-500">Sin calificaciones aún. Sé el primero en calificar.</p>
+            <p class="text-gray-500">{% translate "Sin calificaciones aún. Sé el primero en calificar."%}</p>
             {% endfor %}
         </div>
 
@@ -211,7 +210,7 @@
         <div class="mt-8 text-center">
             <a href="javascript:void(0)" onclick="openRatingModal()"
                 class="inline-block bg-primary_medium text-white px-6 py-3 rounded-lg hover:bg-primary_dark transition-colors">
-                Calificar
+                {% translate "Calificar" %}
             </a>
         </div>
     </div>
@@ -220,17 +219,17 @@
     <div id="responseModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-bg_white p-6 rounded-lg shadow-lg w-1/2 relative">
             <button class="absolute top-2 right-2 text-primary_dark hover:text-primary_medium" onclick="closeResponseModal()">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-primary_black">Responder a la Calificación</h2>
+            <h2 class="text-2xl font-bold mb-4 text-primary_black">{% translate "Responder a la Calificación" %}</h2>
 
             <form id="responseForm" method="POST">
                 {% csrf_token %}
                 <div class="mb-6">
-                    <h3 class="text-xl font-semibold mb-2 text-primary_black">Tu Respuesta</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-primary_black">{% translate "Tu Respuesta" %}</h3>
                     <textarea name="response_text" id="id_response_text" rows="4"
                         class="w-full p-4 border border-primary_light rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
                 </div>
                 <button type="submit"
-                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Enviar Respuesta</button>
+                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">{% translate "Enviar Respuesta"%}</button>
             </form>
         </div>
     </div>
@@ -239,7 +238,7 @@
     <div id="ratingModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg w-96 p-6 relative">
             <button class="absolute top-2 right-2 text-primary_dark" onclick="closeRatingModal()">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-primary_black">Calificar a {{ profile.user.username }}</h2>
+            <h2 class="text-2xl font-bold mb-4 text-primary_black">{% translate "Calificar a"%} {{ profile.user.username }}</h2>
 
             <form id="ratingForm" method="POST">
                 {% csrf_token %}
@@ -254,15 +253,14 @@
 
                 <!-- Campo de Comentario -->
                 <div class="mb-6">
-                    <h3 class="text-xl font-semibold mb-2 text-primary_black">Añadir una descripción</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-primary_black">{% translate "Añadir una descripción"%}</h3>
                     <textarea name="comment" id="id_comment" rows="4"
                         class="w-full p-4 border border-gray-300 rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
                 </div>
 
                 <!-- Botón de Confirmación -->
                 <button type="submit"
-                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Enviar
-                    Calificación</button>
+                    class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">{% translate "Enviar Calificación" %}</button>
             </form>
         </div>
     </div>
