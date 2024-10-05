@@ -10,7 +10,8 @@ from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
 
-from flowlance.decorators import attach_profile_info
+from flowlance.decorators import attach_profile_info, client_required
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -29,8 +30,37 @@ def my_profile(request):
 
 @login_required
 @attach_profile_info
-def my_freelancer_profile(request,profile):
+def my_freelancer_profile(request):
     profile = request.profile
+
+    context = generate_freelancer_context(profile)
+    context['is_owner'] = True
+
+    return render(request, 'profile/freelancer_profile.html', context)
+
+def my_company_profile(request):
+    return redirect('home') # TODO: Redirect to the client profile view
+
+@login_required
+@attach_profile_info
+@client_required
+def freelancer_profile_view(request, username):
+
+    if request.user.username == username:
+        return redirect('my_profile')
+
+    # Search for the user
+    user = get_object_or_404(User, username=username)
+    
+    request.profile, request.profile_type = user.get_profile_info()
+
+    context = generate_freelancer_context(request.profile)
+    context['is_owner'] = False
+    context['viewer'] = request.user
+
+    return render(request, 'profile/freelancer_profile.html', context)
+
+def generate_freelancer_context(profile):
     try:
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.filter(is_deleted=False)
@@ -44,25 +74,15 @@ def my_freelancer_profile(request,profile):
     ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
 
     context = {
-        'profile': profile,
         'skills': profile.skills.filter(is_deleted=False),
         'experiences': profile.freelancer_work_experience.filter(is_deleted=False),
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
         'ratings': ratings,
-        'is_owner': (request.user == profile.user),
     }
 
-    return render(request, 'profile/freelancer_profile.html', context)
-
-def my_company_profile(request):
-    return redirect('home') # TODO: Redirect to the client profile view
-
-@login_required
-def freelancer_profile_view(request, username=None):
-    request.profile = get_object_or_404(FreelancerProfile, user__username=username)
-    return my_freelancer_profile(request)
+    return context
 
 @login_required
 def notifications(request):
