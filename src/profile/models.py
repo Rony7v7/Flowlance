@@ -37,7 +37,7 @@ class CompanyProfile(models.Model):
     photo = models.ImageField(upload_to='companies/', blank=True, null=True)
 
     def __str__(self):
-        return self.company_name
+        return self.user.username
 
 class Portfolio(models.Model):
     freelancer_profile = models.OneToOneField(
