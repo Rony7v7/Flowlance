@@ -148,63 +148,74 @@
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
         <h2 class="text-3xl font-bold text-primary_black mb-6">Calificaciones y Comentarios</h2>
 
-        <!-- Contenedor de Calificaciones -->
-        <div class="space-y-6">
-            {% for rating in ratings %}
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary_medium transition-transform duration-300 hover:shadow-lg hover:scale-105">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-4">
-                        <p class="text-xl font-semibold text-primary_black">{{ rating.stars }} estrellas</p>
-                        <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username }}</strong></p>
+
+
+        
+        
+                <!-- Contenedor de Calificaciones -->
+                <div class="space-y-6">
+                    {% for rating in ratings %}
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary_medium transition-transform duration-300 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <!-- Mostrar estrellas -->
+                                <div class="flex text-blue-500">
+                                    {% for i in rating.star_range %}
+                                        <span class="text-4xl">★</span>  
+                                    {% endfor %}
+                                </div>
+                                <p class="text-gray-500 text-sm">por <strong>{{ rating.client.username }}</strong></p>
+                            </div>
+                            <p class="text-gray-400 text-sm">{{ rating.created_at|date:"d M Y" }}</p>
+                        </div>
+                        <p class="mt-4 text-gray-700 text-md">{{ rating.comment }}</p>
+                    
+        
+                        <!-- Botones para acciones del comentario (Editar o Eliminar) -->
+                        <div class="flex justify-end space-x-4 mt-2">
+                            <!-- Eliminar comentario -->
+                            <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
+                                    Eliminar Calificación
+                                </button>
+                            </form>
+                        </div>
+        
+                        {% if rating.response %}
+                        <!-- Respuesta del Freelancer -->
+                        <div class="mt-4 bg-gray-100 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-gray-600"><strong>Respuesta:</strong> {{ rating.response.response_text }}</p>
+                            <div class="flex justify-end space-x-4 mt-2">
+                                <!-- Editar respuesta -->
+                                <a href="javascript:void(0)" onclick="openEditResponseModal('{{ rating.response.id }}')" class="text-primary_medium hover:underline text-sm font-semibold">Editar Respuesta</a>
+        
+                                <!-- Eliminar respuesta -->
+                                <form action="{% url 'delete_rating_response' rating.response.id %}" method="post" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                        class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
+                                        Eliminar Respuesta
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% else %}
+                        <!-- Botón para responder si no hay respuesta -->
+                        <div class="mt-4">
+                            <a href="javascript:void(0)" onclick="openResponseModal('{{ rating.id }}')"
+                                class="inline-block bg-primary_medium text-white px-4 py-2 rounded-md hover:bg-primary_dark transition-colors">
+                                Responder a esta calificación
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
-                    <p class="text-gray-400 text-sm">{{ rating.created_at|date:"d M Y" }}</p>
+                    {% empty %}
+                    <p class="text-gray-500">Sin calificaciones aún. Sé el primero en calificar.</p>
+                    {% endfor %}
                 </div>
-                <p class="mt-4 text-gray-700 text-md">{{ rating.comment }}</p>
-
-                <!-- Botones para acciones del comentario (Editar o Eliminar) -->
-                <div class="flex justify-end space-x-4 mt-2">
-                    <!-- Eliminar comentario -->
-                    <form action="{% url 'delete_rating' rating.id %}" method="post" class="inline">
-                        {% csrf_token %}
-                        <button type="submit"
-                            class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
-                            Eliminar Calificación
-                        </button>
-                    </form>
-                </div>
-
-                {% if rating.response %}
-                <!-- Respuesta del Freelancer -->
-                <div class="mt-4 bg-gray-100 rounded-lg p-4 border border-gray-200">
-                    <p class="text-sm text-gray-600"><strong>Respuesta:</strong> {{ rating.response.response_text }}</p>
-                    <div class="flex justify-end space-x-4 mt-2">
-                        <!-- Editar respuesta -->
-                        <a href="javascript:void(0)" onclick="openEditResponseModal('{{ rating.response.id }}')" class="text-primary_medium hover:underline text-sm font-semibold">Editar Respuesta</a>
-
-                        <!-- Eliminar respuesta -->
-                        <form action="{% url 'delete_rating_response' rating.response.id %}" method="post" class="inline">
-                            {% csrf_token %}
-                            <button type="submit"
-                                class="text-red-500 hover:underline text-sm font-semibold hover:text-red-600 transition-colors">
-                                Eliminar Respuesta
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                {% else %}
-                <!-- Botón para responder si no hay respuesta -->
-                <div class="mt-4">
-                    <a href="javascript:void(0)" onclick="openResponseModal('{{ rating.id }}')"
-                        class="inline-block bg-primary_medium text-white px-4 py-2 rounded-md hover:bg-primary_dark transition-colors">
-                        Responder a esta calificación
-                    </a>
-                </div>
-                {% endif %}
-            </div>
-            {% empty %}
-            <p class="text-gray-500">Sin calificaciones aún. Sé el primero en calificar.</p>
-            {% endfor %}
-        </div>
+        
 
         <!-- Botón para agregar calificación -->
         <div class="mt-8 text-center">

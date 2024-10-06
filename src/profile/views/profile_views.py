@@ -24,13 +24,17 @@ def freelancer_profile(request, username=None):
         portfolio = profile.portfolio_profile
         projects = portfolio.projects.all()
         courses = portfolio.courses.all()
-           
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
+    # Obtenemos las calificaciones y las ordenamos por la fecha de creación
+    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')
+
+    # Añadir el rango de estrellas para cada calificación
+    for rating in ratings:
+        rating.star_range = range(rating.stars)
 
     context = {
         'profile': profile,
@@ -39,10 +43,11 @@ def freelancer_profile(request, username=None):
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
-        'ratings': ratings,
+        'ratings': ratings,  # Calificaciones con el rango de estrellas
     }
 
     return render(request, 'profile/freelancer_profile.html', context)
+
 
 
 @login_required
