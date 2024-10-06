@@ -24,9 +24,6 @@
             {% translate "Calendario" %}
         </a>
     </div>
-    
-    
-    
 
     <!-- Panel de Control -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">{% translate "Panel de control" %}</h1>
@@ -36,7 +33,7 @@
             <!-- Left Section with Image -->
             <div>
                 <img src="https://picsum.photos/450/300" alt="Project Image"
-                     class="w-[400px] h-[300px] rounded-xl mr-6">
+                    class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
                     <p class="text-lg font-semibold text-primary_black">{% translate "Presupuesto:" %} <span
@@ -59,6 +56,7 @@
                     </a>
                 </div>
 
+                {% if request.profile_type == 'freelancer' %}
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
                     <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
@@ -66,19 +64,74 @@
                     </button>
                 </form>
 
+                <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
+                    {% if application %}
+                    <div class="flex items-center space-x-2">
+                        {% if application.status == "Rechazada" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-red-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% elif application.status == "Aceptada" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-green-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-lg text-primary_black font-semibold">
+                            Estado de la postulación:
+                            <span class="text-yellow-500 font-bold">{{ application.status }}</span>
+                        </p>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <p class="text-lg text-primary_black font-semibold mt-2">
+                        No te has postulado a este proyecto aún.
+                    </p>
+                    {% endif %}
+                </div>
+
+                {% endif %}
+
+                {% if user_is_owner %}
+
+                <a href="{% url 'project_edit' project.pk %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
+                    Editar
+                </a>
+
                 <!-- Aplications list -->
                 <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     {% translate "Ver Postulaciones" %}
                 </button>
-              
+
 
                 <!-- Boton eliminar -->
                 <div class="mt-4 flex space-x-4 items-center">
                     <a href="{% url 'project_delete' project.pk %}"
                         class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
-                        {% translate "Eliminar Proyecto" %}
+                        Eliminar Proyecto
                     </a>
                     
+                    <!-- <a href="{% url 'my_projects' %}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
+                        Mis Proyectos
+                    </a> -->
                 </div>
                 
                 <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
@@ -121,12 +174,14 @@
             </div>
         </div>
     </div>
+
     <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
         {% block section %}
         {% endblock %}
     </div>
 
     <!-- Pop-up of applications -->
+     
     <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-xl shadow-lg w-1/2">
             <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
@@ -146,10 +201,10 @@
                     </div>
                     {% if application.status == 'Pendiente' %}
                     <div class="flex gap-2">
-                        <a href="{% url 'update_application_status' application.id 'accept' %}" 
-                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
-                        <a href="{% url 'update_application_status' application.id 'reject' %}" 
-                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
+                        <a href="{% url 'update_application_status' application.id 'accept' %}"
+                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
+                        <a href="{% url 'update_application_status' application.id 'reject' %}"
+                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
                     </div>
                     {% endif %}
                 </li>
@@ -164,11 +219,11 @@
 </div>
 
 <script>
-    document.getElementById('showApplications').addEventListener('click', function() {
+    document.getElementById('showApplications').addEventListener('click', function () {
         document.getElementById('applicationsModal').classList.remove('hidden');
     });
 
-    document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('closeModal').addEventListener('click', function () {
         document.getElementById('applicationsModal').classList.add('hidden');
     });
 </script>
