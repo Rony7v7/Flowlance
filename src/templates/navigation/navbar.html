@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="flex flex-col h-screen justify-between w-full px-3 py-8 bg-white shadow-lg">
   <!-- Up Section -->
   <div>
@@ -35,7 +36,7 @@
       {% with icon_property="bold" %}
       <a href="{% url 'project_list' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/slider-vertical.html' with property=icon_property %}
-        Proyectos
+        {% translate "Proyectos" %}
       </a>
       {% endwith %}
       {% else %}
@@ -43,7 +44,7 @@
       <a href="{% url 'project_list' %}"
         class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/slider-vertical.html' with property=icon_property %}
-        Proyectos
+        {% translate "Proyectos" %}
       </a>
       {% endwith %}
       {% endif %}
@@ -71,7 +72,7 @@
       <a href="{% url 'freelancer_profile' %}"
         class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/profile.html' with property=icon_property %}
-        Mi Perfil
+        {% translate "Mi Perfil" %}
       </a>
       {% endwith %}
       {% else %}
@@ -79,7 +80,7 @@
       <a href="{% url 'freelancer_profile' %}"
         class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/profile.html' with property=icon_property %}
-        Mi Perfil
+        {% translate "Mi Perfil" %}
       </a>
       {% endwith %}
       {% endif %}
@@ -90,7 +91,7 @@
   <div>
 
     <!-- Preferences Section -->
-    <div class="text-primary_lightest p-3 mt-3">PREFERENCIAS</div>
+    <div class="text-primary_lightest p-3 mt-3">{% translate "PREFERENCIAS" %}</div>
 
     <div class="flex flex-col gap-1">
       <!-- Ajustes Link -->
@@ -98,14 +99,14 @@
       {% with icon_property="bold" %}
       <a href="{% url 'settings' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/settings.html' with property=icon_property %}
-        Ajustes
+        {% translate "Ajustes" %}
       </a>
       {% endwith %}
       {% else %}
       {% with icon_property="outline" %}
       <a href="{% url 'settings' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/settings.html' with property=icon_property %}
-        Ajustes
+        {% translate "Ajustes" %}
       </a>
       {% endwith %}
       {% endif %}
@@ -115,14 +116,14 @@
       {% with icon_property="bold" %}
       <a href="{% url 'support' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/info-circle.html' with property=icon_property %}
-        Ayuda y Soporte
+        {% translate "Ayuda y Soporte" %}
       </a>
       {% endwith %}
       {% else %}
       {% with icon_property="outline" %}
       <a href=" " class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/info-circle.html' with property=icon_property %}
-        Ayuda y Soporte
+        {% translate "Ayuda y Soporte" %}
       </a>
       {% endwith %}
       {% endif %}

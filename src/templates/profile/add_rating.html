@@ -2,9 +2,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load i18n %}
 {% block content %}
 <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md">
-    <h2 class="text-3xl font-bold mb-6 text-primary_black">Calificando a: {{ freelancer.user.username }}</h2>
+    <h2 class="text-3xl font-bold mb-6 text-primary_black">{% translate "Calificando a: {{ freelancer.user.username }}" %}</h2>
     <form method="post" id="ratingForm" class="space-y-6">
         {% csrf_token %}
         <!-- Sección de Calificación con Estrellas -->
@@ -22,15 +23,17 @@
 
         <!-- Campo de Comentario -->
         <div class="mb-6">
-            <h3 class="text-xl font-semibold mb-2 text-primary_black">Añadir una descripción</h3>
+            <h3 class="text-xl font-semibold mb-2 text-primary_black">{% translate "Añadir una descripción" %}</h3>
             <textarea name="comment" id="id_comment" rows="4" class="w-full p-4 border border-gray-300 rounded-md focus:ring-primary_medium focus:border-primary_medium bg-bg_gray placeholder-primary_lightest shadow-sm hover:shadow-md transition-shadow duration-300"></textarea>
+            <h3 class="text-xl font-semibold mb-2"></h3>
+            <textarea name="comment" id="id_comment" rows="4" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
         </div>
 
         <!-- Campo oculto para el número de estrellas -->
         <input type="hidden" name="stars" id="id_stars" value="0">
 
         <!-- Botón de Confirmación -->
-        <button type="submit" class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">Confirmar</button>
+        <button type="submit" class="w-full bg-primary_medium text-white hover:bg-primary_dark transition-colors px-4 py-2 rounded">{% translate "Confirmar" %}</button>
     </form>
 </div>
 
