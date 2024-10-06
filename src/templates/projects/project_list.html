@@ -16,7 +16,7 @@
 
         </div>
 
-        {% if request.profile_type == 'client' %}
+        {% if request.profile_type == 'company' %}
         <div class="flex">
             {% url 'create_project' as create_project_url %}
             {% trans "Crear Proyecto" as translated_label %}

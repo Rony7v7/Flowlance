@@ -97,6 +97,7 @@ def display_project(request, project_id, section):
     )
 
 @login_required
+@attach_profile_info
 def project_list_availableFreelancer(request):
     search_query = request.GET.get("search", "")  # Captura el valor del input 'search'
     projects = Project.objects.filter(is_deleted = False)  # Obtiene todos los proyectos inicialmente
