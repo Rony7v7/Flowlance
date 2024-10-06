@@ -15,11 +15,15 @@
             {% include 'utils/anchor_button.html' with label=translated_label type=1 url=list_projects_available %}
 
         </div>
+
+        {% if request.profile_type == 'client' %}
         <div class="flex">
             {% url 'create_project' as create_project_url %}
             {% trans "Crear Proyecto" as translated_label %}
             {% include 'utils/anchor_button.html' with label=translated_label type=1 url=create_project_url %}
         </div>
+        {% endif %}
+
     </div>
 
     <div class="flex justify-between items-center mb-6">

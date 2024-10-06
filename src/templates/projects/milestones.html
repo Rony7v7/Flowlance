@@ -11,7 +11,11 @@
 
         {% url 'add_milestone' project.id as add_milestone_url %}
         {% trans "Añadir" as translated_button %}
-        {% include 'utils/anchor_button.html' with type=1 label=translated_button url=add_milestone_url %}
+
+        {% if user_is_owner %}
+            {% include 'utils/anchor_button.html' with type=1 label=translated_button url=add_milestone_url %}
+        {% endif %}
+        
     </div>
 
     <div class="grid grid-cols-3 gap-6 mt-4">

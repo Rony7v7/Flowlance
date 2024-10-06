@@ -7,7 +7,11 @@ from project.forms import ProjectForm
 from project.models import Application, Milestone, Project
 from django.contrib import messages
 
+# Decorators
+from flowlance.decorators import client_required, freelancer_required, attach_profile_info
+
 @login_required
+@client_required
 def create_project(request):
     if request.method == "POST":
         form = ProjectForm(request.POST)
@@ -36,6 +40,7 @@ def my_projects(request):
 
 
 @login_required
+@attach_profile_info
 def display_project(request, project_id, section):
     try:
 
@@ -79,6 +84,7 @@ def display_project(request, project_id, section):
     return render(
         request,
         section_to_show,
+
         {
             "project": project,
             "milestones": milestones,
@@ -86,6 +92,7 @@ def display_project(request, project_id, section):
             "section": section,
             "application": application,
             "applications": applications,
+            "user_is_owner": request.user == project.client,
         },
     )
 
@@ -106,6 +113,7 @@ def project_list_availableFreelancer(request):
     )
 
 @login_required
+@attach_profile_info
 def project_list(request):
     projects = Project.objects.filter(client=request.user,is_deleted=False)
     return render(request, "projects/project_list.html", {"projects": projects})
@@ -170,6 +178,7 @@ def project_requirements(request, project_id):
     return render(request, "projects/project_requirements.html", {"project": project})
 
 @login_required
+@freelancer_required
 def apply_project(request, project_id):
     project = get_object_or_404(Project, id=project_id,is_deleted=False)
 
