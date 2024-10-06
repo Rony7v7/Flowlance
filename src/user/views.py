@@ -5,6 +5,10 @@ from .LoginForm import LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from allauth.socialaccount.models import SocialAccount
 
 def home(request):
     return render(request, "homepage/home.html")
@@ -32,13 +36,6 @@ def login_view(request):
         form = LoginForm()
     return render(request, "login/login.html", {"form": form})
 
-
-
-
-from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
-from allauth.socialaccount.models import SocialAccount
 
 def success_or_not(request):
     return render(request, "login/success_or_not.html")
