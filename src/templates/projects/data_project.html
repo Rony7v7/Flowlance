@@ -204,59 +204,95 @@
 </div>
 
 
-<div class="container">
-    <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
 
-    <div id="ganttChart" class="mt-3 style="height: 600px; width: 100%;"></div>
-
-    <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
-    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
-
-    <script>
-        // Crear los grupos de hitos y tareas
-        var groups = new vis.DataSet([
-            {% for milestone in milestones %}
-                {id: 'milestone_{{ milestone.id }}', content: 'Hito: {{ milestone.name }}', className: 'milestone-group'},
-            {% endfor %}
-        ]);
-
-        // Crear los elementos para los hitos y las tareas
-        var items = new vis.DataSet([
-            {% for milestone in milestones %}
-                // Crear el elemento del hito
-                
-                
-                {% for task in milestone.tasks.all %}
-                    // Crear el elemento de la tarea dentro de su hito
-                    {id: 'task_{{ task.id }}', group: 'milestone_{{ milestone.id }}', content: 'Tarea: {{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', className: 'task-item'},
+    <div class="container">
+        <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
+    
+        <!-- Filtro para seleccionar el hito -->
+        <div class="mt-4 mb-6">
+            <label for="milestoneFilter" class="text-lg font-medium text-primary_black">Filtrar por Hito:</label>
+            <select id="milestoneFilter" class="border border-gray-300 p-2 rounded-md">
+                <option value="all">Mostrar Todos</option>
+                {% for milestone in milestones %}
+                    <option value="milestone_{{ milestone.id }}">Hito: {{ milestone.name }}</option>
                 {% endfor %}
-            {% endfor %}
-        ]);
-
-        // Configuración del diagrama de Gantt
-        var options = {
-            stack: false,  // No apilar las tareas
-            horizontalScroll: true,  // Scroll horizontal
-            showCurrentTime: true,  // Mostrar la línea de tiempo actual
-            zoomable: true,  // Permitir el zoom
-            moveable: true,  // Permitir movimiento
-            height: '400px',  // Altura del gráfico
-            margin: { 
-                item: 10,  // Espaciado entre las tareas
-                axis: 300   // Espacio para el eje de tiempo
-            },
-            zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
-            zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
-            orientation: { axis: "top" },  // Eje de tiempo en la parte superior
-            groupOrder: 'content',  // Ordenar los grupos por nombre
-            timeAxis: { scale: 'month', step: 1 },  // Escala de tiempo por meses
-        };
-
-        // Inicializar el gráfico
-        var container = document.getElementById('ganttChart');
-        var timeline = new vis.Timeline(container, items, groups, options);
-    </script>
-</div>
-
-
-{% endblock %}
+            </select>
+        </div>
+    
+        <!-- Contenedor del diagrama de Gantt -->
+        <div id="ganttChart" class="mt-3" style="height: 600px; width: 100%;"></div>
+    
+        <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+        <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+    
+        <script>
+            // Crear los grupos de hitos y tareas
+            var groups = new vis.DataSet([
+                {% for milestone in milestones %}
+                    {id: 'milestone_{{ milestone.id }}', content: 'Hito: {{ milestone.name }}', className: 'milestone-group'},
+                {% endfor %}
+            ]);
+    
+            // Crear los elementos para los hitos y las tareas
+            var items = new vis.DataSet([
+                {% for milestone in milestones %}
+                    {% for task in milestone.tasks.all %}
+                        {id: 'task_{{ task.id }}', group: 'milestone_{{ milestone.id }}', content: 'Tarea: {{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', className: 'task-item'},
+                    {% endfor %}
+                {% endfor %}
+            ]);
+    
+            // Configuración del diagrama de Gantt
+            var options = {
+                stack: false,  // No apilar las tareas
+                horizontalScroll: true,  // Scroll horizontal
+                showCurrentTime: true,  // Mostrar la línea de tiempo actual
+                zoomable: true,  // Permitir el zoom
+                moveable: true,  // Permitir movimiento
+                height: '400px',  // Altura del gráfico
+                margin: { 
+                    item: 10,  // Espaciado entre las tareas
+                    axis: 300   // Espacio para el eje de tiempo
+                },
+                zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
+                zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
+                orientation: { axis: "top" },  // Eje de tiempo en la parte superior
+                groupOrder: 'content',  // Ordenar los grupos por nombre
+                timeAxis: { scale: 'month', step: 1 },  // Escala de tiempo por meses
+            };
+    
+            // Inicializar el gráfico
+            var container = document.getElementById('ganttChart');
+            var timeline = new vis.Timeline(container, items, groups, options);
+    
+            // Filtrar las tareas según el hito seleccionado
+            document.getElementById('milestoneFilter').addEventListener('change', function () {
+                var selectedMilestone = this.value;
+    
+                if (selectedMilestone === 'all') {
+                    // Mostrar todas las tareas si se selecciona "Mostrar Todos"
+                    timeline.setItems(items);
+                    timeline.setGroups(groups);
+                } else {
+                    // Filtrar las tareas por el hito seleccionado
+                    var filteredItems = items.get({
+                        filter: function (item) {
+                            return item.group === selectedMilestone;
+                        }
+                    });
+    
+                    var filteredGroups = groups.get({
+                        filter: function (group) {
+                            return group.id === selectedMilestone;
+                        }
+                    });
+    
+                    timeline.setItems(filteredItems);
+                    timeline.setGroups(filteredGroups);
+                }
+            });
+        </script>
+    </div>
+    
+    {% endblock %}
+    
