@@ -8,6 +8,7 @@ from django.urls import reverse
 from profile.models import FreelancerProfile, FreelancerProfile, Notification, Rating, RatingResponse
 from profile.forms import RatingForm, RatingResponseForm
 
+
 @login_required
 def add_rating(request, freelancer_username):
 

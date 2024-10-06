@@ -38,13 +38,12 @@
                 </div>
                 {% if is_owner %}
                 <button
-                class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     Editar Perfil
                 </button>
                 {% endif %}
             </div>
         </div>
-
 
         <div class="mt-6">
             <h2 class="text-xl font-bold text-primary_black">{% translate "Habilidades" %}</h2>
@@ -61,9 +60,17 @@
         </div>
     </div>
 
-    <!-- Experiencia Laboral -->
+    <!-- Experiencia Laboral Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">{% translate "Experiencia Laboral" %}</h2>
+      
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">{% translate "Experiencia Laboral" %}</h2>
+            <a href="{% url 'add_experience' %}"
+                class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                Añadir
+            </a>
+        </div>
+      
         <ul class="mt-4 space-y-6">
             {% for experience in experiences %}
             <li class="bg-white p-6 rounded-lg shadow flex items-start space-x-4">
@@ -86,11 +93,24 @@
             <li class="text-gray-500">{% translate "No se ha añadido experiencia laboral aún." %}</li>
             {% endfor %}
         </ul>
+      
     </div>
-
-    <!-- Portafolio -->
+    <!-- Portafolio Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">{% translate "Portafolio" %}</h2>
+      
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">{% translate "Portafolio" %}</h2>
+            <div class="space-x-4">
+                <a href="{% url 'add_project' %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                    Añadir Proyecto
+                </a>
+                <a href="{% url 'add_course' %}"
+                    class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                    Añadir Curso
+                </a>
+            </div>
+        </div>
 
         {% if portfolio %}
         <h4 class="text-xl font-semibold text-primary_medium mt-4">{% translate "Proyectos" %}</h4>
@@ -136,9 +156,18 @@
         {% endif %}
     </div>
 
-    <!-- Curriculum Vitae -->
+
+    <!-- Curriculum Vitae Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-8">
-        <h2 class="text-2xl font-bold text-primary_black">{% translate "Curriculum Vitae" %}</h2>
+      
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-primary_black">{% translate "Curriculum Vitae" %}</h2>
+            <a href="{% url 'upload_curriculum' %}"
+                class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark">
+                Añadir
+            </a>
+        </div>
+  
         {% if profile.freelancer_cv and profile.freelancer_cv.file %}
         <a href="{{ profile.freelancer_cv.file.url }}" class="text-purple-600 hover:text-purple-500 underline">{% translate "Descargar Curriculum" %}</a>
         {% else %}
