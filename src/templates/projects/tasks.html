@@ -56,8 +56,8 @@
             {% csrf_token %}
             <label for="state" class="block text-sm font-medium text-primary_black">Estado Actual: {{ task.state }}</label>
             <select name="state" id="state" class="border border-gray-300 p-2 rounded w-full mt-1">
-                <option value="Pendiente" {% if task.state == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                <option value="En Progreso" {% if task.state == 'En Progreso' %}selected{% endif %}>En Progreso</option>
+                <option value="pendiente" {% if task.state == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                <option value="En progreso" {% if task.state == 'En progreso' %}selected{% endif %}>En Progreso</option>
                 <option value="Completada" {% if task.state == 'Completada' %}selected{% endif %}>Completada</option>
             </select>
             <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-2">Actualizar Estado</button>

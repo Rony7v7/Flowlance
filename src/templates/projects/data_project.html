@@ -73,41 +73,7 @@
         </div>
     </div>
 
-    <!-- Progreso General de los Entregables -->
-    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
-        <h2 class="text-xl font-bold text-primary_black">Progreso de Entregables</h2>
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <p class="mb-4"><strong>Progreso Actual de Entregables:</strong></p>
-
-            <!-- Barra de Progreso para los Entregables -->
-            <div class="w-full bg-gray-200 rounded-full h-6">
-                <div id="deliverables-progress-bar" class="
-                    {% if deliverable_progress < 34 %}
-                        bg-red-500
-                    {% elif deliverable_progress < 67 %}
-                        bg-yellow-500
-                    {% else %}
-                        bg-green-500
-                    {% endif %}
-                    h-6 rounded-full text-center text-white text-sm leading-none">
-                    {{ deliverable_progress|floatformat:0|default_if_none:0 }}%
-                </div>
-            </div>
-
-            <script>
-                // Establecer el ancho de la barra de progreso de los entregables dinámicamente
-                document.getElementById('deliverables-progress-bar').style.width = "{{ deliverable_progress|floatformat:0|default_if_none:0 }}%";
-            </script>
-
-            <!-- Indicador de Compleción para los Entregables -->
-            <div class="flex justify-between mt-2">
-                <span class="text-sm text-primary_dark">0%</span>
-                <span class="text-sm text-primary_dark">100%</span>
-            </div>
-        </div>
-    </div>
-</div>
-
+    
 
 
 
@@ -125,12 +91,27 @@
                     <p><strong>Descripción:</strong> {{ milestone.description }}</p>
                     <p><strong>Fecha de Inicio:</strong> {{ milestone.start_date }}</p>
                     <p><strong>Fecha de Fin:</strong> {{ milestone.end_date }}</p>
-
+                
                     <!-- Progreso del hito (cantidad de entregables completados) -->
-                    <p><strong>Progreso de Entregables:</strong> {{ milestone.amount_completed }} de {{ milestone.assigments.count }}</p>
+                    <p><strong>Progreso de Entregables:</strong> {{ progress_data.progress|default_if_none:"0" }}%  ({{ milestone.amount_completed }} de {{ milestone.assigments.count }} completados)</p>
+                
+                    <!-- Barra de Progreso de Entregables -->
+                    <!-- Barra de Progreso de Entregables -->
+<div class="w-full bg-gray-200 rounded-full h-6 mt-2">
+    <div class="
+        {% if progress_data.progress < 33 %}
+            bg-red-500
+        {% elif progress_data.progress < 66 %}
+            bg-yellow-500
+        {% else %}
+            bg-green-500
+        {% endif %}
+        h-6 rounded-full text-center text-white text-sm leading-none"
+        style="width: {{ progress_data.progress|floatformat:0 }}%;">
+        {{ progress_data.progress|floatformat:0 }}%
+    </div>
+</div>
 
-                    <!-- Indicador de color de fecha límite -->
-                    <div class="w-full {{ milestone.deadline_color }} h-2 rounded-full mt-2"></div>
 
                     <!-- Lista de Tareas Asociadas al Hito -->
                     <div class="mt-4">
@@ -176,7 +157,7 @@
         <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
             <h2 class="text-xl font-bold text-primary_black mb-4">Pendiente</h2>
             {% for task in tasks %}
-                {% if task.state == 'Pendiente' %}
+                {% if task.state == 'pendiente' %}
                 <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                     <h3 class="text-lg font-semibold">{{ task.title }}</h3>
                     <p><strong>Descripción:</strong> {{ task.description }}</p>
@@ -192,7 +173,7 @@
         <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
             <h2 class="text-xl font-bold text-primary_black mb-4">En Progreso</h2>
             {% for task in tasks %}
-                {% if task.state == 'En Progreso' %}
+                {% if task.state == 'En progreso' %}
                 <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                     <h3 class="text-lg font-semibold">{{ task.title }}</h3>
                     <p><strong>Descripción:</strong> {{ task.description }}</p>
@@ -224,11 +205,10 @@
 
 
 
-
 <div class="container">
     <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
 
-    <div id="ganttChart" class="mt-6" style="height: 400px;"></div>
+    <div id="ganttChart" class="mt-6" style="height: 600px; width: 100%;"></div>
 
     <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
     <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
@@ -237,26 +217,36 @@
         // Definir los datos para el diagrama de Gantt (hitos y tareas)
         var items = new vis.DataSet([
             {% for milestone in milestones %}
-            {id: {{ milestone.id }}, content: '{{ milestone.name }}', start: '{{ milestone.start_date }}', end: '{{ milestone.end_date }}'},
+            {id: {{ milestone.id }}, content: '{{ milestone.name }}', start: '{{ milestone.start_date }}', end: '{{ milestone.end_date }}', type: 'range'},
             {% for task in milestone.tasks.all %}
-            {id: {{ task.id }}, content: '{{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}'},
+            {id: {{ task.id }}, content: '{{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', type: 'range'},
             {% endfor %}
             {% endfor %}
         ]);
 
         // Configuración del diagrama de Gantt
         var options = {
-            stack: false,
+            stack: false,  // Evita que los elementos se apilen si se superponen
             horizontalScroll: true,
             showCurrentTime: true,
             zoomable: true,
             moveable: true,
+            height: '600px',  // Ajustar altura para hacerlo más espacioso
+            margin: { 
+                item: 20,  // Espacio vertical entre las filas de tareas/hitos
+                axis: 50   // Espacio entre el gráfico y el eje de tiempo
+            },
+            zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
+            zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
+            start: new Date('{{ project.start_date }}'),  // Fecha de inicio del proyecto
+            end: new Date('{{ project.end_date }}'),      // Fecha de fin del proyecto
+            orientation: { axis: "top" },  // Poner la barra de tiempo en la parte superior
+            timeAxis: { scale: "month", step: 1 }  // Escala de tiempo por mes
         };
 
-        // Inicializar el gráfico
         var container = document.getElementById('ganttChart');
         var timeline = new vis.Timeline(container, items, options);
     </script>
 </div>
-{% endblock %}
 
+{% endblock %}
