@@ -204,49 +204,59 @@
 </div>
 
 
-
 <div class="container">
     <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
 
-    <div id="ganttChart" class="mt-6" style="height: 600px; width: 100%;"></div>
+    <div id="ganttChart" class="mt-3 style="height: 600px; width: 100%;"></div>
 
     <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
     <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
 
     <script>
-        // Definir los datos para el diagrama de Gantt (hitos y tareas)
+        // Crear los grupos de hitos y tareas
+        var groups = new vis.DataSet([
+            {% for milestone in milestones %}
+                {id: 'milestone_{{ milestone.id }}', content: 'Hito: {{ milestone.name }}', className: 'milestone-group'},
+            {% endfor %}
+        ]);
+
+        // Crear los elementos para los hitos y las tareas
         var items = new vis.DataSet([
             {% for milestone in milestones %}
-            {id: {{ milestone.id }}, content: '{{ milestone.name }}', start: '{{ milestone.start_date }}', end: '{{ milestone.end_date }}', type: 'range'},
-            {% for task in milestone.tasks.all %}
-            {id: {{ task.id }}, content: '{{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', type: 'range'},
-            {% endfor %}
+                // Crear el elemento del hito
+                
+                
+                {% for task in milestone.tasks.all %}
+                    // Crear el elemento de la tarea dentro de su hito
+                    {id: 'task_{{ task.id }}', group: 'milestone_{{ milestone.id }}', content: 'Tarea: {{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', className: 'task-item'},
+                {% endfor %}
             {% endfor %}
         ]);
 
         // Configuración del diagrama de Gantt
         var options = {
-            stack: false,  // Evita que los elementos se apilen si se superponen
-            horizontalScroll: true,
-            showCurrentTime: true,
-            zoomable: true,
-            moveable: true,
-            height: '600px',  // Ajustar altura para hacerlo más espacioso
+            stack: false,  // No apilar las tareas
+            horizontalScroll: true,  // Scroll horizontal
+            showCurrentTime: true,  // Mostrar la línea de tiempo actual
+            zoomable: true,  // Permitir el zoom
+            moveable: true,  // Permitir movimiento
+            height: '400px',  // Altura del gráfico
             margin: { 
-                item: 20,  // Espacio vertical entre las filas de tareas/hitos
-                axis: 50   // Espacio entre el gráfico y el eje de tiempo
+                item: 10,  // Espaciado entre las tareas
+                axis: 300   // Espacio para el eje de tiempo
             },
             zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
             zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
-            start: new Date('{{ project.start_date }}'),  // Fecha de inicio del proyecto
-            end: new Date('{{ project.end_date }}'),      // Fecha de fin del proyecto
-            orientation: { axis: "top" },  // Poner la barra de tiempo en la parte superior
-            timeAxis: { scale: "month", step: 1 }  // Escala de tiempo por mes
+            orientation: { axis: "top" },  // Eje de tiempo en la parte superior
+            groupOrder: 'content',  // Ordenar los grupos por nombre
+            timeAxis: { scale: 'month', step: 1 },  // Escala de tiempo por meses
         };
 
+        // Inicializar el gráfico
         var container = document.getElementById('ganttChart');
-        var timeline = new vis.Timeline(container, items, options);
+        var timeline = new vis.Timeline(container, items, groups, options);
     </script>
 </div>
+
 
 {% endblock %}
