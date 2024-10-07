@@ -193,5 +193,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-LOGIN_REDIRECT_URL = 'dashboard'
+SOCIALACCOUNT_ADAPTER = 'user.adapters.MySocialAccountAdapter'
+LOGIN_REDIRECT_URL = '/check-profile/'
+
+
+
 
