@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from ..models import FreelancerProfile, Notification
-from django.contrib import messages
-from django.views.decorators.http import require_POST
-from ..models import Rating, RatingResponse
-from ..forms import RatingForm, RatingResponseForm
 from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.urls import reverse
+
+from profile.models import FreelancerProfile, FreelancerProfile, Notification, Rating, RatingResponse
+from profile.forms import RatingForm, RatingResponseForm
+
 
 @login_required
 def add_rating(request, freelancer_username):
