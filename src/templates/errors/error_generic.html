@@ -1,0 +1,39 @@
+{% extends 'navigation/navigation.html' %}
+
+{% block title %}Error {{error_type}} {% endblock %}
+
+{% block app_content %}
+
+<div class="bg-white shadow-lg rounded-lg p-8 max-w-md text-center">
+        <h1 class="text-4xl font-bold text-red-600 mb-4">
+            {% if error_type == '404' %}
+                404 Not Found
+            {% elif error_type == '403' %}
+                403 Forbidden
+            {% elif error_type == '500' %}
+                500 Internal Server Error
+            {% elif error_type == 'custom_permission' %}
+                Acceso Denegado
+            {% else %}
+                Error Desconocido
+            {% endif %}
+        </h1>
+        <p class="text-gray-700 mb-6">
+            {% if error_type == '404' %}
+                La página que estás buscando no existe. Por favor, verifica la URL o regresa al inicio.
+            {% elif error_type == '403' %}
+                No tienes permiso para acceder a esta página.
+            {% elif error_type == '500' %}
+                Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.
+            {% elif error_type == 'custom_permission' %}
+                No tienes los permisos necesarios para realizar esta acción.
+            {% else %}
+                Se ha producido un error inesperado. Por favor, intenta de nuevo.
+            {% endif %}
+        </p>
+        <a href="{% url 'home' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Volver al Inicio
+        </a>
+    </div>
+
+{% endblock %}
