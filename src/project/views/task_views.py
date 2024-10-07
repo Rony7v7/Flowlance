@@ -178,7 +178,7 @@ def add_file(request, task_id):
 def update_task_state(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 
-    # Verifica que el usuario tenga permisos para editar el estado de la tarea
+    
     if request.user != task.responsible and not request.user.is_superuser:
         return HttpResponseForbidden("No tienes permisos para actualizar esta tarea.")
 

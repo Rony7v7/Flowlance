@@ -252,7 +252,7 @@ def data_project_view(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     context = {
         'project': project,
-        'section': 'data_project',  # Aseguramos que la pestaña "Informes" esté activa
+        'section': 'data_project',  
     }
     return render(request, 'projects/data_project.html', context)
 
