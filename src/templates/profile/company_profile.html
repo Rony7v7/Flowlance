@@ -1,0 +1,66 @@
+{% extends "navigation/navigation.html" %}
+
+{% load i18n %}
+{% block app_content %}
+<div class="flex flex-col items-center justify-center w-full h-full px-8">
+
+    <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 mt-8">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start">
+            <div class="flex-shrink-0 mb-6 sm:mb-0">
+                <img src="{% if request.profile.photo %}{{ request.profile.photo.url }}{% else %}https://via.placeholder.com/150{% endif %}"
+                    alt="{% translate 'Foto de' %} {{ request.profile.company_name }}" class="w-36 h-36 sm:w-48 sm:h-48 rounded-full shadow-lg">
+            </div>
+
+            <div class="sm:ml-8 flex-1">
+                <h1 class="text-4xl font-bold text-primary_medium">{{ request.profile.company_name }}</h1>
+                <p class="text-lg text-gray-600 font-medium mt-2">
+                    <span class="text-primary_black font-semibold">{{ request.profile.business_type }}</span>
+                </p>
+
+                <div class="mt-4">
+                    <p class="text-base text-primary_medium mt-2">
+                        <span class="font-bold">{% translate 'Vertical:' %} </span>
+                        <span class="text-primary_black">{{ request.profile.business_vertical }}</span>
+                    </p>
+                    
+                    <p class="text-base text-primary_medium mt-2 flex items-center">
+                        <span class="font-bold">{% translate 'Dirección:' %} </span>
+                        <span class="text-primary_black ml-2">{{ request.profile.country }}, {{ request.profile.address }}</span>
+                        <span class="ml-2">
+                            {% include 'icon/LocationIcon.html' %}
+                        </span>
+                    </p>
+                    
+                    <p class="text-base text-primary_medium mt-2">
+                        <span class="font-bold">{% translate 'Representante Legal:' %} </span>
+                        <span class="text-primary_black">{{ request.profile.legal_representative }}</span>
+                    </p>
+                    
+                    <p class="text-base text-primary_medium mt-2">
+                        <span class="font-bold">{% translate 'Teléfono:' %} </span>
+                        <span class="text-primary_black">{{ request.profile.phone }}</span>
+                    </p>
+                    
+                    <p class="text-base text-primary_medium mt-2">
+                        <span class="font-bold">{% translate 'NIT:' %} </span>
+                        <span class="text-primary_black">{{ request.profile.nit }}</span>
+                    </p>
+                    
+                    <p class="text-base text-primary_medium mt-2">
+                        <span class="font-bold">{% translate 'Correo Electrónico:' %} </span>
+                        <span class="text-primary_black">{{ request.user.email }}</span>
+                    </p>
+                    
+                </div>
+
+                {% if is_owner %}
+                <button
+                    class="bg-primary_medium text-white px-6 py-2 rounded-xl mt-6 hover:bg-primary_dark transition-transform duration-300 hover:scale-105">
+                    {% translate 'Editar Perfil' %}
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -24,7 +24,7 @@ def my_profile(request):
     if profile_type == 'freelancer':
         return my_freelancer_profile(request, profile)
     elif profile_type == 'company':
-        return my_company_profile(profile)
+        return my_company_profile(request, profile)
     else:
         return redirect('home')
 
@@ -38,8 +38,29 @@ def my_freelancer_profile(request):
 
     return render(request, 'profile/freelancer_profile.html', context)
 
+@login_required
+@attach_profile_info
 def my_company_profile(request):
-    return redirect('home') # TODO: Redirect to the client profile view
+    profile = request.profile  
+    context = generate_company_context(profile)
+    context['is_owner'] = True 
+    return render(request, 'profile/company_profile.html', context)
+
+def generate_company_context(profile):
+    """Genera el contexto para el perfil de la compañía."""
+    context = {
+        'company_name': profile.company_name,
+        'nit': profile.nit,
+        'business_type': profile.business_type,
+        'country': profile.country,
+        'business_vertical': profile.business_vertical,
+        'address': profile.address,
+        'legal_representative': profile.legal_representative,
+        'phone': profile.phone,
+        'photo': profile.photo,
+    }
+    return context
+
 
 @login_required
 @attach_profile_info
