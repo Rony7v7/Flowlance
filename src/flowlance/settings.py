@@ -39,7 +39,7 @@ INTERNAL_IPS = [
 
 NPM_BIN_PATH = os.getenv(
     "NPM_BIN_PATH", "npm"
-)  # Default to 'npm' if env variable is not set
+)  # Default to 'npm' if env variable is not set
 
 SITE_ID = 1
 

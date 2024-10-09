@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
 from project.forms import ProjectForm
-from project.models import Application, Milestone, Project
+from project.models import Application, Milestone, Project, Task
 from django.contrib import messages
 
 # Decorators
@@ -57,17 +57,35 @@ def display_project(request, project_id, section):
 
     milestones = project.milestones.filter(is_deleted=False)
 
-    milestone_data = [
-        {
-            'id': milestone.id,
-            'group': milestone.project.id,  # Group by project or another criterion
-            'content': milestone.name,
-            'start': milestone.start_date.strftime('%Y-%m-%d'),
-            'end': milestone.end_date.strftime('%Y-%m-%d'),
-        }
-        for milestone in milestones
-    ]
+    # Progreso de cada hito (calculado en la vista)
+    milestone_progress_data = []
+    for milestone in milestones:
+        total_deliverables = milestone.assigments.count()  # Número total de entregables
+        completed_deliverables = milestone.amount_completed  # Número de entregables completados
+        if total_deliverables > 0:
+            progress = (completed_deliverables / total_deliverables) * 100
+        else:
+            progress = 0
+        milestone_progress_data.append({
+            'milestone': milestone,
+            'progress': progress,
+        })
 
+
+    # Progreso de Tareas
+    tasks = Task.objects.filter(milestone__in=milestones)
+    total_tasks = tasks.count()
+    completed_tasks = tasks.filter(state="Completada").count()
+    task_progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
+
+    # Progreso de Hitos
+    total_milestones = milestones.count()
+    completed_milestones = 0
+    for milestone in milestones:
+        if milestone.amount_completed == milestone.assigments.count():
+            completed_milestones += 1
+
+    milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
     # Get all applications for the project
     applications = project.applications.filter(is_deleted=False)
 
@@ -76,6 +94,7 @@ def display_project(request, project_id, section):
         "task": "projects/tasks.html",
         "time_line": "projects/time_line.html",
         "calendar": "projects/calendar.html",
+        "data_project": "projects/data_project.html",
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
@@ -87,14 +106,20 @@ def display_project(request, project_id, section):
 
         {
             "project": project,
+            "tasks": tasks,
             "milestones": milestones,
-            "milestone_data": milestone_data,  # Pass serialized data to template
+            "milestone_progress_data": milestone_progress_data,
+            "task_progress": task_progress,
+            "milestone_progress": milestone_progress,
             "section": section,
             "application": application,
             "applications": applications,
             "user_is_owner": request.user == project.client,
         },
     )
+
+
+
 
 @login_required
 @attach_profile_info
@@ -241,5 +266,17 @@ def update_application_status(request, application_id, action):
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect("project", project_id=application.project.id, section="milestone")
+
+@login_required
+def data_project_view(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    context = {
+        'project': project,
+        'section': 'data_project',  
+    }
+    return render(request, 'projects/data_project.html', context)
+
+
+
 
 
