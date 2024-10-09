@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% block content %}
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-12">
     <!-- Sección de Requerimientos del proyecto -->
-    <div class="bg-white rounded-lg shadow-lg p-6">
+    <div class="bg-white rounded-xl shadow-lg p-8 lg:p-10">
         <!-- Título de la Sección de Requerimientos -->
-        <h1 class="text-4xl font-bold mb-6">Requerimientos del Proyecto</h1>
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 border-b-2 border-gray-200 pb-4">{% translate "Requerimientos del Proyecto" %}</h1>
 
         <!-- Contenido de los Requerimientos con ajuste para manejo de texto largo -->
-        <div>
-            <p class="text-gray-700 break-words overflow-hidden max-w-full"
-               style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; white-space: pre-wrap;">
+        <div class="bg-gray-50 p-6 rounded-lg overflow-hidden border border-gray-200">
+            <p class="text-gray-800 text-lg leading-relaxed whitespace-pre-wrap break-words">
                 {{ project.requirements }}
             </p>
         </div>
 
         <!-- Botón para regresar a la página principal del proyecto -->
-        <div class="mt-8">
-            <a href="/project/{{project.id}}/milestone" class="bg-[#636AF2] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                Volver al proyecto
+        <div class="mt-10 flex justify-end">
+            <a href="/project/{{ project.id }}/milestone" 
+               class="inline-flex items-center justify-center bg-blue-500 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                {% translate "Volver al Proyecto" %}
             </a>
         </div>
     </div>

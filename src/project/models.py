@@ -15,6 +15,7 @@ class Project(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
     created_at = models.DateTimeField(auto_now_add=True)
     members = models.ManyToManyField(User, related_name="projects")
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.title
@@ -29,6 +30,7 @@ class Milestone(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="milestones"
     )
+    is_deleted = models.BooleanField(default=False, null=False)
 
     @property
     def deadline_color(self):
@@ -70,6 +72,7 @@ class Task(models.Model):
         blank=True,
         related_name="tasks",
     )
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.title 
@@ -82,6 +85,7 @@ class TimelineChange(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     change_description = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"{self.project.title} - {self.timestamp}"
@@ -102,6 +106,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.task.title}"
@@ -122,12 +127,15 @@ class Assigment(models.Model):
     start_date = models.DateField(default=date.today)
     end_date = models.DateField()
     state = models.CharField(max_length=50,default="INICIADO")
+    file = models.FileField(null = True , blank= True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
 class TaskDescription(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='descriptions')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"Description by {self.user.username} on {self.task.title}"
@@ -137,6 +145,7 @@ class TaskFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='files')
     file = models.FileField(upload_to='task_files/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return f"File for {self.task.title}"
@@ -147,6 +156,7 @@ class Application(models.Model):
     status = models.CharField(max_length=20, default='Pendiente')  
     applied_at = models.DateTimeField(auto_now_add=True)
     state = models.CharField(max_length=50) 
+    is_deleted = models.BooleanField(default=False, null=False)
     
     def __str__(self):
         return f"{self.user.username} - {self.project.title} ({self.status})"

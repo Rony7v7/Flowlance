@@ -2,6 +2,7 @@
 
 {% load static %}
 
+{% load i18n %}
 {% block app_content %}
 
 <div class="flex justify-center items-center">
@@ -10,22 +11,20 @@
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
-                <label for="name" class="block text-md font-medium text-primary_black">Nombre de la Tarea</label>
+                <label for="name" class="block text-md font-medium text-primary_black">{% translate "Nombre de la Tarea" %}</label>
                 <input id="name" name="name" type="text"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
             </div>
             <div class="mt-8">
-                <label for="description" class="block text-md font-medium text-primary_black">Descripción de la
-                    Tarea</label>
+                <label for="description" class="block text-md font-medium text-primary_black">{% translate "Descripción de la Tarea" %}</label>
                 <textarea id="description" name="description" rows="3"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required></textarea>
             </div>
 
             <div class="w-1/2 mt-8">
-                <label for="end_date" class="block text-md font-medium text-primary_black">Fecha de
-                    Finalizacion</label>
+                <label for="end_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Finalizacion" %}</label>
                 <input name="end_date" type="date" id="end_date" {% if is_editing and milestone.end_date %}
                     value="{{ milestone.end_date|date:'Y-m-d' }}" {% endif %}
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
@@ -35,7 +34,7 @@
 
 
             <div class="mt-8 w-1/2">
-                <label for="user" class="block text-md font-medium text-primary_black">Usuario encargado</label>
+                <label for="user" class="block text-md font-medium text-primary_black">{% translate "Usuario encargado" %}</label>
 
                 <select name="user" id="user"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
@@ -46,31 +45,31 @@
             </div>
 
             <div class="mt-8">
-                <label for="priority" class="block text-md font-medium text-primary_black">Prioridad</label>
+                <label for="priority" class="block text-md font-medium text-primary_black">{% translate "Prioridad" %}</label>
 
                 <select name="priority" id="priority"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
-                    <option value="baja">Baja</option>
-                    <option value="media">Media</option>
-                    <option value="alata">Alta</option>
+                    <option value="baja">{% translate "Baja" %}</option>
+                    <option value="media">{% translate "Media" %}</option>
+                    <option value="alata">{% translate "Alta" %}</option>
                 </select>
             </div>
 
 
             <div class="mt-8">
-                <label for="state" class="block text-md font-medium text-primary_black">Estado de la Tarea</label>
+                <label for="state" class="block text-md font-medium text-primary_black">{% translate "Estado de la Tarea" %}</label>
 
                 <select name="state" id="state"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="En progreso">En progreso</option>
-                    <option value="Completada">Completada</option>
+                    <option value="pendiente">{% translate "Pendiente" %}</option>
+                    <option value="En progreso">{% translate "En progreso" %}</option>
+                    <option value="Completada">{% translate "Completada" %}</option>
                 </select>
             </div>
 
 
             <div class="mt-8">
-                <label for="milestone" class="block text-md font-medium text-primary_black">Hito asociado</label>
+                <label for="milestone" class="block text-md font-medium text-primary_black">{% translate "Hito asociado" %}</label>
 
                 <select name="milestone" id="milestone" required
                     class="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
@@ -80,11 +79,14 @@
                 </select>
             </div>
 
-            <div class="justify-end  items-center">
-                <a href="/project/{{project_id}}/task">
-                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2">Cancelar</button>
-                </a>
-                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg">Guardar</button>
+            <div class="mt-9">
+                <div class="justify-end  items-center">
+                    <a href="/project/{{project_id}}/task">
+                        <button type="button"
+                            class="bg-gray-300 text-gray-800 px-4 py-2 rounded-xl mr-2 hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
+                    </a>
+                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
+                </div>
             </div>
         </form>
     </div>

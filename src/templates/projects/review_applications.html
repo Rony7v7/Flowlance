@@ -1,15 +1,16 @@
 {% extends "navigation/navigation.html" %}
 
+{% load i18n %}
 {% block app_content %}
 <div class="container">
     <h2 class="text-2xl font-bold">Postulaciones para {{ project.title }}</h2>
     <table class="min-w-full bg-white mt-4">
         <thead>
             <tr>
-                <th class="py-2">Freelancer</th>
-                <th class="py-2">Estado</th>
-                <th class="py-2">Fecha de Postulación</th>
-                <th class="py-2">Acciones</th>
+                <th class="py-2">{% translate "Freelancer" %}</th>
+                <th class="py-2">{% translate "Estado" %}</th>
+                <th class="py-2">{% translate "Fecha de Postulación" %}</th>
+                <th class="py-2">{% translate "Acciones" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +20,12 @@
                 <td class="py-2">{{ application.status }}</td>
                 <td class="py-2">{{ application.applied_at }}</td>
                 <td class="py-2">
-                    <a href="{% url 'profile' application.freelancer.id %}" class="text-blue-500 hover:underline">Ver Perfil</a>
+                    <a href="{% url 'profile' application.freelancer.id %}" class="text-blue-500 hover:underline">{% translate "Ver Perfil" %}</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4" class="text-center py-4">No hay postulaciones aún.</td>
+                <td colspan="4" class="text-center py-4">{% translate "No hay postulaciones aún." %}</td>
             </tr>
             {% endfor %}
         </tbody>

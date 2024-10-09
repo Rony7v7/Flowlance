@@ -7,8 +7,7 @@ from project.models import Assigment, Milestone
 
 @login_required
 def create_assigment(request, milestone_id):
-    milestone = Milestone.objects.get(id=milestone_id)
-    print(milestone.project.members.all())
+    milestone = get_object_or_404(Milestone,id=milestone_id,is_deleted=False)
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
@@ -43,7 +42,7 @@ def create_assigment(request, milestone_id):
 
 
 def edit_assigment(request, assigment_id):
-    assigment = Assigment.objects.get(id=assigment_id)
+    assigment = get_object_or_404(Assigment,id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
     
 
@@ -80,16 +79,17 @@ def edit_assigment(request, assigment_id):
 
 
 def delete_assigment(request, assigment_id):
-    assigment = get_object_or_404(Assigment, id=assigment_id)
+    assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
 
     if request.method == "POST":
-        assigment.delete()
+        assigment.is_deleted = True
+        assigment.save()
         return redirect("edit_milestone", milestone_id=milestone_id)
 
 
 def upload_assigment(request, assigment_id):
-    assigment = get_object_or_404(Assigment, id=assigment_id)
+    assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
 
     if request.method == "POST":
         if request.FILES.get("entregable"):

@@ -31,6 +31,9 @@ urlpatterns = [
     path('notifications/', include('notifications.urls')),  # Incluye las URLs de notificaciones
     path('payment/', include('payment.urls')),  # Incluye las URLs de pagos
     path('settings/', include('settings.urls')),  # Incluye las URLs de configuración
+    path("accounts/", include("allauth.urls")),  # Incluye las URLs de autenticación social
+    path("i18n/", include("django.conf.urls.i18n")), #Url encargada de todas las 
+
 ]
 
 # Add static and media files in debug modej

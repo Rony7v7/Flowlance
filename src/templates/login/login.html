@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 
 {% block title %}Log In - Flowlance{% endblock %}
 
 {% block content %}
+
+{% load i18n %}
 <div class="flex w-full justify-center items-center h-screen flex-col">
     <!-- Login Box -->
     <div class="rounded-lg shadow-md text-center w-[585px]  p-10">
@@ -13,7 +16,7 @@
         </div>
 
         <!-- Título -->
-        <h1 class="text-primary_black text-3xl font-bold mb-4">Iniciar sesión</h1>
+        <h1 class="text-primary_black text-3xl font-bold mb-4">{% translate "Iniciar sesión" %}</h1>
 
 
         <form method="post">
@@ -33,7 +36,7 @@
                     {{ form.password }}
                 </div>
             </div>
-            <button type="submit" class="bg-primary_medium text-white w-full py-2 rounded-md mb-4">Ingresar</button>
+            <button type="submit" class="bg-primary_medium text-white w-full py-2 rounded-md mb-4">{% translate "Ingresar" %}</button>
         </form>
 
         <!-- Divider with Circle -->
@@ -45,16 +48,17 @@
             <div class="flex-1 border-t border-gray-300"></div>
         </div>
 
-        <!-- Botón de Google -->
-        <!-- <button
+
+        <a href="{% provider_login_url 'google' %}"
             class="flex items-center justify-center bg-white text-black w-full py-2 border rounded-md mb-4 border-primary_medium">
             <span class="text-primary_black flex gap-4 justify-center text-center items-center">
-                <i> {% include 'icon/google_icon.html' with w='32' h='32' %} </i> Continuar con Google
+                <i> {% include 'icon/google_icon.html' with w='32' h='32' %} </i> 
+                {% translate "Continuar con Google" %}
             </span>
-        </button> -->
+        </a>
 
         <!-- Enlaces adicionales -->
-        <a href="#" class="text-primary_black hover:underline mb-4 block font-bold">¿Olvidaste tu contraseña?</a>
+        <a href="#" class="text-primary_black hover:underline mb-4 block font-bold">{% translate "¿Olvidaste tu contraseña?" %}</a>
         <!-- Formulario -->
         {% if form.errors %}
         <div class="bg-red-500 text-white p-2 mb-4 rounded-md">
@@ -76,8 +80,9 @@
 
     <!-- Registration Link -->
     <div class="rounded-lg shadow-md text-center mt-4 w-[585px] p-2">
-        <p class="text-black">¿No tienes cuenta? <a href="#"
-                class="text-primary_black hover:underline font-bold">Regístrate</a></p>
+        <p class="text-black">
+            {% translate "¿No tienes cuenta?" %} <a href="{% url 'choose_path' %}"class="text-primary_black hover:underline font-bold">{% translate "Regístrate" %}</a>
+        </p>
     </div>
 </div>
 {% endblock %}

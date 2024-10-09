@@ -1,14 +1,15 @@
+{% load i18n %}
 <div class="flex w-full gap-7 items-center h-12 justify-between">
     <!-- Barra de búsqueda -->
     <form action="/project/list/" method="GET" class="relative w-full focus:shadow-sm">
-        <div class="flex justify-between w-full bg-white rounded-xl border-primary_lightest border px-2">
+        <div class="flex justify-between w-full bg-white rounded-xl border-primary_lightest border px-2 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
             <!-- Input de búsqueda -->
             <input type="search" name="search" id="default-search"
                 class="w-full px-2 py-2 text-sm text-primary_black border-none rounded-xl focus:outline-none focus:ring-0 focus:border-transparent"
-                placeholder="Buscar proyectos" />
+                placeholder="{% translate "Buscar proyectos"%}" />
 
             <!-- Botón de búsqueda -->
-            <button type="submit" class="px-2">
+            <button type="submit" class="px-2 transition-transform duration-300 hover:scale-110">
                 {% include "icon/search.html" with h="24" classname="" %}
             </button>
 
@@ -18,7 +19,7 @@
             <!-- Botón de filtro con opciones desplegables -->
             <div class="relative">
                 <button type="button" id="filter-button"
-                    class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 transition">
+                    class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                     {% include "icon/filter.html" with h="24" classname="" %}
                 </button>
 
@@ -28,27 +29,27 @@
         </div>
     </form>
 
-
     <!-- Íconos de perfil y notificaciones -->
     <div class="flex gap-4 items-center">
         <!-- Notificaciones -->
         <a href="/profile/notifications"
-            class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-sm transition">
+            class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-lg transition-transform duration-300 hover:scale-110">
             {% include "icon/bell.html" with w="24" h="24" %}
         </a>
 
         <!-- Configuración -->
-        <a href="/settings" class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-sm transition">
+        <a href="/settings"
+            class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-lg transition-transform duration-300 hover:scale-110">
             {% include "icon/settings.html" with w="24" h="24" %}
         </a>
 
         <!-- Perfil -->
-        <a href="/profile" class="relative block w-10 h-10">
+        <a href="/profile" class="relative block w-10 h-10 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
             <!-- Loader antes de cargar la imagen -->
             <div class="absolute inset-0 bg-primary_lightest rounded-full animate-pulse"></div>
             <!-- Imagen del perfil -->
             <img src="https://picsum.photos/42" alt="profile"
-                class="rounded-full hover:shadow-sm w-full h-full object-cover relative z-10 border border-primary_lightest"
+                class="rounded-full hover:shadow-lg w-full h-full object-cover relative z-10 border border-primary_lightest"
                 onload="this.previousElementSibling.style.display='none';" />
         </a>
     </div>

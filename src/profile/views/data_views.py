@@ -5,7 +5,6 @@ from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
 from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
 from ..forms import AddProjectForm, AddCourseForm
 from django.contrib import messages
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from ..models import Rating, RatingResponse
 from ..forms import RatingForm, RatingResponseForm
@@ -15,7 +14,8 @@ from ..forms import RatingForm, RatingResponseForm
 
 @login_required
 def add_course(request):
-    profile = FreelancerProfile.objects.get(user=request.user)
+    profile = get_object_or_404(FreelancerProfile,user=request.user, is_deleted=False)
+    FreelancerProfile.objects.get(user=request.user)
     
     portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
 
@@ -25,7 +25,7 @@ def add_course(request):
             course = form.save(commit=False)
             course.portfolio = portfolio  
             course.save()
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddCourseForm()
 
@@ -34,7 +34,7 @@ def add_course(request):
 
 @login_required
 def add_project(request):
-    profile = FreelancerProfile.objects.get(user=request.user)
+    profile = get_object_or_404(FreelancerProfile,user=request.user,is_deleted=False)
     
     portfolio, created = Portfolio.objects.get_or_create(freelancer_profile=profile)
 
@@ -44,7 +44,7 @@ def add_project(request):
             project = form.save(commit=False)
             project.portfolio = portfolio  
             project.save()
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddProjectForm()
 
@@ -53,7 +53,7 @@ def add_project(request):
 
 @login_required
 def upload_curriculum(request):
-    profile = FreelancerProfile.objects.get(user=request.user)
+    profile = get_object_or_404(FreelancerProfile,user=request.user,is_deleted=False)
     try:
         curriculum = profile.freelancer_cv  
     except CurriculumVitae.DoesNotExist:
@@ -65,7 +65,7 @@ def upload_curriculum(request):
             cv = form.save(commit=False)
             cv.profile = profile  
             cv.save()
-            return redirect('freelancer_profile')
+            return redirect('my_profile')
     else:
         form = UploadCVForm(instance=curriculum)
 
@@ -75,26 +75,26 @@ def upload_curriculum(request):
 @login_required
 def freelancer_profile(request, username=None):
     if username is None:
-        profile = FreelancerProfile.objects.get(user=request.user)
+        profile = get_object_or_404(FreelancerProfile,user=request.user,is_deleted=False)
     else:
-        profile = get_object_or_404(FreelancerProfile, user__username=username)
+        profile = get_object_or_404(FreelancerProfile, user__username=username,is_deleted=False)
 
     try:
         portfolio = profile.portfolio_profile
-        projects = portfolio.projects.all()
-        courses = portfolio.courses.all()
+        projects = portfolio.projects.filter(is_deleted=False)
+        courses = portfolio.courses.filter(is_deleted=False)
            
     except Portfolio.DoesNotExist:
         portfolio = None
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')   
+    ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
 
     context = {
         'profile': profile,
-        'skills': profile.skills.all(),
-        'experiences': profile.freelancer_work_experience.all(),
+        'skills': profile.skills.filter(is_deleted=False),
+        'experiences': profile.freelancer_work_experience.filter(is_deleted=False),
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
@@ -114,7 +114,7 @@ def add_skills(request):
         form = AddSkillsForm(request.POST, user=user)  
         if form.is_valid():
             form.save(user=user)  
-        return redirect('freelancer_profile')
+        return redirect('my_profile')
     else:
         form = AddSkillsForm(user=user)
 
@@ -128,7 +128,7 @@ def add_experience(request):
         form = AddWorkExperienceForm(request.POST)
         if form.is_valid():
             form.save(user=user)  
-            return redirect('freelancer_profile')  
+            return redirect('my_profile')  
     else:
         form = AddWorkExperienceForm()
 
@@ -136,12 +136,12 @@ def add_experience(request):
 
 @login_required
 def notifications(request):
-    notifications = request.user.notifications.filter(is_read=False)
+    notifications = request.user.notifications.filter(is_read=False,is_deleted=False)
     return render(request, 'profile/notifications.html', {'notifications': notifications})
 
 @login_required
 def add_rating(request, freelancer_username):
-    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username)
+    freelancer = get_object_or_404(FreelancerProfile, user__username=freelancer_username,is_deleted = False)
     if request.method == 'POST':
         form = RatingForm(request.POST)
         if form.is_valid():
@@ -150,14 +150,14 @@ def add_rating(request, freelancer_username):
             rating.client = request.user
             rating.save()
             messages.success(request, 'Your rating has been submitted successfully.')
-            return redirect('freelancer_profile', username=freelancer_username)
+            return redirect('my_profile', username=freelancer_username)
     else:
         form = RatingForm()
     return render(request, 'profile/add_rating.html', {'form': form, 'freelancer': freelancer})
 
 @login_required
 def add_rating_response(request, rating_id):
-    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user)
+    rating = get_object_or_404(Rating, id=rating_id, freelancer__user=request.user,is_deleted=False)
     if request.method == 'POST':
         form = RatingResponseForm(request.POST)
         if form.is_valid():
@@ -165,34 +165,24 @@ def add_rating_response(request, rating_id):
             response.rating = rating
             response.save()
             messages.success(request, 'Your response has been added successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+            return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     else:
         form = RatingResponseForm()
     return render(request, 'profile/add_rating_response.html', {'form': form, 'rating': rating})
 
 @login_required
 def edit_rating_response(request, response_id):
-    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user)
+    response = get_object_or_404(RatingResponse, id=response_id, rating__freelancer__user=request.user,is_deleted=False)
     if not response.can_edit():
         messages.error(request, 'You can no longer edit this response.')
-        return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
+        return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     
     if request.method == 'POST':
         form = RatingResponseForm(request.POST, instance=response)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your response has been updated successfully.')
-            return redirect(reverse('freelancer_profile', kwargs={'username': request.user.username}))
-    else:
-        form = RatingResponseForm(instance=response)
-    return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
-    
-    if request.method == 'POST':
-        form = RatingResponseForm(request.POST, instance=response)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your response has been updated successfully.')
-            return redirect('freelancer_profile', username=request.user.username)
+            return redirect(reverse('my_profile', kwargs={'username': request.user.username}))
     else:
         form = RatingResponseForm(instance=response)
     return render(request, 'profile/edit_rating_response.html', {'form': form, 'response': response})
@@ -200,21 +190,23 @@ def edit_rating_response(request, response_id):
 @require_POST
 @login_required
 def delete_rating_response(request, response_id):
-    response = get_object_or_404(RatingResponse, id=response_id)
+    response = get_object_or_404(RatingResponse, id=response_id,is_deleted = False)
     if request.user == response.rating.client or request.user.is_superuser:
-        response.delete()
+        response.is_deleted = True
+        response.save()
         messages.success(request, 'Respuesta eliminada correctamente.')
     else:
         messages.error(request, 'No tienes permisos para eliminar esta respuesta.')
-    return redirect('freelancer_profile')  # Ajusta según la página de redirección
+    return redirect('my_profile')  # Ajusta según la página de redirección
 
 @require_POST
 @login_required
 def delete_rating(request, rating_id):
     rating = get_object_or_404(Rating, id=rating_id)
     if request.user == rating.client or request.user.is_superuser:
-        rating.delete()
+        rating.is_deleted = True
+        rating.save()
         messages.success(request, 'Calificación eliminada correctamente.')
     else:
         messages.error(request, 'No tienes permisos para eliminar esta calificación.')
-    return redirect('freelancer_profile')  # Ajusta según la página de redirección
+    return redirect('my_profile')  # Ajusta según la página de redirección

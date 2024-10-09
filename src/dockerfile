@@ -1,0 +1,36 @@
+# Update the base image to Python 3.12
+FROM python:3.12-alpine3.20 AS base
+WORKDIR /app
+
+# Install system dependencies
+RUN apk update && \
+    apk add --no-cache \
+    bash \
+    git \
+    nodejs \
+    npm
+
+# Upgrade pip to avoid any issues with outdated versions
+RUN pip install --upgrade pip
+
+# Copy and install Python dependencies
+COPY requirements.txt /app/
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copy project files
+COPY . /app/
+
+# Install Node.js dependencies
+RUN npm install
+
+# Expose Django default port
+EXPOSE 8000
+
+RUN python3 manage.py tailwind build
+RUN python3 manage.py makemigrations 
+RUN python3 manage.py migrate
+
+# Use the shell script to start both servers
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+
+

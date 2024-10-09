@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% block content %}
 
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
 
     <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
-        <h1 class="text-3xl font-bold text-primary_black text-left">Subir Curriculum Vitae</h1>
-        <h2 class="text-lg font-semibold text-primary_dark text-left">Curriculum</h2> 
+        <h1 class="text-3xl font-bold text-primary_black text-left">{% translate "Subir Curriculum Vitae" %}</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Curriculum" %}</h2> 
         <p class="block text-primary_black font-normal mt-4 font-sans semi">
-            Aquí puedes subir tu Curriculum Vitae en formato PDF. 
+            {% translate "Aquí puedes subir tu Curriculum Vitae en formato PDF. " %}
         </p>
     </div>
 
@@ -17,7 +18,7 @@
             {% csrf_token %}
 
             <div>
-                <label class="block text-primary_black font-medium" for="file">Sube tu CV (PDF)</label>
+                <label class="block text-primary_black font-medium" for="file">{% translate "Sube tu CV (PDF)" %}</label>
                 <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md relative">
                     <div class="space-y-1 text-center">
                         <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -25,11 +26,11 @@
                         </svg>
                         <div class="flex text-sm text-gray-600 justify-center">
                             <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
-                                <span>Selecciona tu archivo aquí</span>
+                                <span>{% translate "Selecciona tu archivo aquí" %}</span>
                                 <input id="file" name="file" type="file" accept="application/pdf" class="sr-only" required>
                             </label>
                         </div>
-                        <p class="text-xs text-gray-500">Solo se aceptan archivos en formato PDF.</p>
+                        <p class="text-xs text-gray-500">{% translate "Solo se aceptan archivos en formato PDF." %}</p>
                         <div id="uploadSuccess" class="hidden absolute top-0 right-0 mt-2 mr-2 text-green-500">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -41,7 +42,7 @@
 
             <div class="flex justify-center">
                 <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
-                    Subir Curriculum
+                    {% translate "Subir Curriculum" %}
                 </button>
             </div>
         </form>

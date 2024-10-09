@@ -1,15 +1,16 @@
 {% load static %}
 
 
+{% load i18n %}
 {{ milestone.id|json_script:"milestone-id" }}
 <div class="mt-8 w-full">
-    <h3 class="text-lg font-semibold text-primary_black">Entregables</h3>
+    <h3 class="text-lg font-semibold text-primary_black">{% translate "Entregables" %}</h3>
 
     <div class="mt-4">
         <div class="flex flex-col">
             <!-- Add a scrollable container with fixed height -->
             <div class="overflow-y-auto h-64 w-full p-4 bg-gray-100 rounded-lg">
-                {% for assigment in milestone.assigments.all %}
+                {% for assigment in assigments %}
                 <div class="bg-bg_white p-4 mb-4 rounded-lg space-y-4 shadow-md">
                     <div class="flex justify-between items-center">
                         <h3 class="text-md font-bold text-primary_medium text-right">{{ assigment.title }}</h3>
@@ -20,18 +21,18 @@
                             </a>
                             <!-- botton de editar -->
                             <a href="/project/assigment/edit/{{assigment.id}}">
-                                {% include 'icon/EditIcon.html' with h=24 w=24 %}
+                                {% include 'icon/EditIcon.html' with h=30 w=24 %}
                             </a>
                         </div>
                     </div>
-                    <span>Asignado a: {{ assigment.responsible.username }}</span>
+                    <span>{% translate "Asignado a:" %} {{ assigment.responsible.username }}</span>
                     <p class="text-sm ">{{ assigment.description|truncatewords:50 }}</p>
-                    <p class="text-sm text-primary_medium">Fecha de Finalización: {{ assigment.end_date }}</p>
-                    <p class="text-sm text-primary_medium">Estado: {{ assigment.state }}</p>
+                    <p class="text-sm text-primary_medium">{% translate "Fecha de Finalización:"%} {{ assigment.end_date }}</p>
+                    <p class="text-sm text-primary_medium">{% translate "Estado:"%} {{ assigment.state }}</p>
                     <div class="mt-2 text-center">
                         {% if assigment.file %}
                         <a href="{{ assigment.file.url }}"
-                            class="py-2 px-4 rounded-lg text-bg_white bg-primary_black" download>Descargar Entregable</a>
+                            class="py-2 px-4 rounded-lg text-bg_white bg-primary_black" download>{% translate "Descargar Entregable" %}</a>
                         {% else %}
                             {% url 'upload_assigment' assigment.id as upload_url %}
                             {% include 'utils/anchor_button.html' with type=1 label='Subir Entrega' id='upload-file' url=upload_url %}
@@ -51,12 +52,14 @@
             <div id="delete-confirmation-assigment"
                 class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                 <div class="bg-white rounded-lg p-4 w-80">
-                    <h3 class="text-lg mb-4">¿Estás seguro de borrar el entregable ?</h3>
+                    <h3 class="text-lg mb-4">{% translate "¿Estás seguro de borrar el entregable ?" %}</h3>
                     <div class="flex justify-end">
                         <button id="confirm-button-assigment"
-                            class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
-                        <button id="cancel-button-assigment"
-                            class="ml-2 bg-gray-300 px-4 py-2 rounded-lg">Cancelar</button>
+                            class="bg-red-600 text-white px-4 py-2 rounded-lg">{% translate "Confirmar" %}</button>
+                            <button id="cancel-button-assigment"
+                            class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">
+                            {% translate "Cancelar" %}
+                    </button>
                     </div>
                 </div>
             </div>

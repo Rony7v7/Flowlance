@@ -104,7 +104,7 @@ class ProjectViewsTest(TestCase):
         # Test the POST request to delete a project
         response = self.client.post(reverse('project_delete', args=[self.project.id]))
         self.assertEqual(response.status_code, 302)
-        self.assertFalse(Project.objects.filter(id=self.project.id).exists())
+        self.assertFalse(Project.objects.filter(id=self.project.id,is_deleted=False).exists())
 
     def test_project_requirements_GET(self):
         # Test the GET request to view project requirements

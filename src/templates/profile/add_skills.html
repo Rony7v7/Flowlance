@@ -2,13 +2,14 @@
 
 {% block content %}
 
+{% load i18n %}
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
 
     <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
-        <h1 class="text-3xl font-bold text-primary_black text-left">Añadir Habilidades al Perfil</h1>
-        <h2 class="text-lg font-semibold text-primary_dark text-left">Habilidades</h2> 
+        <h1 class="text-3xl font-bold text-primary_black text-left">{% translate "Añadir Habilidades al Perfil" %}</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Habilidades" %}</h2> 
         <p class="block text-primary_black font-normal mt-4 font-sans semi">
-            Aquí puedes agregar habilidades predeterminadas y personalizadas a tu perfil. 
+            {% translate "Aquí puedes agregar habilidades predeterminadas y personalizadas a tu perfil. " %}
         </p>
     </div>
 
@@ -17,9 +18,9 @@
             {% csrf_token %}
 
             <div>
-                <label class="block text-primary_black font-medium" for="predefined_skills">Habilidades Predeterminadas</label>
+                <label class="block text-primary_black font-medium" for="predefined_skills">{% translate "Habilidades Predeterminadas" %}</label>
                 {% if form.all_skills_selected %}
-                    <p class="text-gray-600 text-center">Ya tienes todas las habilidades predeterminadas</p>
+                    <p class="text-gray-600 text-center">{% translate "Ya tienes todas las habilidades predeterminadas" %}</p>
                 {% else %}
                     {{ form.predefined_skills }}
                 {% endif %}
@@ -32,9 +33,9 @@
 
             <div class="flex justify-center">
                 <button type="submit" class="bg-primary_dark text-white font-bold py-3 px-6 rounded-md hover:bg-primary_black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary_dark">
-                    Guardar Habilidades
+                    {% translate "Guardar Habilidades" %}
                 </button>
-            </div>
+            {% translate "</div>" %}
         </form>
     </div>
 </div>
@@ -50,11 +51,11 @@
             <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
-            <h3 class="text-lg font-semibold text-primary_black">Información guardada exitosamente</h3>
-            <p class="text-gray-600 mt-2">¿Deseas seguir agregando habilidades?</p>
+            <h3 class="text-lg font-semibold text-primary_black">{% translate "Información guardada exitosamente" %}</h3>
+            <p class="text-gray-600 mt-2">{% translate "¿Deseas seguir agregando habilidades?" %}</p>
             <div class="mt-4 flex justify-center space-x-4">
-                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">Sí</button>
-                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">No</button>
+                <button id="addMore" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">{% translate "Sí" %}</button>
+                <button id="submitForm" class="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-primary_dark">{% translate "No" %}</button>
             </div>
         </div>
     </div>

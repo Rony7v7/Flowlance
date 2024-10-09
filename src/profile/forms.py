@@ -1,5 +1,10 @@
 from django import forms
-from .models import Rating, RatingResponse, Skill, FreelancerProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from django.db import IntegrityError
+from django.utils.translation import gettext as _
+
 
 class AddCourseForm(forms.ModelForm):
     class Meta:
@@ -9,12 +14,12 @@ class AddCourseForm(forms.ModelForm):
             'expedition_date': forms.DateInput(attrs={'type': 'date'}),
         }
         labels = {
-            'course_name': 'Nombre del Curso',
-            'course_description': 'Descripción',
-            'organization': 'Organización',
-            'course_link': 'Enlace del Curso',
-            'course_image': 'Imagen del Curso',
-            'expedition_date': 'Fecha de Expedición',
+            'course_name': _('Nombre del Curso'),
+            'course_description': _('Descripción'),
+            'organization': _('Organización'),
+            'course_link': _('Enlace del Curso'),
+            'course_image': _('Imagen del Curso'),
+            'expedition_date': _('Fecha de Expedición'),
         }
 
 
@@ -27,15 +32,15 @@ class AddProjectForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
         labels = {
-            'project_name': 'Nombre del Proyecto',
-            'client': 'Cliente',
-            'project_description': 'Descripción del Proyecto',
-            'start_date': 'Fecha de Inicio',
-            'end_date': 'Fecha de Finalización',
-            'activities_done': 'Actividades Realizadas',
-            'attached_files': 'Archivos Adjuntos',
-            'external_link': 'Enlace Externo',
-            'project_image': 'Imagen del Proyecto',
+            'project_name': _('Nombre del Proyecto'),
+            'client': _('Cliente'),
+            'project_description': _('Descripción del Proyecto'),
+            'start_date': _('Fecha de Inicio'),
+            'end_date': _('Fecha de Finalización'),
+            'activities_done': _('Actividades Realizadas'),
+            'attached_files': _('Archivos Adjuntos'),
+            'external_link': _('Enlace Externo'),
+            'project_image': _('Imagen del Proyecto'),
         }
 
 
@@ -44,7 +49,7 @@ class UploadCVForm(forms.ModelForm):
         model = CurriculumVitae
         fields = ['file'] 
         labels = {
-            'file': 'Sube tu CV (PDF)',
+            'file': _('Sube tu CV (PDF)'),
         }
         widgets = {
             'file': forms.ClearableFileInput(attrs={'accept': 'application/pdf'}),
@@ -55,12 +60,12 @@ class AddSkillsForm(forms.ModelForm):
         queryset=Skill.objects.filter(is_custom=False),
         widget=forms.CheckboxSelectMultiple,
         required=False,
-        label="Habilidades Predeterminadas"
+        label=_("Habilidades Predeterminadas")
     )
     custom_skills = forms.CharField(
-        widget=forms.Textarea(attrs={'placeholder': 'Escribe tus habilidades personalizadas separadas por comas'}),
+        widget=forms.Textarea(attrs={'placeholder': _('Escribe tus habilidades personalizadas separadas por comas')}),
         required=False,
-        label="Habilidades Personalizadas"
+        label=_("Habilidades Personalizadas")
     )
     all_skills_selected = False  
 
@@ -119,11 +124,11 @@ class AddWorkExperienceForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
         labels = {
-            'title': 'Título del trabajo',
-            'company': 'Compañía',
-            'start_date': 'Fecha de inicio',
-            'end_date': 'Fecha de finalización (opcional)',
-            'description': 'Descripción del trabajo',
+            'title': _('Título del trabajo'),
+            'company': _('Compañía'),
+            'start_date': _('Fecha de inicio'),
+            'end_date': _('Fecha de finalización (opcional)'),
+            'description': _('Descripción del trabajo'),
         }
 
     def save(self, commit=True, user=None):
@@ -147,3 +152,118 @@ class RatingResponseForm(forms.ModelForm):
         model = RatingResponse
         fields = ['response_text']
 
+class FreelancerRegisterForm(UserCreationForm):
+    identification = forms.CharField(max_length=20, required=True, label=_('ID de Identificación'))
+    phone = forms.CharField(max_length=15, required=True, label=_('Teléfono'))
+    photo = forms.ImageField(required=False, label=_('Foto de Perfil'))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+        labels = {
+            'username': _('Nombre de Usuario'),
+            'email': _('Correo Electrónico'),
+            'password1': _('Contraseña'),
+            'password2': _('Confirmar Contraseña'),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].label = _('Contraseña') 
+        self.fields['password2'].label = _('Confirmar Contraseña') 
+        self.order_fields(['username', 'identification', 'phone', 'email', 'password1', 'password2', 'photo'])
+
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(_('Este correo electrónico ya está registrado. Por favor, usa otro.'))
+        return email
+
+    def clean_identification(self):
+        identification = self.cleaned_data.get('identification')
+        if FreelancerProfile.objects.filter(identification=identification).exists():
+            raise forms.ValidationError(_('Este ID ya está registrado. Por favor, usa otro.'))
+        return identification
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            try:
+                FreelancerProfile.objects.create(
+                    user=user,
+                    identification=self.cleaned_data['identification'],
+                    phone=self.cleaned_data['phone'],
+                    photo=self.cleaned_data.get('photo')
+                )
+            except IntegrityError as e:
+                if 'unique constraint' in str(e).lower() and 'identification' in str(e).lower():
+                    self.add_error('identification', _('Este ID ya está registrado. Por favor, usa otro.'))
+                    user.delete() 
+                return user  
+        return user
+
+
+
+class CompanyRegisterForm(UserCreationForm):
+    company_name = forms.CharField(max_length=100, required=True, label=_('Nombre de la Empresa'))
+    nit = forms.CharField(max_length=20, required=True, label=_('NIT'))
+    business_type = forms.CharField(max_length=50, required=True, label=_('Tipo de Empresa'))
+    country = forms.CharField(max_length=50, required=True, label=_('País'))
+    business_vertical = forms.CharField(max_length=50, required=True, label=_('Vertical de Negocio'))
+    address = forms.CharField(max_length=150, required=True, label=_('Dirección'))
+    legal_representative = forms.CharField(max_length=100, required=True, label=_('Representante Legal'))
+    phone = forms.CharField(max_length=15, required=True, label=_('Teléfono'))
+    photo = forms.ImageField(required=False, label=_('Imagen de la Empresa'))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+        labels = {
+            'username': _('Nombre de Usuario'),
+            'email': _('Correo Electrónico'),
+            'password1': _('Contraseña'),
+            'password2': _('Confirmar Contraseña'),
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].label = _('Contraseña') 
+        self.fields['password2'].label = _('Confirmar Contraseña') 
+        self.order_fields(['username', 'company_name', 'nit', 'business_type', 'country', 'business_vertical', 'address', 'legal_representative', 'phone', 'email', 'password1', 'password2', 'photo'])
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(_('Este correo electrónico ya está registrado. Por favor, usa otro.'))
+        return email
+    
+    def clean_nit(self):
+        nit = self.cleaned_data.get('nit')
+        if CompanyProfile.objects.filter(nit=nit).exists():
+            raise forms.ValidationError(_('Este NIT ya está registrado. Por favor, usa otro.'))
+        return nit
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        try:
+            if commit:
+                user.save()
+                CompanyProfile.objects.create(
+                    user=user,
+                    company_name=self.cleaned_data['company_name'],
+                    nit=self.cleaned_data['nit'],
+                    business_type=self.cleaned_data['business_type'],
+                    country=self.cleaned_data['country'],
+                    business_vertical=self.cleaned_data['business_vertical'],
+                    address=self.cleaned_data['address'],
+                    legal_representative=self.cleaned_data['legal_representative'],
+                    phone=self.cleaned_data['phone'],
+                    photo=self.cleaned_data.get('photo')
+                )
+        except IntegrityError as e:
+            if 'unique constraint' in str(e).lower() and 'nit' in str(e).lower():
+                self.add_error('nit', _('Este NIT ya está registrado. Por favor, usa otro.'))
+            raise e  
+        return user

@@ -1,0 +1,1289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-03 20:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: flowlance/settings.py:166
+msgid "English"
+msgstr "English"
+
+#: flowlance/settings.py:167
+msgid "Español"
+msgstr "Spanish"
+
+#: profile/forms.py:17
+msgid "Nombre del Curso"
+msgstr "Course Name"
+
+#: profile/forms.py:18 project/forms.py:18
+#: templates/projects/manage_milestone.html:61
+msgid "Descripción"
+msgstr "Description"
+
+#: profile/forms.py:19
+msgid "Organización"
+msgstr "Organization"
+
+#: profile/forms.py:20
+msgid "Enlace del Curso"
+msgstr "Course Link"
+
+#: profile/forms.py:21
+msgid "Imagen del Curso"
+msgstr "Course Image"
+
+#: profile/forms.py:22
+msgid "Fecha de Expedición"
+msgstr "Expedition Date"
+
+#: profile/forms.py:35 templates/profile/add_project.html:21
+msgid "Nombre del Proyecto"
+msgstr "Project Name"
+
+#: profile/forms.py:36 templates/navigation/choose_path.html:47
+#: templates/profile/add_project.html:28
+msgid "Cliente"
+msgstr "Client"
+
+#: profile/forms.py:37 templates/profile/add_project.html:35
+msgid "Descripción del Proyecto"
+msgstr "Project Description"
+
+#: profile/forms.py:38 project/forms.py:21
+#: templates/profile/add_project.html:42
+#: templates/projects/manage_milestone.html:80
+msgid "Fecha de Inicio"
+msgstr "Start Date"
+
+#: profile/forms.py:39 project/forms.py:22
+#: templates/profile/add_project.html:49
+msgid "Fecha de Finalización"
+msgstr "End Date"
+
+#: profile/forms.py:40 templates/profile/add_project.html:56
+msgid "Actividades Realizadas"
+msgstr "Completed Activities"
+
+#: profile/forms.py:41 templates/profile/add_project.html:63
+msgid "Archivos Adjuntos"
+msgstr "Attachments"
+
+#: profile/forms.py:42 templates/profile/add_project.html:91
+msgid "Enlace Externo"
+msgstr "External Link"
+
+#: profile/forms.py:43 templates/profile/add_project.html:98
+msgid "Imagen del Proyecto"
+msgstr "Project Image"
+
+#: profile/forms.py:52 templates/profile/upload_curriculum.html:21
+msgid "Sube tu CV (PDF)"
+msgstr "Upload your CV (PDF)"
+
+#: profile/forms.py:63 templates/profile/add_skills.html:21
+msgid "Habilidades Predeterminadas"
+msgstr "Default Skills"
+
+#: profile/forms.py:66
+msgid "Escribe tus habilidades personalizadas separadas por comas"
+msgstr "Enter your custom skills separated by commas"
+
+#: profile/forms.py:68
+msgid "Habilidades Personalizadas"
+msgstr "Custom Skills"
+
+#: profile/forms.py:127 templates/profile/add_experience.html:21
+msgid "Título del trabajo"
+msgstr "Job Title"
+
+#: profile/forms.py:128 templates/profile/add_experience.html:26
+msgid "Compañía"
+msgstr "Company"
+
+#: profile/forms.py:129 templates/profile/add_experience.html:31
+msgid "Fecha de inicio"
+msgstr "Start Date"
+
+#: profile/forms.py:130 templates/profile/add_experience.html:36
+msgid "Fecha de finalización (opcional)"
+msgstr "End Date (optional)"
+
+#: profile/forms.py:131 templates/profile/add_experience.html:41
+msgid "Descripción del trabajo"
+msgstr "Job Description"
+
+#: profile/forms.py:156
+msgid "ID de Identificación"
+msgstr "Identification ID"
+
+#: profile/forms.py:157 profile/forms.py:217
+#: templates/profile/register_company.html:109
+msgid "Teléfono"
+msgstr "Phone"
+
+#: profile/forms.py:158
+msgid "Foto de Perfil"
+msgstr "Profile Picture"
+
+#: profile/forms.py:164 profile/forms.py:224
+#: templates/profile/register_company.html:21
+msgid "Nombre de Usuario"
+msgstr "Username"
+
+#: profile/forms.py:165 profile/forms.py:225
+#: templates/profile/register_company.html:120
+#: templates/profile/register_freelancer.html:53
+msgid "Correo Electrónico"
+msgstr "Email"
+
+#: profile/forms.py:166 profile/forms.py:172 profile/forms.py:226
+#: profile/forms.py:232 templates/profile/register_company.html:131
+#: templates/profile/register_freelancer.html:63 user/LoginForm.py:25
+msgid "Contraseña"
+msgstr "Password"
+
+#: profile/forms.py:167 profile/forms.py:173 profile/forms.py:227
+#: profile/forms.py:233 templates/profile/register_company.html:141
+#: templates/profile/register_freelancer.html:73
+msgid "Confirmar Contraseña"
+msgstr "Confirm Password"
+
+#: profile/forms.py:180 profile/forms.py:239
+msgid "Este correo electrónico ya está registrado. Por favor, usa otro."
+msgstr "This email is already registered. Please use another."
+
+#: profile/forms.py:186 profile/forms.py:202
+msgid "Este ID ya está registrado. Por favor, usa otro."
+msgstr "This ID is already registered. Please use another."
+
+#: profile/forms.py:210 templates/profile/register_company.html:32
+msgid "Nombre de la Empresa"
+msgstr "Company Name"
+
+#: profile/forms.py:211
+msgid "NIT"
+msgstr "Tax ID"
+
+#: profile/forms.py:212
+msgid "Tipo de Empresa"
+msgstr "Company Type"
+
+#: profile/forms.py:213 templates/profile/register_company.html:65
+msgid "País"
+msgstr "Country"
+
+#: profile/forms.py:214 templates/profile/register_company.html:76
+msgid "Vertical de Negocio"
+msgstr "Business Vertical"
+
+#: profile/forms.py:215 templates/profile/register_company.html:87
+msgid "Dirección"
+msgstr "Address"
+
+#: profile/forms.py:216 templates/profile/register_company.html:98
+msgid "Representante Legal"
+msgstr "Legal Representative"
+
+#: profile/forms.py:218
+msgid "Imagen de la Empresa"
+msgstr "Company Image"
+
+#: profile/forms.py:245 profile/forms.py:267
+msgid "Este NIT ya está registrado. Por favor, usa otro."
+msgstr "This Tax ID is already registered. Please use another."
+
+#: project/forms.py:17
+#, fuzzy
+#| msgid "Nombre del Proyecto"
+msgid "Titulo del Proyecto"
+msgstr "Project Name"
+
+#: project/forms.py:19
+#, fuzzy
+#| msgid "Ver Requerimientos"
+msgid "Requerimientos"
+msgstr "View Requirements"
+
+#: project/forms.py:20 templates/navigation/search_filters.html:76
+msgid "Presupuesto"
+msgstr "Budget"
+
+#: templates/homepage/bottom_bar.html:51
+msgid "Términos de servicio"
+msgstr "Business Type"
+
+#: templates/homepage/bottom_bar.html:52
+msgid "Política de privacidad"
+msgstr "Privacy Policy"
+
+#: templates/homepage/bottom_bar.html:53
+msgid "Sobre nosotros"
+msgstr "About us"
+
+#: templates/homepage/bottom_bar.html:54
+msgid "Configuración"
+msgstr "Settings"
+
+#: templates/homepage/header.html:9
+msgid "Ingresa"
+msgstr "Log In"
+
+#: templates/homepage/header.html:13 templates/login/login.html:84
+msgid "Regístrate"
+msgstr "Sign Up"
+
+#: templates/homepage/hero.html:7
+msgid "Tu plataforma de freelancers"
+msgstr "Your platform for freelancers"
+
+#: templates/homepage/hero.html:15
+msgid ""
+"\n"
+"            <p class=\"text-3xl font-semibold text-[#121670]\">\n"
+"                Donde los <span class=\"text-[#636AF2] font-"
+"bold\">proyectos</span> encuentran a los\n"
+"                <span class=\"text-[#F2AE30] font-bold\"> profesionales</"
+"span>\n"
+"            </p>\n"
+"            "
+msgstr ""
+"\n"
+"            <p class=\"text-3xl font-semibold text-[#121670]\">\n"
+"                Where <span class=\"text-[#636AF2] font-bold\">projects</"
+"span> find the\n"
+"                <span class=\"text-[#F2AE30] font-bold\"> profesionals</"
+"span>\n"
+"            </p>\n"
+"            "
+
+#: templates/homepage/hero.html:22
+msgid ""
+"Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel"
+msgstr "Find the talent you need and take your business to the next level"
+
+#: templates/homepage/hero.html:46
+msgid "CALIDAD"
+msgstr "QUALITY"
+
+#: templates/homepage/hero.html:48
+msgid "Acceso a miles de freelancers verificados"
+msgstr "Access to thousands of verified freelancers"
+
+#: templates/homepage/hero.html:58
+msgid "EFECTIVIDAD"
+msgstr "EFFICIENCY"
+
+#: templates/homepage/hero.html:59
+msgid "Procesos de contratación rápidos y seguros"
+msgstr "Fast and secure hiring processes"
+
+#: templates/homepage/hero.html:68
+msgid "AMIGABLE"
+msgstr "USER-FRIENDLY"
+
+#: templates/homepage/hero.html:69
+msgid "Plataforma intuitiva y fácil de usar"
+msgstr "Intuitive and easy-to-use platform"
+
+#: templates/homepage/hero.html:80
+msgid "Únete a nuestra red de freelancers y descubre proyectos adaptados a ti"
+msgstr "Join our network of freelancers and discover projects tailored to you"
+
+#: templates/homepage/hero.html:84
+msgid "Regístrate ahora!"
+msgstr "Sign Up Now!"
+
+#: templates/homepage/hero.html:92
+msgid "¿Ya tienes una cuenta?"
+msgstr "Already have an account?"
+
+#: templates/homepage/hero.html:94
+msgid "Inicia sesión aquí"
+msgstr "Log in here"
+
+#: templates/login/login.html:19
+msgid "Iniciar sesión"
+msgstr "Log In"
+
+#: templates/login/login.html:39
+msgid "Ingresar"
+msgstr "Log In"
+
+#: templates/login/login.html:56
+msgid "Continuar con Google"
+msgstr "Continue with Google"
+
+#: templates/login/login.html:61
+msgid "¿Olvidaste tu contraseña?"
+msgstr "Forgot your password?"
+
+#: templates/login/login.html:84
+msgid "¿No tienes cuenta?"
+msgstr "Don't have an account?"
+
+#: templates/navigation/building.html:10
+msgid "Página en construcción"
+msgstr "Page under construction"
+
+#: templates/navigation/building.html:12
+msgid "Estamos trabajando lo más rápido posible :)"
+msgstr "We are working as fast as we can :)"
+
+#: templates/navigation/choose_path.html:7
+msgid "¿Cuál es tu camino en FlowLance?"
+msgstr "What is your path in FlowLance?"
+
+#: templates/navigation/choose_path.html:25
+#: templates/projects/review_applications.html:10
+msgid "Freelancer"
+msgstr "Freelancer"
+
+#: templates/navigation/choose_path.html:27
+msgid "Ofrece tus habilidades al mundo, encuentra proyectos que te apasionen."
+msgstr "Offer your skills to the world, find projects you're passionate about."
+
+#: templates/navigation/choose_path.html:49
+msgid "Encuentra el talento perfecto para impulsar tus proyectos."
+msgstr "Find the perfect talent to boost your projects."
+
+#: templates/navigation/navbar.html:39 templates/navigation/navbar.html:47
+#: templates/profile/add_project.html:10
+#: templates/profile/freelancer_profile.html:94
+msgid "Proyectos"
+msgstr "Projects"
+
+#: templates/navigation/navbar.html:75 templates/navigation/navbar.html:83
+msgid "Mi Perfil"
+msgstr "My Profile"
+
+#: templates/navigation/navbar.html:94
+msgid "PREFERENCIAS"
+msgstr "PREFERENCES"
+
+#: templates/navigation/navbar.html:102 templates/navigation/navbar.html:109
+msgid "Ajustes"
+msgstr "Settings"
+
+#: templates/navigation/navbar.html:119 templates/navigation/navbar.html:126
+msgid "Ayuda y Soporte"
+msgstr "Help and Support"
+
+#: templates/navigation/search_filters.html:6
+msgid "Categoría"
+msgstr "Category"
+
+#: templates/navigation/search_filters.html:8
+#: templates/navigation/search_filters.html:53
+msgid "Todas"
+msgstr "All"
+
+#: templates/navigation/search_filters.html:19
+msgid "Seleccionar todo"
+msgstr "Select all"
+
+#: templates/navigation/search_filters.html:26
+msgid "Programación Web"
+msgstr "Web Programming"
+
+#: templates/navigation/search_filters.html:31
+msgid "Diseño Web"
+msgstr "Web Design"
+
+#: templates/navigation/search_filters.html:36
+msgid "Data Science"
+msgstr "Data Science"
+
+#: templates/navigation/search_filters.html:41
+msgid "Otros"
+msgstr "Others"
+
+#: templates/navigation/search_filters.html:51
+msgid "Fecha"
+msgstr "Date"
+
+#: templates/navigation/search_filters.html:63
+#: templates/profile/freelancer_profile.html:77
+msgid "Desde:"
+msgstr "From:"
+
+#: templates/navigation/search_filters.html:67
+msgid "Hasta:"
+msgstr "To:"
+
+#: templates/navigation/search_filters.html:77
+msgid "Mínimo (USD)"
+msgstr "Minimum (USD)"
+
+#: templates/navigation/search_filters.html:78
+msgid "Máximo (USD)"
+msgstr "Maximum (USD)"
+
+#: templates/navigation/search_filters.html:84 templates/projects/tasks.html:37
+msgid "Filtrar"
+msgstr "Filter"
+
+#: templates/navigation/top_bar_controls.html:9
+msgid "Buscar proyectos"
+msgstr "Search Project"
+
+#: templates/profile/add_course.html:10
+msgid "Cursos"
+msgstr "Courses"
+
+#: templates/profile/add_course.html:12
+msgid ""
+"Aquí puedes agregar información de cursos relevantes que hayas realizado."
+msgstr "Here you can add information about relevant courses you've taken."
+
+#: templates/profile/add_course.html:21
+msgid "Ingresa el nombre del curso"
+msgstr "Enter the course name"
+
+#: templates/profile/add_course.html:26
+msgid "Ingresa una descripión del curso"
+msgstr "Enter a course description"
+
+#: templates/profile/add_course.html:31
+msgid "Ingresa la organización que expide el certificado"
+msgstr "Enter the organization issuing the certificate"
+
+#: templates/profile/add_course.html:36
+msgid "Ingresa el link del curso"
+msgstr "Enter the course link"
+
+#: templates/profile/add_course.html:42
+msgid "Fecha de expedicíon"
+msgstr "Issue date"
+
+#: templates/profile/add_course.html:47
+msgid "Imagen del certificado del curso"
+msgstr "Course certificate image"
+
+#: templates/profile/add_course.html:59
+#: templates/profile/register_company.html:163
+#: templates/profile/register_freelancer.html:99
+msgid "Puedes adjuntar un archivo aquí"
+msgstr "You can attach a file here"
+
+#: templates/profile/add_course.html:71
+#: templates/profile/add_experience.html:47
+#: templates/profile/add_project.html:128 templates/profile/add_rating.html:36
+#: templates/projects/assigment_section.html:58
+#: templates/projects/create_project.html:65
+msgid "Confirmar"
+msgstr "Confirm"
+
+#: templates/profile/add_course.html:90
+#: templates/profile/add_experience.html:65
+#: templates/profile/add_project.html:147 templates/profile/add_skills.html:54
+msgid "Información guardada exitosamente"
+msgstr "Information successfully saved"
+
+#: templates/profile/add_course.html:91
+msgid "¿Deseas seguir agregando cursos?"
+msgstr "Would you like to keep adding courses?"
+
+#: templates/profile/add_experience.html:9
+msgid "Añadir Experiencia Laboral"
+msgstr "Add Work Experience"
+
+#: templates/profile/add_experience.html:10
+msgid "Experiencias"
+msgstr "Experiences"
+
+#: templates/profile/add_experience.html:12
+msgid "Aquí puedes agregar información de tu experiencia laboral."
+msgstr "Here you can add information about your work experience."
+
+#: templates/profile/add_experience.html:66
+msgid "¿Deseas seguir agregando experiencia?"
+msgstr "Would you like to keep adding experience?"
+
+#: templates/profile/add_experience.html:68
+#: templates/profile/add_project.html:151 templates/profile/add_skills.html:57
+msgid "Sí"
+msgstr "Yes"
+
+#: templates/profile/add_project.html:9
+msgid "Añadir Proyecto al Portafolio"
+msgstr "Add Project to Portfolio"
+
+#: templates/profile/add_project.html:12
+msgid ""
+"Aquí puedes agregar información de proyectos relevantes que hayas realizado."
+msgstr "Here you can add information about relevant projects you've completed."
+
+#: templates/profile/add_project.html:75
+msgid "Sube tus archivos aquí"
+msgstr "Upload your files here"
+
+#: templates/profile/add_project.html:79
+msgid "Aquí puedes adjuntar archivos relacionados con el proyecto."
+msgstr "Here you can attach files related to the project."
+
+#: templates/profile/add_project.html:110
+msgid "Sube una imagen aquí"
+msgstr "Upload an image here"
+
+#: templates/profile/add_project.html:114
+msgid "Aquí puedes adjuntar una imagen representativa del proyecto."
+msgstr "Here you can attach a representative image of the project."
+
+#: templates/profile/add_project.html:148
+msgid "¿Deseas seguir agregando proyectos?"
+msgstr "Would you like to keep adding projects?"
+
+#: templates/profile/add_rating.html:8
+msgid "Calificando a: {{ freelancer.user.username }}"
+msgstr "Rating: {{ freelancer.user.username }}"
+
+#: templates/profile/add_rating.html:26 templates/profile/calification.html:104
+#: templates/profile/freelancer_profile.html:256
+msgid "Añadir una descripción"
+msgstr "Add a description"
+
+#: templates/profile/add_rating_response.html:7
+#: templates/profile/freelancer_profile.html:222
+msgid "Responder a la Calificación"
+msgstr "Respond to Rating"
+
+#: templates/profile/add_rating_response.html:9
+msgid "Calificación: {{ rating.stars }} estrellas"
+msgstr "Rating: {{ rating.stars }} stars"
+
+#: templates/profile/add_rating_response.html:10
+msgid "Comentario: {{ rating.comment }}"
+msgstr "Comment: {{ rating.comment }}"
+
+#: templates/profile/add_rating_response.html:15
+#: templates/profile/edit_rating_response.html:15
+#: templates/profile/freelancer_profile.html:227
+msgid "Tu Respuesta"
+msgstr "Your Response"
+
+#: templates/profile/add_rating_response.html:18
+#: templates/profile/freelancer_profile.html:232
+msgid "Enviar Respuesta"
+msgstr "Send Response"
+
+#: templates/profile/add_skills.html:9
+msgid "Añadir Habilidades al Perfil"
+msgstr "Add Skills to Profile"
+
+#: templates/profile/add_skills.html:10
+#: templates/profile/freelancer_profile.html:48
+msgid "Habilidades"
+msgstr "Skills"
+
+#: templates/profile/add_skills.html:12
+msgid ""
+"Aquí puedes agregar habilidades predeterminadas y personalizadas a tu "
+"perfil. "
+msgstr "Here you can add predefined and custom skills to your profile."
+
+#: templates/profile/add_skills.html:23
+msgid "Ya tienes todas las habilidades predeterminadas"
+msgstr "You already have all predefined skills"
+
+#: templates/profile/add_skills.html:36
+msgid "Guardar Habilidades"
+msgstr "Save Skills"
+
+#: templates/profile/add_skills.html:38
+msgid "</div>"
+msgstr "</div>"
+
+#: templates/profile/add_skills.html:55
+msgid "¿Deseas seguir agregando habilidades?"
+msgstr "Would you like to keep adding skills?"
+
+#: templates/profile/calification.html:10
+msgid "Calificando a:"
+msgstr "Rating:"
+
+#: templates/profile/calification.html:11
+msgid "Selecciona una calificación y añade un comentario."
+msgstr "Select a rating and add a comment."
+
+#: templates/profile/calification.html:30
+msgid "Elige tu calificación"
+msgstr "Choose your rating"
+
+#: templates/profile/calification.html:41
+#: templates/profile/calification.html:55
+#: templates/profile/calification.html:69
+#: templates/profile/calification.html:83
+#: templates/profile/calification.html:97
+msgid "Elegir"
+msgstr "Choose"
+
+#: templates/profile/calification.html:111
+#: templates/profile/freelancer_profile.html:263
+msgid "Enviar Calificación"
+msgstr "Submit Rating"
+
+#: templates/profile/edit_rating_response.html:9
+msgid "Calificación:"
+msgstr "Rating:"
+
+#: templates/profile/edit_rating_response.html:18
+msgid "Actualizar Respuesta"
+msgstr "Update Response"
+
+#: templates/profile/freelancer_profile.html:56
+msgid "No se han agregado habilidades aún."
+msgstr "No skills have been added yet."
+
+#: templates/profile/freelancer_profile.html:64
+msgid "Experiencia Laboral"
+msgstr "Work Experience"
+
+#: templates/profile/freelancer_profile.html:78
+msgid "hasta:"
+msgstr "until:"
+
+#: templates/profile/freelancer_profile.html:78
+msgid "hasta la fecha"
+msgstr "until present"
+
+#: templates/profile/freelancer_profile.html:84
+msgid "No se ha añadido experiencia laboral aún."
+msgstr "No work experience has been added yet."
+
+#: templates/profile/freelancer_profile.html:91
+msgid "Portafolio"
+msgstr "Portfolio"
+
+#: templates/profile/freelancer_profile.html:106
+msgid "No hay proyectos registrados en el portafolio aún."
+msgstr "No projects have been added to the portfolio yet."
+
+#: templates/profile/freelancer_profile.html:125
+msgid "Expedición:"
+msgstr "Issue date:"
+
+#: templates/profile/freelancer_profile.html:129
+msgid "No se han agregado cursos aún."
+msgstr "No courses have been added yet."
+
+#: templates/profile/freelancer_profile.html:133
+msgid "No se ha creado un portafolio aún."
+msgstr "No portfolio has been created yet."
+
+#: templates/profile/freelancer_profile.html:139
+msgid "Curriculum Vitae"
+msgstr "Curriculum Vitae"
+
+#: templates/profile/freelancer_profile.html:141
+msgid "Descargar Curriculum"
+msgstr "Download Curriculum"
+
+#: templates/profile/freelancer_profile.html:143
+msgid "No se ha subido ningún CV aún."
+msgstr "No CV has been uploaded yet."
+
+#: templates/profile/freelancer_profile.html:149
+msgid "Calificaciones y Comentarios"
+msgstr "Ratings and Comments"
+
+#: templates/profile/freelancer_profile.html:157
+msgid "estrellas"
+msgstr "stars by"
+
+#: templates/profile/freelancer_profile.html:158
+msgid "por"
+msgstr "for"
+
+#: templates/profile/freelancer_profile.html:171
+msgid "Eliminar Calificación"
+msgstr "Delete Rating"
+
+#: templates/profile/freelancer_profile.html:179
+msgid "Respuesta:"
+msgstr "Response:"
+
+#: templates/profile/freelancer_profile.html:189
+msgid "Eliminar respuesta"
+msgstr "Delete response"
+
+#: templates/profile/freelancer_profile.html:199
+msgid "Responder a esta calificación"
+msgstr "Reply to this rating"
+
+#: templates/profile/freelancer_profile.html:205
+msgid "Sin calificaciones aún. Sé el primero en calificar."
+msgstr "No califications yet, be the first one"
+
+#: templates/profile/freelancer_profile.html:213
+msgid "Calificar"
+msgstr "Rating:"
+
+#: templates/profile/freelancer_profile.html:241
+msgid "Calificar a"
+msgstr "Rating:"
+
+#: templates/profile/notifications.html:6
+msgid "Notificaciones"
+msgstr "Notifications"
+
+#: templates/profile/notifications.html:14
+msgid "No tienes notificaciones."
+msgstr "You have no notifications."
+
+#: templates/profile/notifications.html:17
+msgid "Marcar todas como leídas"
+msgstr "Mark all as read"
+
+#: templates/profile/register_company.html:13
+#: templates/profile/register_freelancer.html:13
+msgid "Bienvenido a"
+msgstr "Welcome to"
+
+#: templates/profile/register_company.html:14
+#: templates/profile/register_freelancer.html:14
+msgid ""
+"Únete a nuestra comunidad de freelancers y descubre nuevas oportunidades de "
+"crecimiento profesional."
+msgstr ""
+"Join our freelancer community and discover new opportunities for "
+"professional growth."
+
+#: templates/profile/register_company.html:54
+msgid "Tipo de Negocio"
+msgstr "Business Type"
+
+#: templates/profile/register_company.html:151
+#: templates/profile/register_freelancer.html:83
+msgid "Foto de Perfil (opcional)"
+msgstr "Profile Picture (optional)"
+
+#: templates/profile/register_company.html:159
+msgid "Selecciona la imagen aquí"
+msgstr "Select the image here"
+
+#: templates/profile/register_company.html:175
+msgid "Registrar"
+msgstr "Register"
+
+#: templates/profile/register_company.html:192
+#: templates/profile/register_freelancer.html:131
+msgid "Registro Exitoso"
+msgstr "Successful Registration"
+
+#: templates/profile/register_company.html:193
+#: templates/profile/register_freelancer.html:132
+msgid "Tu información ha sido guardada exitosamente."
+msgstr "Your information has been successfully saved."
+
+#: templates/profile/register_company.html:195
+#: templates/profile/register_freelancer.html:134
+msgid "Aceptar"
+msgstr "Accept"
+
+#: templates/profile/register_freelancer.html:21
+msgid "Nombre completo"
+msgstr "Full name"
+
+#: templates/profile/register_freelancer.html:32
+msgid "Número de identificación (CC)"
+msgstr "Identification number (ID)"
+
+#: templates/profile/register_freelancer.html:43
+msgid "Número de teléfono"
+msgstr "Phone number"
+
+#: templates/profile/register_freelancer.html:112
+msgid "Crear cuenta"
+msgstr "Create account"
+
+#: templates/profile/upload_curriculum.html:9
+msgid "Subir Curriculum Vitae"
+msgstr "Upload Curriculum Vitae"
+
+#: templates/profile/upload_curriculum.html:10
+msgid "Curriculum"
+msgstr "Curriculum"
+
+#: templates/profile/upload_curriculum.html:12
+msgid "Aquí puedes subir tu Curriculum Vitae en formato PDF. "
+msgstr "Here you can upload your Curriculum Vitae in PDF format."
+
+#: templates/profile/upload_curriculum.html:29
+msgid "Selecciona tu archivo aquí"
+msgstr "Select your file here"
+
+#: templates/profile/upload_curriculum.html:33
+msgid "Solo se aceptan archivos en formato PDF."
+msgstr "Only PDF format files are accepted."
+
+#: templates/profile/upload_curriculum.html:45
+msgid "Subir Curriculum"
+msgstr "Upload Curriculum"
+
+#: templates/projects/assigment_section.html:7
+msgid "Entregables"
+msgstr "Deliverables"
+
+#: templates/projects/assigment_section.html:28
+#: templates/projects/tasks.html:56
+msgid "Asignado a:"
+msgstr "Assigned to:"
+
+#: templates/projects/assigment_section.html:30
+msgid "Fecha de Finalización:"
+msgstr "Completion Date:"
+
+#: templates/projects/assigment_section.html:31
+#: templates/projects/default_project_view.html:144
+msgid "Estado:"
+msgstr "Status:"
+
+#: templates/projects/assigment_section.html:35
+msgid "Descargar Entregable"
+msgstr "Download Deliverable"
+
+#: templates/projects/assigment_section.html:55
+msgid "¿Estás seguro de borrar el entregable ?"
+msgstr "Are you sure you want to delete the deliverable?"
+
+#: templates/projects/assigment_section.html:61
+#: templates/projects/create_assigment.html:51
+#: templates/projects/manage_milestone.html:45
+#: templates/projects/manage_milestone.html:94
+#: templates/projects/project_delete.html:13
+#: templates/projects/project_form.html:27
+#: templates/projects/task_creation.html:86
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: templates/projects/calendar.html:7
+#: templates/projects/default_project_view.html:24
+msgid "Calendario"
+msgstr "Calendar"
+
+#: templates/projects/create_assigment.html:14
+msgid "Nombre del Entregable"
+msgstr "Deliverable Name"
+
+#: templates/projects/create_assigment.html:20
+msgid "Descripcion del Entregable"
+msgstr "Deliverable Description"
+
+#: templates/projects/create_assigment.html:27
+#: templates/projects/task_creation.html:37
+msgid "Usuario encargado"
+msgstr "User in charge"
+
+#: templates/projects/create_assigment.html:38
+#: templates/projects/manage_milestone.html:70
+#: templates/projects/task_creation.html:27
+msgid "Fecha de Finalizacion"
+msgstr "Completion Date"
+
+#: templates/projects/create_assigment.html:53
+#: templates/projects/manage_milestone.html:96
+#: templates/projects/task_creation.html:88
+msgid "Guardar"
+msgstr "Save"
+
+#: templates/projects/create_project.html:5
+#: templates/projects/create_project.html:9
+msgid "Creación de proyecto"
+msgstr "Project Creation"
+
+#: templates/projects/create_project.html:10
+msgid "Información de los proyectos"
+msgstr "Project Information"
+
+#: templates/projects/create_project.html:19
+msgid "Ingresa el nombre del proyecto"
+msgstr "Enter the project name"
+
+#: templates/projects/create_project.html:26
+msgid "Especificaciones del proyecto"
+msgstr "Project Specifications"
+
+#: templates/projects/create_project.html:34
+msgid "Requerimientos del proyecto"
+msgstr "Project Requirements"
+
+#: templates/projects/create_project.html:42
+msgid "Presupuesto del proyecto"
+msgstr "Project Budget"
+
+#: templates/projects/create_project.html:50
+msgid "Fecha de inicio:"
+msgstr "Start date:"
+
+#: templates/projects/create_project.html:56
+msgid "Fecha de finalización:"
+msgstr "End date:"
+
+#: templates/projects/default_project_view.html:12
+#: templates/projects/milestones.html:10
+msgid "Hitos"
+msgstr "Milestones"
+
+#: templates/projects/default_project_view.html:16
+#: templates/projects/tasks.html:8
+msgid "Tareas"
+msgstr "Tasks"
+
+#: templates/projects/default_project_view.html:20
+msgid "Línea de Tiempo"
+msgstr "Timeline"
+
+#: templates/projects/default_project_view.html:32
+msgid "Panel de control"
+msgstr "Dashboard"
+
+#: templates/projects/default_project_view.html:42
+msgid "Presupuesto:"
+msgstr "Budget:"
+
+#: templates/projects/default_project_view.html:54
+#: templates/projects/tasks.html:91
+msgid "Editar"
+msgstr "Edit"
+
+#: templates/projects/default_project_view.html:58
+msgid "Ver Requerimientos"
+msgstr "View Requirements"
+
+#: templates/projects/default_project_view.html:65
+msgid "Postularse a este proyecto"
+msgstr "Apply for this project"
+
+#: templates/projects/default_project_view.html:71
+msgid "Ver Postulaciones"
+msgstr "View Applications"
+
+#: templates/projects/default_project_view.html:79
+#: templates/projects/project_delete.html:7
+#: templates/projects/project_delete.html:16
+msgid "Eliminar Proyecto"
+msgstr "Delete Project"
+
+#: templates/projects/default_project_view.html:92
+#: templates/projects/default_project_view.html:100
+#: templates/projects/default_project_view.html:108
+msgid "Estado de la postulación: "
+msgstr "Application status: "
+
+#: templates/projects/default_project_view.html:115
+msgid "No te has postulado a este proyecto aún."
+msgstr "You haven't applied to this project yet."
+
+#: templates/projects/default_project_view.html:132
+msgid "Postulaciones al Proyecto"
+msgstr "Project Applications"
+
+#: templates/projects/default_project_view.html:138
+msgid "Usuario:"
+msgstr "User:"
+
+#: templates/projects/default_project_view.html:145
+msgid "Fecha de Aplicación:"
+msgstr "Application Date:"
+
+#: templates/projects/default_project_view.html:157
+msgid "No hay postulaciones para este proyecto."
+msgstr "There are no applications for this project."
+
+#: templates/projects/default_project_view.html:160
+msgid "Cerrar"
+msgstr "Close"
+
+#: templates/projects/edit_description.html:7
+msgid "Editar Descripción"
+msgstr "Edit Description"
+
+#: templates/projects/edit_description.html:11
+msgid "Guardar Cambios"
+msgstr "Save Changes"
+
+#: templates/projects/manage_milestone.html:16
+msgid "Editar Hito"
+msgstr "Edit Milestone"
+
+#: templates/projects/manage_milestone.html:18
+msgid "Añadir Hito"
+msgstr "Add Milestone"
+
+#: templates/projects/manage_milestone.html:34
+msgid "Eliminar"
+msgstr "Delete Project"
+
+#: templates/projects/manage_milestone.html:41
+msgid "¿Estás seguro de borrar la tarea `{{milestone.name}}`?"
+msgstr "Are you sure you want to delete the task `{{milestone.name}}`?"
+
+#: templates/projects/manage_milestone.html:55
+msgid "Nombre"
+msgstr "Name"
+
+#: templates/projects/milestones.html:13 templates/projects/tasks.html:12
+msgid "Añadir"
+msgstr "Create"
+
+#: templates/projects/milestones.html:25
+msgid "Fecha de Inicio: "
+msgstr "Start Date: "
+
+#: templates/projects/milestones.html:26
+msgid "Fecha de Finalización: "
+msgstr "End Date: "
+
+#: templates/projects/milestones.html:27
+msgid "Entregables:"
+msgstr "Deliverables:"
+
+#: templates/projects/milestones.html:32
+msgid "Ver mas"
+msgstr "View Details"
+
+#: templates/projects/project_card.html:8
+msgid "Presupuesto: $"
+msgstr "Budget: $"
+
+#: templates/projects/project_card.html:9
+msgid "Ver Detalles"
+msgstr "View Details"
+
+#: templates/projects/project_delete.html:8
+msgid "Estas seguro que deseas eliminar este proyecto "
+msgstr "Are you sure you want to delete this project "
+
+#: templates/projects/project_form.html:7
+msgid "Editar "
+msgstr "Edit "
+
+#: templates/projects/project_form.html:31
+msgid "Editar proyecto"
+msgstr "Edit project"
+
+#: templates/projects/project_list.html:9
+msgid "Disponibles"
+msgstr "Available Projects"
+
+#: templates/projects/project_list.html:14
+#: templates/projects/project_list.html:26
+msgid "Mis Proyectos"
+msgstr "My Projects"
+
+#: templates/projects/project_list.html:20
+msgid "Crear Proyecto"
+msgstr "Delete Project"
+
+#: templates/projects/project_list.html:34
+#: templates/projects/project_main_view.html:26
+msgid "Sin resultados."
+msgstr "No results."
+
+#: templates/projects/project_main_view.html:19
+msgid "Proyectos Disponibles"
+msgstr "Available Projects"
+
+#: templates/projects/project_requirements.html:9
+msgid "Requerimientos del Proyecto"
+msgstr "Project Requirements"
+
+#: templates/projects/project_requirements.html:22
+msgid "Volver al Proyecto"
+msgstr "Back to Project"
+
+#: templates/projects/review_applications.html:11
+msgid "Estado"
+msgstr "Status"
+
+#: templates/projects/review_applications.html:12
+msgid "Fecha de Postulación"
+msgstr "Application Date"
+
+#: templates/projects/review_applications.html:13
+msgid "Acciones"
+msgstr "Actions"
+
+#: templates/projects/review_applications.html:23
+msgid "Ver Perfil"
+msgstr "View Profile"
+
+#: templates/projects/review_applications.html:28
+msgid "No hay postulaciones aún."
+msgstr "There are no applications yet."
+
+#: templates/projects/task_creation.html:14
+msgid "Nombre de la Tarea"
+msgstr "Task Name"
+
+#: templates/projects/task_creation.html:20
+msgid "Descripción de la Tarea"
+msgstr "Task Description"
+
+#: templates/projects/task_creation.html:48
+msgid "Prioridad"
+msgstr "Priority"
+
+#: templates/projects/task_creation.html:52
+msgid "Baja"
+msgstr "Low"
+
+#: templates/projects/task_creation.html:53
+msgid "Media"
+msgstr "Medium"
+
+#: templates/projects/task_creation.html:54
+msgid "Alta"
+msgstr "High"
+
+#: templates/projects/task_creation.html:60
+msgid "Estado de la Tarea"
+msgstr "Task Status"
+
+#: templates/projects/task_creation.html:64 templates/projects/tasks.html:72
+msgid "Pendiente"
+msgstr "Pending"
+
+#: templates/projects/task_creation.html:65
+msgid "En progreso"
+msgstr "In progress"
+
+#: templates/projects/task_creation.html:66 templates/projects/tasks.html:74
+msgid "Completada"
+msgstr "Completed"
+
+#: templates/projects/task_creation.html:72
+msgid "Hito asociado"
+msgstr "Associated Milestone"
+
+#: templates/projects/tasks.html:27
+msgid "Filtrar por Hito:"
+msgstr "Filter by Milestone"
+
+#: templates/projects/tasks.html:29
+msgid "Todos los hitos"
+msgstr "View all milestones"
+
+#: templates/projects/tasks.html:50
+msgid "Hito: "
+msgstr "Milestone: "
+
+#: templates/projects/tasks.html:59
+msgid "Inicio: "
+msgstr "Start: "
+
+#: templates/projects/tasks.html:60
+msgid "Fin: "
+msgstr "End: "
+
+#: templates/projects/tasks.html:64
+msgid "Prioridad:"
+msgstr "Priority"
+
+#: templates/projects/tasks.html:70
+msgid "Estado Actual:"
+msgstr "Status:"
+
+#: templates/projects/tasks.html:73
+msgid "En Progreso"
+msgstr "In progress"
+
+#: templates/projects/tasks.html:76
+msgid "Actualizar Estado"
+msgstr "Update"
+
+#: templates/projects/tasks.html:81
+msgid "Descripciones Adicionales"
+msgstr "Additional Descriptions"
+
+#: templates/projects/tasks.html:95
+msgid "No hay descripciones adicionales aún."
+msgstr "There are no additional descriptions yet."
+
+#: templates/projects/tasks.html:101
+msgid "Escribe una descripción..."
+msgstr "Add a description"
+
+#: templates/projects/tasks.html:102
+msgid "Agregar Descripción"
+msgstr "Edit Description"
+
+#: templates/projects/tasks.html:108
+msgid "Archivos"
+msgstr "Files"
+
+#: templates/projects/tasks.html:118
+msgid "No hay archivos aún."
+msgstr "There are no files yet."
+
+#: templates/projects/tasks.html:125
+msgid "Subir Archivo"
+msgstr "Upload Files"
+
+#: templates/projects/tasks.html:131
+msgid "Comentarios"
+msgstr "Comments"
+
+#: templates/projects/tasks.html:142
+msgid "No hay comentarios aún."
+msgstr "There are no comments yet."
+
+#: templates/projects/tasks.html:148
+msgid "Escribe tu comentario..."
+msgstr "Write your comment..."
+
+#: templates/projects/tasks.html:149
+msgid "Agregar Comentario"
+msgstr "Add comment"
+
+#: templates/projects/time_line.html:7
+msgid "Linea de Tiempo"
+msgstr "Timeline"
+
+#: templates/projects/upload_assigment_file.html:7
+msgid "Subir Entregable para "
+msgstr "Upload Deliverable for "
+
+#: templates/projects/upload_assigment_file.html:11
+msgid "Seleccionar archivo:"
+msgstr "Select file:"
+
+#: templates/projects/upload_assigment_file.html:18
+msgid "Subir Entregable"
+msgstr "Upload Deliverable"
+
+#: user/LoginForm.py:14
+msgid "Username is empty"
+msgstr "Username is empty"
+
+#: user/LoginForm.py:15
+msgid "Email / NIT"
+msgstr "Email / NIT"
+
+#: user/LoginForm.py:24
+msgid "Password is empty"
+msgstr "Password is empty"
+
+#~ msgid "La prioridad es:"
+#~ msgstr "The priority is:"
+
+#~ msgid "Editar Respuesta"
+#~ msgstr "Edit Response"
+
+#~ msgid "Sin calificaciones"
+#~ msgstr "No ratings"
