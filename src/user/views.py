@@ -23,29 +23,42 @@ def login_view(request):
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(request, username=username, password=password)
-            if user is not None:
-                # Genera un código OTP temporal
-                totp = TOTP(key=username.encode(), step=300)  # Valido por 5 minutos
-                otp_code = totp.token()
 
-                # Envía el OTP al email del usuario
-                send_email(
-                    user.username,
-                    _("Codigo de verificacion"),
-                    str(otp_code),
-                    _("Codigo de verificacion: "),
-                    _("Si este codigo no lo solicito porfavor haga caso omiso y considere cambiar sus credenciales"),
-                )
-                # Guarda el usuario en la sesión (sin hacer login todavía)
-                request.session["pre_otp_user"] = user.id
-                return redirect("/two_factor_auth/")
+            if user is not None:
+                # Access the user's profile information
+                profile, profile_type = user.get_profile_info()
+
+                # Check if the user has Two-Factor Authentication (2FA) enabled
+                if profile and profile.has_2FA_on:
+                    # Generate an OTP (One-Time Password) for users with 2FA enabled
+                    totp = TOTP(key=username.encode(), step=300)  # Valid for 5 minutes
+                    otp_code = totp.token()
+
+                    # Send the OTP code to the user's email
+                    send_email(
+                        user.username,
+                        _("Verification Code"),
+                        str(otp_code),
+                        _("Your verification code is: "),
+                        _("If you did not request this, please ignore it and consider changing your credentials."),
+                    )
+
+                    # Store the user in session temporarily until 2FA is verified
+                    request.session["pre_otp_user"] = user.id
+                    return redirect("/two_factor_auth/")  # Redirect to OTP verification page
+                else:
+                    # If no 2FA, log the user in directly
+                    login(request, user)
+                    return redirect("/dashboard/")  # Redirect to homepage or another page after login
             else:
                 messages.error(request, _("Invalid username or password."))
         else:
-            messages.error(request, _("Por favor revise su usuario y contraseña"))
+            messages.error(request, _("Please check your username and password."))
     else:
         form = LoginForm()
+
     return render(request, "login/login.html", {"form": form})
+
 
 
 def two_factor_validator(request):

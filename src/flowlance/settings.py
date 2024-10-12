@@ -88,7 +88,7 @@ SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
             "client_id": "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
-            "secret": os.getenv("GOOGLE-SECRET"),
+            "secret": os.getenv("GOOGLE_SECRET"),
         },
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},

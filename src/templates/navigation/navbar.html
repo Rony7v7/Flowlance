@@ -97,14 +97,14 @@
       <!-- Ajustes Link -->
       {% if 'settings' in request.path %}
       {% with icon_property="bold" %}
-      <a href="{% url 'settings' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+      <a href="{% url 'account_settings' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/settings.html' with property=icon_property %}
         {% translate "Ajustes" %}
       </a>
       {% endwith %}
       {% else %}
       {% with icon_property="outline" %}
-      <a href="{% url 'settings' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
+      <a href="{% url 'account_settings' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/settings.html' with property=icon_property %}
         {% translate "Ajustes" %}
       </a>
