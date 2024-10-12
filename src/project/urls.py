@@ -28,3 +28,4 @@ urlpatterns = [
     path("assigment/delete/<int:assigment_id>",assigment_views.delete_assigment,name="delete_assigment"),
     path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
 ]
+

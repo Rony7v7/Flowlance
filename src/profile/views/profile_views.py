@@ -92,7 +92,12 @@ def generate_freelancer_context(profile):
         projects = None
         courses = None
 
-    ratings = Rating.objects.filter(freelancer=profile,is_deleted=False).order_by('-created_at')   
+    # Obtenemos las calificaciones y las ordenamos por la fecha de creación
+    ratings = Rating.objects.filter(freelancer=profile).order_by('-created_at')
+
+    # Añadir el rango de estrellas para cada calificación
+    for rating in ratings:
+        rating.star_range = range(rating.stars)
 
     context = {
         'skills': profile.skills.filter(is_deleted=False),
@@ -100,10 +105,11 @@ def generate_freelancer_context(profile):
         'portfolio': portfolio,
         'projects': projects,
         'courses': courses,
-        'ratings': ratings,
+        'ratings': ratings,  # Calificaciones con el rango de estrellas
     }
 
     return context
+
 
 @login_required
 def notifications(request):

@@ -133,3 +133,52 @@ class ProjectViewsTest(TestCase):
         self.assertEqual(response.status_code, 302)
         application.refresh_from_db()
         self.assertEqual(application.status, 'Rechazada')
+
+    
+    def setUp(self):
+        # Configurar el cliente de prueba y crear un usuario
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        
+        # Crear un proyecto para la prueba
+        self.project = Project.objects.create(
+            title="Test Project",
+            description="Test Description",
+            requirements="Test Requirements",
+            budget=1000,
+            start_date="2024-01-01",
+            end_date="2024-12-31",
+            client=self.user
+        )
+
+    def test_data_project_view_redirect_if_not_logged_in(self):
+        # Intentar acceder a la vista sin haber iniciado sesión
+        response = self.client.get(reverse('data_project', args=[self.project.id]))
+        # Debe redirigir al login
+        self.assertRedirects(response, f'/accounts/login/?next=/project/{self.project.id}/data_project/')
+
+    def test_data_project_view_logged_in(self):
+        # Iniciar sesión
+        self.client.login(username='testuser', password='12345')
+        
+        # Acceder a la vista estando autenticado
+        response = self.client.get(reverse('data_project', args=[self.project.id]))
+
+        # Verificar que la respuesta es exitosa (código 200)
+        self.assertEqual(response.status_code, 200)
+        
+        # Verificar que se está utilizando la plantilla correcta
+        self.assertTemplateUsed(response, 'projects/data_project.html')
+
+        # Verificar que el contexto contiene el proyecto correcto
+        self.assertEqual(response.context['project'], self.project)
+
+    def test_data_project_view_logged_in_invalid_project(self):
+        # Iniciar sesión
+        self.client.login(username='testuser', password='12345')
+        
+        # Intentar acceder a un proyecto que no existe
+        response = self.client.get(reverse('data_project', args=[9999]))  # ID de proyecto no existente
+        
+        # Verificar que la respuesta es un 404
+        self.assertEqual(response.status_code, 404)
