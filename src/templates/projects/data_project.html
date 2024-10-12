@@ -1,0 +1,298 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block section %}
+<div class="container">
+    <!-- Panel de Control de Progreso -->
+    <h1 class="text-primary_black text-2xl font-bold mt-4">Informes del Proyecto</h1>
+
+    <!-- Progreso General de los Hitos -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Progreso de Hitos</h2>
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <p class="mb-4"><strong>Progreso Actual de Hitos:</strong> </p>
+
+            <!-- Barra de Progreso para los Hitos -->
+            <div class="w-full bg-gray-200 rounded-full h-6">
+                <div id="milestone-progress-bar" class="
+                    {% if milestone_progress < 33 %}
+                        bg-red-500
+                    {% elif milestone_progress < 66 %}
+                        bg-yellow-500
+                    {% else %}
+                        bg-green-500
+                    {% endif %}
+                    h-6 rounded-full text-center text-white text-sm leading-none">
+                    {{ milestone_progress|floatformat:0|default_if_none:0 }}%
+                </div>
+            </div>
+
+            <script>
+                // Establecer el ancho de la barra de progreso de los hitos dinámicamente
+                document.getElementById('milestone-progress-bar').style.width = "{{ milestone_progress|floatformat:0|default_if_none:0 }}%";
+            </script>
+
+            <!-- Indicador de Compleción para los Hitos -->
+            <div class="flex justify-between mt-2">
+                <span class="text-sm text-primary_dark">0%</span>
+                <span class="text-sm text-primary_dark">100%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progreso General de las Tareas -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Progreso de Tareas</h2>
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <p class="mb-4"><strong>Progreso Actual de Tareas:</strong></p>
+
+            <!-- Barra de Progreso para las Tareas -->
+            <div class="w-full bg-gray-200 rounded-full h-6">
+                <div id="task-progress-bar" class="
+                    {% if task_progress < 34 %}
+                        bg-red-500
+                    {% elif task_progress < 67 %}
+                        bg-yellow-500
+                    {% else %}
+                        bg-green-500
+                    {% endif %}
+                    h-6 rounded-full text-center text-white text-sm leading-none">
+                    {{ task_progress|floatformat:0|default_if_none:0 }}%
+                </div>
+            </div>
+
+            <script>
+                // Establecer el ancho de la barra de progreso de las tareas dinámicamente
+                document.getElementById('task-progress-bar').style.width = "{{ task_progress|floatformat:0|default_if_none:0 }}%";
+            </script>
+
+            <!-- Indicador de Compleción para las Tareas -->
+            <div class="flex justify-between mt-2">
+                <span class="text-sm text-primary_dark">0%</span>
+                <span class="text-sm text-primary_dark">100%</span>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+    
+
+    <!-- Sección de Hitos y Tareas Agrupadas -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <h2 class="text-xl font-bold text-primary_black">Hitos y Tareas</h2>
+
+        {% if milestones %}
+            <div class="grid grid-cols-1 gap-6 mt-4">
+                {% for milestone in milestones %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-primary_black">{{ milestone.name }}</h3>
+                    <p><strong>Descripción:</strong> {{ milestone.description }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ milestone.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ milestone.end_date }}</p>
+                
+                    <!-- Progreso del hito (cantidad de entregables completados) -->
+                    <p><strong>Progreso de Entregables:</strong> {{ progress_data.progress|default_if_none:"0" }}%  ({{ milestone.amount_completed }} de {{ milestone.assigments.count }} completados)</p>
+                
+                    <!-- Barra de Progreso de Entregables -->
+                    <!-- Barra de Progreso de Entregables -->
+<div class="w-full bg-gray-200 rounded-full h-6 mt-2">
+    <div class="
+        {% if progress_data.progress < 33 %}
+            bg-red-500
+        {% elif progress_data.progress < 66 %}
+            bg-yellow-500
+        {% else %}
+            bg-green-500
+        {% endif %}
+        h-6 rounded-full text-center text-white text-sm leading-none"
+        style="width: {{ progress_data.progress|floatformat:0 }}%;">
+        {{ progress_data.progress|floatformat:0 }}%
+    </div>
+</div>
+
+
+                    <!-- Lista de Tareas Asociadas al Hito -->
+                    <div class="mt-4">
+                        <h4 class="text-md font-semibold text-primary_dark">Tareas:</h4>
+                        {% if milestone.tasks.all %}
+                            <div class="ml-4">
+                                {% for task in milestone.tasks.all %}
+                                <div class="bg-gray-50 p-2 rounded-lg shadow-sm mt-2">
+                                    <h5 class="text-sm font-semibold text-primary_black">{{ task.title }}</h5>
+                                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                                    <p><strong>Prioridad:</strong> {{ task.priority }}</p>
+                                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+
+                                    <!-- Estado de la Tarea con colores -->
+                                    <p class="{% if task.state == 'Completada' %}text-green-500{% elif task.state == 'En Progreso' %}text-yellow-500{% else %}text-red-500{% endif %}">
+                                        Estado: {{ task.state }}
+                                    </p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-gray-500 ml-4">No hay tareas para este hito aún.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">No hay hitos para este proyecto aún.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="container">
+    <!-- Panel de Control de Progreso -->
+    <h1 class="text-primary_black text-2xl font-bold mt-4">Tablero Kanban</h1>
+
+    <div class="grid grid-cols-3 gap-4 mt-6">
+        <!-- Columna para "Pendiente" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">Pendiente</h2>
+            {% for task in tasks %}
+                {% if task.state == 'pendiente' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Columna para "En Progreso" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">En Progreso</h2>
+            {% for task in tasks %}
+                {% if task.state == 'En progreso' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Columna para "Completada" -->
+        <div class="bg-primary_lightest p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-primary_black mb-4">Completada</h2>
+            {% for task in tasks %}
+                {% if task.state == 'Completada' %}
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 class="text-lg font-semibold">{{ task.title }}</h3>
+                    <p><strong>Descripción:</strong> {{ task.description }}</p>
+                    <p><strong>Responsable:</strong> {{ task.responsible.username }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ task.end_date }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="container">
+        <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
+    
+        <!-- Filtro para seleccionar el hito -->
+        <div class="mt-4 mb-6">
+            <label for="milestoneFilter" class="text-lg font-medium text-primary_black">Filtrar por Hito:</label>
+            <select id="milestoneFilter" class="border border-gray-300 p-2 rounded-md">
+                <option value="all">Mostrar Todos</option>
+                {% for milestone in milestones %}
+                    <option value="milestone_{{ milestone.id }}">Hito: {{ milestone.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    
+        <!-- Contenedor del diagrama de Gantt -->
+        <div id="ganttChart" class="mt-3" style="height: 600px; width: 100%;"></div>
+    
+        <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+        <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+    
+        <script>
+            // Crear los grupos de hitos y tareas
+            var groups = new vis.DataSet([
+                {% for milestone in milestones %}
+                    {id: 'milestone_{{ milestone.id }}', content: 'Hito: {{ milestone.name }}', className: 'milestone-group'},
+                {% endfor %}
+            ]);
+    
+            // Crear los elementos para los hitos y las tareas
+            var items = new vis.DataSet([
+                {% for milestone in milestones %}
+                    {% for task in milestone.tasks.all %}
+                        {id: 'task_{{ task.id }}', group: 'milestone_{{ milestone.id }}', content: 'Tarea: {{ task.title }}', start: '{{ task.start_date }}', end: '{{ task.end_date }}', className: 'task-item'},
+                    {% endfor %}
+                {% endfor %}
+            ]);
+    
+            // Configuración del diagrama de Gantt
+            var options = {
+                stack: false,  // No apilar las tareas
+                horizontalScroll: true,  // Scroll horizontal
+                showCurrentTime: true,  // Mostrar la línea de tiempo actual
+                zoomable: true,  // Permitir el zoom
+                moveable: true,  // Permitir movimiento
+                height: '400px',  // Altura del gráfico
+                margin: { 
+                    item: 10,  // Espaciado entre las tareas
+                    axis: 300   // Espacio para el eje de tiempo
+                },
+                zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
+                zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
+                orientation: { axis: "top" },  // Eje de tiempo en la parte superior
+                groupOrder: 'content',  // Ordenar los grupos por nombre
+                timeAxis: { scale: 'month', step: 1 },  // Escala de tiempo por meses
+            };
+    
+            // Inicializar el gráfico
+            var container = document.getElementById('ganttChart');
+            var timeline = new vis.Timeline(container, items, groups, options);
+    
+            // Filtrar las tareas según el hito seleccionado
+            document.getElementById('milestoneFilter').addEventListener('change', function () {
+                var selectedMilestone = this.value;
+    
+                if (selectedMilestone === 'all') {
+                    // Mostrar todas las tareas si se selecciona "Mostrar Todos"
+                    timeline.setItems(items);
+                    timeline.setGroups(groups);
+                } else {
+                    // Filtrar las tareas por el hito seleccionado
+                    var filteredItems = items.get({
+                        filter: function (item) {
+                            return item.group === selectedMilestone;
+                        }
+                    });
+    
+                    var filteredGroups = groups.get({
+                        filter: function (group) {
+                            return group.id === selectedMilestone;
+                        }
+                    });
+    
+                    timeline.setItems(filteredItems);
+                    timeline.setGroups(filteredGroups);
+                }
+            });
+        </script>
+    </div>
+    
+    {% endblock %}
+    

@@ -1,7 +1,10 @@
+from django.http import HttpResponseForbidden
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
+
+from profile.models import Notification
 from ..models import Project, Milestone, Task, TaskDescription, Comment, TaskFile, Application
 
 class TaskViewsTest(TestCase):
@@ -116,3 +119,57 @@ class TaskViewsTest(TestCase):
         })
         self.assertEqual(response.status_code, 302)  # Should redirect after file upload
         self.assertTrue(TaskFile.objects.filter(task=self.task).exists())
+
+
+    def test_update_task_state_valid(self):
+        # Prueba para un cambio de estado válido
+        response = self.client.post(reverse('update_task_state', args=[self.task.id]), {
+            'state': 'completada'
+        })
+
+        # Verificar que la tarea se haya actualizado correctamente
+        self.task.refresh_from_db()
+        self.assertEqual(self.task.state, 'completada')
+
+        # Verificar la redirección después de actualizar el estado
+        self.assertEqual(response.status_code, 302)
+
+        # Verificar que la notificación haya sido creada
+        self.assertTrue(Notification.objects.filter(
+            user=self.task.responsible,
+            message__contains="ha cambiado el estado de la tarea"
+        ).exists())
+
+    def test_update_task_state_unauthorized(self):
+        # Crear otro usuario para simular un intento no autorizado de actualizar la tarea
+        other_user = User.objects.create_user(username='otheruser', password='12345')
+        self.client.login(username='otheruser', password='12345')
+
+        # Intentar cambiar el estado de la tarea sin ser el responsable o superuser
+        response = self.client.post(reverse('update_task_state', args=[self.task.id]), {
+            'state': 'completada'
+        })
+
+        # Verificar que la respuesta sea una prohibición (403 Forbidden)
+        self.assertEqual(response.status_code, HttpResponseForbidden.status_code)
+
+        # Verificar que el estado de la tarea no haya cambiado
+        self.task.refresh_from_db()
+        self.assertNotEqual(self.task.state, 'completada')
+
+    def test_update_task_state_superuser(self):
+        # Crear un superusuario para la prueba
+        superuser = User.objects.create_superuser(username='admin', password='adminpass')
+        self.client.login(username='admin', password='adminpass')
+
+        # Cambiar el estado de la tarea como superuser
+        response = self.client.post(reverse('update_task_state', args=[self.task.id]), {
+            'state': 'completada'
+        })
+
+        # Verificar que el estado de la tarea se haya actualizado
+        self.task.refresh_from_db()
+        self.assertEqual(self.task.state, 'completada')
+
+        # Verificar que la redirección sea correcta
+        self.assertEqual(response.status_code, 302)
