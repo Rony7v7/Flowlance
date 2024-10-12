@@ -224,6 +224,28 @@
     
         <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
         <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+        
+        <div class="container">
+            <!-- Panel de Reporte PDF -->
+            <h1 class="text-primary_black text-2xl font-bold mt-4">Reporte PDF</h1>
+        
+            <div class="bg-primary_lightest p-6 rounded-lg shadow-md mt-6">
+                <h2 class="text-xl font-bold text-primary_black mb-4">Generar Informe del Proyecto</h2>
+        
+                <p class="text-lg text-gray-700 mb-6">
+                    Haz clic en el botón de abajo para generar un informe en formato PDF con los hitos, tareas y progreso del proyecto.
+                </p>
+        
+                <!-- Botón para Generar el Reporte PDF -->
+                <div class="flex justify-start">
+                    <a href="{% url 'generate_project_report' project.id %}" 
+                       class="inline-flex items-center justify-center bg-green-500 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                        Generar Reporte PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     
         <script>
             // Crear los grupos de hitos y tareas

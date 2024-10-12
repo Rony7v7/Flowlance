@@ -1,8 +1,7 @@
-<!-- default_project_view.html -->
-
 {% extends "navigation/navigation.html" %}
 
 {% load i18n %}
+
 {% block app_content %}
 <div class="container">
     <!-- Navigation Tabs -->
@@ -20,11 +19,12 @@
             {% translate "Línea de Tiempo" %}
         </a>
         <a href="/project/{{ project.id }}/calendar"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
-        <a href="/project/{{ project.id }}/data_project"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">Progreso</a>
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">
             {% translate "Calendario" %}
+        </a>
+        <a href="/project/{{ project.id }}/data_project"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">
+            {% translate "Progreso" %}
         </a>
     </div>
 
@@ -33,28 +33,27 @@
 
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
         <div class="flex pt-10">
-            <!-- Left Section with Image -->
             <div>
                 <img src="https://picsum.photos/450/300" alt="Project Image"
-                    class="w-[400px] h-[300px] rounded-xl mr-6">
+                     class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
-                    <p class="text-lg font-semibold text-primary_black">{% translate "Presupuesto:" %} <span
-                            class="text-primary_medium">{{ project.budget }}</span></p>
+                    <p class="text-lg font-semibold text-primary_black">
+                        {% translate "Presupuesto:" %} 
+                        <span class="text-primary_medium">{{ project.budget }}</span>
+                    </p>
                 </div>
             </div>
 
-            <!-- Right Section with Details -->
             <div class="ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
-
                 <div class="flex space-x-4">
                     <a href="{% url 'project_edit' project.pk %}"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
                         {% translate "Editar" %}
                     </a>
                     <a href="{% url 'project_requirements' project.pk %}"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
@@ -67,16 +66,14 @@
                     </button>
                 </form>
 
-                <!-- Aplications list -->
                 <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
-                    Ver Postulaciones
+                    {% translate "Ver Postulaciones" %}
                 </button>
 
-                <!-- Boton eliminar -->
                 <div class="mt-4 flex space-x-4 justify-end">
                     <a href="{% url 'project_delete' project.pk %}"
-                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                        Eliminar Proyecto
+                       class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                        {% translate "Eliminar Proyecto" %}
                     </a>
                     <div class="flex flex-row gap-2">
                         {% url 'my_projects' as list_projects_available %}
@@ -85,9 +82,15 @@
                 </div>
 
                 {% if application %}
-                    <p class="text-sm text-primary_medium mt-2">Estado de la postulación: <span class="font-bold">{{ application.status }}</span></p>
+                    <p class="text-sm text-primary_medium mt-2">
+                        {% translate "Estado de la postulación:" %} 
+                        <span class="font-bold">{{ application.status }}</span>
+                    </p>
                 {% else %}
-                    <p class="text-sm text-primary_medium mt-2">No te has postulado a este proyecto aún.</p>
+                    <p class="text-sm text-primary_medium mt-2">
+                        {% translate "No te has postulado a este proyecto aún." %}
+                    </p>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -95,11 +98,9 @@
 
     <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
         {% block section %}
-        {% endblock %}
+        {% endblock section %}
     </div>
 
-    <!-- Pop-up of applications -->
-     
     <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-xl shadow-lg w-1/2">
             <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
@@ -107,22 +108,23 @@
                 {% for application in applications %}
                 <li class="border-b border-gray-200 py-2 flex justify-between items-center">
                     <div>
-                        <p>
-                            <strong>{% translate "Usuario:" %}</strong> 
-                            <a href="{% url 'freelancer_profile_view' application.user.username %}" 
-                               class="text-blue-500 hover:underline">
-                               {{ application.user.username }}
-                            </a>
-                        </p>                     
+                        <p><strong>{% translate "Usuario:" %}</strong> 
+                            <a href="{% url 'freelancer_profile_view' application.user.username %}"
+                               class="text-blue-500 hover:underline">{{ application.user.username }}</a>
+                        </p>
                         <p><strong>{% translate "Estado:" %}</strong> {{ application.status }}</p>
-                        <p><strong>{% translate "Fecha de Aplicación:"%}</strong> {{ application.applied_at|date:"d M Y" }}</p>
+                        <p><strong>{% translate "Fecha de Aplicación:" %}</strong> {{ application.applied_at|date:"d M Y" }}</p>
                     </div>
                     {% if application.status == 'Pendiente' %}
                     <div class="flex gap-2">
                         <a href="{% url 'update_application_status' application.id 'accept' %}"
-                            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110 hover:animate-upDown">Aceptar</a>
+                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110">
+                            {% translate "Aceptar" %}
+                        </a>
                         <a href="{% url 'update_application_status' application.id 'reject' %}"
-                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">Rechazar</a>
+                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110">
+                            {% translate "Rechazar" %}
+                        </a>
                     </div>
                     {% endif %}
                 </li>
@@ -130,7 +132,9 @@
                 <p>{% translate "No hay postulaciones para este proyecto." %}</p>
                 {% endfor %}
             </ul>
-            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Cerrar" %}</button>
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110">
+                {% translate "Cerrar" %}
+            </button>
         </div>
     </div>
 </div>
@@ -144,4 +148,4 @@
         document.getElementById('applicationsModal').classList.add('hidden');
     });
 </script>
-{% endblock %}
+{% endblock app_content %}

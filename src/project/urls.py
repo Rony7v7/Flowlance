@@ -27,5 +27,7 @@ urlpatterns = [
     path("assigment/edit/<int:assigment_id>",assigment_views.edit_assigment,name="edit_assigment"),
     path("assigment/delete/<int:assigment_id>",assigment_views.delete_assigment,name="delete_assigment"),
     path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
+    path('project/<int:project_id>/generate-report/', project_views.generate_project_report, name='generate_project_report'),
+
 ]
 

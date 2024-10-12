@@ -160,4 +160,17 @@ class Application(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.project.title} ({self.status})"
+    
+class ProjectReportSettings(models.Model):
+    project = models.OneToOneField('Project', on_delete=models.CASCADE, related_name='report_settings')
+    include_milestone_progress = models.BooleanField(default=True)
+    include_task_progress = models.BooleanField(default=True)
+    include_milestones_and_tasks = models.BooleanField(default=True)
+    include_kanban_board = models.BooleanField(default=False)
+    include_gantt_chart = models.BooleanField(default=False)
+    report_frequency = models.CharField(max_length=10, choices=[
+        ('daily', 'Daily'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+    ], default='weekly')
 
