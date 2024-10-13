@@ -7,6 +7,9 @@ from django.contrib import messages
 from django_otp.oath import TOTP
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from .RestorePasswordForm import StyledPasswordChangeForm
 
 def home(request):
     return render(request, "homepage/home.html")
@@ -89,3 +92,20 @@ def two_factor_validator(request):
                 request, "login/2_factor_auth.html", {"error": _("OTP incorrecto")}
             )
     return render(request, "login/2_factor_auth.html", {})
+
+
+@login_required
+def restore_password(request):
+    if request.method == "POST":
+        form = StyledPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, _('Se ha actualizado con exito'))
+            return redirect('security_settings')
+    else:
+        form = StyledPasswordChangeForm(request.user)
+
+    return render(request, 'settings/restore_password.html', {
+        'form': form
+    })
