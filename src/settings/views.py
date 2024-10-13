@@ -13,7 +13,6 @@ def security_settings(request):
     # Check if profile exists and handle the case when it's None
     if profile:
         has_2FA_on = profile.has_2FA_on
-        print("a: ", has_2FA_on)
     else:
         has_2FA_on = False  # Default value if no profile is found
 
@@ -27,7 +26,6 @@ def toggle_2fa(request):
 
     if request.method == 'POST':
         has_2FA_on = request.POST.get('has_2FA_on') == 'on'
-        print("resultado del post: ", has_2FA_on)
         if profile:  # If the user has a profile (either Freelancer or Company)
             profile.has_2FA_on = has_2FA_on
             profile.save()

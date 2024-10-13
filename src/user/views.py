@@ -54,9 +54,9 @@ def login_view(request):
                     login(request, user)
                     return redirect("/dashboard/")  # Redirect to homepage or another page after login
             else:
-                messages.error(request, _("Invalid username or password."))
+                messages.error(request, _("Por favor revise su usuario y contraseña"))
         else:
-            messages.error(request, _("Please check your username and password."))
+            messages.error(request, _("Por favor revise su usuario y contraseña"))
     else:
         form = LoginForm()
 
