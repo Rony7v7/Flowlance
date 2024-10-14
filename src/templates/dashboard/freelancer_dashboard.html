@@ -79,13 +79,30 @@
             <div class="flex justify-between items-center mb-2">
                 <p class="text-lg font-bold text-primary_black"> {% translate "Mi Progreso" %} </p>
             </div>
-            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
-                <div class="p-4 rounded-xl h-full">
-                    {% for progress in my_progress %}
-                        {% include 'projects/progress_card.html' %}
-                    {% empty %}
-                        <p class="text-gray-500 text-center w-full"> {% translate "No hay progreso disponible." %} </p>
-                    {% endfor %}
+            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto ">
+                <div class="flex items-center justify-center gap-8 m-auto h-full w-full p-4">
+                    <!-- Canvas -->
+                    <div class="relative">
+                        <canvas id="progressChart" class="w-full h-full" ></canvas>
+                        <div id="chartCenterLabel" class="absolute inset-0 flex flex-col items-center justify-center">
+                            <p class="text-2xl font-bold text-primary_black" id="tasksCount"></p>
+                            <p class="text-sm text-primary_medium">{% translate "Tareas completas" %}</p>
+                        </div>
+                    </div>
+                
+                    <!-- Legend -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-primary_medium"></span>
+                            <span class="text-primary_black">{% translate "Completas" %}</span>
+                            <span class="ml-auto text-primary_black font-semibold" id="completeCount"></span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-primary_light"></span>
+                            <span class="text-primary_black">{% translate "Pendientes" %}</span>
+                            <span class="ml-auto text-primary_black font-semibold" id="pendingCount"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,5 +159,46 @@
 
     </div>
 </div>
+
+<script>
+    const progressData = JSON.parse('{{ freelancer_progress|safe }}'); // Ejemplo: [72, 20]
+    const totalTasks = progressData.reduce((a, b) => a + b, 0);
+
+    // Actualizar la etiqueta central con los datos
+    document.getElementById('tasksCount').textContent = `${progressData[0]} / ${totalTasks}`;
+    document.getElementById('completeCount').textContent = progressData[0];
+    document.getElementById('pendingCount').textContent = progressData[1];
+
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completas', 'Pendientes'],
+            datasets: [{
+                data: progressData,
+                backgroundColor: ['#636AF2', '#8D92F2'],
+                borderWidth: 8,
+                hoverOffset: 8,
+                hoverBorderWidth: 8,
+                borderRadius: 10,
+                borderColor: '#EAEBF9',
+                cutout: '65%',  // Controla el grosor del anillo
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false  // Ocultamos la leyenda automática
+                },
+                tooltip: {
+                    enabled: false  // Deshabilitamos tooltips para este caso
+                }
+            }
+        }
+    });
+</script>
+
 
 {% endblock %}
