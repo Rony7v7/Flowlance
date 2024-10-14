@@ -20,6 +20,7 @@ class FreelancerProfile(models.Model):
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
     ratings = models.ManyToManyField('Rating', related_name='freelancer_rating', blank=True)
+    has_2FA_on = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False, null=False)
     def __str__(self):
         return self.user.username
@@ -34,6 +35,7 @@ class CompanyProfile(models.Model):
     address = models.CharField(max_length=150)
     legal_representative = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
+    has_2FA_on = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='companies/', blank=True, null=True)
 
     def __str__(self):

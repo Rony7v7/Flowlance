@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Log In - Flowlance{% endblock %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<div class="flex w-full justify-center items-center h-screen flex-col">
+
+    <div class="rounded-lg shadow-md text-center w-[585px]  p-10">
+
+        <div class="justify-center items-center flex mb-4">
+            <i> {% include 'icon/flowlance.html' with w='65' h='65' %} </i>
+        </div>
+
+        {% if error %}
+        <div class="bg-red-500 text-white p-2 mb-4 rounded-md">
+            <ul>
+
+                <li> {{error}} </li>
+            </ul>
+        </div>
+        {% endif %}
+
+
+        <!-- Título -->
+        <h1 class="text-primary_black text-3xl font-bold mb-4">{% translate "Factor de doble autenticacion" %}</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="otp-code">{%translate "Codigo de doble auenticacion"%}</label>
+            <input type="text" id="otp-code" name="otp-code" placeholder="{% translate " codigo" %}"
+                class="my-4 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
+
+            <button type="submit" class="bg-primary_medium text-white w-full py-2 rounded-md mb-4">{% translate "Validar" %}</button>
+        </form>
+
+
+        <div class="mb-4">
+            <p>
+                {% blocktranslate %}
+                Porfavor ingresa el codigo de doble autenticacion que fue enviado a tu correo electronico!
+                {% endblocktranslate %}
+            </p>
+        </div>
+
+        {% trans 'Volver al incio' as trans_back_btn %}
+        {% url 'login' as login_url %}
+        {% include 'utils/anchor_button.html' with type=1 url=login_url label=trans_back_btn %}
+
+    </div>
+
+</div>
+
+{% endblock %}
