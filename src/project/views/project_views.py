@@ -56,36 +56,10 @@ def display_project(request, project_id, section):
         raise Http404("No Project with that id")
 
     milestones = project.milestones.filter(is_deleted=False)
-
-    # Progreso de cada hito (calculado en la vista)
-    milestone_progress_data = []
-    for milestone in milestones:
-        total_deliverables = milestone.assigments.count()  # Número total de entregables
-        completed_deliverables = milestone.amount_completed  # Número de entregables completados
-        if total_deliverables > 0:
-            progress = (completed_deliverables / total_deliverables) * 100
-        else:
-            progress = 0
-        milestone_progress_data.append({
-            'milestone': milestone,
-            'progress': progress,
-        })
-
-
-    # Progreso de Tareas
     tasks = Task.objects.filter(milestone__in=milestones)
-    total_tasks = tasks.count()
-    completed_tasks = tasks.filter(state="Completada").count()
-    task_progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
 
-    # Progreso de Hitos
-    total_milestones = milestones.count()
-    completed_milestones = 0
-    for milestone in milestones:
-        if milestone.amount_completed == milestone.assigments.count():
-            completed_milestones += 1
+    task_progress, milestone_progress = getProjectProgress(milestones, tasks)
 
-    milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
     # Get all applications for the project
     applications = project.applications.filter(is_deleted=False)
 
@@ -108,7 +82,6 @@ def display_project(request, project_id, section):
             "project": project,
             "tasks": tasks,
             "milestones": milestones,
-            "milestone_progress_data": milestone_progress_data,
             "task_progress": task_progress,
             "milestone_progress": milestone_progress,
             "section": section,
@@ -118,7 +91,23 @@ def display_project(request, project_id, section):
         },
     )
 
+def getProjectProgress(milestones, tasks):
 
+    # Progreso de Tareas
+    total_tasks = tasks.count()
+    completed_tasks = tasks.filter(state="Completada").count()
+    task_progress = (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
+
+    # Progreso de Hitos
+    total_milestones = milestones.count()
+    completed_milestones = 0
+    for milestone in milestones:
+        if milestone.amount_completed == milestone.assigments.count():
+            completed_milestones += 1
+
+    milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
+
+    return task_progress, milestone_progress
 
 
 @login_required

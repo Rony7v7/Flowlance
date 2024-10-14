@@ -19,11 +19,14 @@
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
             {% translate "Línea de Tiempo" %}
         </a>
-        <a href="/project/{{ project.id }}/calendar"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">{% translate "Calendario" %}</a>
-        <a href="/project/{{ project.id }}/data_project"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">{% translate "Progreso" %}</a>
+        <a href="/project/{{ project.id }}/calendar" 
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">{% translate "Calendario" %}
         </a>
+  
+        <a href="/project/{{ project.id }}/data_project"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">{% translate "Progreso" %}
+        </a>
+
     </div>
 
     <!-- Panel de Control -->
@@ -46,6 +49,7 @@
             <div class="ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
+                {% if user_is_owner %}
                 <div class="flex space-x-4">
                     <a href="{% url 'project_edit' project.pk %}"
                         class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
@@ -56,6 +60,7 @@
                         {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
+                {% endif %}
 
                 {% if request.profile_type == 'freelancer' %}
                 <form method="POST" action="{% url 'apply_project' project.id %}">
@@ -66,28 +71,66 @@
                 </form>
                 {% endif %}
 
-                <!-- Aplications list -->
-                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4">
-                    Ver Postulaciones
-                </button>
-
-                <!-- Boton eliminar -->
-                <div class="mt-4 flex space-x-4 justify-end">
-                    <a href="{% url 'project_delete' project.pk %}"
-                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                        Eliminar Proyecto
-                    </a>
-                    <div class="flex flex-row gap-2">
-                        {% url 'my_projects' as list_projects_available %}
-                        {% include 'utils/anchor_button.html' with label='Mis Proyectos' type=1 url=list_projects_available %}
-                    </div>
+                <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
+                    {% if application %}
+                        <div class="flex items-center space-x-2">
+                            {% if application.status == "Rechazada" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-lg text-primary_black font-semibold">
+                                    {% translate "Estado de la postulación: " %}
+                                    <span class="text-red-500 font-bold">{{ application.status }}</span>
+                                </p>
+                            {% elif application.status == "Aceptada" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-lg text-primary_black font-semibold">
+                                    {% translate "Estado de la postulación: " %}
+                                    <span class="text-green-500 font-bold">{{ application.status }}</span>
+                                </p>
+                            {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-lg text-primary_black font-semibold">
+                                    {% translate "Estado de la postulación: " %}
+                                    <span class="text-yellow-500 font-bold">{{ application.status }}</span>
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-lg text-primary_black font-semibold mt-2">
+                            {% translate "No te has postulado a este proyecto aún." %}
+                        </p>
+                    {% endif %}
                 </div>
 
-                {% if application %}
-                    <p class="text-sm text-primary_medium mt-2">Estado de la postulación: <span class="font-bold">{{ application.status }}</span></p>
-                {% else %}
-                    <p class="text-sm text-primary_medium mt-2">No te has postulado a este proyecto aún.</p>
                 {% endif %}
+
+                <!-- Aplications list -->
+                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                    {% translate "Ver Postulaciones" %}
+                </button>
+
+
+                <!-- Boton eliminar -->
+                <div class="mt-4 flex space-x-4 items-center">
+                    <a href="{% url 'project_delete' project.pk %}"
+                        class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
+                        Eliminar Proyecto
+                    </a>
+                    
+                    <!-- <a href="{% url 'my_projects' %}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
+                        Mis Proyectos
+                    </a> -->
+                </div>
+                
+
+                
+                
             </div>
         </div>
     </div>
