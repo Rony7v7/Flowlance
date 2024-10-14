@@ -2,6 +2,7 @@ from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
+from django.urls import reverse
 from profile.models import Notification
 from project.forms import ProjectForm
 from project.models import Application, Milestone, Project, Task, ProjectReportSettings
@@ -10,6 +11,8 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
+from project.forms import ProjectReportSettingsForm
+from project.models import  UserProjectReportSettings
 
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info
@@ -281,6 +284,25 @@ def data_project_view(request, project_id):
     return render(request, 'projects/data_project.html', context)
 
 
+@login_required
+def report_settings(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    user_settings, created = UserProjectReportSettings.objects.get_or_create(
+        user=request.user,
+        report_settings__project=project,
+        defaults={'report_settings': ProjectReportSettings.objects.create(project=project)}
+    )
+    settings = user_settings.report_settings
+
+    if request.method == 'POST':
+        form = ProjectReportSettingsForm(request.POST, instance=settings)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('project', kwargs={'project_id': project.id, 'section': 'data_project'})) 
+    else:
+        form = ProjectReportSettingsForm(instance=settings)
+
+    return render(request, 'projects/report_settings.html', {'form': form, 'project': project})
 
 login_required
 def generate_project_report(request, project_id):

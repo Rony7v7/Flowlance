@@ -162,7 +162,7 @@ class Application(models.Model):
         return f"{self.user.username} - {self.project.title} ({self.status})"
     
 class ProjectReportSettings(models.Model):
-    project = models.OneToOneField('Project', on_delete=models.CASCADE, related_name='report_settings')
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
     include_milestone_progress = models.BooleanField(default=True)
     include_task_progress = models.BooleanField(default=True)
     include_milestones_and_tasks = models.BooleanField(default=True)
@@ -172,5 +172,11 @@ class ProjectReportSettings(models.Model):
         ('daily', 'Daily'),
         ('weekly', 'Weekly'),
         ('monthly', 'Monthly'),
-    ], default='weekly')
+    ], default='daily')
 
+class UserProjectReportSettings(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    report_settings = models.ForeignKey(ProjectReportSettings, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'report_settings')
