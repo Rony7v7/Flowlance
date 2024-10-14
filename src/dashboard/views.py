@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from flowlance.decorators import attach_profile_info, client_required, freelancer_required
 from project.models import Project, Task
 
+from project.views.project_views import getProjectProgress
+
 # Archivo HTML base
 building = "navigation/building.html"
 
@@ -26,17 +28,22 @@ def freelancer_dashboard(request):
 
     freelancer_projects = Project.objects.filter(members=request.user).order_by('-created_at')[:5]
 
-    freelancer_pending_tasks = Task.objects.filter(responsible=request.user)[:5]
+    freelancer_pending_tasks = Task.objects.filter(responsible=request.user, state='pendiente') #TODO: Va a causar problemas en la traducción
 
-    # TEMPORAL
+    tasks_done_count = Task.objects.filter(responsible=request.user, state='Completada').count()
+    tasks_pending_count = freelancer_pending_tasks.count()
 
-    #freelancer_projects = freelancer_projects_test()
-    #freelancer_pending_tasks = freelancer_pending_tasks_test()
+    for project in freelancer_projects:
+        project.pending_tasks = Task.objects.filter(responsible=request.user, milestone__project=project, state='Pendiente' ).count() #TODO: Va a causar problemas en la traducción
+        project.progress = getProjectProgress(project.milestones.all(), Task.objects.filter(milestone__project=project))[0]
+
+    freelancer_progress = [tasks_done_count, tasks_pending_count]
 
     context = {
         'available_projects': available_projects,
         'freelancer_projects': freelancer_projects,
         'freelancer_pending_tasks': freelancer_pending_tasks,
+        'freelancer_progress': freelancer_progress
     }
     return render(request, 'dashboard/freelancer_dashboard.html', context)
 
