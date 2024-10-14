@@ -100,4 +100,31 @@ def freelancer_pending_tasks_test(): # Add new TEMPORAL tasks to the list
 
 @client_required
 def company_dashboard(request):
-    return render(request, building)
+    
+    # Get all freelancers that are members of some project of the company withouth duplicates
+    freelancers = []
+    for project in request.user.projects.all():
+        project.freelancers_users = project.members.all().exclude(id=request.user.id)
+        for user in project.freelancers_users:
+            freelancer = user.freelancerprofile
+
+            if freelancer not in freelancers:
+                
+                # Calculate the rating of the freelancer
+                ratings = freelancer.ratings.all()
+                rating = ratings.count()
+                for rate in ratings:
+                    rating += rate.stars
+
+                if ratings.count() > 0:
+                    rating = rating / ratings.count()
+
+                freelancer.rating = rating
+
+                freelancers.append(freelancer)
+
+    context = {
+        'recent_freelancers': freelancers
+    }
+
+    return render(request, 'dashboard/company_dashboard.html', context)

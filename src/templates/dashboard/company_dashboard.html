@@ -1,0 +1,163 @@
+{% extends 'navigation/navigation.html' %}
+
+{% load i18n %}
+{% block app_content %}
+
+<!-- SECTION 1 - Recent Collaborators -->
+<div class="flex flex-col gap-2">
+
+    <!-- TITLE-->
+    <div class="flex justify-between items-center">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Colaboradores Recientes" %} </p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="bg-bg_gray rounded-xl min-h-[150px] overflow-x-auto">
+        <div class="flex gap-4 p-4 rounded-xl">
+            {% for freelancer in recent_freelancers %}
+            
+            <div class="">
+                {% include 'profile/profile_card.html' %}
+            </div>
+
+            {% empty %}
+        
+            <p class="text-gray-500 text-center w-full"> {% translate "No hay contactos disponibles." %} </p>
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<!-- SECTION 2 - My Projects | General Progress -->
+<div class="flex flex-col gap-5 min-h-[350px] ">
+
+    <!-- SECTION 2.2 - MY PROJECTS / MY PROGRESS -->
+    <div class="flex flex-row gap-5 w-full flex-1 overflow-hidden">
+
+        <!-- SECTION 2.2.1 - MY PROJECTS -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-lg font-bold text-primary_black"> {% translate "Mis Proyectos" %} </p>
+            </div>
+            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
+                <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+                    {% for project in freelancer_projects %}
+                        <div>
+                            {% include 'projects/project_card.html' with list="true" %}
+                        </div>
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay proyectos disponibles." %} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2.2.2 - MY PROGRESS -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-lg font-bold text-primary_black"> {% translate "Progreso General" %} </p>
+            </div>
+            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto ">
+                <div class="flex items-center justify-center gap-8 m-auto h-full w-full p-4">
+                    <!-- Canvas -->
+                    <div class="relative">
+                        <canvas id="progressChart" class="w-full h-full" ></canvas>
+                        <div id="chartCenterLabel" class="absolute inset-0 flex flex-col items-center justify-center">
+                            <p class="text-2xl font-bold text-primary_black" id="tasksCount"></p>
+                            <p class="text-sm text-primary_medium">{% translate "Tareas completas" %}</p>
+                        </div>
+                    </div>
+                
+                    <!-- Legend -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-primary_medium"></span>
+                            <span class="text-primary_black">{% translate "Completas" %}</span>
+                            <span class="ml-auto text-primary_black font-semibold" id="completeCount"></span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-primary_light"></span>
+                            <span class="text-primary_black">{% translate "Pendientes" %}</span>
+                            <span class="ml-auto text-primary_black font-semibold" id="pendingCount"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SECTION 3 - FUTURE EVENTS -->
+<div class="w-full flex-1 flex flex-col overflow-hidden">
+    <div class="flex justify-between items-center mb-2">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Próximos Eventos" %} </p>
+    </div>
+    <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
+        <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+            {% for task in freelancer_pending_tasks %}
+                <div>
+                    {% include 'projects/task_card.html' with list=True %}
+                </div>
+            {% empty %}
+                <p class="text-gray-500 text-center w-full"> {% translate "No hay tareas pendientes." %} </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 4 - FINANCE -->
+<div class="flex flex-col gap-2">
+
+    <div class="flex justify-between items-center">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Estado Financiero" %} </p>
+    </div>
+
+    <div class="bg-bg_gray rounded-xl h-96 gap-4 p-4 flex flex-col">
+
+        <!-- SECTION 3.1 - BALANCE -->
+        <div class="bg-bg_white rounded-lg flex-1 p-3">
+            <p>{% translate "Balance General" %}</p>
+        </div>
+
+        <!-- SECTION 3.2 - LAST TRANSACTIONS / PENDING PAYMENTS -->
+        <div class="flex gap-8 flex-1 ">
+
+            <!-- SECTION 3.2.1 - LAST TRANSACTIONS -->
+            <div class="flex-1 bg-bg_white p-3 rounded-lg">
+                <p>{% translate "Últimos Movimientos" %}</p>
+
+                <div>
+                    {% for transaction in last_transactions %}
+                        {% include 'projects/transaction_card.html' %}
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay movimientos recientes." %} </p>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <!-- SECTION 3.2.2 - PENDING PAYMENTS -->
+            <div class="flex-1 bg-bg_white p-3 rounded-lg">
+                <p>{%translate "Pagos Pendientes"%}</p>
+
+                <div>
+                    {% for payment in pending_payments %}
+                        {% include 'projects/payment_card.html' %}
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay pagos pendientes." %} </p>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
