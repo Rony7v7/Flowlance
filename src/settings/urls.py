@@ -2,5 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path("", views.settings, name="settings"),
+    path("account_settings", views.settings, name="account_settings"),
+    path("security_settings", views.security_settings, name="security_settings"),
+    path("toggle_2fa/", views.toggle_2fa, name="toggle_2fa"),
 ]

@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
     "chat",
     "payment",
     "notifications",
+    "django_otp",
 ]
 
 MIDDLEWARE = [
@@ -78,17 +80,18 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
-    "allauth.account.middleware.AccountMiddleware"
+    "allauth.account.middleware.AccountMiddleware",
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
-            'secret': os.getenv("GOOGLE-SECRET"),
+    "google": {
+        "APP": {
+            "client_id": "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
+            "secret": os.getenv("GOOGLE_SECRET"),
         },
-        'SCOPE': ["profile", "email"],
-        'AUTH_PARAMS': {'access_type': 'online'},
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
         "METHOD": "oauth2",
         "VERIFIED_EMAIL": True,
     }
@@ -152,9 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 
-LOCALE_PATHS = [(os.path.join(BASE_DIR,"locale"))]
+LOCALE_PATHS = [(os.path.join(BASE_DIR, "locale"))]
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = "en"
 
 TIME_ZONE = "UTC"
 
@@ -162,10 +165,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LANGUAGES = (
-    ('en',_("English")),
-    ('es',_("Español"))
-)
+LANGUAGES = (("en", _("English")), ("es", _("Español")))
 
 
 # Static files (CSS, JavaScript, Images)
@@ -180,17 +180,15 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-AUTHENTICATION_BACKENDS = (
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend",)
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_ADAPTER = 'user.adapters.MySocialAccountAdapter'
