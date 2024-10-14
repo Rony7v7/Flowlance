@@ -60,6 +60,26 @@
                         {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
+
+                                <!-- Aplications list -->
+                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                    {% translate "Ver Postulaciones" %}
+                </button>
+
+
+                <!-- Boton eliminar -->
+                <div class="mt-4 flex space-x-4 items-center">
+                    <a href="{% url 'project_delete' project.pk %}"
+                        class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
+                        Eliminar Proyecto
+                    </a>
+                    
+                    <!-- <a href="{% url 'my_projects' %}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
+                        Mis Proyectos
+                    </a> -->
+                </div>
+                
                 {% endif %}
 
                 {% if request.profile_type == 'freelancer' %}
@@ -69,7 +89,6 @@
                         {% translate "Postularse a este proyecto" %}
                     </button>
                 </form>
-                {% endif %}
 
                 <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
                     {% if application %}
@@ -109,28 +128,6 @@
 
                 {% endif %}
 
-                <!-- Aplications list -->
-                <button id="showApplications" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-                    {% translate "Ver Postulaciones" %}
-                </button>
-
-
-                <!-- Boton eliminar -->
-                <div class="mt-4 flex space-x-4 items-center">
-                    <a href="{% url 'project_delete' project.pk %}"
-                        class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
-                        Eliminar Proyecto
-                    </a>
-                    
-                    <!-- <a href="{% url 'my_projects' %}"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition-transform duration-300 hover:scale-110">
-                        Mis Proyectos
-                    </a> -->
-                </div>
-                
-
-                
-                
             </div>
         </div>
     </div>
@@ -168,6 +165,11 @@
             <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Cerrar" %}</button>
         </div>
     </div>
+</div>
+
+<div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
+    {% block section %}
+    {% endblock %}
 </div>
 
 <script>
