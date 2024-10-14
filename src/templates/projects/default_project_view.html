@@ -19,12 +19,14 @@
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
             {% translate "Línea de Tiempo" %}
         </a>
-        <a href="/project/{{ project.id }}/calendar"
-           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">Calendario</a>
-        
-           <a href="/project/{{ project.id }}/data_project" class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}" >
-            {% translate "Progreso" %}
+        <a href="/project/{{ project.id }}/calendar" 
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">{% translate "Calendario" %}
         </a>
+  
+        <a href="/project/{{ project.id }}/data_project"
+           class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">{% translate "Progreso" %}
+        </a>
+
     </div>
 
     <!-- Panel de Control -->
@@ -67,6 +69,7 @@
                         {% translate "Postularse a este proyecto" %}
                     </button>
                 </form>
+                {% endif %}
 
                 <div class="p-3 border border-primary_medium rounded-lg bg-bg_gray shadow-sm mt-4">
                     {% if application %}
@@ -132,13 +135,7 @@
         </div>
     </div>
 
-    <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
-        {% block section %}
-        {% endblock %}
-    </div>
-
     <!-- Pop-up of applications -->
-     
     <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-xl shadow-lg w-1/2">
             <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
@@ -148,8 +145,7 @@
                     <div>
                         <p>
                             <strong>{% translate "Usuario:" %}</strong> 
-                            <a href="{% url 'freelancer_profile_view' application.user.username %}" 
-                               class="text-blue-500 hover:underline">
+                            <a href="text-blue-500 hover:underline">
                                {{ application.user.username }}
                             </a>
                         </p>                     

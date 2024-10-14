@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-03 20:44-0500\n"
+"POT-Creation-Date: 2024-10-12 20:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: flowlance/settings.py:166
+#: flowlance/settings.py:168
 msgid "English"
 msgstr "English"
 
-#: flowlance/settings.py:167
+#: flowlance/settings.py:168
 msgid "Español"
 msgstr "Spanish"
 
@@ -67,6 +67,7 @@ msgstr "Project Description"
 #: profile/forms.py:38 project/forms.py:21
 #: templates/profile/add_project.html:42
 #: templates/projects/manage_milestone.html:80
+#: templates/settings/settings_navbar.html:32
 msgid "Fecha de Inicio"
 msgstr "Start Date"
 
@@ -164,10 +165,12 @@ msgid "Confirmar Contraseña"
 msgstr "Confirm Password"
 
 #: profile/forms.py:180 profile/forms.py:239
+#: profile/tests/test_freelancer_register.py:35
 msgid "Este correo electrónico ya está registrado. Por favor, usa otro."
 msgstr "This email is already registered. Please use another."
 
 #: profile/forms.py:186 profile/forms.py:202
+#: profile/tests/test_freelancer_register.py:51
 msgid "Este ID ya está registrado. Por favor, usa otro."
 msgstr "This ID is already registered. Please use another."
 
@@ -204,17 +207,16 @@ msgid "Imagen de la Empresa"
 msgstr "Company Image"
 
 #: profile/forms.py:245 profile/forms.py:267
+#: profile/tests/test_company_register.py:50
 msgid "Este NIT ya está registrado. Por favor, usa otro."
 msgstr "This Tax ID is already registered. Please use another."
 
 #: project/forms.py:17
-#, fuzzy
 #| msgid "Nombre del Proyecto"
 msgid "Titulo del Proyecto"
 msgstr "Project Name"
 
 #: project/forms.py:19
-#, fuzzy
 #| msgid "Ver Requerimientos"
 msgid "Requerimientos"
 msgstr "View Requirements"
@@ -316,6 +318,41 @@ msgstr "Already have an account?"
 msgid "Inicia sesión aquí"
 msgstr "Log in here"
 
+#: templates/login/2_factor_auth.html:30
+msgid "Factor de doble autenticacion"
+msgstr "Double Auth Factor"
+
+#: templates/login/2_factor_auth.html:34
+msgid "Codigo de doble auenticacion"
+msgstr "Double Auth Code"
+
+#: templates/login/2_factor_auth.html:35
+msgid " codigo"
+msgstr " code"
+
+#: templates/login/2_factor_auth.html:38
+msgid "Validar"
+msgstr "Validate"
+
+#: templates/login/2_factor_auth.html:44
+msgid ""
+"\n"
+"                Porfavor ingresa el codigo de doble autenticacion que fue "
+"enviado a tu correo electronico!\n"
+"                "
+msgstr ""
+"\n"
+"                Please insert the double auth code that was sent to your email!\n"
+"                "
+
+#: templates/login/2_factor_auth.html:50
+msgid "Volver al incio"
+msgstr "Back to the log in page"
+
+#: templates/project/project_requirements.html:22
+msgid "Volver al Proyecto"
+msgstr "Back to Project"
+
 #: templates/login/login.html:19
 msgid "Iniciar sesión"
 msgstr "Log In"
@@ -363,7 +400,7 @@ msgstr "Find the perfect talent to boost your projects."
 
 #: templates/navigation/navbar.html:39 templates/navigation/navbar.html:47
 #: templates/profile/add_project.html:10
-#: templates/profile/freelancer_profile.html:94
+#: templates/profile/freelancer_profile.html:116
 msgid "Proyectos"
 msgstr "Projects"
 
@@ -417,7 +454,7 @@ msgid "Fecha"
 msgstr "Date"
 
 #: templates/navigation/search_filters.html:63
-#: templates/profile/freelancer_profile.html:77
+#: templates/profile/freelancer_profile.html:86
 msgid "Desde:"
 msgstr "From:"
 
@@ -483,7 +520,7 @@ msgstr "You can attach a file here"
 #: templates/profile/add_course.html:71
 #: templates/profile/add_experience.html:47
 #: templates/profile/add_project.html:128 templates/profile/add_rating.html:36
-#: templates/projects/assigment_section.html:58
+#: templates/projects/assigment_section.html:87
 #: templates/projects/create_project.html:65
 msgid "Confirmar"
 msgstr "Confirm"
@@ -553,12 +590,12 @@ msgid "Calificando a: {{ freelancer.user.username }}"
 msgstr "Rating: {{ freelancer.user.username }}"
 
 #: templates/profile/add_rating.html:26 templates/profile/calification.html:104
-#: templates/profile/freelancer_profile.html:256
+#: templates/profile/freelancer_profile.html:300
 msgid "Añadir una descripción"
 msgstr "Add a description"
 
 #: templates/profile/add_rating_response.html:7
-#: templates/profile/freelancer_profile.html:222
+#: templates/profile/freelancer_profile.html:266
 msgid "Responder a la Calificación"
 msgstr "Respond to Rating"
 
@@ -572,12 +609,12 @@ msgstr "Comment: {{ rating.comment }}"
 
 #: templates/profile/add_rating_response.html:15
 #: templates/profile/edit_rating_response.html:15
-#: templates/profile/freelancer_profile.html:227
+#: templates/profile/freelancer_profile.html:271
 msgid "Tu Respuesta"
 msgstr "Your Response"
 
 #: templates/profile/add_rating_response.html:18
-#: templates/profile/freelancer_profile.html:232
+#: templates/profile/freelancer_profile.html:276
 msgid "Enviar Respuesta"
 msgstr "Send Response"
 
@@ -586,7 +623,7 @@ msgid "Añadir Habilidades al Perfil"
 msgstr "Add Skills to Profile"
 
 #: templates/profile/add_skills.html:10
-#: templates/profile/freelancer_profile.html:48
+#: templates/profile/freelancer_profile.html:49
 msgid "Habilidades"
 msgstr "Skills"
 
@@ -633,9 +670,47 @@ msgid "Elegir"
 msgstr "Choose"
 
 #: templates/profile/calification.html:111
-#: templates/profile/freelancer_profile.html:263
+#: templates/profile/freelancer_profile.html:307
 msgid "Enviar Calificación"
 msgstr "Submit Rating"
+
+#: templates/profile/company_profile.html:11
+#| msgid "Foto de Perfil"
+msgid "Foto de"
+msgstr "Profile Picture"
+
+#: templates/profile/company_profile.html:22
+msgid "Vertical:"
+msgstr "Vertical: "
+
+#: templates/profile/company_profile.html:27
+#| msgid "Dirección"
+msgid "Dirección:"
+msgstr "Address"
+
+#: templates/profile/company_profile.html:35
+#| msgid "Representante Legal"
+msgid "Representante Legal:"
+msgstr "Legal Representative"
+
+#: templates/profile/company_profile.html:40
+#| msgid "Teléfono"
+msgid "Teléfono:"
+msgstr "Phone"
+
+#: templates/profile/company_profile.html:45
+msgid "NIT:"
+msgstr "NIT: "
+
+#: templates/profile/company_profile.html:50
+#| msgid "Correo Electrónico"
+msgid "Correo Electrónico:"
+msgstr "Email"
+
+#: templates/profile/company_profile.html:59
+#| msgid "Mi Perfil"
+msgid "Editar Perfil"
+msgstr "My Profile"
 
 #: templates/profile/edit_rating_response.html:9
 msgid "Calificación:"
@@ -645,95 +720,67 @@ msgstr "Rating:"
 msgid "Actualizar Respuesta"
 msgstr "Update Response"
 
-#: templates/profile/freelancer_profile.html:56
+#: templates/profile/freelancer_profile.html:57
 msgid "No se han agregado habilidades aún."
 msgstr "No skills have been added yet."
 
-#: templates/profile/freelancer_profile.html:64
+#: templates/profile/freelancer_profile.html:67
 msgid "Experiencia Laboral"
 msgstr "Work Experience"
 
-#: templates/profile/freelancer_profile.html:78
+#: templates/profile/freelancer_profile.html:87
 msgid "hasta:"
 msgstr "until:"
 
-#: templates/profile/freelancer_profile.html:78
+#: templates/profile/freelancer_profile.html:87
 msgid "hasta la fecha"
 msgstr "until present"
 
-#: templates/profile/freelancer_profile.html:84
+#: templates/profile/freelancer_profile.html:93
 msgid "No se ha añadido experiencia laboral aún."
 msgstr "No work experience has been added yet."
 
-#: templates/profile/freelancer_profile.html:91
+#: templates/profile/freelancer_profile.html:102
 msgid "Portafolio"
 msgstr "Portfolio"
 
-#: templates/profile/freelancer_profile.html:106
+#: templates/profile/freelancer_profile.html:128
 msgid "No hay proyectos registrados en el portafolio aún."
 msgstr "No projects have been added to the portfolio yet."
 
-#: templates/profile/freelancer_profile.html:125
+#: templates/profile/freelancer_profile.html:147
 msgid "Expedición:"
 msgstr "Issue date:"
 
-#: templates/profile/freelancer_profile.html:129
+#: templates/profile/freelancer_profile.html:151
 msgid "No se han agregado cursos aún."
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:133
+#: templates/profile/freelancer_profile.html:155
 msgid "No se ha creado un portafolio aún."
 msgstr "No portfolio has been created yet."
 
-#: templates/profile/freelancer_profile.html:139
+#: templates/profile/freelancer_profile.html:164
 msgid "Curriculum Vitae"
 msgstr "Curriculum Vitae"
 
-#: templates/profile/freelancer_profile.html:141
+#: templates/profile/freelancer_profile.html:172
 msgid "Descargar Curriculum"
 msgstr "Download Curriculum"
 
-#: templates/profile/freelancer_profile.html:143
+#: templates/profile/freelancer_profile.html:174
 msgid "No se ha subido ningún CV aún."
 msgstr "No CV has been uploaded yet."
 
-#: templates/profile/freelancer_profile.html:149
+#: templates/profile/freelancer_profile.html:180
 msgid "Calificaciones y Comentarios"
 msgstr "Ratings and Comments"
 
-#: templates/profile/freelancer_profile.html:157
-msgid "estrellas"
-msgstr "stars by"
-
-#: templates/profile/freelancer_profile.html:158
-msgid "por"
-msgstr "for"
-
-#: templates/profile/freelancer_profile.html:171
-msgid "Eliminar Calificación"
-msgstr "Delete Rating"
-
-#: templates/profile/freelancer_profile.html:179
-msgid "Respuesta:"
-msgstr "Response:"
-
-#: templates/profile/freelancer_profile.html:189
-msgid "Eliminar respuesta"
-msgstr "Delete response"
-
-#: templates/profile/freelancer_profile.html:199
-msgid "Responder a esta calificación"
-msgstr "Reply to this rating"
-
-#: templates/profile/freelancer_profile.html:205
-msgid "Sin calificaciones aún. Sé el primero en calificar."
-msgstr "No califications yet, be the first one"
-
-#: templates/profile/freelancer_profile.html:213
+#: templates/profile/freelancer_profile.html:256
 msgid "Calificar"
 msgstr "Rating:"
 
-#: templates/profile/freelancer_profile.html:241
+#: templates/profile/freelancer_profile.html:285
 msgid "Calificar a"
 msgstr "Rating:"
 
@@ -804,6 +851,7 @@ msgid "Número de identificación (CC)"
 msgstr "Identification number (ID)"
 
 #: templates/profile/register_freelancer.html:43
+#: templates/settings/account_settings.html:58
 msgid "Número de teléfono"
 msgstr "Phone number"
 
@@ -844,24 +892,20 @@ msgstr "Deliverables"
 msgid "Asignado a:"
 msgstr "Assigned to:"
 
-#: templates/projects/assigment_section.html:30
-msgid "Fecha de Finalización:"
-msgstr "Completion Date:"
-
-#: templates/projects/assigment_section.html:31
-#: templates/projects/default_project_view.html:144
+#: templates/projects/assigment_section.html:60
+#: templates/projects/default_project_view.html:116
 msgid "Estado:"
 msgstr "Status:"
 
-#: templates/projects/assigment_section.html:35
+#: templates/projects/assigment_section.html:64
 msgid "Descargar Entregable"
 msgstr "Download Deliverable"
 
-#: templates/projects/assigment_section.html:55
+#: templates/projects/assigment_section.html:84
 msgid "¿Estás seguro de borrar el entregable ?"
 msgstr "Are you sure you want to delete the deliverable?"
 
-#: templates/projects/assigment_section.html:61
+#: templates/projects/assigment_section.html:90
 #: templates/projects/create_assigment.html:51
 #: templates/projects/manage_milestone.html:45
 #: templates/projects/manage_milestone.html:94
@@ -872,7 +916,7 @@ msgid "Cancelar"
 msgstr "Cancel"
 
 #: templates/projects/calendar.html:7
-#: templates/projects/default_project_view.html:24
+#: templates/projects/default_project_view.html:27
 msgid "Calendario"
 msgstr "Calendar"
 
@@ -898,6 +942,7 @@ msgstr "Completion Date"
 #: templates/projects/create_assigment.html:53
 #: templates/projects/manage_milestone.html:96
 #: templates/projects/task_creation.html:88
+#: templates/settings/security_settings.html:34
 msgid "Guardar"
 msgstr "Save"
 
@@ -957,7 +1002,7 @@ msgid "Presupuesto:"
 msgstr "Budget:"
 
 #: templates/projects/default_project_view.html:54
-#: templates/projects/tasks.html:91
+#: templates/projects/tasks.html:102
 msgid "Editar"
 msgstr "Edit"
 
@@ -965,47 +1010,27 @@ msgstr "Edit"
 msgid "Ver Requerimientos"
 msgstr "View Requirements"
 
-#: templates/projects/default_project_view.html:65
+#: templates/projects/default_project_view.html:66
 msgid "Postularse a este proyecto"
 msgstr "Apply for this project"
 
-#: templates/projects/default_project_view.html:71
-msgid "Ver Postulaciones"
-msgstr "View Applications"
-
-#: templates/projects/default_project_view.html:79
-#: templates/projects/project_delete.html:7
-#: templates/projects/project_delete.html:16
-msgid "Eliminar Proyecto"
-msgstr "Delete Project"
-
-#: templates/projects/default_project_view.html:92
-#: templates/projects/default_project_view.html:100
-#: templates/projects/default_project_view.html:108
-msgid "Estado de la postulación: "
-msgstr "Application status: "
-
-#: templates/projects/default_project_view.html:115
-msgid "No te has postulado a este proyecto aún."
-msgstr "You haven't applied to this project yet."
-
-#: templates/projects/default_project_view.html:132
+#: templates/projects/default_project_view.html:105
 msgid "Postulaciones al Proyecto"
 msgstr "Project Applications"
 
-#: templates/projects/default_project_view.html:138
+#: templates/projects/default_project_view.html:111
 msgid "Usuario:"
 msgstr "User:"
 
-#: templates/projects/default_project_view.html:145
+#: templates/projects/default_project_view.html:117
 msgid "Fecha de Aplicación:"
 msgstr "Application Date:"
 
-#: templates/projects/default_project_view.html:157
+#: templates/projects/default_project_view.html:129
 msgid "No hay postulaciones para este proyecto."
 msgstr "There are no applications for this project."
 
-#: templates/projects/default_project_view.html:160
+#: templates/projects/default_project_view.html:132
 msgid "Cerrar"
 msgstr "Close"
 
@@ -1041,19 +1066,19 @@ msgstr "Name"
 msgid "Añadir"
 msgstr "Create"
 
-#: templates/projects/milestones.html:25
+#: templates/projects/milestones.html:29
 msgid "Fecha de Inicio: "
 msgstr "Start Date: "
 
-#: templates/projects/milestones.html:26
+#: templates/projects/milestones.html:30
 msgid "Fecha de Finalización: "
 msgstr "End Date: "
 
-#: templates/projects/milestones.html:27
+#: templates/projects/milestones.html:31
 msgid "Entregables:"
 msgstr "Deliverables:"
 
-#: templates/projects/milestones.html:32
+#: templates/projects/milestones.html:36
 msgid "Ver mas"
 msgstr "View Details"
 
@@ -1064,6 +1089,11 @@ msgstr "Budget: $"
 #: templates/projects/project_card.html:9
 msgid "Ver Detalles"
 msgstr "View Details"
+
+#: templates/projects/project_delete.html:7
+#: templates/projects/project_delete.html:16
+msgid "Eliminar Proyecto"
+msgstr "Delete Project"
 
 #: templates/projects/project_delete.html:8
 msgid "Estas seguro que deseas eliminar este proyecto "
@@ -1082,30 +1112,26 @@ msgid "Disponibles"
 msgstr "Available Projects"
 
 #: templates/projects/project_list.html:14
-#: templates/projects/project_list.html:26
+#: templates/projects/project_list.html:30
 msgid "Mis Proyectos"
 msgstr "My Projects"
 
-#: templates/projects/project_list.html:20
+#: templates/projects/project_list.html:22
 msgid "Crear Proyecto"
 msgstr "Delete Project"
 
-#: templates/projects/project_list.html:34
-#: templates/projects/project_main_view.html:26
+#: templates/projects/project_list.html:38
+#: templates/projects/project_main_view.html:28
 msgid "Sin resultados."
 msgstr "No results."
 
-#: templates/projects/project_main_view.html:19
+#: templates/projects/project_main_view.html:21
 msgid "Proyectos Disponibles"
 msgstr "Available Projects"
 
 #: templates/projects/project_requirements.html:9
 msgid "Requerimientos del Proyecto"
 msgstr "Project Requirements"
-
-#: templates/projects/project_requirements.html:22
-msgid "Volver al Proyecto"
-msgstr "Back to Project"
 
 #: templates/projects/review_applications.html:11
 msgid "Estado"
@@ -1207,47 +1233,47 @@ msgstr "In progress"
 msgid "Actualizar Estado"
 msgstr "Update"
 
-#: templates/projects/tasks.html:81
+#: templates/projects/tasks.html:92
 msgid "Descripciones Adicionales"
 msgstr "Additional Descriptions"
 
-#: templates/projects/tasks.html:95
+#: templates/projects/tasks.html:106
 msgid "No hay descripciones adicionales aún."
 msgstr "There are no additional descriptions yet."
 
-#: templates/projects/tasks.html:101
+#: templates/projects/tasks.html:112
 msgid "Escribe una descripción..."
 msgstr "Add a description"
 
-#: templates/projects/tasks.html:102
+#: templates/projects/tasks.html:113
 msgid "Agregar Descripción"
 msgstr "Edit Description"
 
-#: templates/projects/tasks.html:108
+#: templates/projects/tasks.html:119
 msgid "Archivos"
 msgstr "Files"
 
-#: templates/projects/tasks.html:118
+#: templates/projects/tasks.html:129
 msgid "No hay archivos aún."
 msgstr "There are no files yet."
 
-#: templates/projects/tasks.html:125
+#: templates/projects/tasks.html:136
 msgid "Subir Archivo"
 msgstr "Upload Files"
 
-#: templates/projects/tasks.html:131
+#: templates/projects/tasks.html:142
 msgid "Comentarios"
 msgstr "Comments"
 
-#: templates/projects/tasks.html:142
+#: templates/projects/tasks.html:153
 msgid "No hay comentarios aún."
 msgstr "There are no comments yet."
 
-#: templates/projects/tasks.html:148
+#: templates/projects/tasks.html:159
 msgid "Escribe tu comentario..."
 msgstr "Write your comment..."
 
-#: templates/projects/tasks.html:149
+#: templates/projects/tasks.html:160
 msgid "Agregar Comentario"
 msgstr "Add comment"
 
@@ -1267,6 +1293,63 @@ msgstr "Select file:"
 msgid "Subir Entregable"
 msgstr "Upload Deliverable"
 
+#: templates/settings/account_settings.html:8
+#: templates/settings/settings_navbar.html:14
+msgid "Ajustes de Cuenta"
+msgstr "account settings"
+
+#: templates/settings/account_settings.html:34
+#| msgid "Editar Descripción"
+msgid "Cambiar descripción"
+msgstr "Edit Description"
+
+#: templates/settings/account_settings.html:41
+#| msgid "Nombre"
+msgid "Nombre(s)"
+msgstr "Name"
+
+#: templates/settings/account_settings.html:46
+msgid "Apellido(s)"
+msgstr "Last Name"
+
+#: templates/settings/restore_password.html:16
+msgid "Restablecer credenciales"
+msgstr "Restore Password"
+
+#: templates/settings/restore_password.html:30
+#| msgid "¿Olvidaste tu contraseña?"
+msgid "Restablecer contraseña"
+msgstr "Forgot your password?"
+
+#: templates/settings/restore_password.html:62
+msgid "Las contraseñas no coinciden"
+msgstr "The passwords dont match"
+
+#: templates/settings/security_settings.html:8
+msgid "Seguridad e Inicio"
+msgstr "Security and Log In"
+
+#: templates/settings/security_settings.html:15
+msgid "Factor de Doble Autenticacion"
+msgstr "Double Auth"
+
+#: templates/settings/security_settings.html:21
+msgid "Activar el Factor de Doble autenticacion"
+msgstr "Activate Double Auth"
+
+#: templates/settings/security_settings.html:39
+msgid "Reestablecer credenciales"
+msgstr "Reestore my password"
+
+#: templates/settings/settings_navbar.html:23
+#| msgid "Notificaciones"
+msgid "Ajustes de Notificaciones"
+msgstr "Notifications"
+
+#: templates/settings/settings_navbar.html:41
+msgid "Chat"
+msgstr "Chat"
+
 #: user/LoginForm.py:14
 msgid "Username is empty"
 msgstr "Username is empty"
@@ -1278,6 +1361,91 @@ msgstr "Email / NIT"
 #: user/LoginForm.py:24
 msgid "Password is empty"
 msgstr "Password is empty"
+
+#: user/RestorePasswordForm.py:10 user/RestorePasswordForm.py:22
+#| msgid "Contraseña"
+msgid "Contraseña actual"
+msgstr "Password"
+
+#: user/RestorePasswordForm.py:14 user/RestorePasswordForm.py:23
+#| msgid "Contraseña"
+msgid "Nueva contraseña"
+msgstr "Password"
+
+#: user/RestorePasswordForm.py:18 user/RestorePasswordForm.py:24
+#| msgid "Confirmar Contraseña"
+msgid "Confirmar nueva contraseña"
+msgstr "Confirm Password"
+
+#: user/RestorePasswordForm.py:27
+msgid "Introduce tu contraseña actual."
+msgstr "Introduce current password"
+
+#: user/RestorePasswordForm.py:28
+msgid "La nueva contraseña debe tener al menos 8 caracteres."
+msgstr "The new password has to have at least 8 characters"
+
+#: user/RestorePasswordForm.py:29
+msgid "Introduce la misma contraseña que antes para confirmarla."
+msgstr "Introduce the same password"
+
+#: user/tests.py:49 user/tests.py:59 user/views.py:57 user/views.py:59
+msgid "Por favor revise su usuario y contraseña"
+msgstr "Please check the username and the password"
+
+#: user/tests.py:100 user/views.py:88 user/views.py:92
+msgid "OTP incorrecto"
+msgstr "Incorrect Code"
+
+#: user/tests.py:118 user/views.py:104
+msgid "Se ha actualizado con exito"
+msgstr "It was updated successfully!"
+
+#: user/views.py:43
+msgid "Verification Code"
+msgstr "Vertification COde"
+
+#: user/views.py:45
+msgid "Your verification code is: "
+msgstr "Your Vertification code is: "
+
+#: user/views.py:46
+msgid ""
+"If you did not request this, please ignore it and consider changing your "
+"credentials."
+msgstr ""
+"If you did not request this, please ignore it and consider changing your "
+"credentials."
+
+#~ msgid "estrellas"
+#~ msgstr "stars by"
+
+#~ msgid "Eliminar Calificación"
+#~ msgstr "Delete Rating"
+
+#~ msgid "Respuesta:"
+#~ msgstr "Response:"
+
+#~ msgid "Eliminar respuesta"
+#~ msgstr "Delete response"
+
+#~ msgid "Responder a esta calificación"
+#~ msgstr "Reply to this rating"
+
+#~ msgid "Sin calificaciones aún. Sé el primero en calificar."
+#~ msgstr "No califications yet, be the first one"
+
+#~ msgid "Fecha de Finalización:"
+#~ msgstr "Completion Date:"
+
+#~ msgid "Ver Postulaciones"
+#~ msgstr "View Applications"
+
+#~ msgid "Estado de la postulación: "
+#~ msgstr "Application status: "
+
+#~ msgid "No te has postulado a este proyecto aún."
+#~ msgstr "You haven't applied to this project yet."
 
 #~ msgid "La prioridad es:"
 #~ msgstr "The priority is:"
