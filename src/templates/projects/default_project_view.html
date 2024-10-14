@@ -15,6 +15,10 @@
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
             {% translate "Tareas" %}
         </a>
+        <a href="/project/{{ project.id }}/deliverable"
+           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'deliverable' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
+            {% translate "Entregables" %}
+        </a>
         <a href="/project/{{ project.id }}/time_line"
            class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
             {% translate "Línea de Tiempo" %}
