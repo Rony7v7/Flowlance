@@ -31,19 +31,19 @@
 </div>
 
 <!-- SECTION 2 - My Projects | General Progress -->
-<div class="flex flex-col gap-5 min-h-[350px] ">
+<div class="flex flex-col gap-5 h-[450px]">
 
-    <!-- SECTION 2.2 - MY PROJECTS / MY PROGRESS -->
+    <!-- SECTION 2.1 - MY PROJECTS / MY PROGRESS -->
     <div class="flex flex-row gap-5 w-full flex-1 overflow-hidden">
 
-        <!-- SECTION 2.2.1 - MY PROJECTS -->
+        <!-- SECTION 2.1.1 - MY PROJECTS -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <div class="flex justify-between items-center mb-2">
                 <p class="text-lg font-bold text-primary_black"> {% translate "Mis Proyectos" %} </p>
             </div>
             <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
                 <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
-                    {% for project in freelancer_projects %}
+                    {% for project in company_projects %}
                         <div>
                             {% include 'projects/project_card.html' with list="true" %}
                         </div>
@@ -54,35 +54,20 @@
             </div>
         </div>
 
-        <!-- SECTION 2.2.2 - MY PROGRESS -->
+        <!-- SECTION 2.1.2 - APLICATIONS PENDING -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <div class="flex justify-between items-center mb-2">
-                <p class="text-lg font-bold text-primary_black"> {% translate "Progreso General" %} </p>
+                <p class="text-lg font-bold text-primary_black"> {% translate "Postulaciones" %} </p>
             </div>
             <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto ">
-                <div class="flex items-center justify-center gap-8 m-auto h-full w-full p-4">
-                    <!-- Canvas -->
-                    <div class="relative">
-                        <canvas id="progressChart" class="w-full h-full" ></canvas>
-                        <div id="chartCenterLabel" class="absolute inset-0 flex flex-col items-center justify-center">
-                            <p class="text-2xl font-bold text-primary_black" id="tasksCount"></p>
-                            <p class="text-sm text-primary_medium">{% translate "Tareas completas" %}</p>
+                <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+                    {% for application in pending_applications %}
+                        <div>
+                            {% include 'projects/project_application_li.html' with DashboardView="true" %}
                         </div>
-                    </div>
-                
-                    <!-- Legend -->
-                    <div class="flex flex-col space-y-4">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-4 h-4 rounded-full bg-primary_medium"></span>
-                            <span class="text-primary_black">{% translate "Completas" %}</span>
-                            <span class="ml-auto text-primary_black font-semibold" id="completeCount"></span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="w-4 h-4 rounded-full bg-primary_light"></span>
-                            <span class="text-primary_black">{% translate "Pendientes" %}</span>
-                            <span class="ml-auto text-primary_black font-semibold" id="pendingCount"></span>
-                        </div>
-                    </div>
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay postulaciones pendientes." %} </p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
