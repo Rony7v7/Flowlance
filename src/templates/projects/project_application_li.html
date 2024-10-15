@@ -25,8 +25,7 @@
     {% endif %}
 
     {% if DashboardView %}
-        <a href="{% url 'project' application.project.id %}"
-            class="bg-primary_medium text-white px-3 py-1 rounded hover:bg-primary_dark">📩</a>
+        <a href="../project/{{application.project.id}}/milestones" class="bg-primary_medium text-white px-3 py-1 rounded hover:bg-primary_dark">📩</a>
     {% endif %}
 
 
