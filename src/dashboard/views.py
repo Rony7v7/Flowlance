@@ -7,6 +7,8 @@ from project.models import Project, Task
 
 from project.views.project_views import getProjectProgress
 
+from profile.models import Rating
+
 # Archivo HTML base
 building = "navigation/building.html"
 
@@ -34,7 +36,7 @@ def freelancer_dashboard(request):
     tasks_pending_count = freelancer_pending_tasks.count()
 
     for project in freelancer_projects:
-        project.pending_tasks = Task.objects.filter(responsible=request.user, milestone__project=project, state='Pendiente' ).count() #TODO: Va a causar problemas en la traducción
+        project.pending_tasks = Task.objects.filter(responsible=request.user, milestone__project=project, state='pendiente' ).count() #TODO: Va a causar problemas en la traducción
         project.progress = getProjectProgress(project.milestones.all(), Task.objects.filter(milestone__project=project))[0]
 
     freelancer_progress = [tasks_done_count, tasks_pending_count]
@@ -111,8 +113,8 @@ def company_dashboard(request):
             if freelancer not in freelancers:
                 
                 # Calculate the rating of the freelancer
-                ratings = freelancer.ratings.all()
-                rating = ratings.count()
+                ratings = Rating.objects.filter(freelancer=freelancer)
+                rating = 0
                 for rate in ratings:
                     rating += rate.stars
 
@@ -123,8 +125,22 @@ def company_dashboard(request):
 
                 freelancers.append(freelancer)
 
+    company_projects = request.user.projects.all()
+
+    pending_applications = []
+
+    # calc the progress of the projects
+    for project in company_projects:
+        project.pending_tasks = Task.objects.filter(milestone__project=project, state='pendiente' ).count()
+        project.progress = getProjectProgress(project.milestones.all(), Task.objects.filter(milestone__project=project))[0]
+        pending_applications += project.applications.filter(is_deleted=False, status='Pendiente')
+        
+
     context = {
-        'recent_freelancers': freelancers
+        'recent_freelancers': freelancers,
+        'company_projects': company_projects,
+        'pending_applications': pending_applications
+
     }
 
     return render(request, 'dashboard/company_dashboard.html', context)
