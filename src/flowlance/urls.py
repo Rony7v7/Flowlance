@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from project.views import calendar_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,6 +34,8 @@ urlpatterns = [
     path('settings/', include('settings.urls')),  # Incluye las URLs de configuración
     path("accounts/", include("allauth.urls")),  # Incluye las URLs de autenticación social
     path("i18n/", include("django.conf.urls.i18n")), #Url encargada de todas las 
+    path('all_events/', calendar_views.all_events, name='all_events'),
+
 
 ]
 

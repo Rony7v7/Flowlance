@@ -161,3 +161,11 @@ class Application(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.project.title} ({self.status})"
 
+class Events(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    start = models.DateTimeField(null=True,blank=True)
+    end = models.DateTimeField(null=True,blank=True)
+
+    def __str__(self):
+        return self.name
