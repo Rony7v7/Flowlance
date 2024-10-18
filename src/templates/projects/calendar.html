@@ -12,10 +12,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+
 <script type="text/javascript">
-    var projectId = "{{ project.id }}";
+    // Pasar los eventos como una variable JavaScript desde el contexto de Django
+    var events = {{ events|safe }};
+    
+    $(document).ready(function() {
+        var calendar = $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: events  // Cargar los eventos directamente desde Django
+        });
+    });
 </script>
-
-
-<script src="{% static 'js/project/calendar.js' %}"></script>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
 from project.forms import ProjectForm
-from project.models import Application, Milestone, Project, Task
+from project.models import Application, Milestone, Project, Task, Events
 from django.contrib import messages
 
 # Decorators
@@ -43,11 +43,11 @@ def my_projects(request):
 @attach_profile_info
 def display_project(request, project_id, section):
     try:
-
         project = get_object_or_404(
             Project.objects.only("title", "description")
             .prefetch_related(
-                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date"))
+                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date")),
+                Prefetch("events", queryset=Events.objects.all())  # Añadir eventos al proyecto
             ),
             id=project_id,
             is_deleted=False
@@ -60,8 +60,18 @@ def display_project(request, project_id, section):
 
     task_progress, milestone_progress = getProjectProgress(milestones, tasks)
 
-    # Get all applications for the project
-    applications = project.applications.filter(is_deleted=False)
+    # Obtener eventos relacionados con el proyecto
+    events = project.events.all()
+
+    # Preparar eventos en formato JSON para pasarlos al JavaScript
+    event_list = []
+    for event in events:
+        event_list.append({
+            'title': event.name,
+            'id': event.id,
+            'start': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end': event.end.strftime("%Y-%m-%dT%H:%M:%S"),
+        })
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -77,7 +87,6 @@ def display_project(request, project_id, section):
     return render(
         request,
         section_to_show,
-
         {
             "project": project,
             "tasks": tasks,
@@ -86,10 +95,12 @@ def display_project(request, project_id, section):
             "milestone_progress": milestone_progress,
             "section": section,
             "application": application,
-            "applications": applications,
             "user_is_owner": request.user == project.client,
+            "events": event_list  # Pasar la lista de eventos al template
         },
     )
+
+
 
 def getProjectProgress(milestones, tasks):
 

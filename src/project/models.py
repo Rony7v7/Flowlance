@@ -163,9 +163,10 @@ class Application(models.Model):
 
 class Events(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255,null=True,blank=True)
-    start = models.DateTimeField(null=True,blank=True)
-    end = models.DateTimeField(null=True,blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    start = models.DateTimeField(null=True, blank=True)
+    end = models.DateTimeField(null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="events")
 
     def __str__(self):
         return self.name

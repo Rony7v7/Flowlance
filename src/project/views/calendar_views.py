@@ -4,15 +4,25 @@ from django.views.decorators.csrf import csrf_exempt
 from ..models import Events
 import json
 
-
 def all_events(request):
-    all_events = Events.objects.all()
+    project_id = request.GET.get('project_id')
+    
+    try:
+        project_id = int(project_id)  # Asegúrate de que project_id sea un entero válido
+    except (TypeError, ValueError):
+        return JsonResponse({'error': 'Invalid project ID'}, status=400)
+    
+    if project_id:
+        all_events = Events.objects.filter(project_id=project_id)
+    else:
+        all_events = Events.objects.none()
+
     events = []
     for event in all_events:
         events.append({
-            'title': event.name,                                                                                         
-            'id': event.id,                                                                                              
-            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
-            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),    
+            'title': event.name,
+            'id': event.id,
+            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),
+            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),
         })
     return JsonResponse(events, safe=False)
