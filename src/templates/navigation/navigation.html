@@ -3,18 +3,43 @@
 {% block content %}
 
 <div class="flex flex-row">
-    <div class="invisible md:visible w-64 fixed">
+    <!-- Sidebar -->
+    <div class="hidden md:block w-64 fixed">
         {% include "navigation/navbar.html" %}
     </div>
+
+    <!-- Toggle button (pestaña lateral) -->
+    <div class="md:hidden fixed top-1/2 -left-4 transform -translate-y-1/2 z-50 transition-transform duration-300 ease-in-out">
+        <button id="menu-toggle" 
+            class="p-3 bg-primary_medium rounded-r-md focus:outline-none shadow-lg transform hover:scale-110 hover:translate-x-1 transition-all duration-300 ease-in-out active:scale-95">
+            <!-- Icono de hamburguesa -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Sidebar móvil (oculto por defecto) -->
+    <div id="mobile-menu" class="fixed z-40 left-0 top-0 h-full w-64 bg-white shadow-lg transform -translate-x-full md:hidden transition-transform duration-300 ease-in-out">
+        {% include "navigation/navbar.html" %}
+    </div>
+
+    <!-- Main content -->
     <div class="w-full md:pl-72 px-7 py-2">
+        {% include "navigation/top_bar_controls.html" %}
         <div class="flex flex-col gap-5">
-            {% include "navigation/top_bar_controls.html" %}
-            <!-- Aqui va el content -->
             {% block app_content %}
             {% endblock %}
-
         </div>
     </div>
 </div>
 
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('-translate-x-full');
+    });
+</script>
 {% endblock %}
