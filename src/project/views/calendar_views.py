@@ -1,4 +1,8 @@
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+
+from project.forms import EventForm
 from ..models import Events
 
 
@@ -24,3 +28,18 @@ def all_events(request):
             'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),
         })
     return JsonResponse(events, safe=False)
+
+
+@login_required
+def editar_evento(request, event_id):
+    event = get_object_or_404(Events, id=event_id)
+
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)

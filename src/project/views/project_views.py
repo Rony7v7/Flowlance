@@ -94,7 +94,7 @@ def display_project(request, project_id, section):
             "application": application,
             "user_is_owner": request.user == project.client,
             "events": event_list,
-            "form": EventForm(),  # Enviar el formulario vacío al template
+            "form": EventForm(),  
         },
     )
 

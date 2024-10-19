@@ -6,6 +6,70 @@
 {% block section %}
 <h2 class="text-2xl font-bold text-primary_black mb-5">{% translate "Calendario" %}</h2>
 
+<!-- Modal para editar eventos -->
+<div id="editEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <div class="flex justify-between mb-4">
+            <h5 class="text-lg font-bold text-primary_black">{% translate "Editar Evento" %}</h5>
+            <button class="text-gray-500 hover:text-gray-700 close-edit-modal">&times;</button>
+        </div>
+        <form id="editEventForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-primary_black font-medium" for="edit_name">{% translate "Nombre del Evento" %}</label>
+                <input type="text" name="name" id="edit_name"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Nombre del evento" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="edit_start_time">{% translate "Fecha y Hora de Inicio" %}</label>
+                <input type="datetime-local" name="start" id="edit_start_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="edit_end_time">{% translate "Fecha y Hora de Fin" %}</label>
+                <input type="datetime-local" name="end" id="edit_end_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="edit_description">{% translate "Descripción" %}</label>
+                <textarea name="description" id="edit_description" rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Descripción del evento"></textarea>
+            </div>
+
+            <!-- Campo para seleccionar el recordatorio -->
+            <div>
+                <label class="block text-primary_black font-medium" for="edit_reminder_time">{% translate "Recordatorio" %}</label>
+                <select name="reminder_time" id="edit_reminder_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium">
+                    <option value="">{% translate "Sin recordatorio" %}</option>
+                    <option value="1h">{% translate "1 hora antes" %}</option>
+                    <option value="3h">{% translate "3 horas antes" %}</option>
+                    <option value="1d">{% translate "1 día antes" %}</option>
+                    <option value="2d">{% translate "2 días antes" %}</option>
+                    <option value="1w">{% translate "1 semana antes" %}</option>
+                </select>
+            </div>
+
+            <input type="hidden" id="edit_event_id"> <!-- Para almacenar el ID del evento -->
+
+            <div class="flex justify-end space-x-4">
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">
+                    {% translate "Guardar Cambios" %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <!-- Modal personalizado usando Tailwind CSS -->
 <div id="customModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
@@ -85,11 +149,11 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: events,
+            events: '/all_events/?project_id={{ project.id }}',  // Obtener eventos del servidor
             selectable: true,  // Permitir seleccionar fechas
             selectHelper: true,
             select: function(start, end) {
-                // Abrir el modal personalizado al seleccionar una fecha vacía
+                // Abrir el modal para agregar nuevo evento
                 openModal();
                 
                 // Establecer las fechas seleccionadas en los campos del formulario
@@ -97,6 +161,11 @@
                 $('#id_end_time').val(end.format('YYYY-MM-DDTHH:mm:ss'));
             },
             editable: true,  // Permitir mover eventos si es necesario
+
+            // Función al hacer clic en un evento para editarlo
+            eventClick: function(event) {
+                openEditModal(event);  // Abrir el modal de edición
+            },
         });
 
         // Enviar el formulario de evento con AJAX
@@ -108,19 +177,57 @@
                 url: window.location.href,  // Usa la URL actual para enviar el formulario
                 data: $(this).serialize(),  // Serializa los datos del formulario
                 success: function(response) {
-                    // Cerrar el modal si la respuesta es exitosa
-                    closeModal();
-                    // Recargar el calendario para mostrar el nuevo evento
-                    $('#calendar').fullCalendar('refetchEvents');
+                    closeModal();  // Cerrar el modal si la respuesta es exitosa
+                    $('#calendar').fullCalendar('refetchEvents');  // Recargar los eventos del servidor
                 },
                 error: function(response) {
                     console.log(response.responseJSON.errors);  // Mostrar los errores en la consola
                 }
             });
         });
+
+        // Enviar el formulario de edición de evento con AJAX
+        $('#editEventForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var eventId = $('#edit_event_id').val();
+            var url = '/editar_evento/' + eventId + '/';  // Añadir la barra diagonal al final
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: $(this).serialize(),
+                success: function(response) {
+                    closeEditModal();
+                    $('#calendar').fullCalendar('refetchEvents');  // Recargar los eventos del servidor
+                },
+                error: function(response) {
+                    console.log(response.responseJSON.errors);
+                }
+            });
+        });
+
+        // Funciones para abrir y cerrar el modal de edición
+        function openEditModal(event) {
+            $('#edit_name').val(event.title);
+            $('#edit_start_time').val(moment(event.start).format('YYYY-MM-DDTHH:mm:ss'));
+            $('#edit_end_time').val(moment(event.end).format('YYYY-MM-DDTHH:mm:ss'));
+            $('#edit_description').val(event.description);
+            $('#edit_event_id').val(event.id);  // Establecer el ID del evento para la edición
+            $('#editEventModal').removeClass('hidden');
+        }
+
+        function closeEditModal() {
+            $('#editEventModal').addClass('hidden');
+        }
+
+        // Cerrar el modal de edición al hacer clic en la "X"
+        $('.close-edit-modal').on('click', function() {
+            closeEditModal();
+        });
     });
 
-    // Funciones para manejar el modal personalizado
+    // Funciones para manejar el modal de agregar evento
     function openModal() {
         document.getElementById("customModal").classList.remove("hidden");
     }
@@ -129,16 +236,16 @@
         document.getElementById("customModal").classList.add("hidden");
     }
 
-    // Cerrar el modal al hacer clic en la "X"
-    document.querySelector('.custom-close').onclick = function() {
-        closeModal();
-    }
-
-    // Cerrar el modal al hacer clic fuera del contenido
+    // Cerrar el modal de agregar evento al hacer clic fuera del contenido
     window.onclick = function(event) {
         if (event.target == document.getElementById("customModal")) {
             closeModal();
+        } else if (event.target == document.getElementById("editEventModal")) {
+            closeEditModal();
         }
     }
 </script>
+
+
+
 {% endblock %}
