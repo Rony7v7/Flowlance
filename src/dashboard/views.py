@@ -121,5 +121,4 @@ def company_dashboard(request):
         'pending_applications': pending_applications
 
     }
-
     return render(request, 'dashboard/company_dashboard.html', context)
