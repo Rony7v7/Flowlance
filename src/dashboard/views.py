@@ -66,27 +66,6 @@ def freelancer_projects_test(): # Add new TEMPORAL projects to the list
 def freelancer_pending_tasks_test(): # Add new TEMPORAL tasks to the list 
     tasks = []
 
-    """
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    responsible = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="tasks"
-    )  
-    start_date = models.DateField(default=date.today)
-    end_date = models.DateField()
-    priority = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    milestone = models.ForeignKey(
-        Milestone,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="tasks",
-    )
-    is_deleted = models.BooleanField(default=False, null=False)
-    """
-
     for i in range(10):
         task = Task()
         task.title = f'Task {i}'
