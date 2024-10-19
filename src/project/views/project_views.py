@@ -14,6 +14,11 @@ from io import BytesIO
 from project.forms import ProjectReportSettingsForm
 from project.models import  UserProjectReportSettings
 
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from io import BytesIO
+from project.models import Project, ProjectReportSettings
+from project.management.commands.generate_periodic_reports import Command as ReportCommand
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info
 
@@ -374,4 +379,25 @@ def calculate_task_progress(project):
     completed_tasks = tasks.filter(state='Completada').count()
     return (completed_tasks / total_tasks) * 100 if total_tasks > 0 else 0
 
-
+@login_required
+def download_project_report(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    
+    # Get all settings for the project
+    settings_queryset = ProjectReportSettings.objects.filter(project=project)
+    
+    if not settings_queryset.exists():
+        raise Http404("No report settings found for this project.")
+    
+    # Use the first settings object (you might want to add logic to choose the most appropriate one)
+    settings = settings_queryset.first()
+    
+    # Use the existing report generation logic
+    report_command = ReportCommand()
+    pdf_buffer = report_command.generate_report(project, settings)
+    
+    # Create the HTTP response with PDF mime type
+    response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{project.title}_report.pdf"'
+    
+    return response

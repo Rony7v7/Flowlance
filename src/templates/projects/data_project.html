@@ -1,5 +1,6 @@
 {% extends "projects/default_project_view.html" %}
 
+{% load i18n %}
 {% block section %}
 <div class="container">
     <!-- Panel de Control de Progreso -->
@@ -207,9 +208,9 @@
 
     <div class="container">
         <h1 class="text-primary_black text-2xl font-bold mt-4">Diagrama de Gantt</h1>
-    
+
         <!-- Filtro para seleccionar el hito -->
-        <div class="mt-4 mb-6">
+        <div class="mt-4 mb-4">
             <label for="milestoneFilter" class="text-lg font-medium text-primary_black">Filtrar por Hito:</label>
             <select id="milestoneFilter" class="border border-gray-300 p-2 rounded-md">
                 <option value="all">Mostrar Todos</option>
@@ -218,48 +219,20 @@
                 {% endfor %}
             </select>
         </div>
-    
+
         <!-- Contenedor del diagrama de Gantt -->
-        <div id="ganttChart" class="mt-3" style="height: 600px; width: 100%;"></div>
-    
+        <div id="ganttChart" class="mt-3 mb-8" style="height: 400px; width: 100%;"></div>
+
         <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
         <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
 
-        <div class="container">
-            <!-- Panel de Reporte PDF -->
-            <h1 class="text-primary_black text-2xl font-bold mt-4">Reporte PDF</h1>
-        
-            <div class="bg-primary_lightest p-6 rounded-lg shadow-md mt-6">
-                <h2 class="text-xl font-bold text-primary_black mb-4">Generar Informe del Proyecto</h2>
-        
-                <p class="text-lg text-gray-700 mb-6">
-                    Haz clic en el botón de abajo para generar un informe en formato PDF con los hitos, tareas y progreso del proyecto.
-                </p>
-
-                <a href="{% url 'report_settings' project.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Customize Report Settings
-                </a>
-        
-                <!-- Botón para Generar el Reporte PDF -->
-                <div class="flex justify-start">
-                    <a href="{% url 'generate_project_report' project.id %}" 
-                       class="inline-flex items-center justify-center bg-green-500 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                        Generar Reporte PDF
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-    
         <script>
-            // Crear los grupos de hitos y tareas
             var groups = new vis.DataSet([
                 {% for milestone in milestones %}
                     {id: 'milestone_{{ milestone.id }}', content: 'Hito: {{ milestone.name }}', className: 'milestone-group'},
                 {% endfor %}
             ]);
-    
-            // Crear los elementos para los hitos y las tareas
+
             var items = new vis.DataSet([
                 {% for milestone in milestones %}
                     {% for task in milestone.tasks.all %}
@@ -267,58 +240,65 @@
                     {% endfor %}
                 {% endfor %}
             ]);
-    
-            // Configuración del diagrama de Gantt
+
             var options = {
-                stack: false,  // No apilar las tareas
-                horizontalScroll: true,  // Scroll horizontal
-                showCurrentTime: true,  // Mostrar la línea de tiempo actual
-                zoomable: true,  // Permitir el zoom
-                moveable: true,  // Permitir movimiento
-                height: '400px',  // Altura del gráfico
-                margin: { 
-                    item: 10,  // Espaciado entre las tareas
-                    axis: 300   // Espacio para el eje de tiempo
-                },
-                zoomMin: 1000 * 60 * 60 * 24 * 7, // Zoom mínimo: 1 semana
-                zoomMax: 1000 * 60 * 60 * 24 * 365 * 5, // Zoom máximo: 5 años
-                orientation: { axis: "top" },  // Eje de tiempo en la parte superior
-                groupOrder: 'content',  // Ordenar los grupos por nombre
-                timeAxis: { scale: 'month', step: 1 },  // Escala de tiempo por meses
+                stack: false,
+                horizontalScroll: true,
+                showCurrentTime: true,
+                zoomable: true,
+                moveable: true,
+                height: '400px',
+                margin: { item: 10, axis: 300 },
+                zoomMin: 1000 * 60 * 60 * 24 * 7,
+                zoomMax: 1000 * 60 * 60 * 24 * 365 * 5,
+                orientation: { axis: "top" },
+                groupOrder: 'content',
+                timeAxis: { scale: 'month', step: 1 },
             };
-    
-            // Inicializar el gráfico
+
             var container = document.getElementById('ganttChart');
             var timeline = new vis.Timeline(container, items, groups, options);
-    
-            // Filtrar las tareas según el hito seleccionado
+
             document.getElementById('milestoneFilter').addEventListener('change', function () {
                 var selectedMilestone = this.value;
-    
+
                 if (selectedMilestone === 'all') {
-                    // Mostrar todas las tareas si se selecciona "Mostrar Todos"
                     timeline.setItems(items);
                     timeline.setGroups(groups);
                 } else {
-                    // Filtrar las tareas por el hito seleccionado
-                    var filteredItems = items.get({
-                        filter: function (item) {
-                            return item.group === selectedMilestone;
-                        }
-                    });
-    
-                    var filteredGroups = groups.get({
-                        filter: function (group) {
-                            return group.id === selectedMilestone;
-                        }
-                    });
-    
+                    var filteredItems = items.get({ filter: function (item) { return item.group === selectedMilestone; } });
+                    var filteredGroups = groups.get({ filter: function (group) { return group.id === selectedMilestone; } });
+
                     timeline.setItems(filteredItems);
                     timeline.setGroups(filteredGroups);
                 }
             });
         </script>
+
+        <!-- Panel de Reporte PDF -->
+        <div class="mt-4">
+            <h2 class="text-primary_black text-2xl font-bold mb-4"> {% translate "Reporte PDF" %}</h2>
+
+            <div class="bg-primary_lightest p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-primary_black mb-4">{% translate "Generar Informe del Proyecto" %}</h3>
+
+                <p class="text-lg text-gray-700 mb-6">
+                    {% translate "Haz clic en el botón de abajo para generar un informe en formato PDF con los hitos, tareas y progreso del proyecto." %}
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-start items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="{% url 'report_settings' project.id %}" 
+                    class="bg-primary_medium text-white px-6 py-3 rounded-lg shadow-md hover:bg-primary_dark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                    {% translate "Personalizar Configuración del Reporte" %}
+                    </a>
+
+                    <a href="{% url 'download_project_report' project.id %}" 
+                    class="inline-flex items-center justify-center bg-green-500 text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                    {% translate "Generar Reporte PDF" %}
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    {% endblock %}
+{% endblock %}
     
