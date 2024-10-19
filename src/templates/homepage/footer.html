@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<!-- Pie de página -->
+<div class="flex justify-between p-4 bg-gray-50 border-t border-gray-200 w-full">
+    <!-- Parte izquierda: Enlaces -->
+    <div class="space-x-4">
+        <a href="#" class="text-blue-700 hover:underline">{% translate "Términos de servicio" %}</a>
+        <a href="#" class="text-blue-700 hover:underline">{% translate "Política de privacidad" %}</a>
+        <a href="#" class="text-blue-700 hover:underline">{% translate "Sobre nosotros" %}</a>
+        <a href="#" class="text-blue-700 hover:underline">{% translate "Configuración" %}</a>
+    </div>
+
+    <!-- Parte derecha: Selector de idioma -->
+    <div>
+        <form action="{% url 'set_language' %}" method="post" class="flex items-center space-x-2">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <select name="language" class="border-none bg-gray-50 text-blue-700 focus:outline-none">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Go" class="bg-blue-700 text-white py-1 px-2 rounded-md hover:bg-blue-800">
+        </form>
+    </div>
+</div>
