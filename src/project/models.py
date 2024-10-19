@@ -166,6 +166,7 @@ class Events(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)  # Nuevo campo de descripción
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="events")
 
     def __str__(self):

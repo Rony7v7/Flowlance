@@ -8,7 +8,7 @@ def all_events(request):
     project_id = request.GET.get('project_id')
     
     try:
-        project_id = int(project_id)  # Asegúrate de que project_id sea un entero válido
+        project_id = int(project_id)  
     except (TypeError, ValueError):
         return JsonResponse({'error': 'Invalid project ID'}, status=400)
     

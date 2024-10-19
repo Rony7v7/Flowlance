@@ -5,27 +5,126 @@
 
 {% block section %}
 <h2 class="text-2xl font-bold text-primary_black mb-5">{% translate "Calendario" %}</h2>
-<div id="calendar"></div>
-<!-- Contenedor del calendario -->
 
+<!-- Modal personalizado usando Tailwind CSS -->
+<div id="customModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <div class="flex justify-between mb-4">
+            <h5 class="text-lg font-bold text-primary_black">{% translate "Agregar Evento" %}</h5>
+            <button class="text-gray-500 hover:text-gray-700 custom-close">&times;</button>
+        </div>
+        <form id="eventForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-primary_black font-medium" for="id_name">{% translate "Nombre del Evento" %}</label>
+                <input type="text" name="name" id="id_name"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Nombre del evento" required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="id_start_time">{% translate "Fecha y Hora de Inicio" %}</label>
+                <input type="datetime-local" name="start" id="id_start_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="id_end_time">{% translate "Fecha y Hora de Fin" %}</label>
+                <input type="datetime-local" name="end" id="id_end_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-primary_black font-medium" for="id_description">{% translate "Descripción" %}</label>
+                <textarea name="description" id="id_description" rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                    placeholder="Descripción del evento"></textarea>
+            </div>
+
+            <div class="flex justify-end space-x-4">
+                <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">
+                    {% translate "Guardar" %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="calendar"></div>
+
+<!-- Incluir jQuery, FullCalendar y Moment.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 
 <script type="text/javascript">
-    // Pasar los eventos como una variable JavaScript desde el contexto de Django
     var events = {{ events|safe }};
-    
+
     $(document).ready(function() {
-        var calendar = $('#calendar').fullCalendar({
+        $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: events  // Cargar los eventos directamente desde Django
+            events: events,
+            selectable: true,  // Permitir seleccionar fechas
+            selectHelper: true,
+            select: function(start, end) {
+                // Abrir el modal personalizado al seleccionar una fecha vacía
+                openModal();
+                
+                // Establecer las fechas seleccionadas en los campos del formulario
+                $('#id_start_time').val(start.format('YYYY-MM-DDTHH:mm:ss'));
+                $('#id_end_time').val(end.format('YYYY-MM-DDTHH:mm:ss'));
+            },
+            editable: true,  // Permitir mover eventos si es necesario
+        });
+
+        // Enviar el formulario de evento con AJAX
+        $('#eventForm').on('submit', function(e) {
+            e.preventDefault();  // Prevenir el envío normal del formulario
+            
+            $.ajax({
+                type: 'POST',
+                url: window.location.href,  // Usa la URL actual para enviar el formulario
+                data: $(this).serialize(),  // Serializa los datos del formulario
+                success: function(response) {
+                    // Cerrar el modal si la respuesta es exitosa
+                    closeModal();
+                    // Recargar el calendario para mostrar el nuevo evento
+                    $('#calendar').fullCalendar('refetchEvents');
+                },
+                error: function(response) {
+                    console.log(response.responseJSON.errors);  // Mostrar los errores en la consola
+                }
+            });
         });
     });
+
+    // Funciones para manejar el modal personalizado
+    function openModal() {
+        document.getElementById("customModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+        document.getElementById("customModal").classList.add("hidden");
+    }
+
+    // Cerrar el modal al hacer clic en la "X"
+    document.querySelector('.custom-close').onclick = function() {
+        closeModal();
+    }
+
+    // Cerrar el modal al hacer clic fuera del contenido
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("customModal")) {
+            closeModal();
+        }
+    }
 </script>
 {% endblock %}

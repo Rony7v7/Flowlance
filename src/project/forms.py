@@ -1,6 +1,15 @@
 from django import forms
-from .models import Project
+from .models import Project, Events
 from django.utils.translation import gettext as _
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Events
+        fields = ['name', 'start', 'end', 'description']  
+        widgets = {
+            'start': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 
 class ProjectForm(forms.ModelForm):
     class Meta:
