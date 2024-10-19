@@ -35,7 +35,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),  # Incluye las URLs de autenticación social
     path("i18n/", include("django.conf.urls.i18n")), #Url encargada de todas las 
     path('all_events/', calendar_views.all_events, name='all_events'),
-    path('editar_evento/<int:event_id>/', calendar_views.editar_evento, name='editar_evento'),
+    path('edit_event/<int:event_id>/', calendar_views.edit_event, name='edit_event'),
 
 
 ]

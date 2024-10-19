@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
 from project.forms import ProjectForm, EventForm
-from project.models import Application, Milestone, Project, Task, Events
+from project.models import Application, Milestone, Project, Task
 from django.contrib import messages
 
 # Decorators
@@ -49,9 +49,9 @@ def display_project(request, project_id, section):
             event = form.save(commit=False)
             event.project = project
             event.save()
-            return JsonResponse({'status': 'success'}, status=200)  # Responder con éxito
+            return JsonResponse({'status': 'success'}, status=200)  
         else:
-            return JsonResponse({'errors': form.errors}, status=400)  # Responder con errores
+            return JsonResponse({'errors': form.errors}, status=400) 
 
     milestones = project.milestones.filter(is_deleted=False)
     tasks = Task.objects.filter(milestone__in=milestones)

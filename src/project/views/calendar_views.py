@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 from project.forms import EventForm
-from ..models import Events
+from ..models import Event
 
 
 def all_events(request):
@@ -15,9 +15,9 @@ def all_events(request):
         return JsonResponse({'error': 'Invalid project ID'}, status=400)
     
     if project_id:
-        all_events = Events.objects.filter(project_id=project_id)
+        all_events = Event.objects.filter(project_id=project_id)
     else:
-        all_events = Events.objects.none()
+        all_events = Event.objects.none()
 
     events = []
     for event in all_events:
@@ -31,8 +31,8 @@ def all_events(request):
 
 
 @login_required
-def editar_evento(request, event_id):
-    event = get_object_or_404(Events, id=event_id)
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
 
     if request.method == "POST":
         form = EventForm(request.POST, instance=event)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Milestone, Task, TimelineChange, Comment, Assigment, TaskDescription, Application, Events
+from .models import Project, Milestone, Task, TimelineChange, Comment, Assigment, TaskDescription, Application, Event
 
 # Register your models here.
 
@@ -11,4 +11,4 @@ admin.site.register(Comment)
 admin.site.register(Assigment)
 admin.site.register(TaskDescription)
 admin.site.register(Application)
-admin.site.register(Events)
+admin.site.register(Event)

@@ -6,7 +6,7 @@
 {% block section %}
 <h2 class="text-2xl font-bold text-primary_black mb-5">{% translate "Calendario" %}</h2>
 
-<!-- Modal para editar eventos -->
+<!-- Modal for editing events -->
 <div id="editEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
         <div class="flex justify-between mb-4">
@@ -44,7 +44,7 @@
                     placeholder="Descripción del evento"></textarea>
             </div>
 
-            <!-- Campo para seleccionar el recordatorio -->
+            <!-- Field to select reminder -->
             <div>
                 <label class="block text-primary_black font-medium" for="edit_reminder_time">{% translate "Recordatorio" %}</label>
                 <select name="reminder_time" id="edit_reminder_time"
@@ -58,7 +58,7 @@
                 </select>
             </div>
 
-            <input type="hidden" id="edit_event_id"> <!-- Para almacenar el ID del evento -->
+            <input type="hidden" id="edit_event_id"> <!-- Hidden field to store event ID -->
 
             <div class="flex justify-end space-x-4">
                 <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">
@@ -70,7 +70,7 @@
 </div>
 
 
-<!-- Modal personalizado usando Tailwind CSS -->
+<!-- Modal for adding events using Tailwind CSS -->
 <div id="customModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
         <div class="flex justify-between mb-4">
@@ -108,7 +108,7 @@
                     placeholder="Descripción del evento"></textarea>
             </div>
 
-            <!-- Campo para seleccionar el recordatorio -->
+            <!-- Field to select reminder -->
             <div>
                 <label class="block text-primary_black font-medium" for="id_reminder_time">{% translate "Recordatorio" %}</label>
                 <select name="reminder_time" id="id_reminder_time"
@@ -133,118 +133,17 @@
 
 <div id="calendar"></div>
 
-<!-- Incluir jQuery, FullCalendar y Moment.js -->
+<!-- Include jQuery, FullCalendar, and Moment.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 
-<script type="text/javascript">
-    var events = {{ events|safe }};
-
-    $(document).ready(function() {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            events: '/all_events/?project_id={{ project.id }}',  // Obtener eventos del servidor
-            selectable: true,  // Permitir seleccionar fechas
-            selectHelper: true,
-            select: function(start, end) {
-                // Abrir el modal para agregar nuevo evento
-                openModal();
-                
-                // Establecer las fechas seleccionadas en los campos del formulario
-                $('#id_start_time').val(start.format('YYYY-MM-DDTHH:mm:ss'));
-                $('#id_end_time').val(end.format('YYYY-MM-DDTHH:mm:ss'));
-            },
-            editable: true,  // Permitir mover eventos si es necesario
-
-            // Función al hacer clic en un evento para editarlo
-            eventClick: function(event) {
-                openEditModal(event);  // Abrir el modal de edición
-            },
-        });
-
-        // Enviar el formulario de evento con AJAX
-        $('#eventForm').on('submit', function(e) {
-            e.preventDefault();  // Prevenir el envío normal del formulario
-            
-            $.ajax({
-                type: 'POST',
-                url: window.location.href,  // Usa la URL actual para enviar el formulario
-                data: $(this).serialize(),  // Serializa los datos del formulario
-                success: function(response) {
-                    closeModal();  // Cerrar el modal si la respuesta es exitosa
-                    $('#calendar').fullCalendar('refetchEvents');  // Recargar los eventos del servidor
-                },
-                error: function(response) {
-                    console.log(response.responseJSON.errors);  // Mostrar los errores en la consola
-                }
-            });
-        });
-
-        // Enviar el formulario de edición de evento con AJAX
-        $('#editEventForm').on('submit', function(e) {
-            e.preventDefault();
-
-            var eventId = $('#edit_event_id').val();
-            var url = '/editar_evento/' + eventId + '/';  // Añadir la barra diagonal al final
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: $(this).serialize(),
-                success: function(response) {
-                    closeEditModal();
-                    $('#calendar').fullCalendar('refetchEvents');  // Recargar los eventos del servidor
-                },
-                error: function(response) {
-                    console.log(response.responseJSON.errors);
-                }
-            });
-        });
-
-        // Funciones para abrir y cerrar el modal de edición
-        function openEditModal(event) {
-            $('#edit_name').val(event.title);
-            $('#edit_start_time').val(moment(event.start).format('YYYY-MM-DDTHH:mm:ss'));
-            $('#edit_end_time').val(moment(event.end).format('YYYY-MM-DDTHH:mm:ss'));
-            $('#edit_description').val(event.description);
-            $('#edit_event_id').val(event.id);  // Establecer el ID del evento para la edición
-            $('#editEventModal').removeClass('hidden');
-        }
-
-        function closeEditModal() {
-            $('#editEventModal').addClass('hidden');
-        }
-
-        // Cerrar el modal de edición al hacer clic en la "X"
-        $('.close-edit-modal').on('click', function() {
-            closeEditModal();
-        });
-    });
-
-    // Funciones para manejar el modal de agregar evento
-    function openModal() {
-        document.getElementById("customModal").classList.remove("hidden");
-    }
-
-    function closeModal() {
-        document.getElementById("customModal").classList.add("hidden");
-    }
-
-    // Cerrar el modal de agregar evento al hacer clic fuera del contenido
-    window.onclick = function(event) {
-        if (event.target == document.getElementById("customModal")) {
-            closeModal();
-        } else if (event.target == document.getElementById("editEventModal")) {
-            closeEditModal();
-        }
-    }
+<script>
+    var calendarEventsUrl = '/all_events/?project_id={{ project.id }}';
 </script>
+
+<script src="{% static 'js\project\calendar.js' %}"></script>
 
 
 
