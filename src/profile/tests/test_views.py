@@ -2,9 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from ..models import (
-    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, Notification
+    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, Notification, CompanyProfile
 )
-from ..forms import AddSkillsForm, AddWorkExperienceForm, RatingForm, RatingResponseForm
+from ..forms import AddSkillsForm, AddWorkExperienceForm, RatingForm
 
 
 class FreelancerPlatformTest(TestCase):
@@ -48,16 +48,27 @@ class FreelancerPlatformTest(TestCase):
         )
 
     def test_view_own_freelancer_profile(self):
-        response = self.client.get(reverse('freelancer_profile',args=[self.user.username]))
+        response = self.client.get(reverse('my_profile'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile/freelancer_profile.html')
         self.assertContains(response, self.profile.user.username)
 
-    def test_view_other_user_freelancer_profile(self):
-        response = self.client.get(reverse('freelancer_profile_view', args=[self.other_user.username]))
+    def test_view_other_user_freelancer_profile_as_company(self):
+        # Create a client user with a CompanyProfile
+        self.company_user = User.objects.create_user(username='company_user', password='password123')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+
+        # Iniciar sesión con la empresa
+        self.client.login(username='company_user', password='password123')
+
+        # Perform GET request to view the freelancer profile of another user
+        response = self.client.get(reverse('freelancer_profile_view', args=[self.other_profile.user.username]))
+
+        # Check the response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile/freelancer_profile.html')
         self.assertContains(response, self.other_profile.user.username)
+
 
     def test_view_notifications(self):
         response = self.client.get(reverse('notifications'))
@@ -74,7 +85,7 @@ class FreelancerPlatformTest(TestCase):
     def test_add_skills_view_post(self):
         skill = Skill.objects.create(name='Python', is_custom=False)
         response = self.client.post(reverse('add_skills'), {'predefined_skills': [skill.id]})
-        self.assertRedirects(response, reverse('freelancer_profile', args=[self.user.username]))
+        self.assertRedirects(response, reverse('my_profile'))
         self.assertIn(skill, self.profile.skills.all())
 
     def test_add_experience_view_get(self):
@@ -92,7 +103,7 @@ class FreelancerPlatformTest(TestCase):
             'description': 'Developed software'
         }
         response = self.client.post(reverse('add_experience'), form_data)
-        self.assertRedirects(response, reverse('freelancer_profile',args=[self.user.username]))
+        self.assertRedirects(response, reverse('my_profile'))
         self.assertTrue(WorkExperience.objects.filter(title='Developer').exists())
 
     def test_add_rating_view_get(self):
