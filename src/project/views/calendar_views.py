@@ -1,8 +1,6 @@
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from ..models import Events
-import json
+
 
 def all_events(request):
     project_id = request.GET.get('project_id')

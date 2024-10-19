@@ -166,8 +166,9 @@ class Events(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)  # Nuevo campo de descripción
+    description = models.TextField(null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="events")
+    reminder_time = models.CharField(max_length=50, null=True, blank=True)  
 
     def __str__(self):
         return self.name

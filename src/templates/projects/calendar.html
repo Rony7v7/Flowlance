@@ -44,6 +44,20 @@
                     placeholder="Descripción del evento"></textarea>
             </div>
 
+            <!-- Campo para seleccionar el recordatorio -->
+            <div>
+                <label class="block text-primary_black font-medium" for="id_reminder_time">{% translate "Recordatorio" %}</label>
+                <select name="reminder_time" id="id_reminder_time"
+                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium">
+                    <option value="">{% translate "Sin recordatorio" %}</option>
+                    <option value="1h">{% translate "1 hora antes" %}</option>
+                    <option value="3h">{% translate "3 horas antes" %}</option>
+                    <option value="1d">{% translate "1 día antes" %}</option>
+                    <option value="2d">{% translate "2 días antes" %}</option>
+                    <option value="1w">{% translate "1 semana antes" %}</option>
+                </select>
+            </div>
+
             <div class="flex justify-end space-x-4">
                 <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark">
                     {% translate "Guardar" %}
