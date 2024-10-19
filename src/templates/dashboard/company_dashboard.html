@@ -1,0 +1,142 @@
+{% extends 'navigation/navigation.html' %}
+
+{% load i18n %}
+{% block app_content %}
+
+<!-- SECTION 1 - Recent Collaborators -->
+<div class="flex flex-col gap-2">
+
+    <!-- TITLE-->
+    <div class="flex justify-between items-center">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Colaboradores Recientes" %} </p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="bg-bg_gray rounded-xl min-h-[150px] overflow-x-auto">
+        <div class="flex gap-4 p-4 rounded-xl">
+            {% for freelancer in recent_freelancers %}
+            
+            <div class="">
+                {% include 'profile/profile_card.html' %}
+            </div>
+
+            {% empty %}
+        
+            <p class="text-gray-500 text-center w-full"> {% translate "No hay contactos disponibles." %} </p>
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<!-- SECTION 2 - My Projects | General Progress -->
+<div class="flex flex-col gap-5 h-[450px]">
+
+    <!-- SECTION 2.1 - MY PROJECTS / MY PROGRESS -->
+    <div class="flex flex-row gap-5 w-full flex-1 overflow-hidden">
+
+        <!-- SECTION 2.1.1 - MY PROJECTS -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-lg font-bold text-primary_black"> {% translate "Mis Proyectos" %} </p>
+            </div>
+            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
+                <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+                    {% for project in company_projects %}
+                        <div>
+                            {% include 'projects/project_card.html' with list="true" %}
+                        </div>
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay proyectos disponibles." %} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2.1.2 - APLICATIONS PENDING -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-lg font-bold text-primary_black"> {% translate "Postulaciones" %} </p>
+            </div>
+            <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto ">
+                <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+                    {% for application in pending_applications %}
+                        <div>
+                            {% include 'projects/project_application_li.html' with DashboardView="true" %}
+                        </div>
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay postulaciones pendientes." %} </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SECTION 3 - SUCCESS ANALISIS -->
+<div class="w-full flex-1 flex flex-col overflow-hidden">
+    <div class="flex justify-between items-center mb-2">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Análisis de éxito" %} </p>
+    </div>
+    <div class="bg-bg_gray rounded-xl flex-1 overflow-y-auto">
+        <div class="flex flex-col gap-4 p-4 rounded-xl h-full">
+
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 4 - FINANCE -->
+<div class="flex flex-col gap-2">
+
+    <div class="flex justify-between items-center">
+        <p class="text-lg font-bold text-primary_black"> {% translate "Estado Financiero" %} </p>
+    </div>
+
+    <div class="bg-bg_gray rounded-xl h-96 gap-4 p-4 flex flex-col">
+
+        <!-- SECTION 3.1 - BALANCE -->
+        <div class="bg-bg_white rounded-lg flex-1 p-3">
+            <p>{% translate "Balance General" %}</p>
+        </div>
+
+        <!-- SECTION 3.2 - LAST TRANSACTIONS / PENDING PAYMENTS -->
+        <div class="flex gap-8 flex-1 ">
+
+            <!-- SECTION 3.2.1 - LAST TRANSACTIONS -->
+            <div class="flex-1 bg-bg_white p-3 rounded-lg">
+                <p>{% translate "Últimos Movimientos" %}</p>
+
+                <div>
+                    {% for transaction in last_transactions %}
+                        {% include 'projects/transaction_card.html' %}
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay movimientos recientes." %} </p>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <!-- SECTION 3.2.2 - PENDING PAYMENTS -->
+            <div class="flex-1 bg-bg_white p-3 rounded-lg">
+                <p>{%translate "Pagos Pendientes"%}</p>
+
+                <div>
+                    {% for payment in pending_payments %}
+                        {% include 'projects/payment_card.html' %}
+                    {% empty %}
+                        <p class="text-gray-500 text-center w-full"> {% translate "No hay pagos pendientes." %} </p>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
