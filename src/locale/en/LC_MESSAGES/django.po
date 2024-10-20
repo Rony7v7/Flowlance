@@ -97,7 +97,8 @@ msgstr "Project Image"
 msgid "Sube tu CV (PDF)"
 msgstr "Upload your CV (PDF)"
 
-#: .\src\profile\forms.py:63 .\src\templates\profile\add_skills.html:21
+
+#: profile\forms.py:63 .\src\templates\profile\customize_profile.html:21
 msgid "Habilidades Predeterminadas"
 msgstr "Default Skills"
 
@@ -683,10 +684,10 @@ msgstr "Here you can add information about your work experience."
 #: .\src\templates\profile\add_experience.html:66
 msgid "¿Deseas seguir agregando experiencia?"
 msgstr "Would you like to keep adding experience?"
-
 #: .\src\templates\profile\add_experience.html:68
 #: .\src\templates\profile\add_project.html:151
-#: .\src\templates\profile\add_skills.html:57
+#: templates/profile/add_experience.html:68
+#: templates/profile/add_project.html:151 templates/profile/customize_profile.html:57
 msgid "Sí"
 msgstr "Yes"
 
@@ -759,34 +760,35 @@ msgstr "Your Response"
 msgid "Enviar Respuesta"
 msgstr "Send Response"
 
-#: .\src\templates\profile\add_skills.html:9
+
+#: templates/profile/customize_profile.html:9
 msgid "Añadir Habilidades al Perfil"
 msgstr "Add Skills to Profile"
 
-#: .\src\templates\profile\add_skills.html:10
-#: .\src\templates\profile\freelancer_profile.html:49
+#: templates/profile/customize_profile.html:10
+#: templates/profile/freelancer_profile.html:49
 msgid "Habilidades"
 msgstr "Skills"
 
-#: .\src\templates\profile\add_skills.html:12
+#: templates/profile/customize_profile.html:12
 msgid ""
 "Aquí puedes agregar habilidades predeterminadas y personalizadas a tu "
 "perfil. "
 msgstr "Here you can add predefined and custom skills to your profile."
 
-#: .\src\templates\profile\add_skills.html:23
+#: templates/profile/customize_profile.html:23
 msgid "Ya tienes todas las habilidades predeterminadas"
 msgstr "You already have all predefined skills"
 
-#: .\src\templates\profile\add_skills.html:36
+#: templates/profile/customize_profile.html:36
 msgid "Guardar Habilidades"
 msgstr "Save Skills"
 
-#: .\src\templates\profile\add_skills.html:38
+#: templates/profile/customize_profile.html:38
 msgid "</div>"
 msgstr "</div>"
 
-#: .\src\templates\profile\add_skills.html:55
+#: templates/profile/customize_profile.html:55
 msgid "¿Deseas seguir agregando habilidades?"
 msgstr "Would you like to keep adding skills?"
 

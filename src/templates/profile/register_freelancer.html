@@ -149,7 +149,7 @@
             }
 
             acceptButton.addEventListener('click', function() {
-                window.location.href = "/dashboard/";
+                window.location.href = "{% url 'customize_profile' %}";
             });
 
             document.getElementById('id_photo').addEventListener('change', function () {
