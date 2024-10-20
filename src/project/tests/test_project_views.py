@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from ..models import Project, Milestone, Application
 from profile.models import FreelancerProfile, CompanyProfile
 from project.forms import ProjectForm
-
+from project.models import ProjectMember
 
 class ProjectViewsTest(TestCase):
     def setUp(self):
@@ -31,6 +31,13 @@ class ProjectViewsTest(TestCase):
             description="Milestone Description",
             end_date="2024-11-30",
             project=self.project
+        )
+
+        ProjectMember.objects.create(
+            project = self.project,
+            user = self.company_user,
+            role = "administrator",
+            is_owner = True
         )
 
     def test_create_project_GET(self):
