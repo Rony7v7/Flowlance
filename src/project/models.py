@@ -19,6 +19,28 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+class ProjectUpdate(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='updates')
+    content = models.TextField()
+    is_important = models.BooleanField(default=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class UpdateComment(models.Model):
+    update = models.ForeignKey(ProjectUpdate, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment by {self.user.username} on {self.update.content[:20]}'
+
+
+
 
 class ProjectMember(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="memberships")

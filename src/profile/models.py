@@ -126,6 +126,7 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.client.username}'s rating for {self.freelancer.user.username}"
 
+
 class RatingResponse(models.Model):
     rating = models.OneToOneField(Rating, on_delete=models.CASCADE, related_name='response')
     response_text = models.TextField()
