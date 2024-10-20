@@ -63,7 +63,7 @@
         </ul>
 
         <!-- Formulario para agregar comentario -->
-        <form method="POST" action="{% url 'add_comment' update.id %}" class="mt-2">
+        <form method="POST" action="{% url 'add_comments' update.id %}" class="mt-2">
             {% csrf_token %}
             <textarea name="content" class="w-full border p-2 rounded" placeholder="Escribe tu comentario..."
                 required></textarea>
