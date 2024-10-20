@@ -23,15 +23,21 @@ class Project(models.Model):
 
 
 class ProjectUpdate(models.Model):
-    project = models.ForeignKey(Project, related_name="updates", on_delete=models.CASCADE)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='updates')
     content = models.TextField()
     is_important = models.BooleanField(default=False)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)  # null=False (esto evita valores nulos)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class UpdateComment(models.Model):
+    update = models.ForeignKey(ProjectUpdate, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return f'{self.project.title} - {self.content[:20]}'
+        return f'Comment by {self.user.username} on {self.update.content[:20]}'
 
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
 from project.forms import ProjectForm, ProjectUpdateForm
-from project.models import Application, Milestone, Project, Task, ProjectUpdate
+from project.models import Application, Milestone, Project, Task, ProjectUpdate, UpdateComment
 from django.contrib import messages
 
 @login_required
@@ -168,7 +168,18 @@ def add_project_update(request, project_id):
 
     return render(request, 'projects/add_update.html', {'form': form, 'project': project})
 
-
+@login_required
+def add_comment(request, update_id):
+    update = get_object_or_404(ProjectUpdate, id=update_id)
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            UpdateComment.objects.create(
+                update=update,
+                user=request.user,
+                content=content,
+            )
+    return redirect('project', project_id=update.project.id, section='updates')
 
 
 
