@@ -178,6 +178,9 @@ class UserProjectReportSettings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     report_settings = models.ForeignKey(ProjectReportSettings, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ('user', 'report_settings')
+
 class Event(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, null=True, blank=True)
@@ -189,6 +192,3 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        unique_together = ('user', 'report_settings')
