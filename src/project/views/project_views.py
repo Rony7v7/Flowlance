@@ -6,6 +6,8 @@ from django.urls import reverse
 from profile.models import Notification
 from project.forms import ProjectForm, EventForm
 from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings
+from project.forms import ProjectForm, ProjectUpdateForm
+from project.models import Application, Milestone, Project, Task, ProjectUpdate, UpdateComment, Task
 from django.contrib import messages
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
@@ -60,7 +62,7 @@ def display_project(request, project_id, section):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
-            event = form.save(commit=False)
+            event = form.save(commit=False) 
             event.project = project
             event.save()
             return JsonResponse({'status': 'success'}, status=200)  
@@ -84,6 +86,25 @@ def display_project(request, project_id, section):
         for event in events
     ]
 
+
+
+
+
+    
+    if section == "updates":
+        updates = ProjectUpdate.objects.filter(project=project).order_by('-created_at')
+    else:
+        updates = None
+
+    
+    show_important = request.GET.get('show_important', 'false').lower() == 'true'
+
+    
+    if show_important:
+        updates = ProjectUpdate.objects.filter(project=project, is_important=True)
+    else:
+        updates = ProjectUpdate.objects.filter(project=project)
+
     sections_map = {
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
@@ -92,6 +113,7 @@ def display_project(request, project_id, section):
         "data_project": "projects/data_project.html",
         "deliverable" : "projects/deliverables.html",
         "members" : "projects/project_members.html",
+        "updates": "projects/updates.html",
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
@@ -115,6 +137,8 @@ def display_project(request, project_id, section):
             "user_is_member": project.memberships.filter(user=request.user, role="member").exists(),
             "user_is_viewer": project.memberships.filter(user=request.user, role="viewer").exists(),
             "members": project.memberships.filter(is_deleted=False),
+            "updates": updates,
+            "show_important": show_important,  
         },
     )
 
@@ -136,6 +160,69 @@ def getProjectProgress(milestones, tasks):
     milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
 
     return task_progress, milestone_progress
+    
+
+
+
+@login_required
+def project_updates(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        is_important = request.POST.get('is_important') == 'on'
+
+        if content:
+            update = ProjectUpdate.objects.create(
+                project=project,
+                content=content,
+                is_important=is_important,
+                author=request.user  # Asegúrate de que el campo 'author' esté correctamente definido en tu modelo
+            )
+            update.save()
+
+        return redirect('project', project_id=project.id, section='updates')
+
+    updates = project.updates.all()
+
+    context = {
+        'project': project,
+        'updates': updates,
+    }
+    
+    return render(request, 'projects/updates.html', context)
+
+
+@login_required
+def add_project_update(request, project_id):
+    project = Project.objects.get(id=project_id)
+
+    if request.method == 'POST':
+        form = ProjectUpdateForm(request.POST)
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.project = project
+            update.author = request.user
+            update.save()
+            return redirect('project', project_id=project.id, section='updates')
+    else:
+        form = ProjectUpdateForm()
+
+    return render(request, 'projects/add_update.html', {'form': form, 'project': project})
+
+@login_required
+def add_comment(request, update_id):
+    update = get_object_or_404(ProjectUpdate, id=update_id)
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            UpdateComment.objects.create(
+                update=update,
+                user=request.user,
+                content=content,
+            )
+    return redirect('project', project_id=update.project.id, section='updates')
+
 
 
 @login_required

@@ -69,6 +69,7 @@ class ProjectForm(forms.ModelForm):
                     "placeholder": "presupuesto del proyecto",
                 }
             ),
+            
         }
 
 
@@ -86,3 +87,10 @@ class ProjectReportSettingsForm(forms.ModelForm):
         widgets = {
             'report_frequency': forms.Select(choices=ProjectReportSettings.report_frequency.field.choices)
         }
+
+from .models import ProjectUpdate
+
+class ProjectUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ProjectUpdate
+        fields = ['content', 'is_important']  

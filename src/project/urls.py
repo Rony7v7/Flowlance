@@ -34,5 +34,11 @@ urlpatterns = [
     path('download-report/<int:project_id>/', project_views.download_project_report, name='download_project_report'),
     path('update_role/<int:member_id>/', members_views.update_role, name='update_role'),
     path('delete_member/<int:member_id>/', members_views.delete_member, name='delete_member'),
+    path('<int:project_id>/updates', project_views.project_updates, name='project_updates'),
+    path('<int:project_id>/updates', project_views.add_project_update, name='project_updates'),
+    path('project/<int:project_id>/updates/add/', project_views.add_project_update, name='add_project_update'),
+    path('project/<int:update_id>/add_comment/', project_views.add_comment, name='add_comment'),
+
+
 ]
 
