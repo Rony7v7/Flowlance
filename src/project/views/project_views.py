@@ -84,6 +84,15 @@ def display_project(request, project_id, section):
     else:
         updates = None
 
+    # Obtener el parámetro GET que indica si se muestran solo las importantes
+    show_important = request.GET.get('show_important', 'false').lower() == 'true'
+
+    # Filtrar actualizaciones según el parámetro
+    if show_important:
+        updates = ProjectUpdate.objects.filter(project=project, is_important=True)
+    else:
+        updates = ProjectUpdate.objects.filter(project=project)
+
     sections_map = {
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
@@ -106,7 +115,8 @@ def display_project(request, project_id, section):
             "task_progress": task_progress,
             "milestone_progress": milestone_progress,
             "section": section,
-            "updates": updates,  # Pasar las actualizaciones al contexto si se selecciona "updates"
+            "updates": updates,
+            "show_important": show_important,  # Pasar las actualizaciones al contexto si se selecciona "updates"
         },
     )
 

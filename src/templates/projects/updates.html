@@ -13,31 +13,42 @@
             <input type="checkbox" name="is_important" id="is_important" class="mr-2">
             <label for="is_important" class="font-semibold text-primary_black">Marcar como importante</label>
         </div>
-        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-4 hover:bg-primary_dark transition-colors">
             <form method="post" action="{% url 'add_project_update' project.id %}">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Publicar actualización</button>
-            </form>            
-        </button>
+                <button type="submit" class="bg-primary_medium text-white px-6 py-3 rounded-lg mt-4 hover:bg-primary_dark transition-colors" type="submit">Publicar actualización</button>
+            </form>
+
+        
     </form>
+
+    <div class="mt-4">
+        {% if show_important %}
+            <a href="?show_important=false" class="text-blue-500 hover:text-blue-700">Ver todas las actualizaciones</a>
+        {% else %}
+            <a href="?show_important=true" class="text-blue-500 hover:text-blue-700">Ver solo las importantes</a>
+        {% endif %}
+    </div>
 
     <!-- Mostrar las actualizaciones -->
     {% if updates %}
         <div class="space-y-4 mt-4">
             {% for update in updates %}
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <div class="flex justify-between items-center">
-                        <h4 class="text-md font-semibold text-primary_black">
-                            {% if update.is_important %}
-                                <span class="text-red-500">[IMPORTANTE]</span>
-                            {% endif %}
-                            {{ update.content }}
-                        </h4>
-                        <span class="text-sm text-gray-500">{{ update.created_at|date:"d M Y, H:i" }}</span>
-                    </div>
-                </div>
-            {% endfor %}
+    <div class="bg-white p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
+            <h4 class="text-md font-semibold text-primary_black">
+                {% if update.is_important %}
+                    <span class="text-red-500">[IMPORTANTE]</span>
+                {% endif %}
+                {{ update.content }}
+            </h4>
+            <span class="text-sm text-gray-500">{{ update.created_at|date:"d M Y, H:i" }}</span>
+        </div>
+        <p class="mt-2">{{ update.details }}</p>
+        <p class="mt-2 text-sm text-gray-600">Autor: {{ update.author.username }}</p> <!-- Aquí mostramos el autor -->
+    </div>
+{% endfor %}
+
         </div>
     {% else %}
         <p class="text-gray-500">No hay actualizaciones aún.</p>
