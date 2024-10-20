@@ -68,13 +68,13 @@
 
 <script>
     function updateRole(memberId, newRole) {
-        const csrfToken = '{{ csrf_token }}';  // Añade tu token CSRF
+        const csrfToken = '{{ csrf_token }}';
 
         fetch(`/project/update_role/${memberId}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,  // Enviar el token CSRF en la cabecera
+                'X-CSRFToken': csrfToken,
             },
             body: JSON.stringify({
                 role: newRole,
