@@ -1118,7 +1118,7 @@ msgstr "My Projects"
 
 #: templates/projects/project_list.html:22
 msgid "Crear Proyecto"
-msgstr "Delete Project"
+msgstr "Create Proyect"
 
 #: templates/projects/project_list.html:38
 #: templates/projects/project_main_view.html:28
