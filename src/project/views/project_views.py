@@ -1,10 +1,10 @@
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from django.urls import reverse
 from profile.models import Notification
-from project.forms import ProjectForm
+from project.forms import ProjectForm, EventForm
 from project.models import Application, Milestone, Project, Task, ProjectReportSettings
 from django.contrib import messages
 from django.http import FileResponse
@@ -50,30 +50,37 @@ def my_projects(request):
         },
     )
 
-
 @login_required
 @attach_profile_info
 def display_project(request, project_id, section):
-    try:
-
-        project = get_object_or_404(
-            Project.objects.only("title", "description")
-            .prefetch_related(
-                Prefetch("milestones", queryset=Milestone.objects.order_by("end_date"))
-            ),
-            id=project_id,
-            is_deleted=False
-        )
-    except Project.DoesNotExist:
-        raise Http404("No Project with that id")
+    project = get_object_or_404(Project, id=project_id, is_deleted=False)
+    
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.project = project
+            event.save()
+            return JsonResponse({'status': 'success'}, status=200)  
+        else:
+            return JsonResponse({'errors': form.errors}, status=400) 
 
     milestones = project.milestones.filter(is_deleted=False)
     tasks = Task.objects.filter(milestone__in=milestones)
 
     task_progress, milestone_progress = getProjectProgress(milestones, tasks)
 
-    # Get all applications for the project
-    applications = project.applications.filter(is_deleted=False)
+    events = project.events.all()
+    event_list = [
+        {
+            'title': event.name,
+            'id': event.id,
+            'start': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end': event.end.strftime("%Y-%m-%dT%H:%M:%S"),
+            'description': event.description,
+        }
+        for event in events
+    ]
 
     sections_map = {
         "milestone": "projects/milestones.html",
@@ -85,12 +92,11 @@ def display_project(request, project_id, section):
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
-    application = project.applications.filter(user=request.user,is_deleted=False).first()
+    application = project.applications.filter(user=request.user, is_deleted=False).first()
 
     return render(
         request,
         section_to_show,
-
         {
             "project": project,
             "tasks": tasks,
@@ -99,10 +105,12 @@ def display_project(request, project_id, section):
             "milestone_progress": milestone_progress,
             "section": section,
             "application": application,
-            "applications": applications,
             "user_is_owner": request.user == project.client,
+            "events": event_list,
+            "form": EventForm(),  
         },
     )
+
 
 def getProjectProgress(milestones, tasks):
 
