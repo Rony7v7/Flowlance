@@ -104,7 +104,7 @@ class AddSkillsForm(forms.ModelForm):
 
     class Meta:
         model = FreelancerProfile
-        fields = []  # Dejar vacío ya que lo estamos manejando manualmente
+        fields = []  
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -146,7 +146,7 @@ class AddSkillsForm(forms.ModelForm):
         profile.location = self.cleaned_data.get('location')
         profile.linkedin = self.cleaned_data.get('linkedin')
         profile.github = self.cleaned_data.get('github')
-        profile.twitter = self.cleaned_data.get('twitter')  # Guardamos el Twitter
+        profile.twitter = self.cleaned_data.get('twitter')  
 
 
         # Save predefined skills

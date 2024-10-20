@@ -6,10 +6,10 @@
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-bg_white"> 
 
     <div class="max-w-7xl mx-auto mb-6 sm:ml-0 lg:ml-40">
-        <h1 class="text-3xl font-bold text-primary_black text-left">{% translate "Añadir y Eliminar Habilidades del Perfil" %}</h1>
-        <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Habilidades" %}</h2> 
+        <h1 class="text-3xl font-bold text-primary_black text-left">{% translate "Personalizar Perfil" %}</h1>
+        <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Personalización" %}</h2> 
         <p class="block text-primary_black font-normal mt-4 font-sans semi">
-            {% translate "Aquí puedes agregar o eliminar habilidades de tu perfil. " %}
+            {% translate "Aquí puedes personalizar tu perfil agregando información relevante sobre ti." %}
         </p>
     </div>
 
@@ -17,69 +17,49 @@
         <form id="skillsForm" method="POST" class="space-y-6">
             {% csrf_token %}
 
-            <!-- Mostrar las habilidades actuales -->
-            <div class="mt-6">
-                <h2 class="text-lg font-semibold text-primary_black">{% translate "Habilidades Actuales" %}</h2>
-                <ul class="mt-4">
-                    {% for skill in profile.skills.all %}
-                        <li class="flex justify-between items-center py-2">
-                            <span>{{ skill.name }}</span>
-                            <form method="POST" action="{% url 'delete_skill' skill.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="text-red-500 hover:text-red-700">{% translate "Eliminar" %}</button>
-                            </form>
-                        </li>
-                    {% empty %}
-                        <p class="text-gray-600">{% translate "No tienes habilidades agregadas." %}</p>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- Información del perfil -->
             <div>
                 <label class="block text-primary_black font-medium" for="job_title">{% translate "Título Profesional" %}</label>
                 <input type="text" name="job_title" id="job_title"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    value="{{ form.job_title.value|default_if_none:'' }}" placeholder="Ingresa tu título profesional">
+                    value="{{ form.job_title.value|default_if_none:'' }}" placeholder="{% translate 'Ingresa tu título profesional' %}">
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="about_me">{% translate "Acerca de mí" %}</label>
                 <textarea name="about_me" id="about_me" rows="4"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    placeholder="Escribe sobre ti">{{ form.about_me.value|default_if_none:'' }}</textarea>
+                    placeholder="{% translate 'Escribe sobre ti' %}">{{ form.about_me.value|default_if_none:'' }}</textarea>
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="location">{% translate "Ubicación" %}</label>
                 <input type="text" name="location" id="location"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    value="{{ form.location.value|default_if_none:'' }}" placeholder="Ingresa tu ubicación">
+                    value="{{ form.location.value|default_if_none:'' }}" placeholder="{% translate 'Ingresa tu ubicación' %}">
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="linkedin">{% translate "LinkedIn" %}</label>
                 <input type="url" name="linkedin" id="linkedin"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    value="{{ form.linkedin.value|default_if_none:'' }}" placeholder="https://linkedin.com/tu-perfil">
+                    value="{{ form.linkedin.value|default_if_none:'' }}" placeholder="{% translate 'https://linkedin.com/tu-perfil' %}">
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="github">{% translate "GitHub" %}</label>
                 <input type="url" name="github" id="github"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    value="{{ form.github.value|default_if_none:'' }}" placeholder="https://github.com/tu-usuario">
+                    value="{{ form.github.value|default_if_none:'' }}" placeholder="{% translate 'https://github.com/tu-usuario' %}">
             </div>
 
             <div>
                 <label class="block text-primary_black font-medium" for="twitter">{% translate "Twitter" %}</label>
                 <input type="url" name="twitter" id="twitter"
                     class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                    value="{{ form.twitter.value|default_if_none:'' }}" placeholder="https://twitter.com/tu-usuario">
+                    value="{{ form.twitter.value|default_if_none:'' }}" placeholder="{% translate 'https://twitter.com/tu-usuario' %}">
             </div>
 
-            <!-- Habilidades -->
-            <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Agregar Habilidades" %}</h2>
+            <h2 class="text-lg font-semibold text-primary_dark text-left">{% translate "Habilidades" %}</h2>
 
             <div>
                 <label class="block text-primary_black font-medium" for="predefined_skills">{% translate "Habilidades Predeterminadas" %}</label>
@@ -92,7 +72,7 @@
 
             <div>
                 <label class="block text-primary_black font-medium">{{ form.custom_skills.label }}</label>
-                <textarea name="custom_skills" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="Escribe tus habilidades personalizadas separadas por comas">{{ form.custom_skills.value|default_if_none:'' }}</textarea>
+                <textarea name="custom_skills" rows="4" class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium" placeholder="{% translate 'Escribe tus habilidades personalizadas separadas por comas' %}">{{ form.custom_skills.value|default_if_none:'' }}</textarea>
             </div>
 
             <div class="flex justify-center">
@@ -132,7 +112,7 @@
     document.getElementById('addMore').addEventListener('click', function () {
         let formData = new FormData(document.getElementById('skillsForm'));
         
-        fetch("{% url 'add_skills' %}", {
+        fetch("{% url 'customize_profile' %}", {
             method: 'POST',
             body: formData,
             headers: {

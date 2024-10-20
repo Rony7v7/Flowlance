@@ -63,14 +63,14 @@ class NotificationViewTest(BaseTestSetup):
 class AddSkillsViewTest(BaseTestSetup):
 
     def test_add_skills_view_get(self):
-        response = self.client.get(reverse('add_skills'))
+        response = self.client.get(reverse('customize_profile'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'profile/add_skills.html')
+        self.assertTemplateUsed(response, 'profile/customize_profile.html')
         self.assertIsInstance(response.context['form'], AddSkillsForm)
 
     def test_add_skills_view_post(self):
         skill = Skill.objects.create(name='Python', is_custom=False)
-        response = self.client.post(reverse('add_skills'), {'predefined_skills': [skill.id]})
+        response = self.client.post(reverse('customize_profile'), {'predefined_skills': [skill.id]})
         self.assertRedirects(response, reverse('freelancer_profile'))
         self.assertIn(skill, self.profile.skills.all())
 
