@@ -85,7 +85,7 @@ class FreelancerPlatformTest(TestCase):
     def test_add_skills_view_post(self):
         skill = Skill.objects.create(name='Python', is_custom=False)
         response = self.client.post(reverse('customize_profile'), {'predefined_skills': [skill.id]})
-        self.assertRedirects(response, reverse('freelancer_profile'))
+        self.assertRedirects(response, reverse('my_profile'))
         self.assertIn(skill, self.profile.skills.all())
 
     def test_add_experience_view_get(self):

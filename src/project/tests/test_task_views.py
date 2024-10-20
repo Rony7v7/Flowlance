@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
+from project.models import ProjectMember
 
 from profile.models import Notification
 from ..models import Project, Milestone, Task, TaskDescription, Comment, TaskFile, Application
@@ -57,6 +58,13 @@ class TaskViewsTest(TestCase):
             task=self.task,
             user=self.user,
             content="Initial description content"
+        )
+
+        ProjectMember.objects.create(
+            project = self.project,
+            user = self.user,
+            role = "administrator",
+            is_owner = True
         )
 
     def test_create_task_GET(self):
