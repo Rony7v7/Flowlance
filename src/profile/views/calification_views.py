@@ -119,7 +119,7 @@ def delete_rating(request, rating_id):
 def delete_rating_response(request, response_id):
     response = get_object_or_404(RatingResponse, id=response_id)
     response.delete()
-    return redirect('freelancer_profile')
+    return redirect('freelancer_profile',username=request.user.username)
 
 
 
