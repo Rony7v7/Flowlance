@@ -137,30 +137,7 @@
             <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
             <ul>
                 {% for application in applications %}
-                <li class="border-b border-gray-200 py-2 flex justify-between items-center">
-                    <div>
-                        <p>
-                            <strong>{% translate "Usuario:" %}</strong> 
-                            <a href="text-blue-500 hover:underline">
-                               {{ application.user.username }}
-                            </a>
-                        </p>                     
-                        <p><strong>{% translate "Estado:" %}</strong> {{ application.status }}</p>
-                        <p><strong>{% translate "Fecha de Aplicación:" %}</strong> {{ application.applied_at|date:"d M Y" }}</p>
-                    </div>
-                    {% if application.status == 'Pendiente' %}
-                    <div class="flex gap-2">
-                        <a href="{% url 'update_application_status' application.id 'accept' %}"
-                           class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-transform duration-300 hover:scale-110">
-                            {% translate "Aceptar" %}
-                        </a>
-                        <a href="{% url 'update_application_status' application.id 'reject' %}"
-                           class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-transform duration-300 hover:scale-110">
-                            {% translate "Rechazar" %}
-                        </a>
-                    </div>
-                    {% endif %}
-                </li>
+                    {% include 'projects/project_application_li.html' %}
                 {% empty %}
                 <p>{% translate "No hay postulaciones para este proyecto." %}</p>
                 {% endfor %}
