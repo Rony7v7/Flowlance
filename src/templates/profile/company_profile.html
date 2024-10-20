@@ -1,5 +1,4 @@
 {% extends "navigation/navigation.html" %}
-
 {% load i18n %}
 {% block app_content %}
 <div class="flex flex-col items-center justify-center w-full h-full px-8">
@@ -7,7 +6,7 @@
     <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 mt-8">
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
             <div class="flex-shrink-0 mb-6 sm:mb-0">
-                <img src="{% if request.profile.photo %}{{ request.profile.photo.url }}{% else %}https://via.placeholder.com/150{% endif %}"
+                <img src="{% if request.profile.photo %}{{ request.profile.photo.url }}{% else %}https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3383.jpg{% endif %}"
                     alt="{% translate 'Foto de' %} {{ request.profile.company_name }}" class="w-36 h-36 sm:w-48 sm:h-48 rounded-full shadow-lg">
             </div>
 
@@ -50,11 +49,10 @@
                         <span class="font-bold">{% translate 'Correo Electrónico:' %} </span>
                         <span class="text-primary_black">{{ request.user.email }}</span>
                     </p>
-                    
                 </div>
 
                 {% if is_owner %}
-                <button
+                <button id="editProfileButton"
                     class="bg-primary_medium text-white px-6 py-2 rounded-xl mt-6 hover:bg-primary_dark transition-transform duration-300 hover:scale-105">
                     {% translate 'Editar Perfil' %}
                 </button>
@@ -63,4 +61,95 @@
         </div>
     </div>
 </div>
+
+<div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <div class="flex justify-end">
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                &times;
+            </button>
+        </div>
+
+        <h2 class="text-2xl font-bold text-primary_black mb-6 text-center">{% translate "Editar Perfil de la Compañía" %}</h2>
+
+        <form method="POST" action="{% url 'update_company_profile' %}">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Nombre de la Compañía" %}</label>
+                <input type="text" name="company_name" value="{{ request.profile.company_name }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el nombre de la compañía' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Tipo de Negocio" %}</label>
+                <input type="text" name="business_type" value="{{ request.profile.business_type }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el tipo de negocio' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Vertical del Negocio" %}</label>
+                <input type="text" name="business_vertical" value="{{ request.profile.business_vertical }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el vertical de negocio' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Dirección" %}</label>
+                <input type="text" name="address" value="{{ request.profile.address }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa la dirección' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Teléfono" %}</label>
+                <input type="text" name="phone" value="{{ request.profile.phone }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el número de teléfono' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "NIT" %}</label>
+                <input type="text" name="nit" value="{{ request.profile.nit }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el NIT de la compañía' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Representante Legal" %}</label>
+                <input type="text" name="legal_representative" value="{{ request.profile.legal_representative }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el nombre del representante legal' %}">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-primary_black font-medium">{% translate "Correo Electrónico" %}</label>
+                <input type="email" name="email" value="{{ request.user.email }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                       placeholder="{% translate 'Ingresa el correo electrónico' %}">
+            </div>
+
+            <div class="flex justify-end mt-4">
+                <button type="submit"
+                        class="bg-primary_dark text-white px-4 py-2 rounded-md hover:bg-primary_black">
+                    {% translate "Guardar Cambios" %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('editProfileButton').addEventListener('click', function() {
+        document.getElementById('editProfileModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('editProfileModal').classList.add('hidden');
+    });
+</script>
+
 {% endblock %}

@@ -320,3 +320,28 @@ class CompanyRegisterForm(UserCreationForm):
                 self.add_error('nit', _('Este NIT ya está registrado. Por favor, usa otro.'))
             raise e  
         return user
+
+
+
+
+class CompanyProfileForm(forms.ModelForm):
+    email = forms.EmailField(label="Correo Electrónico", required=True)
+
+    class Meta:
+        model = CompanyProfile
+        fields = ['company_name', 'business_type', 'business_vertical', 'address', 'phone', 'nit', 'legal_representative']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(CompanyProfileForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+    def save(self, commit=True):
+        company_profile = super(CompanyProfileForm, self).save(commit=False)
+        user = company_profile.user
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            company_profile.save()
+        return company_profile

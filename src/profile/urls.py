@@ -11,6 +11,7 @@ urlpatterns = [
     path('', profile_views.my_profile, name='my_profile'), # TODO: URL for viewing the own profile - name debería ser 'my_profile' y por lo tanto ser actualizado en donde se llame
     path('freelancer_profile/<str:username>/', profile_views.freelancer_profile_view, name='freelancer_profile_view'),  # URL for viewing another freelancer profile
     path("customize_profile/", data_views.customize_profile, name="customize_profile"),
+    path('update/', profile_views.update_company_profile, name='update_company_profile'),
     path("add_experience/", data_views.add_experience, name="add_experience"),
     path('upload_curriculum/', data_views.upload_curriculum, name='upload_curriculum'),
     path('add_project/', data_views.add_project, name='add_project'),
