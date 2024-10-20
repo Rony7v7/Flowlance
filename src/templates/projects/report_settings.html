@@ -13,7 +13,21 @@
             {% for field in form %}
                 <div>
                     <label for="{{ field.id_for_label }}" class="block text-md font-medium text-primary_black mb-1">
-                        {{ field.label }}
+                        {% if field.name == 'include_milestone_progress' %}
+                            Incluir progreso de hitos
+                        {% elif field.name == 'include_task_progress' %}
+                            Incluir progreso de tareas
+                        {% elif field.name == 'include_milestones_and_tasks' %}
+                            Incluir hitos y tareas
+                        {% elif field.name == 'include_kanban_board' %}
+                            Incluir tablero Kanban
+                        {% elif field.name == 'include_gantt_chart' %}
+                            Incluir gráfico Gantt
+                        {% elif field.name == 'report_frequency' %}
+                            Frecuencia del reporte
+                        {% else %}
+                            {{ field.label }}
+                        {% endif %}
                     </label>
                     {{ field }}
                     {% if field.errors %}

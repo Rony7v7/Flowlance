@@ -16,7 +16,8 @@ class ReportGenerationCommandTest(TestCase):
             description="Test Description",
             start_date=timezone.now().date(),
             end_date=timezone.now().date() + timedelta(days=30),
-            client=self.user
+            client=self.user,
+            budget=10000  # Añadir un valor para el presupuesto (budget)
         )
         self.milestone = Milestone.objects.create(
             name="Test Milestone",
@@ -29,7 +30,8 @@ class ReportGenerationCommandTest(TestCase):
             milestone=self.milestone,
             state="En progreso",
             start_date=timezone.now().date(),
-            end_date=timezone.now().date() + timedelta(days=7)
+            end_date=timezone.now().date() + timedelta(days=7),
+            responsible=self.user  # Proporciona un valor para el campo 'responsible'
         )
         self.report_settings = ProjectReportSettings.objects.create(
             project=self.project,
@@ -68,13 +70,66 @@ class ReportGenerationCommandTest(TestCase):
 
     def test_calculate_milestone_progress(self):
         command = Command()
-        progress = command.calculate_milestone_progress(self.project)
-        self.assertEqual(progress, 0)  # No completed milestones yet
 
-        self.milestone.amount_completed = 1
-        self.milestone.save()
+        # Progreso inicial debería ser 0
+        initial_progress = command.calculate_milestone_progress(self.project)
+        self.assertEqual(initial_progress, 0, "El progreso inicial debería ser 0%")
+
+        # Asegúrate de que la tarea existente esté asociada correctamente al hito
+        self.task.milestone = self.milestone
+        self.task.save()
+
+        # Agrega una segunda tarea al hito
+        self.task2 = Task.objects.create(
+            title="Second Test Task",
+            milestone=self.milestone,
+            state="En progreso",
+            start_date=timezone.now().date(),
+            end_date=timezone.now().date() + timedelta(days=7),
+            responsible=self.user
+        )
+
+        # Verifica que hay dos tareas en el hito
+        self.assertEqual(self.milestone.tasks.count(), 2, "Debe haber dos tareas en el hito.")  # Usar 'tasks'
+
+        # Simula la finalización de ambas tareas
+        self.task.state = 'Completada'
+        self.task.save()
+        self.task2.state = 'Completada'
+        self.task2.save()
+
+        # Verifica que ambas tareas están completadas
+        self.assertEqual(self.milestone.tasks.filter(state='Completada').count(), 2, "Ambas tareas deberían estar completadas.")
+
+        # Recalcula el progreso después de completar las tareas
         progress = command.calculate_milestone_progress(self.project)
-        self.assertEqual(progress, 100)  # All milestones completed
+
+        # Verifica que el progreso sea 100%
+        self.assertEqual(progress, 100, f"El progreso debería ser 100%, pero es {progress}%")
+
+        # Agrega un nuevo hito incompleto para verificar el cálculo de progreso parcial
+        new_milestone = Milestone.objects.create(
+            name="New Test Milestone",
+            project=self.project,
+            start_date=timezone.now().date(),
+            end_date=timezone.now().date() + timedelta(days=15)
+        )
+        Task.objects.create(
+            title="New Test Task",
+            milestone=new_milestone,
+            state="En progreso",
+            start_date=timezone.now().date(),
+            end_date=timezone.now().date() + timedelta(days=7),
+            responsible=self.user
+        )
+
+        # Recalcula el progreso con el nuevo hito incompleto
+        final_progress = command.calculate_milestone_progress(self.project)
+
+        # Verifica que el progreso sea 50% (1 de 2 hitos completados)
+        self.assertEqual(final_progress, 50, f"El progreso final debería ser 50%, pero es {final_progress}%")
+
+
 
     def test_calculate_task_progress(self):
         command = Command()
