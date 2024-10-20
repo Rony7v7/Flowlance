@@ -186,6 +186,8 @@ class ProjectReportSettings(models.Model):
 class UserProjectReportSettings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     report_settings = models.ForeignKey(ProjectReportSettings, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('user', 'report_settings')
 
     class Meta:
         unique_together = ('user', 'report_settings')

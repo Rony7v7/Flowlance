@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
 from django.db import IntegrityError
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_lazy as __
 
 
 class AddCourseForm(forms.ModelForm):
@@ -60,18 +60,51 @@ class AddSkillsForm(forms.ModelForm):
         queryset=Skill.objects.filter(is_custom=False),
         widget=forms.CheckboxSelectMultiple,
         required=False,
-        label=_("Habilidades Predeterminadas")
+        label=__("Habilidades Predeterminadas")
     )
     custom_skills = forms.CharField(
-        widget=forms.Textarea(attrs={'placeholder': _('Escribe tus habilidades personalizadas separadas por comas')}),
+        widget=forms.Textarea(attrs={'placeholder': __('Escribe tus habilidades personalizadas separadas por comas')}),
         required=False,
-        label=_("Habilidades Personalizadas")
+        label=__("Habilidades Personalizadas")
     )
+    job_title = forms.CharField(
+        max_length=255,
+        required=False,
+        label=__("Título Profesional"),
+        widget=forms.TextInput(attrs={'placeholder': __('Ej: Desarrollador Full Stack')})
+    )
+    about_me = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': __('Escribe una breve descripción sobre ti')}),
+        required=False,
+        label=__("Acerca de mí")
+    )
+    location = forms.CharField(
+        max_length=255,
+        required=False,
+        label=__("Ubicación"),
+        widget=forms.TextInput(attrs={'placeholder': __('Ciudad, País')})
+    )
+    linkedin = forms.URLField(
+        required=False,
+        label=__("LinkedIn"),
+        widget=forms.URLInput(attrs={'placeholder': __('URL de tu LinkedIn')})
+    )
+    github = forms.URLField(
+        required=False,
+        label=__("GitHub"),
+        widget=forms.URLInput(attrs={'placeholder': __('URL de tu GitHub')})
+    )
+    twitter = forms.URLField(
+        required=False,
+        label=_("Twitter"),
+        widget=forms.URLInput(attrs={'placeholder': _('URL de tu perfil de Twitter')})
+    )
+    
     all_skills_selected = False  
 
     class Meta:
         model = FreelancerProfile
-        fields = []
+        fields = []  
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -92,15 +125,36 @@ class AddSkillsForm(forms.ModelForm):
 
             self.fields['predefined_skills'].queryset = predefined_skills_queryset.exclude(freelancers=profile)
 
+            # Populate the profile information fields
+            self.fields['job_title'].initial = profile.job_title
+            self.fields['about_me'].initial = profile.about_me
+            self.fields['location'].initial = profile.location
+            self.fields['linkedin'].initial = profile.linkedin
+            self.fields['github'].initial = profile.github
+            self.fields['twitter'].initial = profile.twitter
+
+
             if not self.fields['predefined_skills'].queryset.exists():
                 self.all_skills_selected = True
 
     def save(self, commit=True, user=None):
         profile = FreelancerProfile.objects.get(user=user)
+        
+        # Update profile information
+        profile.job_title = self.cleaned_data.get('job_title')
+        profile.about_me = self.cleaned_data.get('about_me')
+        profile.location = self.cleaned_data.get('location')
+        profile.linkedin = self.cleaned_data.get('linkedin')
+        profile.github = self.cleaned_data.get('github')
+        profile.twitter = self.cleaned_data.get('twitter')  
+
+
+        # Save predefined skills
         predefined_skills = self.cleaned_data.get('predefined_skills')
         if predefined_skills:
             profile.skills.add(*predefined_skills)
 
+        # Save custom skills
         custom_skills_text = self.cleaned_data.get('custom_skills')
         if custom_skills_text:
             custom_skills = [skill.strip() for skill in custom_skills_text.split(',') if skill.strip()]
@@ -111,7 +165,6 @@ class AddSkillsForm(forms.ModelForm):
         if commit:
             profile.save()
         return profile
-
 
 
 
@@ -267,3 +320,28 @@ class CompanyRegisterForm(UserCreationForm):
                 self.add_error('nit', _('Este NIT ya está registrado. Por favor, usa otro.'))
             raise e  
         return user
+
+
+
+
+class CompanyProfileForm(forms.ModelForm):
+    email = forms.EmailField(label="Correo Electrónico", required=True)
+
+    class Meta:
+        model = CompanyProfile
+        fields = ['company_name', 'business_type', 'business_vertical', 'address', 'phone', 'nit', 'legal_representative']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(CompanyProfileForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+    def save(self, commit=True):
+        company_profile = super(CompanyProfileForm, self).save(commit=False)
+        user = company_profile.user
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            company_profile.save()
+        return company_profile

@@ -107,7 +107,7 @@ def freelancer_profile(request, username=None):
 
 
 @login_required
-def add_skills(request):
+def customize_profile(request):
     user = request.user  
     
     if request.method == 'POST':
@@ -118,7 +118,9 @@ def add_skills(request):
     else:
         form = AddSkillsForm(user=user)
 
-    return render(request, 'profile/add_skills.html', {'form': form})
+    return render(request, 'profile/customize_profile.html', {'form': form})
+
+
 
 @login_required
 def add_experience(request):
