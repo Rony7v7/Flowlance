@@ -120,6 +120,8 @@ def add_skills(request):
 
     return render(request, 'profile/add_skills.html', {'form': form})
 
+
+
 @login_required
 def add_experience(request):
     user = request.user
