@@ -15,6 +15,7 @@ class Project(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
     created_at = models.DateTimeField(auto_now_add=True)
     members = models.ManyToManyField(User, related_name="projects")
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
