@@ -95,9 +95,11 @@ class Rating(models.Model):
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False)  
 
     def __str__(self):
         return f"{self.client.username}'s rating for {self.freelancer.user.username}"
+
 
 class RatingResponse(models.Model):
     rating = models.OneToOneField(Rating, on_delete=models.CASCADE, related_name='response')
