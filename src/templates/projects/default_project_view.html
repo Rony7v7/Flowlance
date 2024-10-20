@@ -1,8 +1,7 @@
-<!-- default_project_view.html -->
-
 {% extends "navigation/navigation.html" %}
 
 {% load i18n %}
+
 {% block app_content %}
 <div class="container">
     <!-- Navigation Tabs -->
@@ -38,29 +37,29 @@
 
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
         <div class="flex pt-10">
-            <!-- Left Section with Image -->
             <div>
                 <img src="https://picsum.photos/450/300" alt="Project Image"
-                    class="w-[400px] h-[300px] rounded-xl mr-6">
+                     class="w-[400px] h-[300px] rounded-xl mr-6">
                 <div class="mt-4 space-y-2">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
-                    <p class="text-lg font-semibold text-primary_black">{% translate "Presupuesto:" %} <span
-                            class="text-primary_medium">{{ project.budget }}</span></p>
+                    <p class="text-lg font-semibold text-primary_black">
+                        {% translate "Presupuesto:" %} 
+                        <span class="text-primary_medium">{{ project.budget }}</span>
+                    </p>
                 </div>
             </div>
 
-            <!-- Right Section with Details -->
             <div class="ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
                 {% if user_is_owner %}
                 <div class="flex space-x-4">
                     <a href="{% url 'project_edit' project.pk %}"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-110">
                         {% translate "Editar" %}
                     </a>
                     <a href="{% url 'project_requirements' project.pk %}"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
@@ -147,7 +146,9 @@
                 <p>{% translate "No hay postulaciones para este proyecto." %}</p>
                 {% endfor %}
             </ul>
-            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Cerrar" %}</button>
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110">
+                {% translate "Cerrar" %}
+            </button>
         </div>
     </div>
 </div>
@@ -166,4 +167,4 @@
         document.getElementById('applicationsModal').classList.add('hidden');
     });
 </script>
-{% endblock %}
+{% endblock app_content %}
