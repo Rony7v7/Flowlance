@@ -37,7 +37,7 @@ urlpatterns = [
     path('<int:project_id>/updates', project_views.project_updates, name='project_updates'),
     path('<int:project_id>/updates', project_views.add_project_update, name='project_updates'),
     path('project/<int:project_id>/updates/add/', project_views.add_project_update, name='add_project_update'),
-    path('project/<int:update_id>/add_comment/', project_views.add_comment, name='add_comment'),
+    path('project/<int:update_id>/add_comment/', project_views.add_comment, name='add_comments'),
 
 
 ]
