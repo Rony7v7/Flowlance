@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import project_views , milestone_views , task_views , assigment_views
+from .views import project_views , milestone_views , task_views , assigment_views, members_views
 
 urlpatterns = [
     path("create/", project_views.create_project, name="create_project"),
@@ -10,8 +10,8 @@ urlpatterns = [
     path("my_projects/", project_views.project_list, name="my_projects"), 
     path("list/", project_views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
     path('', project_views.project_list_availableFreelancer, name='project_list'),
-    path('<int:pk>/edit/', project_views.project_edit, name='project_edit'),
-    path('<int:pk>/delete/', project_views.project_delete, name='project_delete'),
+    path('<int:project_id>/edit/', project_views.project_edit, name='project_edit'),
+    path('<int:project_id>/delete/', project_views.project_delete, name='project_delete'),
     path('application/<int:application_id>/<str:action>/', project_views.update_application_status, name='update_application_status'),
     path('<int:project_id>/requirements/', project_views.project_requirements, name='project_requirements'),
     path("create_milestone/<int:project_id>", milestone_views.add_milestone, name="add_milestone"),
@@ -32,5 +32,7 @@ urlpatterns = [
     path('project/<int:project_id>/generate-report/', project_views.generate_project_report, name='generate_project_report'),
     path('project/<int:project_id>/report-settings/', project_views.report_settings, name='report_settings'),
     path('download-report/<int:project_id>/', project_views.download_project_report, name='download_project_report'),
+    path('update_role/<int:member_id>/', members_views.update_role, name='update_role'),
+    path('delete_member/<int:member_id>/', members_views.delete_member, name='delete_member'),
 ]
 

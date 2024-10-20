@@ -4,34 +4,10 @@
 
 {% block app_content %}
 <div class="container">
-    <!-- Navigation Tabs -->
-    <div class="flex flex-wrap items-center justify-center gap-5 bg-primary_lightest rounded-xl px-4 py-2 text-white">
-        <a href="/project/{{ project.id }}/milestone"
-           class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            {% translate "Hitos" %}
-        </a>
-        <a href="/project/{{ project.id }}/task"
-           class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 {% if section == 'task' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            {% translate "Tareas" %}
-        </a>
-        <a href="/project/{{ project.id }}/deliverable"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transform transition-transform duration-300 hover:scale-105 {% if section == 'deliverable' %} !bg-primary_dark text-white{% endif %} min-w-[120px]">
-            {% translate "Entregables" %}
-        </a>
-        <a href="/project/{{ project.id }}/time_line"
-           class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %} min-w-[150px] whitespace-nowrap">
-            {% translate "Línea de Tiempo" %}
-        </a>
-        <a href="/project/{{ project.id }}/calendar" 
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">
-           {% translate "Calendario" %}
-        </a>
-        <a href="/project/{{ project.id }}/data_project"
-           class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">
-           {% translate "Progreso" %}
-        </a>
-    </div>
 
+    {%if user_is_member or user_is_admin or user_is_viewer %}
+    {% include 'projects/project_navigation_tabs.html' %}
+    {% endif %}
     <!-- Panel de Control -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">{% translate "Panel de control" %}</h1>
 
@@ -51,7 +27,7 @@
             <div class="mt-4 md:mt-0 md:ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
-                {% if user_is_owner %}
+                {% if user_is_admin %}
                 <div class="flex space-x-4 mt-4">
                     <a href="{% url 'project_edit' project.pk %}"
                        class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
@@ -79,7 +55,7 @@
 
                 {% endif %}
 
-                {% if request.profile_type == 'freelancer' %}
+                {% if request.profile_type == 'freelancer' and not user_is_member and not user_is_admin and not user_is_viewer %}
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
                     <button type="submit"
@@ -148,10 +124,12 @@
     </div>
 </div>
 
+{% if user_is_member or user_is_admin or user_is_viewer %}
 <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
     {% block section %}
     {% endblock %}
 </div>
+{% endif %}
 
 <script>
     document.getElementById('showApplications').addEventListener('click', function () {

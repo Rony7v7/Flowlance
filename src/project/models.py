@@ -14,12 +14,21 @@ class Project(models.Model):
     end_date = models.DateField()
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
     created_at = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(User, related_name="projects")
+    members = models.ManyToManyField(User,through='ProjectMember', related_name="projects")
     is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.title
 
+class ProjectMember(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="memberships")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=15, choices=[('administrator', 'Administrador'),('member', 'Miembro'),('viewer', 'Visualizador')], default='member') 
+    is_owner = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, null=False)
+
+    def __str__(self):
+        return f"{self.user.username} in {self.project.title}"
 
 class Milestone(models.Model):
     id = models.AutoField(primary_key=True)
