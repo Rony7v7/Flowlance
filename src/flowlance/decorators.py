@@ -1,6 +1,8 @@
 from functools import wraps
 
-from django.shortcuts import render # temporal render
+from django.shortcuts import get_object_or_404, render
+
+from project.models import Project # temporal render
 
 def attach_profile_info(func):
     @wraps(func)
@@ -29,3 +31,17 @@ def client_required(func):
             return func(request, *args, **kwargs)
         return render(request, 'errors/error_generic.html', {'error_type':'custom_permission'}) # temporal render
     return wrapper
+
+def role_required(role):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(request, *args, **kwargs):
+            project = get_object_or_404(Project, id=kwargs['project_id'])
+            member = project.memberships.get(user=request.user)
+            
+            if member.role == role:
+                return func(request, *args, **kwargs)
+            
+            return render(request, 'errors/error_generic.html', {'error_type':'custom_permission'}) # temporal render
+        return wrapper
+    return decorator

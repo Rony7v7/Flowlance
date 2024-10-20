@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import project_views , milestone_views , task_views , assigment_views
+from .views import project_views , milestone_views , task_views , assigment_views, members_views
 
 urlpatterns = [
     path("create/", project_views.create_project, name="create_project"),
@@ -32,5 +32,6 @@ urlpatterns = [
     path('project/<int:project_id>/generate-report/', project_views.generate_project_report, name='generate_project_report'),
     path('project/<int:project_id>/report-settings/', project_views.report_settings, name='report_settings'),
     path('download-report/<int:project_id>/', project_views.download_project_report, name='download_project_report'),
+    path('update_role/<int:member_id>/', members_views.update_role, name='update_role'),
 ]
 

@@ -5,7 +5,7 @@ from django.db.models import Prefetch
 from django.urls import reverse
 from profile.models import Notification
 from project.forms import ProjectForm
-from project.models import Application, Milestone, Project, Task, ProjectReportSettings
+from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings
 from django.contrib import messages
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
@@ -20,7 +20,7 @@ from io import BytesIO
 from project.models import Project, ProjectReportSettings
 from project.management.commands.generate_periodic_reports import Command as ReportCommand
 # Decorators
-from flowlance.decorators import client_required, freelancer_required, attach_profile_info
+from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
 
 @login_required
 @client_required
@@ -31,7 +31,9 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
-            project.members.add(request.user)
+            
+            ProjectMember.objects.create(project=project, user=request.user, role="administrator", is_owner=True)
+
             id = project.id
             return redirect("project", project_id=id, section="milestone")
     else:
@@ -93,15 +95,16 @@ def display_project(request, project_id, section):
         section_to_show,
 
         {
+            "section": section,
             "project": project,
             "tasks": tasks,
-            "milestones": milestones,
             "task_progress": task_progress,
+            "milestones": milestones,
             "milestone_progress": milestone_progress,
-            "section": section,
             "application": application,
             "applications": applications,
             "user_is_owner": request.user == project.client,
+            "members": project.memberships.filter(is_deleted=False),
         },
     )
 
@@ -176,7 +179,7 @@ def project_edit(request, pk):
         {"form": form, "project": project, "action": "Edit"},
     )
 
-
+@role_required("administrator")
 @login_required
 def project_delete(request, pk):
     
@@ -253,7 +256,7 @@ def update_application_status(request, application_id, action):
     if action == "accept":
         application.status = "Aceptada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido aceptada."
-        application.project.members.add(application.user)
+        ProjectMember.objects.create(project=application.project, user=application.user)
     elif action == "reject":
         application.status = "Rechazada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido rechazada."
