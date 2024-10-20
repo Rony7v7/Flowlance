@@ -3,10 +3,12 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from flowlance.decorators import role_required
 from project.models import Comment, Milestone, Project, Task, TaskDescription, TaskFile
 from profile.models import Notification
 from django.contrib.auth.models import User
 
+@role_required(['administrator', 'member'])
 @login_required
 def create_task(request, project_id):
     project = get_object_or_404(Project, id=project_id,is_deleted=False)
@@ -69,6 +71,7 @@ def create_task(request, project_id):
         },
     )
 
+@role_required(['administrator', 'member'])
 @login_required
 def edit_description(request, description_id):
 
@@ -92,7 +95,7 @@ def edit_description(request, description_id):
         request, "projects/edit_description.html", {"description": description}
     )
 
-
+@role_required(['administrator', 'member'])
 @login_required
 def add_description(request, task_id):
 
@@ -113,6 +116,7 @@ def add_description(request, task_id):
         request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False}
     )
 
+@role_required(['administrator', 'member'])
 @login_required
 def add_comment(request, task_id):
     task = get_object_or_404(Task, id=task_id,is_deleted=False)
@@ -139,9 +143,7 @@ def add_comment(request, task_id):
 
     return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
 
-
-
-
+@role_required(['administrator', 'member'])
 @login_required
 def add_file(request, task_id):
     task = get_object_or_404(Task, id=task_id,is_deleted=False)
@@ -171,7 +173,7 @@ def add_file(request, task_id):
 
     return render(request, "tasks/manage_task.html", {"task_id": task_id, "is_editing": False})
 
-
+@role_required(['administrator', 'member'])
 @login_required
 def update_task_state(request, task_id):
     task = get_object_or_404(Task, id=task_id)

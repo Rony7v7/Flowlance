@@ -2,8 +2,10 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
+from flowlance.decorators import role_required
 from project.models import Milestone, Project
 
+@role_required(['administrator'])
 @login_required
 def add_milestone(request, project_id):
     # Retrieve the project or raise a 404 error if not found
@@ -42,6 +44,7 @@ def add_milestone(request, project_id):
     )
 
 @login_required
+@role_required(['administrator', 'member'])
 def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id,is_deleted=False)
     project_id = milestone.project.id
@@ -87,7 +90,7 @@ def edit_milestone(request, milestone_id):
         },
     )
 
-
+@role_required(['administrator'])
 @login_required
 def delete_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id,is_deleted=False)

@@ -14,12 +14,21 @@ class Project(models.Model):
     end_date = models.DateField()
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
     created_at = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(User, related_name="projects")
+    members = models.ManyToManyField(User,through='ProjectMember', related_name="projects")
     is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.title
 
+class ProjectMember(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="memberships")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=15, choices=[('administrator', 'Administrador'),('member', 'Miembro'),('viewer', 'Visualizador')], default='member') 
+    is_owner = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, null=False)
+
+    def __str__(self):
+        return f"{self.user.username} in {self.project.title}"
 
 class Milestone(models.Model):
     id = models.AutoField(primary_key=True)
@@ -160,4 +169,37 @@ class Application(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.project.title} ({self.status})"
+    
+class ProjectReportSettings(models.Model):
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    include_milestone_progress = models.BooleanField(default=True)
+    include_task_progress = models.BooleanField(default=True)
+    include_milestones_and_tasks = models.BooleanField(default=True)
+    include_kanban_board = models.BooleanField(default=False)
+    include_gantt_chart = models.BooleanField(default=False)
+    report_frequency = models.CharField(max_length=10, choices=[
+        ('daily', 'Daily'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+    ], default='daily')
 
+class UserProjectReportSettings(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    report_settings = models.ForeignKey(ProjectReportSettings, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('user', 'report_settings')
+
+    class Meta:
+        unique_together = ('user', 'report_settings')
+
+class Event(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    start = models.DateTimeField(null=True, blank=True)
+    end = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="events")
+    reminder_time = models.CharField(max_length=50, null=True, blank=True)  
+
+    def __str__(self):
+        return self.name

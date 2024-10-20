@@ -27,36 +27,7 @@
                     </div>
                     <span>{% translate "Asignado a:" %} {{ assigment.responsible.username }}</span>
                     <p class="text-sm ">{{ assigment.description|truncatewords:50 }}</p>
-                    <p class="text-sm text-primary_medium">{% tr    theme: {
-                        extend: {
-                            colors: {
-                                bg_white: "#FAFAFD",
-                                bg_gray: "#EAEBF9",
-                                primary_lightest: "#D5D7F2",
-                                primary_black: "#121670",
-                                primary_light: "#8D92F2",
-                                primary_medium: "#636AF2",
-                                primary_dark: "#3D46F2",
-                            },
-                            fontFamily: {
-                                plus_jakarta_sans: ['Plus Jakarta Sans', 'sans-serif'],
-                            },
-                            animation: {
-                                'wiggle': 'wiggle 0.5s ease-in-out infinite',
-                                'upDown': 'upDown 0.5s ease-in-out infinite',
-                            },
-                            keyframes: {
-                                wiggle: {
-                                    '0%, 100%': { transform: 'translateX(0px)' },
-                                    '50%': { transform: 'translateX(5px)' },
-                                },
-                                upDown: {
-                                    '0%, 100%': { transform: 'translateY(0px)' },
-                                    '50%': { transform: 'translateY(5px)' },
-                                },
-                            }
-                        },
-                    },anslate "Fecha de Finalización:"%} {{ assigment.end_date }}</p>
+                    <p class="text-sm text-primary_medium">{% translate "Fecha de Finalización:"%} {{ assigment.end_date }}</p>
                     <p class="text-sm text-primary_medium">{% translate "Estado:"%} {{ assigment.state }}</p>
                     <div class="mt-2 text-center">
                         {% if assigment.file %}
@@ -94,5 +65,5 @@
             </div>
         </div>
     </div>
-
+<div>
     <script src="{% static 'js/project/manage_assigment.js' %}"></script>

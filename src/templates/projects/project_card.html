@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if not list %}
-<div class="bg-white rounded-lg shadow-md transition-transform transform hover:shadow-lg duration-300 w-[300px] h-[290px] flex flex-col overflow-hidden">
+<div class="bg-white rounded-lg shadow-md transition-transform transform hover:shadow-lg duration-300 w-full max-w-xs md:max-w-sm flex flex-col overflow-hidden">
     <!-- Image or placeholder -->
     <div class="h-28 w-full bg-purple-600">
         {% if project.image %}
@@ -24,7 +24,7 @@
 </div>
 {% else %}
 
-<div class="bg-white rounded-lg shadow-md hover:shadow-lg duration-300 w-full flex flex-col overflow-hidden px-6 py-3 gap-1">
+<div class="bg-white rounded-lg shadow-md hover:shadow-lg duration-300 w-full flex flex-col overflow-hidden px-4 py-2 gap-1 sm:px-6 sm:py-3">
 
     <p class="text-xs text-primary_light font-semibold">{{ project.pending_tasks }} {% translate "Tareas Pendientes" %}</p>
 

@@ -3,8 +3,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from flowlance.decorators import role_required
 from project.models import Assigment, Milestone
 
+@role_required(['administrator', 'member'])
 @login_required
 def create_assigment(request, milestone_id):
     milestone = get_object_or_404(Milestone,id=milestone_id,is_deleted=False)
@@ -40,7 +42,8 @@ def create_assigment(request, milestone_id):
         {"milestone": milestone, "is_editing": False,"members":milestone.project.members.all()},
     )
 
-
+@role_required(['administrator', 'member'])
+@login_required
 def edit_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment,id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
@@ -77,7 +80,8 @@ def edit_assigment(request, assigment_id):
         {"assigment": assigment, "is_editing": True,"members":assigment.milestone.project.members.all()},
     )
 
-
+@role_required(['administrator', 'member'])
+@login_required
 def delete_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
@@ -87,7 +91,8 @@ def delete_assigment(request, assigment_id):
         assigment.save()
         return redirect("edit_milestone", milestone_id=milestone_id)
 
-
+@role_required(['administrator', 'member'])
+@login_required
 def upload_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
 
@@ -100,4 +105,10 @@ def upload_assigment(request, assigment_id):
 
     return render(
         request, "projects/upload_assigment_file.html", {"assigment": assigment}
+    )
+
+def get_assigment_information(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
+    return render(
+        request,"projects/assigment_information.html",{"assigment": assigment}
     )
