@@ -1,7 +1,6 @@
 from django.http import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.db.models import Prefetch
 from django.urls import reverse
 from profile.models import Notification
 from project.forms import ProjectForm, EventForm
