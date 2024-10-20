@@ -22,3 +22,11 @@ def update_role(request, member_id):
     member.save()
 
     return JsonResponse({'message': 'Rol actualizado correctamente.'})
+
+@role_required(['administrator'])
+@require_POST
+def delete_member(request, member_id):
+    member = get_object_or_404(ProjectMember, id=member_id)
+    member.delete()
+
+    return JsonResponse({'message': 'Miembro eliminado correctamente.'})

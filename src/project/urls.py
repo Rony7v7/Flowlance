@@ -33,5 +33,6 @@ urlpatterns = [
     path('project/<int:project_id>/report-settings/', project_views.report_settings, name='report_settings'),
     path('download-report/<int:project_id>/', project_views.download_project_report, name='download_project_report'),
     path('update_role/<int:member_id>/', members_views.update_role, name='update_role'),
+    path('delete_member/<int:member_id>/', members_views.delete_member, name='delete_member'),
 ]
 

@@ -20,6 +20,9 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
                     {% translate "Rol" %}
                 </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
+                    {% translate "Acciones" %}
+                </th>
             </tr>
         </thead>
 
@@ -50,38 +53,57 @@
                         <select class="bg-primary_black text-bg_white text-sm py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary_medium"
                         onchange="updateRole('{{ member.id }}', this.value)">
                             {% if member.is_owner %}
-                            <option value="administrator" {% if member.role == 'administrator' %}selected{% endif %}>{% translate "Propietario" %}</option>P
+                            <option value="administrator" selected>{% translate "Propietario" %}</option>
                             {% else %}
                             <option value="administrator" {% if member.role == 'administrator' %}selected{% endif %}>{% translate "Administrador" %}</option>
                             <option value="member" {% if member.role == 'member' %}selected{% endif %}>{% translate "Miembro" %}</option>
                             <option value="viewer" {% if member.role == 'viewer' %}selected{% endif %}>{% translate "Visualizador" %}</option>
+                            {% endif %}
                         </select>
-                        {% endif %}
                     </div>
                 </td>
 
+                <!-- Acciones -->
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    {% if not member.is_owner %}
+                    <button class="text-red-500 hover:underline" onclick="deleteMember('{{ member.id }}')">{% translate "Eliminar" %}</button>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
+<!-- Scripts -->
 <script>
-    function updateRole(memberId, newRole) {
-        const csrfToken = '{{ csrf_token }}';
+    const csrfToken = '{{ csrf_token }}';
 
+    // Función para actualizar el rol del miembro
+    function updateRole(memberId, newRole) {
         fetch(`/project/update_role/${memberId}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
             },
-            body: JSON.stringify({
-                role: newRole,
-            })
+            body: JSON.stringify({ role: newRole })
         })
     }
-</script>
 
+    // Función para eliminar un miembro del proyecto // TODO: Si el miembro se elimina, no se puede volver a postular
+    function deleteMember(memberId) {
+        if (confirm("¿Estás seguro de eliminar a este miembro del proyecto?")) {
+            fetch(`/project/delete_member/${memberId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+            })
+            .then(() => location.reload())
+        }
+    }
+</script>
 
 {% endblock %}
