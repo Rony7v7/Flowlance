@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from profile.models import Notification
-from project.forms import ProjectForm
-from project.models import Application, Milestone, Project, Task
+from project.forms import ProjectForm, ProjectUpdateForm
+from project.models import Application, Milestone, Project, Task, ProjectUpdate
 from django.contrib import messages
 
 @login_required
@@ -35,6 +35,7 @@ def my_projects(request):
     )
 
 
+
 @login_required
 def display_project(request, project_id, section):
     try:
@@ -62,7 +63,6 @@ def display_project(request, project_id, section):
             'progress': progress,
         })
 
-
     # Progreso de Tareas
     tasks = Task.objects.filter(milestone__in=milestones)
     total_tasks = tasks.count()
@@ -78,12 +78,19 @@ def display_project(request, project_id, section):
 
     milestone_progress = (completed_milestones / total_milestones) * 100 if total_milestones > 0 else 0
 
+    # Si la sección es "updates", obtener las actualizaciones del proyecto
+    if section == "updates":
+        updates = ProjectUpdate.objects.filter(project=project).order_by('-created_at')
+    else:
+        updates = None
+
     sections_map = {
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
         "time_line": "projects/time_line.html",
         "calendar": "projects/calendar.html",
         "data_project": "projects/data_project.html",
+        "updates": "projects/updates.html",  # Nueva sección de actualizaciones
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
@@ -99,8 +106,58 @@ def display_project(request, project_id, section):
             "task_progress": task_progress,
             "milestone_progress": milestone_progress,
             "section": section,
+            "updates": updates,  # Pasar las actualizaciones al contexto si se selecciona "updates"
         },
     )
+
+
+
+@login_required
+def project_updates(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        is_important = request.POST.get('is_important') == 'on'
+
+        if content:
+            update = ProjectUpdate.objects.create(
+                project=project,
+                content=content,
+                is_important=is_important,
+                author=request.user  # Asegúrate de que el campo 'author' esté correctamente definido en tu modelo
+            )
+            update.save()
+
+        return redirect('project', project_id=project.id, section='updates')
+
+    updates = project.updates.all()
+
+    context = {
+        'project': project,
+        'updates': updates,
+    }
+    
+    return render(request, 'projects/updates.html', context)
+
+
+@login_required
+def add_project_update(request, project_id):
+    project = Project.objects.get(id=project_id)
+
+    if request.method == 'POST':
+        form = ProjectUpdateForm(request.POST)
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.project = project
+            update.author = request.user
+            update.save()
+            return redirect('project', project_id=project.id, section='updates')
+    else:
+        form = ProjectUpdateForm()
+
+    return render(request, 'projects/add_update.html', {'form': form, 'project': project})
+
 
 
 

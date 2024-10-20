@@ -51,4 +51,13 @@ class ProjectForm(forms.ModelForm):
                     "placeholder": "presupuesto del proyecto",
                 }
             ),
+            
         }
+
+
+from .models import ProjectUpdate
+
+class ProjectUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ProjectUpdate
+        fields = ['content', 'is_important']  # Asegúrate de incluir los campos que deseas

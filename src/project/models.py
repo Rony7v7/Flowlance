@@ -19,6 +19,22 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+class ProjectUpdate(models.Model):
+    project = models.ForeignKey(Project, related_name="updates", on_delete=models.CASCADE)
+    content = models.TextField()
+    is_important = models.BooleanField(default=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # null=False (esto evita valores nulos)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.project.title} - {self.content[:20]}'
+
+
+
 
 
 class Milestone(models.Model):

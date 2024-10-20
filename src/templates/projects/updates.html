@@ -1,0 +1,46 @@
+{% extends "projects/default_project_view.html" %}
+{% load static %}
+
+{% block section %}
+<div class="container">
+    <h2 class="text-xl font-bold text-primary_black">Actualizaciones del Proyecto</h2>
+
+    <!-- Formulario para publicar una nueva actualización -->
+    <form method="POST" action="{% url 'add_project_update' project.id %}">
+        {% csrf_token %}
+        <textarea name="content" rows="3" class="w-full border border-gray-300 rounded-lg p-2 mb-4" required></textarea>
+        <div class="flex items-center">
+            <input type="checkbox" name="is_important" id="is_important" class="mr-2">
+            <label for="is_important" class="font-semibold text-primary_black">Marcar como importante</label>
+        </div>
+        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-4 hover:bg-primary_dark transition-colors">
+            <form method="post" action="{% url 'add_project_update' project.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Publicar actualización</button>
+            </form>            
+        </button>
+    </form>
+
+    <!-- Mostrar las actualizaciones -->
+    {% if updates %}
+        <div class="space-y-4 mt-4">
+            {% for update in updates %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-md font-semibold text-primary_black">
+                            {% if update.is_important %}
+                                <span class="text-red-500">[IMPORTANTE]</span>
+                            {% endif %}
+                            {{ update.content }}
+                        </h4>
+                        <span class="text-sm text-gray-500">{{ update.created_at|date:"d M Y, H:i" }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-500">No hay actualizaciones aún.</p>
+    {% endif %}
+</div>
+{% endblock %}
