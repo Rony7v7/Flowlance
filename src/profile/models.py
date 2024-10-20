@@ -20,10 +20,19 @@ class FreelancerProfile(models.Model):
     portfolio = models.OneToOneField('Portfolio', on_delete=models.SET_NULL, null=True, blank=True)
     curriculum_vitae = models.OneToOneField('CurriculumVitae', on_delete=models.SET_NULL, null=True, blank=True)
     ratings = models.ManyToManyField('Rating', related_name='freelancer_rating', blank=True)
+    job_title = models.CharField(max_length=255, blank=True, null=True)
+    about_me = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+
     has_2FA_on = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False, null=False)
+
     def __str__(self):
         return self.user.username
+
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
