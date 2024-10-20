@@ -1,0 +1,42 @@
+{% extends "projects/default_project_view.html" %}
+
+{% load i18n %}
+{% block section %}
+
+<div>
+    <!-- Hitos Section -->
+    <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-bold text-primary_black">{% translate "Entregables" %}</h2>
+    </div>
+
+    <div class="grid grid-cols-3 gap-5 mt-4">
+        <!-- Loop through Milestones -->
+        {% for milestone in milestones %}
+        {% for assigment in milestone.assigments.all %}
+        <div class="bg-bg_white p-4 mb-4 rounded-lg space-y-4 shadow-md">
+            <div class="flex justify-between items-center">
+                <h3 class="text-md font-bold text-primary_medium text-right">{{ assigment.title }} - <span class="text-red-500">{{assigment.milestone.name}}</span></h3>
+            </div>
+            <span>{% translate "Asignado a:" %} {{ assigment.responsible.username }}</span>
+            <p class="text-sm ">{{ assigment.description|truncatewords:50 }}</p>
+            <p class="text-sm text-primary_medium">{% translate "Fecha de Finalización:" %} {{ assigment.end_date }}</p>
+            <p class="text-sm text-primary_medium">{% translate "Estado:"%} {{ assigment.state }}</p>
+            <div class="mt-2 text-center justify-between flex">
+                {% if assigment.file %}
+                <a href="{{ assigment.file.url }}" class="py-2 px-4 rounded-lg text-bg_white bg-primary_black"
+                    download>{% translate "Descargar Entregable" %}</a>
+                {% else %}
+                {% trans 'Subir Entregable' as transtext %}
+                {% url 'upload_assigment' assigment.id as upload_url %}
+                {% include 'utils/anchor_button.html' with type=1 label=transtext id='upload-file' url=upload_url %}
+                {% endif %}
+
+                {% trans 'Ver mas' as transtext %}
+                {% url 'assigment_information' assigment.id as details_url %}
+                {% include 'utils/anchor_button.html' with type=1 label=transtext url=details_url %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endblock %}

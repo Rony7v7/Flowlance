@@ -81,6 +81,7 @@ def display_project(request, project_id, section):
         "time_line": "projects/time_line.html",
         "calendar": "projects/calendar.html",
         "data_project": "projects/data_project.html",
+        "deliverable" : "projects/deliverables.html"
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")

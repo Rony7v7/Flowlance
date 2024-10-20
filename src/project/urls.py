@@ -22,14 +22,15 @@ urlpatterns = [
     path('description/<int:description_id>/edit/', task_views.edit_description, name='edit_description'),
     path('task/<int:task_id>/add-comment/', task_views.add_comment, name='add_comment'),
     path("task/create/<int:project_id>",task_views.create_task,name="create_task"),
+    path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
     path("assigment/create/<int:milestone_id>",assigment_views.create_assigment, name= "create_assigment"),
     path('assigment/<int:assigment_id>/upload/', assigment_views.upload_assigment, name='upload_assigment'),
     path("assigment/edit/<int:assigment_id>",assigment_views.edit_assigment,name="edit_assigment"),
     path("assigment/delete/<int:assigment_id>",assigment_views.delete_assigment,name="delete_assigment"),
+    path("assigment/<int:assigment_id>",assigment_views.get_assigment_information, name="assigment_information")
     path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
     path('project/<int:project_id>/generate-report/', project_views.generate_project_report, name='generate_project_report'),
     path('project/<int:project_id>/report-settings/', project_views.report_settings, name='report_settings'),
     path('download-report/<int:project_id>/', project_views.download_project_report, name='download_project_report'),
-
 ]
 
