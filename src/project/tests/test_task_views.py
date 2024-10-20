@@ -151,9 +151,15 @@ class TaskViewsTest(TestCase):
     def test_update_task_state_unauthorized(self):
         # Crear otro usuario para simular un intento no autorizado de actualizar la tarea
         other_user = User.objects.create_user(username='otheruser', password='12345')
+        
         self.client.login(username='otheruser', password='12345')
-
-        # Intentar cambiar el estado de la tarea sin ser el responsable o superuser
+        ProjectMember.objects.create(
+            project = self.project,
+            user = other_user,
+            role = "administrator",
+            is_owner = True
+        )
+        # Intentar cambiar el estado de la tarea sin ser el responsable
         response = self.client.post(reverse('update_task_state', args=[self.task.id]), {
             'state': 'completada'
         })
@@ -164,20 +170,3 @@ class TaskViewsTest(TestCase):
         # Verificar que el estado de la tarea no haya cambiado
         self.task.refresh_from_db()
         self.assertNotEqual(self.task.state, 'completada')
-
-    def test_update_task_state_superuser(self):
-        # Crear un superusuario para la prueba
-        superuser = User.objects.create_superuser(username='admin', password='adminpass')
-        self.client.login(username='admin', password='adminpass')
-
-        # Cambiar el estado de la tarea como superuser
-        response = self.client.post(reverse('update_task_state', args=[self.task.id]), {
-            'state': 'completada'
-        })
-
-        # Verificar que el estado de la tarea se haya actualizado
-        self.task.refresh_from_db()
-        self.assertEqual(self.task.state, 'completada')
-
-        # Verificar que la redirección sea correcta
-        self.assertEqual(response.status_code, 302)
