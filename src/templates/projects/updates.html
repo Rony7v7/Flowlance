@@ -15,7 +15,6 @@
         </div>
         <form method="post" action="{% url 'add_project_update' project.id %}">
             {% csrf_token %}
-            {{ form.as_p }}
             <button type="submit"
                 class="bg-primary_medium text-white px-6 py-3 rounded-lg mt-4 hover:bg-primary_dark transition-colors"
                 type="submit">Publicar actualización</button>
