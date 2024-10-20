@@ -3,24 +3,19 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from django.urls import reverse
-from profile.models import Notification
-from project.forms import ProjectForm, EventForm
-from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings
-from project.forms import ProjectForm, ProjectUpdateForm
-from project.models import Application, Milestone, Project, Task, ProjectUpdate, UpdateComment, Task
 from django.contrib import messages
-from django.http import FileResponse
+from django.contrib.auth.decorators import login_required
+from django.http import FileResponse, HttpResponse
+
+from profile.models import Notification
+from project.forms import ProjectForm, EventForm, ProjectUpdateForm, ProjectReportSettingsForm
+from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
+from project.management.commands.generate_periodic_reports import Command as ReportCommand
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
-from project.forms import ProjectReportSettingsForm
-from project.models import  UserProjectReportSettings
 
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from io import BytesIO
-from project.models import Project, ProjectReportSettings
-from project.management.commands.generate_periodic_reports import Command as ReportCommand
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
 
