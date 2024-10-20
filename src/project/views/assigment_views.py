@@ -41,6 +41,7 @@ def create_assigment(request, milestone_id):
     )
 
 
+@login_required
 def edit_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment,id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
@@ -78,6 +79,7 @@ def edit_assigment(request, assigment_id):
     )
 
 
+@login_required
 def delete_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
     milestone_id = assigment.milestone.id
@@ -88,6 +90,7 @@ def delete_assigment(request, assigment_id):
         return redirect("edit_milestone", milestone_id=milestone_id)
 
 
+@login_required
 def upload_assigment(request, assigment_id):
     assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
 
@@ -100,4 +103,10 @@ def upload_assigment(request, assigment_id):
 
     return render(
         request, "projects/upload_assigment_file.html", {"assigment": assigment}
+    )
+
+def get_assigment_information(request, assigment_id):
+    assigment = get_object_or_404(Assigment, id=assigment_id,is_deleted=False)
+    return render(
+        request,"projects/assigment_information.html",{"assigment": assigment}
     )
