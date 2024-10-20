@@ -6,7 +6,7 @@
 <div>
 
     <!-- Hitos Section -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center flex-wrap">
         <h2 class="text-2xl font-bold text-primary_black">{% translate "Hitos" %}</h2>
 
         {% url 'add_milestone' project.id as add_milestone_url %}
@@ -18,7 +18,7 @@
         
     </div>
 
-    <div class="grid grid-cols-3 gap-6 mt-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         <div

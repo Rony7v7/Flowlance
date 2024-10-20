@@ -1,13 +1,12 @@
 {% extends "navigation/navigation.html" %}
 
 {% load static %}
-
 {% load i18n %}
 {% block app_content %}
 
 <div class="flex justify-center items-center">
 
-    <div class="flex flex-col mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
+    <div class="flex flex-col mx-4 sm:mx-10 md:mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
@@ -16,6 +15,7 @@
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
             </div>
+
             <div class="mt-8">
                 <label for="description" class="block text-md font-medium text-primary_black">{% translate "Descripción de la Tarea" %}</label>
                 <textarea id="description" name="description" rows="3"
@@ -23,19 +23,16 @@
                     required></textarea>
             </div>
 
-            <div class="w-1/2 mt-8">
+            <div class="w-full md:w-1/2 mt-8">
                 <label for="end_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Finalizacion" %}</label>
                 <input name="end_date" type="date" id="end_date" {% if is_editing and milestone.end_date %}
                     value="{{ milestone.end_date|date:'Y-m-d' }}" {% endif %}
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>
-
             </div>
 
-
-            <div class="mt-8 w-1/2">
+            <div class="mt-8 w-full md:w-1/2">
                 <label for="user" class="block text-md font-medium text-primary_black">{% translate "Usuario encargado" %}</label>
-
                 <select name="user" id="user"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
                     {% for user in members %}
@@ -46,19 +43,16 @@
 
             <div class="mt-8">
                 <label for="priority" class="block text-md font-medium text-primary_black">{% translate "Prioridad" %}</label>
-
                 <select name="priority" id="priority"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
                     <option value="baja">{% translate "Baja" %}</option>
                     <option value="media">{% translate "Media" %}</option>
-                    <option value="alata">{% translate "Alta" %}</option>
+                    <option value="alta">{% translate "Alta" %}</option>
                 </select>
             </div>
 
-
             <div class="mt-8">
                 <label for="state" class="block text-md font-medium text-primary_black">{% translate "Estado de la Tarea" %}</label>
-
                 <select name="state" id="state"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
                     <option value="pendiente">{% translate "Pendiente" %}</option>
@@ -67,12 +61,10 @@
                 </select>
             </div>
 
-
             <div class="mt-8">
                 <label for="milestone" class="block text-md font-medium text-primary_black">{% translate "Hito asociado" %}</label>
-
                 <select name="milestone" id="milestone" required
-                    class="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
+                    class="mt-1 block w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm">
                     {% for milestone in milestones %}
                     <option value="{{milestone.id}}">{{milestone.name}}</option>
                     {% endfor %}
@@ -80,12 +72,13 @@
             </div>
 
             <div class="mt-9">
-                <div class="justify-end  items-center">
+                <div class="flex justify-end items-center">
                     <a href="/project/{{project_id}}/task">
                         <button type="button"
                             class="bg-gray-300 text-gray-800 px-4 py-2 rounded-xl mr-2 hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                     </a>
-                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
+                    <button type="submit"
+                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
                 </div>
             </div>
         </form>
