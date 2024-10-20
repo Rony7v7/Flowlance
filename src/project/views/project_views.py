@@ -104,6 +104,9 @@ def display_project(request, project_id, section):
             "application": application,
             "applications": applications,
             "user_is_owner": request.user == project.client,
+            "user_is_admin": project.memberships.filter(user=request.user, role="administrator").exists(),
+            "user_is_member": project.memberships.filter(user=request.user, role="member").exists(),
+            "user_is_viewer": project.memberships.filter(user=request.user, role="viewer").exists(),
             "members": project.memberships.filter(is_deleted=False),
         },
     )
@@ -151,11 +154,11 @@ def project_list(request):
     return render(request, "projects/project_list.html", {"projects": projects})
 
 
-
+@role_required("administrator")
 @login_required
-def project_edit(request, pk):
+def project_edit(request, project_id):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
+    project = get_object_or_404(Project, id=project_id, is_deleted=False)
     
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
@@ -181,9 +184,9 @@ def project_edit(request, pk):
 
 @role_required("administrator")
 @login_required
-def project_delete(request, pk):
+def project_delete(request, project_id):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
+    project = get_object_or_404(Project, id=project_id, client=request.user,is_deleted=False)
     
     if request.method == "POST":
         
@@ -206,7 +209,7 @@ def project_delete(request, pk):
 
 @login_required
 def project_requirements(request, project_id):
-    project = get_object_or_404(Project,pk=project_id,is_deleted=False)
+    project = get_object_or_404(Project,id=project_id,is_deleted=False)
     return render(request, "projects/project_requirements.html", {"project": project})
 
 @login_required
@@ -243,7 +246,7 @@ def apply_project(request, project_id):
     return redirect("project", project_id=project_id, section="milestone")
 
 
-
+@role_required("administrator")
 @login_required
 def update_application_status(request, application_id, action):
     application = get_object_or_404(Application, id=application_id,is_deleted=False)
@@ -303,7 +306,7 @@ def report_settings(request, project_id):
 
     return render(request, 'projects/report_settings.html', {'form': form, 'project': project})
 
-login_required
+@login_required
 def generate_project_report(request, project_id):
     project = get_object_or_404(Project, id=project_id, is_deleted=False)
     settings, _ = ProjectReportSettings.objects.get_or_create(project=project)
