@@ -113,11 +113,11 @@ class Command(BaseCommand):
 
                 p.setFont("Helvetica", 10)
                 p.setFillColor(colors.black)
-                p.drawString(70, y_position - 45, f"Progress: {milestone.amount_completed}/{milestone.assigments.count()} assignments completed")
+                p.drawString(70, y_position - 45, f"Progress: {milestone.amount_completed}/{milestone.tasks.count()} assignments completed")
                 p.drawString(70, y_position - 60, f"Deadline: {milestone.end_date}")
 
                 status_color = (
-                    colors_dict["task_complete"] if milestone.amount_completed == milestone.assigments.count()
+                    colors_dict["task_complete"] if milestone.amount_completed == milestone.tasks.count()
                     else colors_dict["task_inprogress"]
                 )
                 p.setFillColor(status_color)
@@ -246,11 +246,18 @@ class Command(BaseCommand):
         if total_milestones == 0:
             return 0
 
-        completed_milestones = sum(
-            1 for milestone in milestones
-            if milestone.amount_completed == milestone.assigments.count() and milestone.assigments.count() > 0
-        )
+        completed_milestones = 0
+        for milestone in milestones:
+            total_tasks = milestone.tasks.count()  # Usa 'tasks' como el related_name correcto
+            completed_tasks = milestone.tasks.filter(state='Completada').count()
+
+            # Si todas las tareas están completadas, el hito se considera completado
+            if total_tasks > 0 and completed_tasks == total_tasks:
+                completed_milestones += 1
+
         return (completed_milestones / total_milestones) * 100
+
+
 
     def calculate_task_progress(self, project):
         tasks = Task.objects.filter(milestone__project=project, is_deleted=False)

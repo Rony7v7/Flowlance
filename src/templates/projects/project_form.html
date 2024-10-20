@@ -1,17 +1,33 @@
-{% extends 'base.html' %}
+{% extends "navigation/navigation.html" %}
 
 {% load i18n %}
-{% block content %}
-<div class="container mx-auto px-4 py-12">
-    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 lg:p-10">
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 border-b-2 border-gray-200 pb-4">{% translate "Editar "%}{{ project.title }}</h1>
-        
+{% block app_content %}
+<div class="flex justify-center items-center py-12">
+    <div class="flex flex-col mx-40 bg-bg_gray p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 border-b-2 border-gray-200 pb-4">
+            {% blocktrans %}Editar {{ project.title }}{% endblocktrans %}
+        </h1>
+
         <form method="post" class="space-y-6">
             {% csrf_token %}
             {% for field in form %}
                 <div>
-                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ field.label }}
+                    <label for="{{ field.id_for_label }}" class="block text-md font-medium text-primary_black mb-1">
+                        {% if field.name == 'include_milestone_progress' %}
+                            {% translate "Incluir progreso de hitos" %}
+                        {% elif field.name == 'include_task_progress' %}
+                            {% translate "Incluir progreso de tareas" %}
+                        {% elif field.name == 'include_milestones_and_tasks' %}
+                            {% translate "Incluir hitos y tareas" %}
+                        {% elif field.name == 'include_kanban_board' %}
+                            {% translate "Incluir tablero Kanban" %}
+                        {% elif field.name == 'include_gantt_chart' %}
+                            {% translate "Incluir gráfico Gantt" %}
+                        {% elif field.name == 'report_frequency' %}
+                            {% translate "Frecuencia del reporte" %}
+                        {% else %}
+                            {{ field.label }}
+                        {% endif %}
                     </label>
                     {{ field }}
                     {% if field.errors %}
@@ -22,16 +38,18 @@
                 </div>
             {% endfor %}
             <div class="flex justify-end space-x-4 mt-10">
-                <a href="/project/{{project.id}}/milestone" 
-                   class="inline-flex items-center justify-center bg-gray-300 text-gray-700 font-medium px-6 py-3 rounded-lg shadow-md hover:bg-gray-400 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    {% translate "Cancelar" %}
+                <a href="/project/{{ project.id }}/milestone">
+                    <button type="button" 
+                            class="bg-gray-300 text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-400 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                        {% translate "Cancelar" %}
+                    </button>
                 </a>
                 <button type="submit" 
-                        class="inline-flex items-center justify-center bg-primary_medium text-white font-medium px-6 py-3 rounded-lg shadow-md hover:bg-primary_dark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    {% translate "Editar proyecto" %}
+                        class="bg-primary_medium text-white px-6 py-3 rounded-lg shadow-md hover:bg-primary_dark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                    {% translate "Guardar Configuración" %}
                 </button>
             </div>
         </form>
     </div>
 </div>
-{% endblock %}
+{% endblock app_content %}
