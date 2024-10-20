@@ -12,7 +12,7 @@
         {% url 'add_milestone' project.id as add_milestone_url %}
         {% trans "Añadir" as translated_button %}
 
-        {% if user_is_owner %}
+        {% if user_is_member or user_is_admin %}
             {% include 'utils/anchor_button.html' with type=1 label=translated_button url=add_milestone_url %}
         {% endif %}
         

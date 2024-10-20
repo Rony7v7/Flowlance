@@ -1,0 +1,48 @@
+{% load i18n %}
+
+<!-- Navigation Tabs -->
+<div class="flex flex-wrap items-center justify-center gap-5 bg-primary_lightest rounded-xl px-4 py-2 text-white">
+
+    <a href="/project/{{ project.id }}/milestone"
+       class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'milestone' %} !bg-primary_dark text-white{% endif %}">
+        {% translate "Hitos" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/task"
+       class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'task' %} !bg-primary_dark text-white{% endif %}">
+        {% translate "Tareas" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/deliverable"
+       class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'deliverable' %} !bg-primary_dark text-white{% endif %}">
+        {% translate "Entregables" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/time_line"
+       class="text-md font-semibold bg-primary_light rounded-xl px-6 md:px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[150px] whitespace-nowrap 
+       {% if section == 'time_line' %} !bg-primary_dark text-white{% endif %}">
+        {% translate "Línea de Tiempo" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/calendar" 
+       class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'calendar' %} !bg-primary_dark text-white{% endif %}">
+       {% translate "Calendario" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/data_project"
+       class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'data_project' %} !bg-primary_dark text-white{% endif %}">
+       {% translate "Progreso" %}
+    </a>
+
+    <a href="/project/{{ project.id }}/members"
+       class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'members' %} !bg-primary_dark text-white{% endif %}">
+       {% translate "Miembros" %}
+    </a>
+
+</div>

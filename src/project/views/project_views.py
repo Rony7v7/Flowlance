@@ -5,7 +5,7 @@ from django.db.models import Prefetch
 from django.urls import reverse
 from profile.models import Notification
 from project.forms import ProjectForm, EventForm
-from project.models import Application, Milestone, Project, Task, ProjectReportSettings
+from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings
 from django.contrib import messages
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
@@ -20,7 +20,7 @@ from io import BytesIO
 from project.models import Project, ProjectReportSettings
 from project.management.commands.generate_periodic_reports import Command as ReportCommand
 # Decorators
-from flowlance.decorators import client_required, freelancer_required, attach_profile_info
+from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
 
 @login_required
 @client_required
@@ -31,7 +31,9 @@ def create_project(request):
             project = form.save(commit=False)
             project.client = request.user
             project.save()
-            project.members.add(request.user)
+            
+            ProjectMember.objects.create(project=project, user=request.user, role="administrator", is_owner=True)
+
             id = project.id
             return redirect("project", project_id=id, section="milestone")
     else:
@@ -88,7 +90,8 @@ def display_project(request, project_id, section):
         "time_line": "projects/time_line.html",
         "calendar": "projects/calendar.html",
         "data_project": "projects/data_project.html",
-        "deliverable" : "projects/deliverables.html"
+        "deliverable" : "projects/deliverables.html",
+        "members" : "projects/project_members.html",
     }
 
     section_to_show = sections_map.get(section, "projects/milestones.html")
@@ -98,16 +101,20 @@ def display_project(request, project_id, section):
         request,
         section_to_show,
         {
+            "section": section,
             "project": project,
             "tasks": tasks,
-            "milestones": milestones,
             "task_progress": task_progress,
+            "milestones": milestones,
             "milestone_progress": milestone_progress,
-            "section": section,
             "application": application,
             "user_is_owner": request.user == project.client,
             "events": event_list,
             "form": EventForm(),  
+            "user_is_admin": project.memberships.filter(user=request.user, role="administrator").exists(),
+            "user_is_member": project.memberships.filter(user=request.user, role="member").exists(),
+            "user_is_viewer": project.memberships.filter(user=request.user, role="viewer").exists(),
+            "members": project.memberships.filter(is_deleted=False),
         },
     )
 
@@ -155,11 +162,11 @@ def project_list(request):
     return render(request, "projects/project_list.html", {"projects": projects})
 
 
-
+@role_required("administrator")
 @login_required
-def project_edit(request, pk):
+def project_edit(request, project_id):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
+    project = get_object_or_404(Project, id=project_id, is_deleted=False)
     
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
@@ -183,11 +190,11 @@ def project_edit(request, pk):
         {"form": form, "project": project, "action": "Edit"},
     )
 
-
+@role_required("administrator")
 @login_required
-def project_delete(request, pk):
+def project_delete(request, project_id):
     
-    project = get_object_or_404(Project, pk=pk, client=request.user,is_deleted=False)
+    project = get_object_or_404(Project, id=project_id, client=request.user,is_deleted=False)
     
     if request.method == "POST":
         
@@ -210,7 +217,7 @@ def project_delete(request, pk):
 
 @login_required
 def project_requirements(request, project_id):
-    project = get_object_or_404(Project,pk=project_id,is_deleted=False)
+    project = get_object_or_404(Project,id=project_id,is_deleted=False)
     return render(request, "projects/project_requirements.html", {"project": project})
 
 @login_required
@@ -247,7 +254,7 @@ def apply_project(request, project_id):
     return redirect("project", project_id=project_id, section="milestone")
 
 
-
+@role_required("administrator")
 @login_required
 def update_application_status(request, application_id, action):
     application = get_object_or_404(Application, id=application_id,is_deleted=False)
@@ -260,7 +267,7 @@ def update_application_status(request, application_id, action):
     if action == "accept":
         application.status = "Aceptada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido aceptada."
-        application.project.members.add(application.user)
+        ProjectMember.objects.create(project=application.project, user=application.user)
     elif action == "reject":
         application.status = "Rechazada"
         message = f"Tu postulación al proyecto '{application.project.title}' ha sido rechazada."
@@ -307,7 +314,7 @@ def report_settings(request, project_id):
 
     return render(request, 'projects/report_settings.html', {'form': form, 'project': project})
 
-login_required
+@login_required
 def generate_project_report(request, project_id):
     project = get_object_or_404(Project, id=project_id, is_deleted=False)
     settings, _ = ProjectReportSettings.objects.get_or_create(project=project)
