@@ -1,0 +1,48 @@
+{% extends "navigation/navigation.html" %}
+
+{% load static %}
+
+{% load i18n %}
+{% block app_content %}
+
+<div class="flex justify-center items-center">
+
+    <div class="flex flex-col mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full">
+        {% csrf_token %}
+        <div class="mt-8">
+            <label for="name" class="block text-md font-medium text-primary_black">{% translate "Nombre del Entregable"%}</label>
+            <span> {{assigment.title}}</span>
+        </div>
+        <div class="mt-8">
+            <label for="description" class="block text-md font-medium text-primary_black">{% translate "Descripcion del Entregable" %}</label>
+            <p>
+                {{assigment.description}}
+            </p>
+        </div>
+
+        <div class="mt-8 w-1/2">
+            <label for="user" class="block text-md font-medium text-primary_black">{% translate "Usuario encargado" %}</label>
+            <span>{{assigment.responsible.username}}</span>
+        </div>
+
+        <div class="w-1/2 mt-8">
+            <label for="end_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Finalizacion" %}</label>
+            <span> {{ assigment.end_date|date:'Y-m-d' }}</span>
+        </div>
+
+
+        <div class="justify-end  items-center mt-4">
+            <a  href="/project/{{assigment.milestone.project.id}}/deliverable">
+
+                <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2">{% translate "Volver"%}</button>
+            </a>
+            {% trans "Ir al Hito" as translatedtext %}
+            {% url 'edit_milestone' assigment.milestone.id as milestone_url %}
+            {% include "utils/anchor_button.html" with type=1 label=translatedtext url=milestone_url %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

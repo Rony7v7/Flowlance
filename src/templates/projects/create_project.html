@@ -5,7 +5,7 @@
 {% block title %}{% translate "Creación de proyecto" %}{% endblock %}
 
 {% block content %}
-<div class="px-20 py-8">
+<div class="px-4 md:px-20 py-8">
     <h1 class="text-2xl font-bold text-primary_black mb-2">{% translate "Creación de proyecto" %}</h1>
     <h2 class="text-lg text-primary_dark mb-6">{% translate "Información de los proyectos" %}</h2>
 
@@ -13,47 +13,45 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div class="items-center justify-center space-y-4 w-1/2">
+        <div class="items-center justify-center space-y-4 w-full md:w-1/2">
             <div>
                 <label for="{{ form.title.id_for_label }}"
                     class="block text-sm font-medium text-primary_black mb-1">{% translate "Ingresa el nombre del proyecto" %} <span class="text-red-600">*</span></label>
-                {{ form.title}}
+                {{ form.title }}
                 {{ form.title.errors }}
             </div>
 
             <div>
                 <label for="{{ form.description.id_for_label }}"
                     class="block text-sm font-medium text-primary_black mb-1">{% translate "Especificaciones del proyecto" %}
-                    <span class="text-red-600">*</span>
+                    <span class="text-red-600">*</span></label>
                 {{ form.description }}
                 {{ form.description.errors }}
             </div>
 
             <div>
                 <label for="{{ form.requirements.id_for_label }}"
-                    class="block text-sm font-medium text-primary_black mb-1">{% translate "Requerimientos del proyecto" %} <span
-                        class="text-red-600">*</span></label>
+                    class="block text-sm font-medium text-primary_black mb-1">{% translate "Requerimientos del proyecto" %} <span class="text-red-600">*</span></label>
                 {{ form.requirements }}
                 {{ form.requirements.errors }}
             </div>
 
             <div>
                 <label for="{{ form.budget.id_for_label }}"
-                    class="block text-sm font-medium text-primary_black mb-1">{% translate "Presupuesto del proyecto" %}
-                    <span class="text-red-600">*</span></label>
+                    class="block text-sm font-medium text-primary_black mb-1">{% translate "Presupuesto del proyecto" %} <span class="text-red-600">*</span></label>
                 {{ form.budget }}
                 {{ form.budget.errors }}
             </div>
-            <div class="flex justify-between">
+            <div class="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4">
                 <div>
                     <label for="{{ form.start_date.id_for_label }}"
-                        class=" w-1/2 text-sm font-medium text-primary_black mb-1">{% translate "Fecha de inicio:" %}</label>
+                        class="block text-sm font-medium text-primary_black mb-1">{% translate "Fecha de inicio:" %}</label>
                     {{ form.start_date }}
                     {{ form.start_date.errors }}
                 </div>
                 <div>
                     <label for="{{ form.end_date.id_for_label }}"
-                        class=" w-1/2 text-sm font-medium text-primary_black mb-1">{% translate "Fecha de finalización:" %}</label>
+                        class="block text-sm font-medium text-primary_black mb-1">{% translate "Fecha de finalización:" %}</label>
                     {{ form.end_date }}
                     {{ form.end_date.errors }}
                 </div>
@@ -61,13 +59,10 @@
         </div>
         <div class="flex justify-center items-center">
             <button type="submit"
-                class=" bg-primary_medium text-white font-semibold px-5 py-3 rounded-md hover:bg-primary_light focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                class="bg-primary_medium text-white font-semibold px-5 py-3 rounded-md hover:bg-primary_light focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 {% translate "Confirmar" %}
             </button>
 
     </form>
-</div>
-
-
 </div>
 {% endblock %}

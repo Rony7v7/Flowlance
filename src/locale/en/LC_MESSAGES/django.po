@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-12 20:46-0500\n"
+"POT-Creation-Date: 2024-10-19 18:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,6 @@ msgstr "Project Description"
 #: profile/forms.py:38 project/forms.py:21
 #: templates/profile/add_project.html:42
 #: templates/projects/manage_milestone.html:80
-#: templates/settings/settings_navbar.html:32
 msgid "Fecha de Inicio"
 msgstr "Start Date"
 
@@ -212,18 +211,140 @@ msgid "Este NIT ya está registrado. Por favor, usa otro."
 msgstr "This Tax ID is already registered. Please use another."
 
 #: project/forms.py:17
-#| msgid "Nombre del Proyecto"
 msgid "Titulo del Proyecto"
 msgstr "Project Name"
 
 #: project/forms.py:19
-#| msgid "Ver Requerimientos"
 msgid "Requerimientos"
 msgstr "View Requirements"
 
 #: project/forms.py:20 templates/navigation/search_filters.html:76
 msgid "Presupuesto"
 msgstr "Budget"
+
+#: templates/dashboard/company_dashboard.html:11
+msgid "Colaboradores Recientes"
+msgstr "Recent Colaborators"
+
+#: templates/dashboard/company_dashboard.html:25
+#, fuzzy
+#| msgid "Proyectos Disponibles"
+msgid "No hay contactos disponibles."
+msgstr "Available Projects"
+
+#: templates/dashboard/company_dashboard.html:42
+#: templates/dashboard/freelancer_dashboard.html:62
+#: templates/projects/project_list.html:14
+#: templates/projects/project_list.html:30
+msgid "Mis Proyectos"
+msgstr "My Projects"
+
+#: templates/dashboard/company_dashboard.html:51
+#: templates/dashboard/freelancer_dashboard.html:27
+#: templates/dashboard/freelancer_dashboard.html:71
+#, fuzzy
+#| msgid "Proyectos Disponibles"
+msgid "No hay proyectos disponibles."
+msgstr "Available Projects"
+
+#: templates/dashboard/company_dashboard.html:60
+#, fuzzy
+#| msgid "Ver Postulaciones"
+msgid "Postulaciones"
+msgstr "View Applications"
+
+#: templates/dashboard/company_dashboard.html:69
+#, fuzzy
+#| msgid "No hay postulaciones aún."
+msgid "No hay postulaciones pendientes."
+msgstr "There are no applications yet."
+
+#: templates/dashboard/company_dashboard.html:81
+msgid "Análisis de éxito"
+msgstr "Success analysis"
+
+#: templates/dashboard/company_dashboard.html:94
+#: templates/dashboard/freelancer_dashboard.html:117
+msgid "Estado Financiero"
+msgstr "Finance State"
+
+#: templates/dashboard/company_dashboard.html:101
+#: templates/dashboard/freelancer_dashboard.html:124
+msgid "Balance General"
+msgstr "General Balance"
+
+#: templates/dashboard/company_dashboard.html:109
+#: templates/dashboard/freelancer_dashboard.html:132
+msgid "Últimos Movimientos"
+msgstr "Last Transaccions"
+
+#: templates/dashboard/company_dashboard.html:115
+#: templates/dashboard/freelancer_dashboard.html:138
+#, fuzzy
+#| msgid "No hay comentarios aún."
+msgid "No hay movimientos recientes."
+msgstr "There are no comments yet."
+
+#: templates/dashboard/company_dashboard.html:123
+#: templates/dashboard/freelancer_dashboard.html:146
+#, fuzzy
+#| msgid "Pendiente"
+msgid "Pagos Pendientes"
+msgstr "Pending"
+
+#: templates/dashboard/company_dashboard.html:129
+#: templates/dashboard/freelancer_dashboard.html:152
+#, fuzzy
+#| msgid "No hay postulaciones aún."
+msgid "No hay pagos pendientes."
+msgstr "There are no applications yet."
+
+#: templates/dashboard/freelancer_dashboard.html:11
+#, fuzzy
+#| msgid "Proyectos Disponibles"
+msgid "Proyectos disponibles"
+msgstr "Available Projects"
+
+#: templates/dashboard/freelancer_dashboard.html:12
+#, fuzzy
+#| msgid "Ver mas"
+msgid "Ver más"
+msgstr "View Details"
+
+#: templates/dashboard/freelancer_dashboard.html:41
+#: templates/projects/project_card.html:29
+#, fuzzy
+#| msgid "Pendiente"
+msgid "Tareas Pendientes"
+msgstr "Pending"
+
+#: templates/dashboard/freelancer_dashboard.html:50
+msgid "No hay tareas pendientes."
+msgstr "There is no pending tasks"
+
+#: templates/dashboard/freelancer_dashboard.html:80
+#, fuzzy
+#| msgid "En Progreso"
+msgid "Mi Progreso"
+msgstr "In progress"
+
+#: templates/dashboard/freelancer_dashboard.html:89
+#, fuzzy
+#| msgid "Nombre completo"
+msgid "Tareas completas"
+msgstr "Full name"
+
+#: templates/dashboard/freelancer_dashboard.html:97
+#, fuzzy
+#| msgid "Completada"
+msgid "Completas"
+msgstr "Completed"
+
+#: templates/dashboard/freelancer_dashboard.html:102
+#, fuzzy
+#| msgid "Pendiente"
+msgid "Pendientes"
+msgstr "Pending"
 
 #: templates/homepage/bottom_bar.html:51
 msgid "Términos de servicio"
@@ -342,16 +463,13 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                Please insert the double auth code that was sent to your email!\n"
+"                Please insert the double auth code that was sent to your "
+"email!\n"
 "                "
 
 #: templates/login/2_factor_auth.html:50
 msgid "Volver al incio"
 msgstr "Back to the log in page"
-
-#: templates/project/project_requirements.html:22
-msgid "Volver al Proyecto"
-msgstr "Back to Project"
 
 #: templates/login/login.html:19
 msgid "Iniciar sesión"
@@ -520,7 +638,7 @@ msgstr "You can attach a file here"
 #: templates/profile/add_course.html:71
 #: templates/profile/add_experience.html:47
 #: templates/profile/add_project.html:128 templates/profile/add_rating.html:36
-#: templates/projects/assigment_section.html:87
+#: templates/projects/assigment_section.html:58
 #: templates/projects/create_project.html:65
 msgid "Confirmar"
 msgstr "Confirm"
@@ -675,7 +793,6 @@ msgid "Enviar Calificación"
 msgstr "Submit Rating"
 
 #: templates/profile/company_profile.html:11
-#| msgid "Foto de Perfil"
 msgid "Foto de"
 msgstr "Profile Picture"
 
@@ -684,17 +801,14 @@ msgid "Vertical:"
 msgstr "Vertical: "
 
 #: templates/profile/company_profile.html:27
-#| msgid "Dirección"
 msgid "Dirección:"
 msgstr "Address"
 
 #: templates/profile/company_profile.html:35
-#| msgid "Representante Legal"
 msgid "Representante Legal:"
 msgstr "Legal Representative"
 
 #: templates/profile/company_profile.html:40
-#| msgid "Teléfono"
 msgid "Teléfono:"
 msgstr "Phone"
 
@@ -703,12 +817,10 @@ msgid "NIT:"
 msgstr "NIT: "
 
 #: templates/profile/company_profile.html:50
-#| msgid "Correo Electrónico"
 msgid "Correo Electrónico:"
 msgstr "Email"
 
 #: templates/profile/company_profile.html:59
-#| msgid "Mi Perfil"
 msgid "Editar Perfil"
 msgstr "My Profile"
 
@@ -795,6 +907,10 @@ msgstr "You have no notifications."
 #: templates/profile/notifications.html:17
 msgid "Marcar todas como leídas"
 msgstr "Mark all as read"
+
+#: templates/profile/profile_card.html:40
+msgid "Mensaje"
+msgstr "Message"
 
 #: templates/profile/register_company.html:13
 #: templates/profile/register_freelancer.html:13
@@ -883,29 +999,69 @@ msgstr "Only PDF format files are accepted."
 msgid "Subir Curriculum"
 msgstr "Upload Curriculum"
 
+#: templates/projects/assigment_information.html:13
+#: templates/projects/create_assigment.html:14
+msgid "Nombre del Entregable"
+msgstr "Deliverable Name"
+
+#: templates/projects/assigment_information.html:17
+#: templates/projects/create_assigment.html:20
+msgid "Descripcion del Entregable"
+msgstr "Deliverable Description"
+
+#: templates/projects/assigment_information.html:24
+#: templates/projects/create_assigment.html:27
+#: templates/projects/task_creation.html:37
+msgid "Usuario encargado"
+msgstr "User in charge"
+
+#: templates/projects/assigment_information.html:29
+#: templates/projects/create_assigment.html:38
+#: templates/projects/manage_milestone.html:70
+#: templates/projects/task_creation.html:27
+msgid "Fecha de Finalizacion"
+msgstr "Completion Date"
+
+#: templates/projects/assigment_information.html:37
+msgid "Volver"
+msgstr "Go Back"
+
+#: templates/projects/assigment_information.html:39
+msgid "Ir al Hito"
+msgstr "Go to Milestone"
+
 #: templates/projects/assigment_section.html:7
+#: templates/projects/default_project_view.html:20
+#: templates/projects/deliverables.html:9
 msgid "Entregables"
 msgstr "Deliverables"
 
 #: templates/projects/assigment_section.html:28
-#: templates/projects/tasks.html:56
+#: templates/projects/deliverables.html:20 templates/projects/task_card.html:16
 msgid "Asignado a:"
 msgstr "Assigned to:"
 
-#: templates/projects/assigment_section.html:60
-#: templates/projects/default_project_view.html:116
+#: templates/projects/assigment_section.html:30
+#: templates/projects/deliverables.html:22
+msgid "Fecha de Finalización:"
+msgstr "Completion Date:"
+
+#: templates/projects/assigment_section.html:31
+#: templates/projects/deliverables.html:23
+#: templates/projects/project_application_li.html:11
 msgid "Estado:"
 msgstr "Status:"
 
-#: templates/projects/assigment_section.html:64
+#: templates/projects/assigment_section.html:35
+#: templates/projects/deliverables.html:27
 msgid "Descargar Entregable"
 msgstr "Download Deliverable"
 
-#: templates/projects/assigment_section.html:84
+#: templates/projects/assigment_section.html:55
 msgid "¿Estás seguro de borrar el entregable ?"
 msgstr "Are you sure you want to delete the deliverable?"
 
-#: templates/projects/assigment_section.html:90
+#: templates/projects/assigment_section.html:61
 #: templates/projects/create_assigment.html:51
 #: templates/projects/manage_milestone.html:45
 #: templates/projects/manage_milestone.html:94
@@ -919,25 +1075,6 @@ msgstr "Cancel"
 #: templates/projects/default_project_view.html:27
 msgid "Calendario"
 msgstr "Calendar"
-
-#: templates/projects/create_assigment.html:14
-msgid "Nombre del Entregable"
-msgstr "Deliverable Name"
-
-#: templates/projects/create_assigment.html:20
-msgid "Descripcion del Entregable"
-msgstr "Deliverable Description"
-
-#: templates/projects/create_assigment.html:27
-#: templates/projects/task_creation.html:37
-msgid "Usuario encargado"
-msgstr "User in charge"
-
-#: templates/projects/create_assigment.html:38
-#: templates/projects/manage_milestone.html:70
-#: templates/projects/task_creation.html:27
-msgid "Fecha de Finalizacion"
-msgstr "Completion Date"
 
 #: templates/projects/create_assigment.html:53
 #: templates/projects/manage_milestone.html:96
@@ -989,50 +1126,72 @@ msgstr "Milestones"
 msgid "Tareas"
 msgstr "Tasks"
 
-#: templates/projects/default_project_view.html:20
+#: templates/projects/default_project_view.html:24
 msgid "Línea de Tiempo"
 msgstr "Timeline"
 
-#: templates/projects/default_project_view.html:32
+#: templates/projects/default_project_view.html:31
+#, fuzzy
+#| msgid "En Progreso"
+msgid "Progreso"
+msgstr "In progress"
+
+#: templates/projects/default_project_view.html:37
 msgid "Panel de control"
 msgstr "Dashboard"
 
-#: templates/projects/default_project_view.html:42
+#: templates/projects/default_project_view.html:47
 msgid "Presupuesto:"
 msgstr "Budget:"
 
-#: templates/projects/default_project_view.html:54
-#: templates/projects/tasks.html:102
+#: templates/projects/default_project_view.html:60
+#: templates/projects/task_card.html:52
 msgid "Editar"
 msgstr "Edit"
 
-#: templates/projects/default_project_view.html:58
+#: templates/projects/default_project_view.html:64
 msgid "Ver Requerimientos"
 msgstr "View Requirements"
 
-#: templates/projects/default_project_view.html:66
+#: templates/projects/default_project_view.html:70
+msgid "Ver Postulaciones"
+msgstr "View Applications"
+
+#: templates/projects/default_project_view.html:93
 msgid "Postularse a este proyecto"
 msgstr "Apply for this project"
 
 #: templates/projects/default_project_view.html:105
+#: templates/projects/default_project_view.html:113
+#: templates/projects/default_project_view.html:121
+msgid "Estado de la postulación: "
+msgstr "Application status: "
+
+#: templates/projects/default_project_view.html:128
+msgid "No te has postulado a este proyecto aún."
+msgstr "You haven't applied to this project yet."
+
+#: templates/projects/default_project_view.html:142
 msgid "Postulaciones al Proyecto"
 msgstr "Project Applications"
 
-#: templates/projects/default_project_view.html:111
-msgid "Usuario:"
-msgstr "User:"
-
-#: templates/projects/default_project_view.html:117
-msgid "Fecha de Aplicación:"
-msgstr "Application Date:"
-
-#: templates/projects/default_project_view.html:129
+#: templates/projects/default_project_view.html:147
 msgid "No hay postulaciones para este proyecto."
 msgstr "There are no applications for this project."
 
-#: templates/projects/default_project_view.html:132
+#: templates/projects/default_project_view.html:150
 msgid "Cerrar"
 msgstr "Close"
+
+#: templates/projects/deliverables.html:29
+#: templates/projects/upload_assigment_file.html:18
+msgid "Subir Entregable"
+msgstr "Upload Deliverable"
+
+#: templates/projects/deliverables.html:34
+#: templates/projects/milestones.html:36
+msgid "Ver mas"
+msgstr "View Details"
 
 #: templates/projects/edit_description.html:7
 msgid "Editar Descripción"
@@ -1078,15 +1237,25 @@ msgstr "End Date: "
 msgid "Entregables:"
 msgstr "Deliverables:"
 
-#: templates/projects/milestones.html:36
-msgid "Ver mas"
-msgstr "View Details"
+#: templates/projects/project_application_li.html:6
+msgid "Usuario:"
+msgstr "User:"
 
-#: templates/projects/project_card.html:8
+#: templates/projects/project_application_li.html:12
+msgid "Fecha de Aplicación:"
+msgstr "Application Date:"
+
+#: templates/projects/project_application_li.html:14
+#, fuzzy
+#| msgid "Proyectos"
+msgid "Proyecto:"
+msgstr "Projects"
+
+#: templates/projects/project_card.html:20
 msgid "Presupuesto: $"
 msgstr "Budget: $"
 
-#: templates/projects/project_card.html:9
+#: templates/projects/project_card.html:21
 msgid "Ver Detalles"
 msgstr "View Details"
 
@@ -1111,14 +1280,9 @@ msgstr "Edit project"
 msgid "Disponibles"
 msgstr "Available Projects"
 
-#: templates/projects/project_list.html:14
-#: templates/projects/project_list.html:30
-msgid "Mis Proyectos"
-msgstr "My Projects"
-
 #: templates/projects/project_list.html:22
 msgid "Crear Proyecto"
-msgstr "Delete Project"
+msgstr "Create Proyect"
 
 #: templates/projects/project_list.html:38
 #: templates/projects/project_main_view.html:28
@@ -1132,6 +1296,10 @@ msgstr "Available Projects"
 #: templates/projects/project_requirements.html:9
 msgid "Requerimientos del Proyecto"
 msgstr "Project Requirements"
+
+#: templates/projects/project_requirements.html:22
+msgid "Volver al Proyecto"
+msgstr "Back to Project"
 
 #: templates/projects/review_applications.html:11
 msgid "Estado"
@@ -1152,6 +1320,88 @@ msgstr "View Profile"
 #: templates/projects/review_applications.html:28
 msgid "No hay postulaciones aún."
 msgstr "There are no applications yet."
+
+#: templates/projects/task_card.html:8
+msgid "Hito: "
+msgstr "Milestone: "
+
+#: templates/projects/task_card.html:19
+msgid "Inicio: "
+msgstr "Start: "
+
+#: templates/projects/task_card.html:20
+msgid "Fin: "
+msgstr "End: "
+
+#: templates/projects/task_card.html:24
+msgid "Prioridad:"
+msgstr "Priority"
+
+#: templates/projects/task_card.html:30
+msgid "Estado Actual:"
+msgstr "Status:"
+
+#: templates/projects/task_card.html:32
+#: templates/projects/task_creation.html:64
+msgid "Pendiente"
+msgstr "Pending"
+
+#: templates/projects/task_card.html:33
+msgid "En Progreso"
+msgstr "In progress"
+
+#: templates/projects/task_card.html:34
+#: templates/projects/task_creation.html:66
+msgid "Completada"
+msgstr "Completed"
+
+#: templates/projects/task_card.html:36
+msgid "Actualizar Estado"
+msgstr "Update"
+
+#: templates/projects/task_card.html:41
+msgid "Descripciones Adicionales"
+msgstr "Additional Descriptions"
+
+#: templates/projects/task_card.html:56
+msgid "No hay descripciones adicionales aún."
+msgstr "There are no additional descriptions yet."
+
+#: templates/projects/task_card.html:64
+msgid "Escribe una descripción..."
+msgstr "Add a description"
+
+#: templates/projects/task_card.html:66
+msgid "Agregar Descripción"
+msgstr "Edit Description"
+
+#: templates/projects/task_card.html:72
+msgid "Archivos"
+msgstr "Files"
+
+#: templates/projects/task_card.html:86
+msgid "No hay archivos aún."
+msgstr "There are no files yet."
+
+#: templates/projects/task_card.html:94
+msgid "Subir Archivo"
+msgstr "Upload Files"
+
+#: templates/projects/task_card.html:100
+msgid "Comentarios"
+msgstr "Comments"
+
+#: templates/projects/task_card.html:111
+msgid "No hay comentarios aún."
+msgstr "There are no comments yet."
+
+#: templates/projects/task_card.html:119
+msgid "Escribe tu comentario..."
+msgstr "Write your comment..."
+
+#: templates/projects/task_card.html:121
+msgid "Agregar Comentario"
+msgstr "Add comment"
 
 #: templates/projects/task_creation.html:14
 msgid "Nombre de la Tarea"
@@ -1181,17 +1431,9 @@ msgstr "High"
 msgid "Estado de la Tarea"
 msgstr "Task Status"
 
-#: templates/projects/task_creation.html:64 templates/projects/tasks.html:72
-msgid "Pendiente"
-msgstr "Pending"
-
 #: templates/projects/task_creation.html:65
 msgid "En progreso"
 msgstr "In progress"
-
-#: templates/projects/task_creation.html:66 templates/projects/tasks.html:74
-msgid "Completada"
-msgstr "Completed"
 
 #: templates/projects/task_creation.html:72
 msgid "Hito asociado"
@@ -1205,78 +1447,6 @@ msgstr "Filter by Milestone"
 msgid "Todos los hitos"
 msgstr "View all milestones"
 
-#: templates/projects/tasks.html:50
-msgid "Hito: "
-msgstr "Milestone: "
-
-#: templates/projects/tasks.html:59
-msgid "Inicio: "
-msgstr "Start: "
-
-#: templates/projects/tasks.html:60
-msgid "Fin: "
-msgstr "End: "
-
-#: templates/projects/tasks.html:64
-msgid "Prioridad:"
-msgstr "Priority"
-
-#: templates/projects/tasks.html:70
-msgid "Estado Actual:"
-msgstr "Status:"
-
-#: templates/projects/tasks.html:73
-msgid "En Progreso"
-msgstr "In progress"
-
-#: templates/projects/tasks.html:76
-msgid "Actualizar Estado"
-msgstr "Update"
-
-#: templates/projects/tasks.html:92
-msgid "Descripciones Adicionales"
-msgstr "Additional Descriptions"
-
-#: templates/projects/tasks.html:106
-msgid "No hay descripciones adicionales aún."
-msgstr "There are no additional descriptions yet."
-
-#: templates/projects/tasks.html:112
-msgid "Escribe una descripción..."
-msgstr "Add a description"
-
-#: templates/projects/tasks.html:113
-msgid "Agregar Descripción"
-msgstr "Edit Description"
-
-#: templates/projects/tasks.html:119
-msgid "Archivos"
-msgstr "Files"
-
-#: templates/projects/tasks.html:129
-msgid "No hay archivos aún."
-msgstr "There are no files yet."
-
-#: templates/projects/tasks.html:136
-msgid "Subir Archivo"
-msgstr "Upload Files"
-
-#: templates/projects/tasks.html:142
-msgid "Comentarios"
-msgstr "Comments"
-
-#: templates/projects/tasks.html:153
-msgid "No hay comentarios aún."
-msgstr "There are no comments yet."
-
-#: templates/projects/tasks.html:159
-msgid "Escribe tu comentario..."
-msgstr "Write your comment..."
-
-#: templates/projects/tasks.html:160
-msgid "Agregar Comentario"
-msgstr "Add comment"
-
 #: templates/projects/time_line.html:7
 msgid "Linea de Tiempo"
 msgstr "Timeline"
@@ -1289,22 +1459,16 @@ msgstr "Upload Deliverable for "
 msgid "Seleccionar archivo:"
 msgstr "Select file:"
 
-#: templates/projects/upload_assigment_file.html:18
-msgid "Subir Entregable"
-msgstr "Upload Deliverable"
-
 #: templates/settings/account_settings.html:8
 #: templates/settings/settings_navbar.html:14
 msgid "Ajustes de Cuenta"
 msgstr "account settings"
 
 #: templates/settings/account_settings.html:34
-#| msgid "Editar Descripción"
 msgid "Cambiar descripción"
 msgstr "Edit Description"
 
 #: templates/settings/account_settings.html:41
-#| msgid "Nombre"
 msgid "Nombre(s)"
 msgstr "Name"
 
@@ -1317,7 +1481,6 @@ msgid "Restablecer credenciales"
 msgstr "Restore Password"
 
 #: templates/settings/restore_password.html:30
-#| msgid "¿Olvidaste tu contraseña?"
 msgid "Restablecer contraseña"
 msgstr "Forgot your password?"
 
@@ -1326,6 +1489,7 @@ msgid "Las contraseñas no coinciden"
 msgstr "The passwords dont match"
 
 #: templates/settings/security_settings.html:8
+#: templates/settings/settings_navbar.html:32
 msgid "Seguridad e Inicio"
 msgstr "Security and Log In"
 
@@ -1342,7 +1506,6 @@ msgid "Reestablecer credenciales"
 msgstr "Reestore my password"
 
 #: templates/settings/settings_navbar.html:23
-#| msgid "Notificaciones"
 msgid "Ajustes de Notificaciones"
 msgstr "Notifications"
 
@@ -1363,17 +1526,14 @@ msgid "Password is empty"
 msgstr "Password is empty"
 
 #: user/RestorePasswordForm.py:10 user/RestorePasswordForm.py:22
-#| msgid "Contraseña"
 msgid "Contraseña actual"
 msgstr "Password"
 
 #: user/RestorePasswordForm.py:14 user/RestorePasswordForm.py:23
-#| msgid "Contraseña"
 msgid "Nueva contraseña"
 msgstr "Password"
 
 #: user/RestorePasswordForm.py:18 user/RestorePasswordForm.py:24
-#| msgid "Confirmar Contraseña"
 msgid "Confirmar nueva contraseña"
 msgstr "Confirm Password"
 
@@ -1434,18 +1594,6 @@ msgstr ""
 
 #~ msgid "Sin calificaciones aún. Sé el primero en calificar."
 #~ msgstr "No califications yet, be the first one"
-
-#~ msgid "Fecha de Finalización:"
-#~ msgstr "Completion Date:"
-
-#~ msgid "Ver Postulaciones"
-#~ msgstr "View Applications"
-
-#~ msgid "Estado de la postulación: "
-#~ msgstr "Application status: "
-
-#~ msgid "No te has postulado a este proyecto aún."
-#~ msgstr "You haven't applied to this project yet."
 
 #~ msgid "La prioridad es:"
 #~ msgstr "The priority is:"

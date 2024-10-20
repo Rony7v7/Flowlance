@@ -1,6 +1,7 @@
 from django import forms
 from .models import Project, Event
 from django.utils.translation import gettext as _
+from .models import ProjectReportSettings
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -68,4 +69,20 @@ class ProjectForm(forms.ModelForm):
                     "placeholder": "presupuesto del proyecto",
                 }
             ),
+        }
+
+
+class ProjectReportSettingsForm(forms.ModelForm):
+    class Meta:
+        model = ProjectReportSettings
+        fields = [
+            'include_milestone_progress',
+            'include_task_progress',
+            'include_milestones_and_tasks',
+            'include_kanban_board',
+            'include_gantt_chart',
+            'report_frequency'
+        ]
+        widgets = {
+            'report_frequency': forms.Select(choices=ProjectReportSettings.report_frequency.field.choices)
         }

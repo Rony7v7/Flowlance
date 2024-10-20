@@ -6,18 +6,17 @@
 {% block content %}
 
 {% load i18n %}
-<div class="flex w-full justify-center items-center h-screen flex-col">
+<div class="flex w-full justify-center items-center h-screen flex-col p-4 md:p-0">
     <!-- Login Box -->
-    <div class="rounded-lg shadow-md text-center w-[585px]  p-10">
+    <div class="rounded-lg shadow-md text-center w-full max-w-md p-6 md:p-10">
 
         <!-- Logo -->
-        <div class="justify-center items-center flex mb-4">
+        <div class="flex justify-center items-center mb-4">
             <i> {% include 'icon/flowlance.html' with w='65' h='65' %} </i>
         </div>
 
         <!-- Título -->
-        <h1 class="text-primary_black text-3xl font-bold mb-4">{% translate "Iniciar sesión" %}</h1>
-
+        <h1 class="text-primary_black text-2xl md:text-3xl font-bold mb-4">{% translate "Iniciar sesión" %}</h1>
 
         <form method="post">
             {% csrf_token %}
@@ -48,9 +47,8 @@
             <div class="flex-1 border-t border-gray-300"></div>
         </div>
 
-
         <a href="{% provider_login_url 'google' %}"
-            class="flex items-center justify-center bg-white text-black w-full py-2 border rounded-md mb-4 border-primary_medium">
+           class="flex items-center justify-center bg-white text-black w-full py-2 border rounded-md mb-4 border-primary_medium">
             <span class="text-primary_black flex gap-4 justify-center text-center items-center">
                 <i> {% include 'icon/google_icon.html' with w='32' h='32' %} </i> 
                 {% translate "Continuar con Google" %}
@@ -73,15 +71,17 @@
                 <li>{{ message }}</li>
                 {% endfor %}
             </ul>
-
         </div>
         {% endif %}
     </div>
 
     <!-- Registration Link -->
-    <div class="rounded-lg shadow-md text-center mt-4 w-[585px] p-2">
+    <div class="rounded-lg shadow-md text-center mt-4 w-full max-w-md p-2">
         <p class="text-black">
-            {% translate "¿No tienes cuenta?" %} <a href="{% url 'choose_path' %}"class="text-primary_black hover:underline font-bold">{% translate "Regístrate" %}</a>
+            {% translate "¿No tienes cuenta?" %} 
+            <a href="{% url 'choose_path' %}" class="text-primary_black hover:underline font-bold">
+                {% translate "Regístrate" %}
+            </a>
         </p>
     </div>
 </div>

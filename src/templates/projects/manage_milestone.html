@@ -1,6 +1,5 @@
 {% extends "navigation/navigation.html" %}
 
-
 {% load i18n %}
 {% load static %}
 {% block app_content %}
@@ -8,8 +7,7 @@
 
 <div class="flex justify-center items-center">
 
-
-    <div class="flex flex-col mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
+    <div class="flex flex-col mx-4 sm:mx-10 md:mx-40 bg-bg_gray p-6 rounded-lg shadow-lg w-full h-full">
         <div class="flex justify-between">
             <h3 class="text-lg font-semibold text-primary_black">
                 {% if is_editing %}
@@ -28,27 +26,24 @@
             </div>
             {% endif %}
 
-
             {% if is_editing %}
             <a href="/project/delete_milestone/{{milestone.id}}" id="delete-button">
                 <button class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">{% translate "Eliminar" %}</button>
             </a>
 
             <!-- Modal -->
-            <div id="delete_confirmation"
-                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+            <div id="delete_confirmation" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                 <div class="bg-white rounded-lg p-4 w-80">
                     <h3 class="text-lg mb-4">{% translate "¿Estás seguro de borrar la tarea `{{milestone.name}}`?" %}</h3>
                     <div class="flex justify-end">
-                        <button id="confirm-button"
-                            class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
+                        <button id="confirm-button" class="bg-red-600 text-white px-4 py-2 rounded-lg">Confirmar</button>
                         <button id="cancel-button" class="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                     </div>
                 </div>
             </div>
-
             {% endif %}
         </div>
+
         <form method="post">
             {% csrf_token %}
             <div class="mt-8">
@@ -62,21 +57,18 @@
                 <textarea id="description" name="description" rows="3"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                     required>{% if is_editing %}{{milestone.description}} {% endif %}</textarea>
-                <!--Tener en cuenta que los espacios important en la text area -->
             </div>
-            <div class="flex justify-between space-x-40 mt-8">
-
-                <div class="w-1/2">
+            <div class="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8 mt-8">
+                <div class="w-full md:w-1/2">
                     <label for="end_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Finalizacion" %}</label>
                     <input name="end_date" type="date" id="end_date" {% if is_editing and milestone.end_date %}
                         value="{{ milestone.end_date|date:'Y-m-d' }}" {% endif %}
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary_medium focus:border-primary_medium sm:text-sm"
                         required>
-
                 </div>
 
                 {% if is_editing %}
-                <div class="w-1/2">
+                <div class="w-full md:w-1/2">
                     <label for="start_date" class="block text-md font-medium text-primary_black">{% translate "Fecha de Inicio" %}</label>
                     <input name="start_date" type="date" {% if is_editing and milestone.end_date %}
                         value="{{ milestone.start_date|date:'Y-m-d' }}" {%endif %}
@@ -87,11 +79,10 @@
             </div>
             {% if is_editing %}
             {% include 'projects/assigment_section.html' %}
-
             {% endif %}
-            <div class="justify-end  items-center">
+            <div class="flex justify-end items-center mt-4">
                 <a href="/project/{{project_id}}/milestone">
-                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2  hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg mr-2 hover:bg-gray-400 transition-transform duration-300 hover:scale-110">{% translate "Cancelar" %}</button>
                 </a>
                 <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">{% translate "Guardar" %}</button>
             </div>
@@ -99,6 +90,7 @@
 
         {% include 'utils/popup_success.html' %}
         <script src="{% static 'js/project/manage_milestone.js' %}" type="text/javascript"></script>
-
     </div>
-    {% endblock %}
+    
+</div>
+{% endblock %}
