@@ -80,17 +80,6 @@
                 role: newRole,
             })
         })
-        .then(response => {
-            if (response.ok) {
-                alert('Rol actualizado correctamente.');
-            } else {
-                alert('No tienes permisos para realizar esta acción.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Ocurrió un error al intentar actualizar el rol.');
-        });
     }
 </script>
 

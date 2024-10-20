@@ -5,8 +5,9 @@
 {% block app_content %}
 <div class="container">
 
+    {%if user_is_member or user_is_admin or user_is_viewer %}
     {% include 'projects/project_navigation_tabs.html' %}
-
+    {% endif %}
     <!-- Panel de Control -->
     <h1 class="text-primary_black text-2xl font-bold mt-4">{% translate "Panel de control" %}</h1>
 
@@ -26,7 +27,7 @@
             <div class="mt-4 md:mt-0 md:ml-4">
                 <p class="mt-2 text-black">{{ project.description|truncatewords:500 }}...</p>
 
-                {% if user_is_owner %}
+                {% if user_is_admin %}
                 <div class="flex space-x-4 mt-4">
                     <a href="{% url 'project_edit' project.pk %}"
                        class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
@@ -54,7 +55,7 @@
 
                 {% endif %}
 
-                {% if request.profile_type == 'freelancer' %}
+                {% if request.profile_type == 'freelancer' and not user_is_member and not user_is_admin and not user_is_viewer %}
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
                     <button type="submit"
@@ -123,10 +124,12 @@
     </div>
 </div>
 
+{% if user_is_member or user_is_admin or user_is_viewer %}
 <div class="mt-8 bg-primary_lightest p-6 rounded-lg shadow-md">
     {% block section %}
     {% endblock %}
 </div>
+{% endif %}
 
 <script>
     document.getElementById('showApplications').addEventListener('click', function () {

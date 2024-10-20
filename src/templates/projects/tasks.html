@@ -8,9 +8,11 @@
     <h2 class="text-primary_black text-2xl font-bold">{% translate "Tareas" %}</h2>
 
     <!-- Botón para añadir una nueva tarea -->
-    {% url 'create_task' project.id as add_task_url %}
-    {% trans "Añadir" as translated_label %}
-    {% include 'utils/anchor_button.html' with type=1 label=translated_label url=add_task_url %}
+    {% if user_is_admin or user_is_member %}
+     {% url 'create_task' project.id as add_task_url %}
+     {% trans "Añadir" as translated_label %}
+     {% include 'utils/anchor_button.html' with type=1 label=translated_label url=add_task_url %}
+    {% endif %}
 
     {% if messages %}
     <div id="messages" class="hidden">
