@@ -22,7 +22,7 @@
                     <input type="text" name="username" id="id_username"
                         value="{{ form.username.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Nombre completo" required>
+                        placeholder="{% translate 'Nombre completo' %}" required>
                     {% if form.username.errors %}
                     <div class="text-red-500 text-sm">{{ form.username.errors.0 }}</div>
                     {% endif %}
@@ -33,7 +33,7 @@
                     <input type="text" name="identification" id="id_identification"
                         value="{{ form.identification.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Número de identificación" required>
+                        placeholder="{% translate 'Número de identificación' %}" required>
                     {% if form.identification.errors %}
                     <div class="text-red-500 text-sm">{{ form.identification.errors.0 }}</div>
                     {% endif %}
@@ -43,7 +43,7 @@
                     <label class="block text-sm font-medium text-gray-700" for="id_phone">{% translate "Número de teléfono" %}</label>
                     <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Número de teléfono" required>
+                        placeholder="{% translate 'Número de teléfono' %}" required>
                     {% if form.phone.errors %}
                     <div class="text-red-500 text-sm">{{ form.phone.errors.0 }}</div>
                     {% endif %}
@@ -53,7 +53,7 @@
                     <label class="block text-sm font-medium text-gray-700" for="id_email">{% translate "Correo Electrónico" %}</label>
                     <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Correo Electrónico" required>
+                        placeholder="{% translate 'Correo Electrónico' %}" required>
                     {% if form.email.errors %}
                     <div class="text-red-500 text-sm">{{ form.email.errors.0 }}</div>
                     {% endif %}
@@ -63,7 +63,7 @@
                     <label class="block text-sm font-medium text-gray-700" for="id_password1">{% translate "Contraseña" %}</label>
                     <input type="password" name="password1" id="id_password1"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Contraseña" required>
+                        placeholder="{% translate 'Contraseña' %}" required>
                     {% if form.password1.errors %}
                     <div class="text-red-500 text-sm">{{ form.password1.errors.0 }}</div>
                     {% endif %}
@@ -73,7 +73,7 @@
                     <label class="block text-sm font-medium text-gray-700" for="id_password2">{% translate "Confirmar Contraseña" %}</label>
                     <input type="password" name="password2" id="id_password2"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
-                        placeholder="Confirmar Contraseña" required>
+                        placeholder="{% translate 'Confirmar Contraseña' %}" required>
                     {% if form.password2.errors %}
                     <div class="text-red-500 text-sm">{{ form.password2.errors.0 }}</div>
                     {% endif %}
@@ -92,7 +92,7 @@
                             <div class="flex text-sm text-gray-600 justify-center">
                                 <label for="id_photo"
                                     class="relative cursor-pointer bg-white rounded-md font-medium text-primary_medium hover:text-primary_dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary_medium">
-                                    <span>Selecciona la imagen aquí</span>
+                                    <span>{% translate 'Selecciona la imagen aquí' %}</span>
                                     <input id="id_photo" name="photo" type="file" class="sr-only">
                                 </label>
                             </div>

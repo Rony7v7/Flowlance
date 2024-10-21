@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-20 18:50-0500\n"
+"POT-Creation-Date: 2024-10-20 21:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,360 +18,1881 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: flowlance/settings.py:168
+#: .\flowlance\settings.py:168
 msgid "English"
 msgstr "English"
 
-#: flowlance/settings.py:168
+#: .\flowlance\settings.py:168
 msgid "Español"
 msgstr "Spanish"
 
-#: profile/forms.py:17
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\_termui_impl.py:518
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\_termui_impl.py:522
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1120
+msgid "Aborted!"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1309
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\decorators.py:559
+msgid "Show this message and exit."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1340
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1370
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1387
+msgid "Options"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1413
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1429
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1636
+msgid "Commands"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1668
+msgid "Missing command."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:1746
+msgid "No such command {name!r}."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2310
+msgid "Value must be an iterable."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2331
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2778
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2808
+msgid "(dynamic)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2821
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\core.py:2834
+msgid "required"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\decorators.py:528
+msgid "Show the version and exit."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:44
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:80
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:72
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:121
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:123
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:179
+msgid "Missing argument"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:181
+msgid "Missing option"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:183
+msgid "Missing parameter"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:185
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:192
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:212
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:224
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:262
+msgid "unknown error"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\exceptions.py:269
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\parser.py:231
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\parser.py:413
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\parser.py:474
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\shell_completion.py:319
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\shell_completion.py:326
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:266
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:298
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:392
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:414
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:470
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:611
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:635
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:822
+msgid "file"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:824
+msgid "directory"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:826
+msgid "path"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:877
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:886
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:894
+#, python-brace-format
+msgid "{name} '{filename}' is a directory."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:903
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:912
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:921
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\click\types.py:988
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:152
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:768
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:213
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:224
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:307
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:315
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:327
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:336
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:350
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2215
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:329
+msgid "IPv4"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:338
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\ipv6.py:30
+msgid "IPv6"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:352
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:393
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:399
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:443
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:452
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:459
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:509
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:532
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:359
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:398
+msgid "Enter a number."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:534
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:539
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:544
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:615
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\core\validators.py:677
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\base.py:1571
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\base.py:1573
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1156
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1157
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1159
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1209
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1211
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1320
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1421
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1425
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1560
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1429
+msgid "Date (without time)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1556
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1564
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1569
+msgid "Date (with time)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1696
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1698
+msgid "Decimal number"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1859
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1863
+msgid "Duration"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1915
+msgid "Email address"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:1940
+msgid "File path"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2018
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2020
+msgid "Floating point number"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2060
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2062
+msgid "Integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2158
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2175
+msgid "Small integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2183
+msgid "IPv4 address"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2214
+msgid "IP address"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2305
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2306
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2308
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2359
+msgid "Positive big integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2374
+msgid "Positive integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2389
+msgid "Positive small integer"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2405
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2441
+msgid "Text"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2521
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2525
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2529
+msgid "Time"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2637
+msgid "URL"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2661
+msgid "Raw binary data"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2726
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\__init__.py:2728
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:932
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:934
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:1228
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:1285
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:1287
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\db\models\fields\related.py:1335
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:308
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:479
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1260
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:502
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1261
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:529
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:563
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:564
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:633
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:634
+msgid "No file was submitted."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:635
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:637
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:642
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:710
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:882
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:968
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:970
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1089
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1090
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1329
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\fields.py:1359
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\forms.py:94
+msgid ":"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\forms.py:230
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:484
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:461
+msgid "Clear"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:462
+msgid "Currently"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:463
+msgid "Change"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:800
+msgid "Unknown"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:801
+msgid "Yes"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\forms\widgets.py:802
+#: .\templates\profile\add_experience.html:69
+#: .\templates\profile\add_project.html:153
+#: .\templates\profile\customize_profile.html:100
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\text.py:75
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\text.py:286
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\text.py:305
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:64
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:115
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:349
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\static.py:68
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\flowlance_virtual_enviroment\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\profile\forms.py:17
 msgid "Nombre del Curso"
 msgstr "Course Name"
 
-#: profile/forms.py:18 project/forms.py:28 templates/projects/calendar.html:41
-#: templates/projects/calendar.html:105
-#: templates/projects/manage_milestone.html:56
+#: .\profile\forms.py:18 .\project\forms.py:28
+#: .\templates\projects\calendar.html:41 .\templates\projects\calendar.html:105
+#: .\templates\projects\manage_milestone.html:56
 msgid "Descripción"
 msgstr "Description"
 
-#: profile/forms.py:19
+#: .\profile\forms.py:19
 msgid "Organización"
 msgstr "Organization"
 
-#: profile/forms.py:20
+#: .\profile\forms.py:20
 msgid "Enlace del Curso"
 msgstr "Course Link"
 
-#: profile/forms.py:21
+#: .\profile\forms.py:21
 msgid "Imagen del Curso"
 msgstr "Course Image"
 
-#: profile/forms.py:22
+#: .\profile\forms.py:22
 msgid "Fecha de Expedición"
 msgstr "Expedition Date"
 
-#: profile/forms.py:35 templates/profile/add_project.html:21
+#: .\profile\forms.py:35 .\templates\profile\add_project.html:21
 msgid "Nombre del Proyecto"
 msgstr "Project Name"
 
-#: profile/forms.py:36 templates/navigation/choose_path.html:47
-#: templates/profile/add_project.html:28
+#: .\profile\forms.py:36 .\templates\navigation\choose_path.html:47
+#: .\templates\profile\add_project.html:28
 msgid "Cliente"
 msgstr "Client"
 
-#: profile/forms.py:37 templates/profile/add_project.html:35
+#: .\profile\forms.py:37 .\templates\profile\add_project.html:35
 msgid "Descripción del Proyecto"
 msgstr "Project Description"
 
-#: profile/forms.py:38 project/forms.py:31
-#: templates/profile/add_project.html:42
-#: templates/projects/manage_milestone.html:72
+#: .\profile\forms.py:38 .\project\forms.py:31
+#: .\templates\profile\add_project.html:42
+#: .\templates\projects\manage_milestone.html:72
 msgid "Fecha de Inicio"
 msgstr "Start Date"
 
-#: profile/forms.py:39 project/forms.py:32
-#: templates/profile/add_project.html:49
+#: .\profile\forms.py:39 .\project\forms.py:32
+#: .\templates\profile\add_project.html:49
 msgid "Fecha de Finalización"
 msgstr "End Date"
 
-#: profile/forms.py:40 templates/profile/add_project.html:56
+#: .\profile\forms.py:40 .\templates\profile\add_project.html:56
 msgid "Actividades Realizadas"
 msgstr "Completed Activities"
 
-#: profile/forms.py:41 templates/profile/add_project.html:63
+#: .\profile\forms.py:41 .\templates\profile\add_project.html:63
 msgid "Archivos Adjuntos"
 msgstr "Attachments"
 
-#: profile/forms.py:42 templates/profile/add_project.html:91
+#: .\profile\forms.py:42 .\templates\profile\add_project.html:91
 msgid "Enlace Externo"
 msgstr "External Link"
 
-#: profile/forms.py:43 templates/profile/add_project.html:98
+#: .\profile\forms.py:43 .\templates\profile\add_project.html:98
 msgid "Imagen del Proyecto"
 msgstr "Project Image"
 
-#: profile/forms.py:52 templates/profile/upload_curriculum.html:21
+#: .\profile\forms.py:52 .\templates\profile\upload_curriculum.html:21
 msgid "Sube tu CV (PDF)"
 msgstr "Upload your CV (PDF)"
 
-#: profile/forms.py:99 templates/profile/customize_profile.html:56
+#: .\profile\forms.py:99 .\templates\profile\customize_profile.html:56
 msgid "Twitter"
 msgstr "Twiiter"
 
-#: profile/forms.py:100
+#: .\profile\forms.py:100
 msgid "URL de tu perfil de Twitter"
 msgstr "Link of your Twitter profile"
 
-#: profile/forms.py:180 templates/profile/add_experience.html:21
+#: .\profile\forms.py:180 .\templates\profile\add_experience.html:21
 msgid "Título del trabajo"
 msgstr "Job Title"
 
-#: profile/forms.py:181 templates/profile/add_experience.html:26
+#: .\profile\forms.py:181 .\templates\profile\add_experience.html:26
 msgid "Compañía"
 msgstr "Company"
 
-#: profile/forms.py:182 templates/profile/add_experience.html:31
+#: .\profile\forms.py:182 .\templates\profile\add_experience.html:31
 msgid "Fecha de inicio"
 msgstr "Start Date"
 
-#: profile/forms.py:183 templates/profile/add_experience.html:36
+#: .\profile\forms.py:183 .\templates\profile\add_experience.html:36
 msgid "Fecha de finalización (opcional)"
 msgstr "End Date (optional)"
 
-#: profile/forms.py:184 templates/profile/add_experience.html:41
+#: .\profile\forms.py:184 .\templates\profile\add_experience.html:41
 msgid "Descripción del trabajo"
 msgstr "Job Description"
 
-#: profile/forms.py:209
+#: .\profile\forms.py:209
 msgid "ID de Identificación"
 msgstr "Identification ID"
 
-#: profile/forms.py:210 profile/forms.py:270
-#: templates/profile/company_profile.html:107
-#: templates/profile/register_company.html:109
+#: .\profile\forms.py:210 .\profile\forms.py:270
+#: .\templates\profile\company_profile.html:107
+#: .\templates\profile\register_company.html:109
+#: .\templates\profile\register_company.html:113
 msgid "Teléfono"
 msgstr "Phone"
 
-#: profile/forms.py:211
+#: .\profile\forms.py:211
 msgid "Foto de Perfil"
 msgstr "Profile Picture"
 
-#: profile/forms.py:217 profile/forms.py:277
-#: templates/profile/register_company.html:21
+#: .\profile\forms.py:217 .\profile\forms.py:277
+#: .\templates\profile\register_company.html:21
+#: .\templates\profile\register_company.html:25
 msgid "Nombre de Usuario"
 msgstr "Username"
 
-#: profile/forms.py:218 profile/forms.py:278
-#: templates/profile/company_profile.html:128
-#: templates/profile/register_company.html:120
-#: templates/profile/register_freelancer.html:53
+#: .\profile\forms.py:218 .\profile\forms.py:278
+#: .\templates\profile\company_profile.html:128
+#: .\templates\profile\register_company.html:120
+#: .\templates\profile\register_company.html:124
+#: .\templates\profile\register_freelancer.html:53
+#: .\templates\profile\register_freelancer.html:56
 msgid "Correo Electrónico"
 msgstr "Email"
 
-#: profile/forms.py:219 profile/forms.py:225 profile/forms.py:279
-#: profile/forms.py:285 templates/profile/register_company.html:131
-#: templates/profile/register_freelancer.html:63 user/LoginForm.py:25
+#: .\profile\forms.py:219 .\profile\forms.py:225 .\profile\forms.py:279
+#: .\profile\forms.py:285 .\templates\profile\register_company.html:131
+#: .\templates\profile\register_company.html:134
+#: .\templates\profile\register_freelancer.html:63
+#: .\templates\profile\register_freelancer.html:66 .\user\LoginForm.py:25
 msgid "Contraseña"
 msgstr "Password"
 
-#: profile/forms.py:220 profile/forms.py:226 profile/forms.py:280
-#: profile/forms.py:286 templates/profile/register_company.html:141
-#: templates/profile/register_freelancer.html:73
+#: .\profile\forms.py:220 .\profile\forms.py:226 .\profile\forms.py:280
+#: .\profile\forms.py:286 .\templates\profile\register_company.html:141
+#: .\templates\profile\register_company.html:144
+#: .\templates\profile\register_freelancer.html:73
+#: .\templates\profile\register_freelancer.html:76
 msgid "Confirmar Contraseña"
 msgstr "Confirm Password"
 
-#: profile/forms.py:233 profile/forms.py:292
-#: profile/tests/test_freelancer_register.py:35
+#: .\profile\forms.py:233 .\profile\forms.py:292
+#: .\profile\tests\test_freelancer_register.py:35
 msgid "Este correo electrónico ya está registrado. Por favor, usa otro."
 msgstr "This email is already registered. Please use another."
 
-#: profile/forms.py:239 profile/forms.py:255
-#: profile/tests/test_freelancer_register.py:51
+#: .\profile\forms.py:239 .\profile\forms.py:255
+#: .\profile\tests\test_freelancer_register.py:51
 msgid "Este ID ya está registrado. Por favor, usa otro."
 msgstr "This ID is already registered. Please use another."
 
-#: profile/forms.py:263 templates/profile/register_company.html:32
+#: .\profile\forms.py:263 .\templates\profile\register_company.html:32
+#: .\templates\profile\register_company.html:36
 msgid "Nombre de la Empresa"
 msgstr "Company Name"
 
-#: profile/forms.py:264 templates/profile/company_profile.html:114
+#: .\profile\forms.py:264 .\templates\profile\company_profile.html:114
+#: .\templates\profile\register_company.html:47
 msgid "NIT"
 msgstr "Tax ID"
 
-#: profile/forms.py:265
+#: .\profile\forms.py:265
 msgid "Tipo de Empresa"
 msgstr "Company Type"
 
-#: profile/forms.py:266 templates/profile/register_company.html:65
+#: .\profile\forms.py:266 .\templates\profile\register_company.html:65
+#: .\templates\profile\register_company.html:69
 msgid "País"
 msgstr "Country"
 
-#: profile/forms.py:267 templates/profile/register_company.html:76
+#: .\profile\forms.py:267 .\templates\profile\register_company.html:76
+#: .\templates\profile\register_company.html:80
 msgid "Vertical de Negocio"
 msgstr "Business Vertical"
 
-#: profile/forms.py:268 templates/profile/company_profile.html:100
-#: templates/profile/register_company.html:87
+#: .\profile\forms.py:268 .\templates\profile\company_profile.html:100
+#: .\templates\profile\register_company.html:87
+#: .\templates\profile\register_company.html:91
 msgid "Dirección"
 msgstr "Address"
 
-#: profile/forms.py:269 templates/profile/company_profile.html:121
-#: templates/profile/register_company.html:98
+#: .\profile\forms.py:269 .\templates\profile\company_profile.html:121
+#: .\templates\profile\register_company.html:98
+#: .\templates\profile\register_company.html:102
 msgid "Representante Legal"
 msgstr "Legal Representative"
 
-#: profile/forms.py:271
+#: .\profile\forms.py:271
 msgid "Imagen de la Empresa"
 msgstr "Company Image"
 
-#: profile/forms.py:298 profile/forms.py:320
-#: profile/tests/test_company_register.py:50
+#: .\profile\forms.py:298 .\profile\forms.py:320
+#: .\profile\tests\test_company_register.py:50
 msgid "Este NIT ya está registrado. Por favor, usa otro."
 msgstr "This Tax ID is already registered. Please use another."
 
-#: project/forms.py:27
+#: .\project\forms.py:27
 msgid "Titulo del Proyecto"
 msgstr "Project Name"
 
-#: project/forms.py:29
+#: .\project\forms.py:29
 msgid "Requerimientos"
 msgstr "View Requirements"
 
-#: project/forms.py:30 templates/navigation/search_filters.html:76
+#: .\project\forms.py:30 .\templates\navigation\search_filters.html:76
 msgid "Presupuesto"
 msgstr "Budget"
 
-#: templates/dashboard/company_dashboard.html:11
+#: .\templates\dashboard\company_dashboard.html:11
 msgid "Colaboradores Recientes"
 msgstr "Recent Colaborators"
 
-#: templates/dashboard/company_dashboard.html:25
+#: .\templates\dashboard\company_dashboard.html:25
 #, fuzzy
 #| msgid "Proyectos Disponibles"
 msgid "No hay contactos disponibles."
 msgstr "Available Projects"
 
-#: templates/dashboard/company_dashboard.html:42
-#: templates/dashboard/freelancer_dashboard.html:62
-#: templates/projects/project_list.html:14
-#: templates/projects/project_list.html:30
+#: .\templates\dashboard\company_dashboard.html:42
+#: .\templates\dashboard\freelancer_dashboard.html:62
+#: .\templates\projects\project_list.html:14
+#: .\templates\projects\project_list.html:30
 msgid "Mis Proyectos"
 msgstr "My Projects"
 
-#: templates/dashboard/company_dashboard.html:51
-#: templates/dashboard/freelancer_dashboard.html:27
-#: templates/dashboard/freelancer_dashboard.html:71
+#: .\templates\dashboard\company_dashboard.html:51
+#: .\templates\dashboard\freelancer_dashboard.html:27
+#: .\templates\dashboard\freelancer_dashboard.html:71
 #, fuzzy
 #| msgid "Proyectos Disponibles"
 msgid "No hay proyectos disponibles."
 msgstr "Available Projects"
 
-#: templates/dashboard/company_dashboard.html:60
+#: .\templates\dashboard\company_dashboard.html:60
 #, fuzzy
 #| msgid "Ver Postulaciones"
 msgid "Postulaciones"
 msgstr "View Applications"
 
-#: templates/dashboard/company_dashboard.html:69
+#: .\templates\dashboard\company_dashboard.html:69
 #, fuzzy
 #| msgid "No hay postulaciones aún."
 msgid "No hay postulaciones pendientes."
 msgstr "There are no applications yet."
 
-#: templates/dashboard/company_dashboard.html:81
+#: .\templates\dashboard\company_dashboard.html:81
 msgid "Análisis de éxito"
 msgstr "Success analysis"
 
-#: templates/dashboard/company_dashboard.html:94
-#: templates/dashboard/freelancer_dashboard.html:117
+#: .\templates\dashboard\company_dashboard.html:94
+#: .\templates\dashboard\freelancer_dashboard.html:117
 msgid "Estado Financiero"
 msgstr "Finance State"
 
-#: templates/dashboard/company_dashboard.html:101
-#: templates/dashboard/freelancer_dashboard.html:124
+#: .\templates\dashboard\company_dashboard.html:101
+#: .\templates\dashboard\freelancer_dashboard.html:124
 msgid "Balance General"
 msgstr "General Balance"
 
-#: templates/dashboard/company_dashboard.html:109
-#: templates/dashboard/freelancer_dashboard.html:132
+#: .\templates\dashboard\company_dashboard.html:109
+#: .\templates\dashboard\freelancer_dashboard.html:132
 msgid "Últimos Movimientos"
 msgstr "Last Transaccions"
 
-#: templates/dashboard/company_dashboard.html:115
-#: templates/dashboard/freelancer_dashboard.html:138
+#: .\templates\dashboard\company_dashboard.html:115
+#: .\templates\dashboard\freelancer_dashboard.html:138
 #, fuzzy
 #| msgid "No hay comentarios aún."
 msgid "No hay movimientos recientes."
 msgstr "There are no comments yet."
 
-#: templates/dashboard/company_dashboard.html:123
-#: templates/dashboard/freelancer_dashboard.html:146
+#: .\templates\dashboard\company_dashboard.html:123
+#: .\templates\dashboard\freelancer_dashboard.html:146
 #, fuzzy
 #| msgid "Pendiente"
 msgid "Pagos Pendientes"
 msgstr "Pending"
 
-#: templates/dashboard/company_dashboard.html:129
-#: templates/dashboard/freelancer_dashboard.html:152
+#: .\templates\dashboard\company_dashboard.html:129
+#: .\templates\dashboard\freelancer_dashboard.html:152
 #, fuzzy
 #| msgid "No hay postulaciones aún."
 msgid "No hay pagos pendientes."
 msgstr "There are no applications yet."
 
-#: templates/dashboard/freelancer_dashboard.html:11
+#: .\templates\dashboard\freelancer_dashboard.html:11
 #, fuzzy
 #| msgid "Proyectos Disponibles"
 msgid "Proyectos disponibles"
 msgstr "Available Projects"
 
-#: templates/dashboard/freelancer_dashboard.html:12
+#: .\templates\dashboard\freelancer_dashboard.html:12
 #, fuzzy
 #| msgid "Ver mas"
 msgid "Ver más"
 msgstr "View Details"
 
-#: templates/dashboard/freelancer_dashboard.html:41
-#: templates/projects/project_card.html:29
+#: .\templates\dashboard\freelancer_dashboard.html:41
+#: .\templates\projects\project_card.html:29
 #, fuzzy
 #| msgid "Pendiente"
 msgid "Tareas Pendientes"
 msgstr "Pending"
 
-#: templates/dashboard/freelancer_dashboard.html:50
+#: .\templates\dashboard\freelancer_dashboard.html:50
 msgid "No hay tareas pendientes."
 msgstr "There is no pending tasks"
 
-#: templates/dashboard/freelancer_dashboard.html:80
+#: .\templates\dashboard\freelancer_dashboard.html:80
 #, fuzzy
 #| msgid "En Progreso"
 msgid "Mi Progreso"
 msgstr "In progress"
 
-#: templates/dashboard/freelancer_dashboard.html:89
+#: .\templates\dashboard\freelancer_dashboard.html:89
 #, fuzzy
 #| msgid "Nombre completo"
 msgid "Tareas completas"
 msgstr "Full name"
 
-#: templates/dashboard/freelancer_dashboard.html:97
+#: .\templates\dashboard\freelancer_dashboard.html:97
 #, fuzzy
 #| msgid "Completada"
 msgid "Completas"
 msgstr "Completed"
 
-#: templates/dashboard/freelancer_dashboard.html:102
+#: .\templates\dashboard\freelancer_dashboard.html:102
 #, fuzzy
 #| msgid "Pendiente"
 msgid "Pendientes"
 msgstr "Pending"
 
-#: templates/homepage/footer.html:7
+#: .\templates\homepage\footer.html:7
 msgid "Términos de servicio"
 msgstr "Business Type"
 
-#: templates/homepage/footer.html:8
+#: .\templates\homepage\footer.html:8
 msgid "Política de privacidad"
 msgstr "Privacy Policy"
 
-#: templates/homepage/footer.html:9
+#: .\templates\homepage\footer.html:9
 msgid "Sobre nosotros"
 msgstr "About us"
 
-#: templates/homepage/footer.html:10
+#: .\templates\homepage\footer.html:10
 msgid "Configuración"
 msgstr "Settings"
 
-#: templates/homepage/header.html:9
+#: .\templates\homepage\header.html:9
 msgid "Ingresa"
 msgstr "Log In"
 
-#: templates/homepage/header.html:13 templates/login/login.html:83
+#: .\templates\homepage\header.html:13 .\templates\login\login.html:83
 msgid "Regístrate"
 msgstr "Sign Up"
 
-#: templates/homepage/hero.html:7
+#: .\templates\homepage\hero.html:7
 msgid ""
 "\n"
 "            <p class=\"text-3xl font-semibold text-[#121670]\">\n"
@@ -391,68 +1912,68 @@ msgstr ""
 "            </p>\n"
 "            "
 
-#: templates/homepage/hero.html:14
+#: .\templates\homepage\hero.html:14
 msgid ""
 "Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel"
 msgstr "Find the talent you need and take your business to the next level"
 
-#: templates/homepage/hero.html:38
+#: .\templates\homepage\hero.html:38
 msgid "CALIDAD"
 msgstr "QUALITY"
 
-#: templates/homepage/hero.html:40
+#: .\templates\homepage\hero.html:40
 msgid "Acceso a miles de freelancers verificados"
 msgstr "Access to thousands of verified freelancers"
 
-#: templates/homepage/hero.html:50
+#: .\templates\homepage\hero.html:50
 msgid "EFECTIVIDAD"
 msgstr "EFFICIENCY"
 
-#: templates/homepage/hero.html:51
+#: .\templates\homepage\hero.html:51
 msgid "Procesos de contratación rápidos y seguros"
 msgstr "Fast and secure hiring processes"
 
-#: templates/homepage/hero.html:60
+#: .\templates\homepage\hero.html:60
 msgid "AMIGABLE"
 msgstr "USER-FRIENDLY"
 
-#: templates/homepage/hero.html:61
+#: .\templates\homepage\hero.html:61
 msgid "Plataforma intuitiva y fácil de usar"
 msgstr "Intuitive and easy-to-use platform"
 
-#: templates/homepage/hero.html:72
+#: .\templates\homepage\hero.html:72
 msgid "Únete a nuestra red de freelancers y descubre proyectos adaptados a ti"
 msgstr "Join our network of freelancers and discover projects tailored to you"
 
-#: templates/homepage/hero.html:76
+#: .\templates\homepage\hero.html:76
 msgid "Regístrate ahora!"
 msgstr "Sign Up Now!"
 
-#: templates/homepage/hero.html:84
+#: .\templates\homepage\hero.html:84
 msgid "¿Ya tienes una cuenta?"
 msgstr "Already have an account?"
 
-#: templates/homepage/hero.html:86
+#: .\templates\homepage\hero.html:86
 msgid "Inicia sesión aquí"
 msgstr "Log in here"
 
-#: templates/login/2_factor_auth.html:30
+#: .\templates\login\2_factor_auth.html:30
 msgid "Factor de doble autenticacion"
 msgstr "Double Auth Factor"
 
-#: templates/login/2_factor_auth.html:34
+#: .\templates\login\2_factor_auth.html:34
 msgid "Codigo de doble auenticacion"
 msgstr "Double Auth Code"
 
-#: templates/login/2_factor_auth.html:35
+#: .\templates\login\2_factor_auth.html:35
 msgid " codigo"
 msgstr " code"
 
-#: templates/login/2_factor_auth.html:38
+#: .\templates\login\2_factor_auth.html:38
 msgid "Validar"
 msgstr "Validate"
 
-#: templates/login/2_factor_auth.html:44
+#: .\templates\login\2_factor_auth.html:44
 msgid ""
 "\n"
 "                Porfavor ingresa el codigo de doble autenticacion que fue "
@@ -464,432 +1985,436 @@ msgstr ""
 "email!\n"
 "                "
 
-#: templates/login/2_factor_auth.html:50
+#: .\templates\login\2_factor_auth.html:50
 msgid "Volver al incio"
 msgstr "Back to the log in page"
 
-#: templates/login/login.html:19
+#: .\templates\login\login.html:19
 msgid "Iniciar sesión"
 msgstr "Log In"
 
-#: templates/login/login.html:38
+#: .\templates\login\login.html:38
 msgid "Ingresar"
 msgstr "Log In"
 
-#: templates/login/login.html:54
+#: .\templates\login\login.html:54
 msgid "Continuar con Google"
 msgstr "Continue with Google"
 
-#: templates/login/login.html:59
+#: .\templates\login\login.html:59
 msgid "¿Olvidaste tu contraseña?"
 msgstr "Forgot your password?"
 
-#: templates/login/login.html:81
+#: .\templates\login\login.html:81
 msgid "¿No tienes cuenta?"
 msgstr "Don't have an account?"
 
-#: templates/navigation/building.html:10
+#: .\templates\navigation\building.html:10
 msgid "Página en construcción"
 msgstr "Page under construction"
 
-#: templates/navigation/building.html:12
+#: .\templates\navigation\building.html:12
 msgid "Estamos trabajando lo más rápido posible :)"
 msgstr "We are working as fast as we can :)"
 
-#: templates/navigation/choose_path.html:7
+#: .\templates\navigation\choose_path.html:7
 msgid "¿Cuál es tu camino en FlowLance?"
 msgstr "What is your path in FlowLance?"
 
-#: templates/navigation/choose_path.html:25
-#: templates/projects/review_applications.html:10
+#: .\templates\navigation\choose_path.html:25
+#: .\templates\projects\review_applications.html:10
 msgid "Freelancer"
 msgstr "Freelancer"
 
-#: templates/navigation/choose_path.html:27
+#: .\templates\navigation\choose_path.html:27
 msgid "Ofrece tus habilidades al mundo, encuentra proyectos que te apasionen."
 msgstr "Offer your skills to the world, find projects you're passionate about."
 
-#: templates/navigation/choose_path.html:49
+#: .\templates\navigation\choose_path.html:49
 msgid "Encuentra el talento perfecto para impulsar tus proyectos."
 msgstr "Find the perfect talent to boost your projects."
 
-#: templates/navigation/navbar.html:39 templates/navigation/navbar.html:47
-#: templates/profile/add_project.html:10
-#: templates/profile/freelancer_profile.html:144
+#: .\templates\navigation\navbar.html:39 .\templates\navigation\navbar.html:47
+#: .\templates\profile\add_project.html:10
+#: .\templates\profile\freelancer_profile.html:144
 msgid "Proyectos"
 msgstr "Projects"
 
-#: templates/navigation/navbar.html:75 templates/navigation/navbar.html:83
+#: .\templates\navigation\navbar.html:75 .\templates\navigation\navbar.html:83
 msgid "Mi Perfil"
 msgstr "My Profile"
 
-#: templates/navigation/navbar.html:94
+#: .\templates\navigation\navbar.html:94
 msgid "PREFERENCIAS"
 msgstr "PREFERENCES"
 
-#: templates/navigation/navbar.html:102 templates/navigation/navbar.html:109
+#: .\templates\navigation\navbar.html:102
+#: .\templates\navigation\navbar.html:109
 msgid "Ajustes"
 msgstr "Settings"
 
-#: templates/navigation/navbar.html:119 templates/navigation/navbar.html:126
+#: .\templates\navigation\navbar.html:119
+#: .\templates\navigation\navbar.html:126
 msgid "Ayuda y Soporte"
 msgstr "Help and Support"
 
-#: templates/navigation/search_filters.html:6
+#: .\templates\navigation\search_filters.html:6
 msgid "Categoría"
 msgstr "Category"
 
-#: templates/navigation/search_filters.html:8
-#: templates/navigation/search_filters.html:53
+#: .\templates\navigation\search_filters.html:8
+#: .\templates\navigation\search_filters.html:53
 msgid "Todas"
 msgstr "All"
 
-#: templates/navigation/search_filters.html:19
+#: .\templates\navigation\search_filters.html:19
 msgid "Seleccionar todo"
 msgstr "Select all"
 
-#: templates/navigation/search_filters.html:26
+#: .\templates\navigation\search_filters.html:26
 msgid "Programación Web"
 msgstr "Web Programming"
 
-#: templates/navigation/search_filters.html:31
+#: .\templates\navigation\search_filters.html:31
 msgid "Diseño Web"
 msgstr "Web Design"
 
-#: templates/navigation/search_filters.html:36
+#: .\templates\navigation\search_filters.html:36
 msgid "Data Science"
 msgstr "Data Science"
 
-#: templates/navigation/search_filters.html:41
+#: .\templates\navigation\search_filters.html:41
 msgid "Otros"
 msgstr "Others"
 
-#: templates/navigation/search_filters.html:51
+#: .\templates\navigation\search_filters.html:51
 msgid "Fecha"
 msgstr "Date"
 
-#: templates/navigation/search_filters.html:63
-#: templates/profile/freelancer_profile.html:115
+#: .\templates\navigation\search_filters.html:63
+#: .\templates\profile\freelancer_profile.html:115
 msgid "Desde:"
 msgstr "From:"
 
-#: templates/navigation/search_filters.html:67
+#: .\templates\navigation\search_filters.html:67
 msgid "Hasta:"
 msgstr "To:"
 
-#: templates/navigation/search_filters.html:77
+#: .\templates\navigation\search_filters.html:77
 msgid "Mínimo (USD)"
 msgstr "Minimum (USD)"
 
-#: templates/navigation/search_filters.html:78
+#: .\templates\navigation\search_filters.html:78
 msgid "Máximo (USD)"
 msgstr "Maximum (USD)"
 
-#: templates/navigation/search_filters.html:84 templates/projects/tasks.html:39
+#: .\templates\navigation\search_filters.html:84
+#: .\templates\projects\tasks.html:39
 msgid "Filtrar"
 msgstr "Filter"
 
-#: templates/navigation/top_bar_controls.html:9
+#: .\templates\navigation\top_bar_controls.html:9
 msgid "Buscar proyectos"
 msgstr "Search Project"
 
-#: templates/profile/add_course.html:9
+#: .\templates\profile\add_course.html:9
 #, fuzzy
 #| msgid "Añadir Proyecto al Portafolio"
 msgid "Añadir Curso al Portafolio"
 msgstr "Add Project to Portfolio"
 
-#: templates/profile/add_course.html:10
-#: templates/profile/freelancer_profile.html:160
+#: .\templates\profile\add_course.html:10
+#: .\templates\profile\freelancer_profile.html:160
 msgid "Cursos"
 msgstr "Courses"
 
-#: templates/profile/add_course.html:12
+#: .\templates\profile\add_course.html:12
 msgid ""
 "Aquí puedes agregar información de cursos relevantes que hayas realizado."
 msgstr "Here you can add information about relevant courses you've taken."
 
-#: templates/profile/add_course.html:21
+#: .\templates\profile\add_course.html:21
 msgid "Ingresa el nombre del curso"
 msgstr "Enter the course name"
 
-#: templates/profile/add_course.html:26
+#: .\templates\profile\add_course.html:26
 msgid "Ingresa una descripión del curso"
 msgstr "Enter a course description"
 
-#: templates/profile/add_course.html:31
+#: .\templates\profile\add_course.html:31
 msgid "Ingresa la organización que expide el certificado"
 msgstr "Enter the organization issuing the certificate"
 
-#: templates/profile/add_course.html:36
+#: .\templates\profile\add_course.html:36
 msgid "Ingresa el link del curso"
 msgstr "Enter the course link"
 
-#: templates/profile/add_course.html:42
+#: .\templates\profile\add_course.html:42
 msgid "Fecha de expedicíon"
 msgstr "Issue date"
 
-#: templates/profile/add_course.html:47
+#: .\templates\profile\add_course.html:47
 msgid "Imagen del certificado del curso"
 msgstr "Course certificate image"
 
-#: templates/profile/add_course.html:59
-#: templates/profile/register_company.html:163
-#: templates/profile/register_freelancer.html:99
+#: .\templates\profile\add_course.html:59
+#: .\templates\profile\register_company.html:163
+#: .\templates\profile\register_freelancer.html:99
 msgid "Puedes adjuntar un archivo aquí"
 msgstr "You can attach a file here"
 
-#: templates/profile/add_course.html:71
-#: templates/profile/add_experience.html:47
-#: templates/profile/add_project.html:128 templates/profile/add_rating.html:36
-#: templates/projects/assigment_section.html:58
-#: templates/projects/create_project.html:63
+#: .\templates\profile\add_course.html:71
+#: .\templates\profile\add_experience.html:47
+#: .\templates\profile\add_project.html:128
+#: .\templates\profile\add_rating.html:36
+#: .\templates\projects\assigment_section.html:58
+#: .\templates\projects\create_project.html:63
 msgid "Confirmar"
 msgstr "Confirm"
 
-#: templates/profile/add_course.html:90
-#: templates/profile/add_experience.html:65
-#: templates/profile/add_project.html:147
-#: templates/profile/customize_profile.html:96
+#: .\templates\profile\add_course.html:90
+#: .\templates\profile\add_experience.html:65
+#: .\templates\profile\add_project.html:147
+#: .\templates\profile\customize_profile.html:96
 msgid "Información guardada exitosamente"
 msgstr "Information successfully saved"
 
-#: templates/profile/add_course.html:91
+#: .\templates\profile\add_course.html:91
 msgid "¿Deseas seguir agregando cursos?"
 msgstr "Would you like to keep adding courses?"
 
-#: templates/profile/add_experience.html:9
+#: .\templates\profile\add_experience.html:9
 msgid "Añadir Experiencia Laboral"
 msgstr "Add Work Experience"
 
-#: templates/profile/add_experience.html:10
+#: .\templates\profile\add_experience.html:10
 msgid "Experiencias"
 msgstr "Experiences"
 
-#: templates/profile/add_experience.html:12
+#: .\templates\profile\add_experience.html:12
 msgid "Aquí puedes agregar información de tu experiencia laboral."
 msgstr "Here you can add information about your work experience."
 
-#: templates/profile/add_experience.html:66
+#: .\templates\profile\add_experience.html:66
 msgid "¿Deseas seguir agregando experiencia?"
 msgstr "Would you like to keep adding experience?"
 
-#: templates/profile/add_experience.html:68
-#: templates/profile/add_project.html:151
-#: templates/profile/customize_profile.html:99
+#: .\templates\profile\add_experience.html:68
+#: .\templates\profile\add_project.html:151
+#: .\templates\profile\customize_profile.html:99
 msgid "Sí"
 msgstr "Yes"
 
-#: templates/profile/add_project.html:9
+#: .\templates\profile\add_project.html:9
 msgid "Añadir Proyecto al Portafolio"
 msgstr "Add Project to Portfolio"
 
-#: templates/profile/add_project.html:12
+#: .\templates\profile\add_project.html:12
 msgid ""
 "Aquí puedes agregar información de proyectos relevantes que hayas realizado."
 msgstr "Here you can add information about relevant projects you've completed."
 
-#: templates/profile/add_project.html:75
+#: .\templates\profile\add_project.html:75
 msgid "Sube tus archivos aquí"
 msgstr "Upload your files here"
 
-#: templates/profile/add_project.html:79
+#: .\templates\profile\add_project.html:79
 msgid "Aquí puedes adjuntar archivos relacionados con el proyecto."
 msgstr "Here you can attach files related to the project."
 
-#: templates/profile/add_project.html:110
+#: .\templates\profile\add_project.html:110
 msgid "Sube una imagen aquí"
 msgstr "Upload an image here"
 
-#: templates/profile/add_project.html:114
+#: .\templates\profile\add_project.html:114
 msgid "Aquí puedes adjuntar una imagen representativa del proyecto."
 msgstr "Here you can attach a representative image of the project."
 
-#: templates/profile/add_project.html:148
+#: .\templates\profile\add_project.html:148
 msgid "¿Deseas seguir agregando proyectos?"
 msgstr "Would you like to keep adding projects?"
 
-#: templates/profile/add_rating.html:8
+#: .\templates\profile\add_rating.html:8
 msgid "Calificando a: {{ freelancer.user.username }}"
 msgstr "Rating: {{ freelancer.user.username }}"
 
-#: templates/profile/add_rating.html:26 templates/profile/calification.html:104
-#: templates/profile/freelancer_profile.html:320
+#: .\templates\profile\add_rating.html:26
+#: .\templates\profile\calification.html:104
+#: .\templates\profile\freelancer_profile.html:320
 msgid "Añadir una descripción"
 msgstr "Add a description"
 
-#: templates/profile/add_rating_response.html:7
-#: templates/profile/freelancer_profile.html:286
+#: .\templates\profile\add_rating_response.html:7
+#: .\templates\profile\freelancer_profile.html:286
 msgid "Responder a la Calificación"
 msgstr "Respond to Rating"
 
-#: templates/profile/add_rating_response.html:9
+#: .\templates\profile\add_rating_response.html:9
 msgid "Calificación: {{ rating.stars }} estrellas"
 msgstr "Rating: {{ rating.stars }} stars"
 
-#: templates/profile/add_rating_response.html:10
+#: .\templates\profile\add_rating_response.html:10
 msgid "Comentario: {{ rating.comment }}"
 msgstr "Comment: {{ rating.comment }}"
 
-#: templates/profile/add_rating_response.html:15
-#: templates/profile/edit_rating_response.html:15
-#: templates/profile/freelancer_profile.html:291
+#: .\templates\profile\add_rating_response.html:15
+#: .\templates\profile\edit_rating_response.html:15
+#: .\templates\profile\freelancer_profile.html:291
 msgid "Tu Respuesta"
 msgstr "Your Response"
 
-#: templates/profile/add_rating_response.html:18
-#: templates/profile/freelancer_profile.html:296
+#: .\templates\profile\add_rating_response.html:18
+#: .\templates\profile\freelancer_profile.html:296
 msgid "Enviar Respuesta"
 msgstr "Send Response"
 
-#: templates/profile/calification.html:10
+#: .\templates\profile\calification.html:10
 msgid "Calificando a:"
 msgstr "Rating:"
 
-#: templates/profile/calification.html:11
+#: .\templates\profile\calification.html:11
 msgid "Selecciona una calificación y añade un comentario."
 msgstr "Select a rating and add a comment."
 
-#: templates/profile/calification.html:30
+#: .\templates\profile\calification.html:30
 msgid "Elige tu calificación"
 msgstr "Choose your rating"
 
-#: templates/profile/calification.html:41
-#: templates/profile/calification.html:55
-#: templates/profile/calification.html:69
-#: templates/profile/calification.html:83
-#: templates/profile/calification.html:97
+#: .\templates\profile\calification.html:41
+#: .\templates\profile\calification.html:55
+#: .\templates\profile\calification.html:69
+#: .\templates\profile\calification.html:83
+#: .\templates\profile\calification.html:97
 msgid "Elegir"
 msgstr "Choose"
 
-#: templates/profile/calification.html:111
-#: templates/profile/freelancer_profile.html:327
+#: .\templates\profile\calification.html:111
+#: .\templates\profile\freelancer_profile.html:327
 msgid "Enviar Calificación"
 msgstr "Submit Rating"
 
-#: templates/profile/company_profile.html:10
+#: .\templates\profile\company_profile.html:10
 msgid "Foto de"
 msgstr "Profile Picture"
 
-#: templates/profile/company_profile.html:21
+#: .\templates\profile\company_profile.html:21
 msgid "Vertical:"
 msgstr "Vertical: "
 
-#: templates/profile/company_profile.html:26
+#: .\templates\profile\company_profile.html:26
 msgid "Dirección:"
 msgstr "Address"
 
-#: templates/profile/company_profile.html:34
+#: .\templates\profile\company_profile.html:34
 msgid "Representante Legal:"
 msgstr "Legal Representative"
 
-#: templates/profile/company_profile.html:39
+#: .\templates\profile\company_profile.html:39
 msgid "Teléfono:"
 msgstr "Phone"
 
-#: templates/profile/company_profile.html:44
+#: .\templates\profile\company_profile.html:44
 msgid "NIT:"
 msgstr "NIT: "
 
-#: templates/profile/company_profile.html:49
+#: .\templates\profile\company_profile.html:49
 msgid "Correo Electrónico:"
 msgstr "Email"
 
-#: templates/profile/company_profile.html:57
-#: templates/profile/freelancer_profile.html:72
+#: .\templates\profile\company_profile.html:57
+#: .\templates\profile\freelancer_profile.html:72
 msgid "Editar Perfil"
-msgstr "My Profile"
+msgstr "Edit Profile"
 
-#: templates/profile/company_profile.html:73
+#: .\templates\profile\company_profile.html:73
 #, fuzzy
 #| msgid "Editar Perfil"
 msgid "Editar Perfil de la Compañía"
-msgstr "My Profile"
+msgstr "Edit Company Profile"
 
-#: templates/profile/company_profile.html:79
+#: .\templates\profile\company_profile.html:79
 #, fuzzy
 #| msgid "Nombre de la Empresa"
 msgid "Nombre de la Compañía"
 msgstr "Company Name"
 
-#: templates/profile/company_profile.html:82
-#, fuzzy
-#| msgid "Ingresa el nombre del curso"
+#: .\templates\profile\company_profile.html:82
 msgid "Ingresa el nombre de la compañía"
-msgstr "Enter the course name"
+msgstr "Enter the company name"
 
-#: templates/profile/company_profile.html:86
-#: templates/profile/register_company.html:54
+#: .\templates\profile\company_profile.html:86
+#: .\templates\profile\register_company.html:54
+#: .\templates\profile\register_company.html:58
 msgid "Tipo de Negocio"
 msgstr "Business Type"
 
-#: templates/profile/company_profile.html:89
+#: .\templates\profile\company_profile.html:89
 #, fuzzy
 #| msgid "Ingresa el link del curso"
 msgid "Ingresa el tipo de negocio"
 msgstr "Enter the course link"
 
-#: templates/profile/company_profile.html:93
+#: .\templates\profile\company_profile.html:93
 #, fuzzy
 #| msgid "Vertical de Negocio"
 msgid "Vertical del Negocio"
 msgstr "Business Vertical"
 
-#: templates/profile/company_profile.html:96
+#: .\templates\profile\company_profile.html:96
 #, fuzzy
 #| msgid "Vertical de Negocio"
 msgid "Ingresa el vertical de negocio"
 msgstr "Business Vertical"
 
-#: templates/profile/company_profile.html:103
+#: .\templates\profile\company_profile.html:103
 #, fuzzy
 #| msgid "Ingresa una descripión del curso"
 msgid "Ingresa la dirección"
 msgstr "Enter a course description"
 
-#: templates/profile/company_profile.html:110
+#: .\templates\profile\company_profile.html:110
 #, fuzzy
 #| msgid "Número de teléfono"
 msgid "Ingresa el número de teléfono"
 msgstr "Phone number"
 
-#: templates/profile/company_profile.html:117
+#: .\templates\profile\company_profile.html:117
 #, fuzzy
 #| msgid "Ingresa el link del curso"
 msgid "Ingresa el NIT de la compañía"
 msgstr "Enter the course link"
 
-#: templates/profile/company_profile.html:124
+#: .\templates\profile\company_profile.html:124
 #, fuzzy
 #| msgid "Ingresa el nombre del proyecto"
 msgid "Ingresa el nombre del representante legal"
 msgstr "Enter the project name"
 
-#: templates/profile/company_profile.html:131
+#: .\templates\profile\company_profile.html:131
 #, fuzzy
 #| msgid "Ingresa el nombre del curso"
 msgid "Ingresa el correo electrónico"
 msgstr "Enter the course name"
 
-#: templates/profile/company_profile.html:137
-#: templates/projects/calendar.html:65
-#: templates/projects/edit_description.html:11
+#: .\templates\profile\company_profile.html:137
+#: .\templates\projects\calendar.html:65
+#: .\templates\projects\edit_description.html:11
 msgid "Guardar Cambios"
 msgstr "Save Changes"
 
-#: templates/profile/customize_profile.html:9
+#: .\templates\profile\customize_profile.html:9
 #, fuzzy
 #| msgid "Editar Perfil"
 msgid "Personalizar Perfil"
 msgstr "My Profile"
 
-#: templates/profile/customize_profile.html:10
+#: .\templates\profile\customize_profile.html:10
 #, fuzzy
 #| msgid "Organización"
 msgid "Personalización"
 msgstr "Organization"
 
-#: templates/profile/customize_profile.html:12
+#: .\templates\profile\customize_profile.html:12
 #, fuzzy
 #| msgid ""
 #| "Aquí puedes agregar información de cursos relevantes que hayas realizado."
@@ -897,234 +2422,234 @@ msgid ""
 "Aquí puedes personalizar tu perfil agregando información relevante sobre ti."
 msgstr "Here you can add information about relevant courses you've taken."
 
-#: templates/profile/customize_profile.html:21
+#: .\templates\profile\customize_profile.html:21
 msgid "Título Profesional"
 msgstr "Profesional title"
 
-#: templates/profile/customize_profile.html:24
+#: .\templates\profile\customize_profile.html:24
 msgid "Ingresa tu título profesional"
 msgstr "Insert your profesional title"
 
-#: templates/profile/customize_profile.html:28
+#: .\templates\profile\customize_profile.html:28
 msgid "Acerca de mí"
 msgstr "About me"
 
-#: templates/profile/customize_profile.html:31
+#: .\templates\profile\customize_profile.html:31
 #, fuzzy
 #| msgid "Escribe tu comentario..."
 msgid "Escribe sobre ti"
 msgstr "Write your comment..."
 
-#: templates/profile/customize_profile.html:35
+#: .\templates\profile\customize_profile.html:35
 #, fuzzy
 #| msgid "Dirección"
 msgid "Ubicación"
 msgstr "Address"
 
-#: templates/profile/customize_profile.html:38
+#: .\templates\profile\customize_profile.html:38
 #, fuzzy
 #| msgid "Elige tu calificación"
 msgid "Ingresa tu ubicación"
 msgstr "Choose your rating"
 
-#: templates/profile/customize_profile.html:42
+#: .\templates\profile\customize_profile.html:42
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: templates/profile/customize_profile.html:45
+#: .\templates\profile\customize_profile.html:45
 msgid "https://linkedin.com/tu-perfil"
 msgstr "https://linkedin.com/your_profile"
 
-#: templates/profile/customize_profile.html:49
+#: .\templates\profile\customize_profile.html:49
 msgid "GitHub"
 msgstr "GitHub"
 
-#: templates/profile/customize_profile.html:52
+#: .\templates\profile\customize_profile.html:52
 msgid "https://github.com/tu-usuario"
 msgstr "https://github.com/your_profile"
 
-#: templates/profile/customize_profile.html:59
+#: .\templates\profile\customize_profile.html:59
 msgid "https://twitter.com/tu-usuario"
 msgstr "https://twitter.com/your_profile"
 
-#: templates/profile/customize_profile.html:62
-#: templates/profile/freelancer_profile.html:80
+#: .\templates\profile\customize_profile.html:62
+#: .\templates\profile\freelancer_profile.html:80
 msgid "Habilidades"
 msgstr "Skills"
 
-#: templates/profile/customize_profile.html:65
+#: .\templates\profile\customize_profile.html:65
 msgid "Habilidades Predeterminadas"
 msgstr "Default Skills"
 
-#: templates/profile/customize_profile.html:67
+#: .\templates\profile\customize_profile.html:67
 msgid "Ya tienes todas las habilidades predeterminadas"
 msgstr "You already have all predefined skills"
 
-#: templates/profile/customize_profile.html:75
+#: .\templates\profile\customize_profile.html:75
 msgid "Escribe tus habilidades personalizadas separadas por comas"
 msgstr "Enter your custom skills separated by commas"
 
-#: templates/profile/customize_profile.html:80
+#: .\templates\profile\customize_profile.html:80
 #, fuzzy
 #| msgid "Configuración"
 msgid "Guardar Información"
 msgstr "Settings"
 
-#: templates/profile/customize_profile.html:97
+#: .\templates\profile\customize_profile.html:97
 msgid "¿Deseas seguir agregando habilidades?"
 msgstr "Would you like to keep adding skills?"
 
-#: templates/profile/edit_rating_response.html:9
+#: .\templates\profile\edit_rating_response.html:9
 msgid "Calificación:"
 msgstr "Rating:"
 
-#: templates/profile/edit_rating_response.html:18
+#: .\templates\profile\edit_rating_response.html:18
 msgid "Actualizar Respuesta"
 msgstr "Update Response"
 
-#: templates/profile/freelancer_profile.html:20
+#: .\templates\profile\freelancer_profile.html:20
 #, fuzzy
 #| msgid "No se han agregado cursos aún."
 msgid "No se ha agregado información de empleo"
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:27
+#: .\templates\profile\freelancer_profile.html:27
 #, fuzzy
 #| msgid "No se han agregado cursos aún."
 msgid "No se ha agregado descripción personal"
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:34
+#: .\templates\profile\freelancer_profile.html:34
 msgid "Ubicación no proporcionada"
 msgstr "Location not provided"
 
-#: templates/profile/freelancer_profile.html:47
+#: .\templates\profile\freelancer_profile.html:47
 #, fuzzy
 #| msgid "No se han agregado habilidades aún."
 msgid "No se ha agregado LinkedIn"
 msgstr "No skills have been added yet."
 
-#: templates/profile/freelancer_profile.html:56
+#: .\templates\profile\freelancer_profile.html:56
 #, fuzzy
 #| msgid "No se han agregado cursos aún."
 msgid "No se ha agregado GitHub"
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:65
+#: .\templates\profile\freelancer_profile.html:65
 #, fuzzy
 #| msgid "No se han agregado cursos aún."
 msgid "No se ha agregado Twitter"
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:87
+#: .\templates\profile\freelancer_profile.html:87
 msgid "No se han agregado habilidades aún."
 msgstr "No skills have been added yet."
 
-#: templates/profile/freelancer_profile.html:96
+#: .\templates\profile\freelancer_profile.html:96
 msgid "Experiencia Laboral"
 msgstr "Work Experience"
 
-#: templates/profile/freelancer_profile.html:99
-#: templates/profile/freelancer_profile.html:193
-#: templates/projects/milestones.html:13 templates/projects/tasks.html:13
+#: .\templates\profile\freelancer_profile.html:99
+#: .\templates\profile\freelancer_profile.html:193
+#: .\templates\projects\milestones.html:13 .\templates\projects\tasks.html:13
 msgid "Añadir"
 msgstr "Create"
 
-#: templates/profile/freelancer_profile.html:116
+#: .\templates\profile\freelancer_profile.html:116
 msgid "hasta:"
 msgstr "until:"
 
-#: templates/profile/freelancer_profile.html:116
+#: .\templates\profile\freelancer_profile.html:116
 msgid "hasta la fecha"
 msgstr "until present"
 
-#: templates/profile/freelancer_profile.html:122
+#: .\templates\profile\freelancer_profile.html:122
 msgid "No se ha añadido experiencia laboral aún."
 msgstr "No work experience has been added yet."
 
-#: templates/profile/freelancer_profile.html:130
+#: .\templates\profile\freelancer_profile.html:130
 msgid "Portafolio"
 msgstr "Portfolio"
 
-#: templates/profile/freelancer_profile.html:134
+#: .\templates\profile\freelancer_profile.html:134
 #, fuzzy
 #| msgid "Crear Proyecto"
 msgid "Añadir Proyecto"
 msgstr "Create Proyect"
 
-#: templates/profile/freelancer_profile.html:138
+#: .\templates\profile\freelancer_profile.html:138
 #, fuzzy
 #| msgid "Añadir Hito"
 msgid "Añadir Curso"
 msgstr "Add Milestone"
 
-#: templates/profile/freelancer_profile.html:156
+#: .\templates\profile\freelancer_profile.html:156
 msgid "No hay proyectos registrados en el portafolio aún."
 msgstr "No projects have been added to the portfolio yet."
 
-#: templates/profile/freelancer_profile.html:175
+#: .\templates\profile\freelancer_profile.html:175
 msgid "Expedición:"
 msgstr "Issue date:"
 
-#: templates/profile/freelancer_profile.html:179
+#: .\templates\profile\freelancer_profile.html:179
 msgid "No se han agregado cursos aún."
 msgstr "No courses have been added yet."
 
-#: templates/profile/freelancer_profile.html:183
+#: .\templates\profile\freelancer_profile.html:183
 msgid "No se ha creado un portafolio aún."
 msgstr "No portfolio has been created yet."
 
-#: templates/profile/freelancer_profile.html:190
+#: .\templates\profile\freelancer_profile.html:190
 msgid "Curriculum Vitae"
 msgstr "Curriculum Vitae"
 
-#: templates/profile/freelancer_profile.html:198
+#: .\templates\profile\freelancer_profile.html:198
 msgid "Descargar Curriculum"
 msgstr "Download Curriculum"
 
-#: templates/profile/freelancer_profile.html:200
+#: .\templates\profile\freelancer_profile.html:200
 msgid "No se ha subido ningún CV aún."
 msgstr "No CV has been uploaded yet."
 
-#: templates/profile/freelancer_profile.html:206
+#: .\templates\profile\freelancer_profile.html:206
 msgid "Calificaciones y Comentarios"
 msgstr "Ratings and Comments"
 
-#: templates/profile/freelancer_profile.html:267
+#: .\templates\profile\freelancer_profile.html:267
 msgid "Sin calificaciones aún. Sé el primero en calificar."
 msgstr "No califications yet, be the first one"
 
-#: templates/profile/freelancer_profile.html:276
+#: .\templates\profile\freelancer_profile.html:276
 msgid "Calificar"
 msgstr "Rating:"
 
-#: templates/profile/freelancer_profile.html:305
+#: .\templates\profile\freelancer_profile.html:305
 msgid "Calificar a"
 msgstr "Rating:"
 
-#: templates/profile/notifications.html:6
+#: .\templates\profile\notifications.html:6
 msgid "Notificaciones"
 msgstr "Notifications"
 
-#: templates/profile/notifications.html:14
+#: .\templates\profile\notifications.html:14
 msgid "No tienes notificaciones."
 msgstr "You have no notifications."
 
-#: templates/profile/notifications.html:17
+#: .\templates\profile\notifications.html:17
 msgid "Marcar todas como leídas"
 msgstr "Mark all as read"
 
-#: templates/profile/profile_card.html:40
+#: .\templates\profile\profile_card.html:40
 msgid "Mensaje"
 msgstr "Message"
 
-#: templates/profile/register_company.html:13
-#: templates/profile/register_freelancer.html:13
+#: .\templates\profile\register_company.html:13
+#: .\templates\profile\register_freelancer.html:13
 msgid "Bienvenido a"
 msgstr "Welcome to"
 
-#: templates/profile/register_company.html:14
-#: templates/profile/register_freelancer.html:14
+#: .\templates\profile\register_company.html:14
+#: .\templates\profile\register_freelancer.html:14
 msgid ""
 "Únete a nuestra comunidad de freelancers y descubre nuevas oportunidades de "
 "crecimiento profesional."
@@ -1132,263 +2657,275 @@ msgstr ""
 "Join our freelancer community and discover new opportunities for "
 "professional growth."
 
-#: templates/profile/register_company.html:151
-#: templates/profile/register_freelancer.html:83
+#: .\templates\profile\register_company.html:151
+#: .\templates\profile\register_freelancer.html:83
 msgid "Foto de Perfil (opcional)"
 msgstr "Profile Picture (optional)"
 
-#: templates/profile/register_company.html:159
+#: .\templates\profile\register_company.html:159
+#: .\templates\profile\register_freelancer.html:95
 msgid "Selecciona la imagen aquí"
 msgstr "Select the image here"
 
-#: templates/profile/register_company.html:175
+#: .\templates\profile\register_company.html:175
 msgid "Registrar"
 msgstr "Register"
 
-#: templates/profile/register_company.html:192
-#: templates/profile/register_freelancer.html:131
+#: .\templates\profile\register_company.html:192
+#: .\templates\profile\register_freelancer.html:131
 msgid "Registro Exitoso"
 msgstr "Successful Registration"
 
-#: templates/profile/register_company.html:193
-#: templates/profile/register_freelancer.html:132
+#: .\templates\profile\register_company.html:193
+#: .\templates\profile\register_freelancer.html:132
 msgid "Tu información ha sido guardada exitosamente."
 msgstr "Your information has been successfully saved."
 
-#: templates/profile/register_company.html:195
-#: templates/profile/register_freelancer.html:134
+#: .\templates\profile\register_company.html:195
+#: .\templates\profile\register_freelancer.html:134
 msgid "Aceptar"
 msgstr "Accept"
 
-#: templates/profile/register_freelancer.html:21
+#: .\templates\profile\register_freelancer.html:21
+#: .\templates\profile\register_freelancer.html:25
 msgid "Nombre completo"
 msgstr "Full name"
 
-#: templates/profile/register_freelancer.html:32
+#: .\templates\profile\register_freelancer.html:32
 msgid "Número de identificación (CC)"
 msgstr "Identification number (ID)"
 
-#: templates/profile/register_freelancer.html:43
-#: templates/settings/account_settings.html:58
+#: .\templates\profile\register_freelancer.html:36
+#, fuzzy
+#| msgid "Número de identificación (CC)"
+msgid "Número de identificación"
+msgstr "Identification number (ID)"
+
+#: .\templates\profile\register_freelancer.html:43
+#: .\templates\profile\register_freelancer.html:46
+#: .\templates\settings\account_settings.html:58
 msgid "Número de teléfono"
 msgstr "Phone number"
 
-#: templates/profile/register_freelancer.html:112
+#: .\templates\profile\register_freelancer.html:112
 msgid "Crear cuenta"
 msgstr "Create account"
 
-#: templates/profile/upload_curriculum.html:9
+#: .\templates\profile\upload_curriculum.html:9
 msgid "Subir Curriculum Vitae"
 msgstr "Upload Curriculum Vitae"
 
-#: templates/profile/upload_curriculum.html:10
+#: .\templates\profile\upload_curriculum.html:10
 msgid "Curriculum"
 msgstr "Curriculum"
 
-#: templates/profile/upload_curriculum.html:12
+#: .\templates\profile\upload_curriculum.html:12
 msgid "Aquí puedes subir tu Curriculum Vitae en formato PDF. "
 msgstr "Here you can upload your Curriculum Vitae in PDF format."
 
-#: templates/profile/upload_curriculum.html:29
+#: .\templates\profile\upload_curriculum.html:29
 msgid "Selecciona tu archivo aquí"
 msgstr "Select your file here"
 
-#: templates/profile/upload_curriculum.html:33
+#: .\templates\profile\upload_curriculum.html:33
 msgid "Solo se aceptan archivos en formato PDF."
 msgstr "Only PDF format files are accepted."
 
-#: templates/profile/upload_curriculum.html:45
+#: .\templates\profile\upload_curriculum.html:45
 msgid "Subir Curriculum"
 msgstr "Upload Curriculum"
 
-#: templates/projects/assigment_information.html:13
-#: templates/projects/create_assigment.html:13
+#: .\templates\projects\assigment_information.html:13
+#: .\templates\projects\create_assigment.html:13
 msgid "Nombre del Entregable"
 msgstr "Deliverable Name"
 
-#: templates/projects/assigment_information.html:17
-#: templates/projects/create_assigment.html:19
+#: .\templates\projects\assigment_information.html:17
+#: .\templates\projects\create_assigment.html:19
 msgid "Descripcion del Entregable"
 msgstr "Deliverable Description"
 
-#: templates/projects/assigment_information.html:24
-#: templates/projects/create_assigment.html:26
-#: templates/projects/task_creation.html:35
+#: .\templates\projects\assigment_information.html:24
+#: .\templates\projects\create_assigment.html:26
+#: .\templates\projects\task_creation.html:35
 msgid "Usuario encargado"
 msgstr "User in charge"
 
-#: templates/projects/assigment_information.html:29
-#: templates/projects/create_assigment.html:37
-#: templates/projects/manage_milestone.html:63
-#: templates/projects/task_creation.html:27
+#: .\templates\projects\assigment_information.html:29
+#: .\templates\projects\create_assigment.html:37
+#: .\templates\projects\manage_milestone.html:63
+#: .\templates\projects\task_creation.html:27
 msgid "Fecha de Finalizacion"
 msgstr "Completion Date"
 
-#: templates/projects/assigment_information.html:37
+#: .\templates\projects\assigment_information.html:37
 msgid "Volver"
 msgstr "Go Back"
 
-#: templates/projects/assigment_information.html:39
+#: .\templates\projects\assigment_information.html:39
 msgid "Ir al Hito"
 msgstr "Go to Milestone"
 
-#: templates/projects/assigment_section.html:7
-#: templates/projects/deliverables.html:9
-#: templates/projects/project_navigation_tabs.html:21
+#: .\templates\projects\assigment_section.html:7
+#: .\templates\projects\deliverables.html:9
+#: .\templates\projects\project_navigation_tabs.html:21
 msgid "Entregables"
 msgstr "Deliverables"
 
-#: templates/projects/assigment_section.html:28
-#: templates/projects/deliverables.html:20 templates/projects/task_card.html:16
+#: .\templates\projects\assigment_section.html:28
+#: .\templates\projects\deliverables.html:20
+#: .\templates\projects\task_card.html:16
 msgid "Asignado a:"
 msgstr "Assigned to:"
 
-#: templates/projects/assigment_section.html:30
-#: templates/projects/deliverables.html:22
+#: .\templates\projects\assigment_section.html:30
+#: .\templates\projects\deliverables.html:22
 msgid "Fecha de Finalización:"
 msgstr "Completion Date:"
 
-#: templates/projects/assigment_section.html:31
-#: templates/projects/deliverables.html:23
-#: templates/projects/project_application_li.html:11
+#: .\templates\projects\assigment_section.html:31
+#: .\templates\projects\deliverables.html:23
+#: .\templates\projects\project_application_li.html:11
 msgid "Estado:"
 msgstr "Status:"
 
-#: templates/projects/assigment_section.html:35
-#: templates/projects/deliverables.html:27
+#: .\templates\projects\assigment_section.html:35
+#: .\templates\projects\deliverables.html:27
 msgid "Descargar Entregable"
 msgstr "Download Deliverable"
 
-#: templates/projects/assigment_section.html:55
+#: .\templates\projects\assigment_section.html:55
 msgid "¿Estás seguro de borrar el entregable ?"
 msgstr "Are you sure you want to delete the deliverable?"
 
-#: templates/projects/assigment_section.html:61
-#: templates/projects/create_assigment.html:49
-#: templates/projects/manage_milestone.html:40
-#: templates/projects/manage_milestone.html:85
-#: templates/projects/project_delete.html:13
-#: templates/projects/project_form.html:44
-#: templates/projects/report_settings.html:44
-#: templates/projects/task_creation.html:78
+#: .\templates\projects\assigment_section.html:61
+#: .\templates\projects\create_assigment.html:49
+#: .\templates\projects\manage_milestone.html:40
+#: .\templates\projects\manage_milestone.html:85
+#: .\templates\projects\project_delete.html:13
+#: .\templates\projects\project_form.html:44
+#: .\templates\projects\report_settings.html:44
+#: .\templates\projects\task_creation.html:78
 msgid "Cancelar"
 msgstr "Cancel"
 
-#: templates/projects/calendar.html:7
-#: templates/projects/project_navigation_tabs.html:33
+#: .\templates\projects\calendar.html:7
+#: .\templates\projects\project_navigation_tabs.html:33
 msgid "Calendario"
 msgstr "Calendar"
 
-#: templates/projects/calendar.html:13
-#, fuzzy
-#| msgid "Editar Hito"
+#: .\templates\projects\calendar.html:13
 msgid "Editar Evento"
-msgstr "Edit Milestone"
+msgstr "Edit Event"
 
-#: templates/projects/calendar.html:20 templates/projects/calendar.html:84
-#, fuzzy
-#| msgid "Nombre del Proyecto"
+#: .\templates\projects\calendar.html:20 .\templates\projects\calendar.html:84
 msgid "Nombre del Evento"
-msgstr "Project Name"
+msgstr "Event Name"
 
-#: templates/projects/calendar.html:27 templates/projects/calendar.html:91
+#: .\templates\projects\calendar.html:23 .\templates\projects\calendar.html:87
+msgid "Nombre del evento"
+msgstr "Event Name"
+
+#: .\templates\projects\calendar.html:27 .\templates\projects\calendar.html:91
 #, fuzzy
 #| msgid "Fecha de Inicio"
 msgid "Fecha y Hora de Inicio"
-msgstr "Start Date"
+msgstr "Start Date and Time"
 
-#: templates/projects/calendar.html:34 templates/projects/calendar.html:98
-#, fuzzy
-#| msgid "Fecha de inicio"
+#: .\templates\projects\calendar.html:34 .\templates\projects\calendar.html:98
 msgid "Fecha y Hora de Fin"
-msgstr "Start Date"
+msgstr "End Date and Time"
 
-#: templates/projects/calendar.html:49 templates/projects/calendar.html:113
+
+#: .\templates\projects\calendar.html:44 .\templates\projects\calendar.html:108
+msgid "Descripción del evento"
+msgstr "Event Description"
+
+#: .\templates\projects\calendar.html:49 .\templates\projects\calendar.html:113
 msgid "Recordatorio"
 msgstr "Remainder"
 
-#: templates/projects/calendar.html:52 templates/projects/calendar.html:116
+#: .\templates\projects\calendar.html:52 .\templates\projects\calendar.html:116
 msgid "Sin recordatorio"
 msgstr "No remainder"
 
-#: templates/projects/calendar.html:53 templates/projects/calendar.html:117
+#: .\templates\projects\calendar.html:53 .\templates\projects\calendar.html:117
 msgid "1 hora antes"
 msgstr "1 hour before"
 
-#: templates/projects/calendar.html:54 templates/projects/calendar.html:118
+#: .\templates\projects\calendar.html:54 .\templates\projects\calendar.html:118
 msgid "3 horas antes"
 msgstr "3 hour before"
 
-#: templates/projects/calendar.html:55 templates/projects/calendar.html:119
+#: .\templates\projects\calendar.html:55 .\templates\projects\calendar.html:119
 msgid "1 día antes"
 msgstr "1 day befor"
 
-#: templates/projects/calendar.html:56 templates/projects/calendar.html:120
+#: .\templates\projects\calendar.html:56 .\templates\projects\calendar.html:120
 msgid "2 días antes"
 msgstr "2 days before"
 
-#: templates/projects/calendar.html:57 templates/projects/calendar.html:121
+#: .\templates\projects\calendar.html:57 .\templates\projects\calendar.html:121
 msgid "1 semana antes"
 msgstr "1 week before"
 
-#: templates/projects/calendar.html:77
-#, fuzzy
-#| msgid "Agregar Comentario"
+#: .\templates\projects\calendar.html:77
 msgid "Agregar Evento"
-msgstr "Add comment"
+msgstr "Add Event"
 
-#: templates/projects/calendar.html:127
-#: templates/projects/create_assigment.html:51
-#: templates/projects/manage_milestone.html:87
-#: templates/projects/task_creation.html:81
-#: templates/settings/security_settings.html:34
+
+#: .\templates\projects\calendar.html:127
+#: .\templates\projects\create_assigment.html:51
+#: .\templates\projects\manage_milestone.html:87
+#: .\templates\projects\task_creation.html:81
+#: .\templates\settings\security_settings.html:34
 msgid "Guardar"
 msgstr "Save"
 
-#: templates/projects/create_project.html:5
-#: templates/projects/create_project.html:9
+#: .\templates\projects\create_project.html:5
+#: .\templates\projects\create_project.html:9
 msgid "Creación de proyecto"
 msgstr "Project Creation"
 
-#: templates/projects/create_project.html:10
+#: .\templates\projects\create_project.html:10
 msgid "Información de los proyectos"
 msgstr "Project Information"
 
-#: templates/projects/create_project.html:19
+#: .\templates\projects\create_project.html:19
 msgid "Ingresa el nombre del proyecto"
 msgstr "Enter the project name"
 
-#: templates/projects/create_project.html:26
+#: .\templates\projects\create_project.html:26
 msgid "Especificaciones del proyecto"
 msgstr "Project Specifications"
 
-#: templates/projects/create_project.html:34
+#: .\templates\projects\create_project.html:34
 msgid "Requerimientos del proyecto"
 msgstr "Project Requirements"
 
-#: templates/projects/create_project.html:41
+#: .\templates\projects\create_project.html:41
 msgid "Presupuesto del proyecto"
 msgstr "Project Budget"
 
-#: templates/projects/create_project.html:48
+#: .\templates\projects\create_project.html:48
 msgid "Fecha de inicio:"
 msgstr "Start date:"
 
-#: templates/projects/create_project.html:54
+#: .\templates\projects\create_project.html:54
 msgid "Fecha de finalización:"
 msgstr "End date:"
 
-#: templates/projects/data_project.html:268
+#: .\templates\projects\data_project.html:268
 msgid "Reporte PDF"
 msgstr "PDF Report"
 
-#: templates/projects/data_project.html:271
+#: .\templates\projects\data_project.html:271
 #, fuzzy
 #| msgid "Ingresa el nombre del proyecto"
 msgid "Generar Informe del Proyecto"
 msgstr "Enter the project name"
 
-#: templates/projects/data_project.html:274
+#: .\templates\projects\data_project.html:274
 msgid ""
 "Haz clic en el botón de abajo para generar un informe en formato PDF con los "
 "hitos, tareas y progreso del proyecto."
@@ -1396,531 +2933,531 @@ msgstr ""
 "Click on the button below to generate a PDF report with the milestones, "
 "tasks and progress of the project"
 
-#: templates/projects/data_project.html:280
+#: .\templates\projects\data_project.html:280
 msgid "Personalizar Configuración del Reporte"
 msgstr "Customize Report Configuration"
 
-#: templates/projects/data_project.html:285
+#: .\templates\projects\data_project.html:285
 msgid "Generar Reporte PDF"
 msgstr "Generate PDF Report"
 
-#: templates/projects/default_project_view.html:12
+#: .\templates\projects\default_project_view.html:12
 msgid "Panel de control"
 msgstr "Dashboard"
 
-#: templates/projects/default_project_view.html:22
+#: .\templates\projects\default_project_view.html:22
 msgid "Presupuesto:"
 msgstr "Budget:"
 
-#: templates/projects/default_project_view.html:34
-#: templates/projects/task_card.html:52
+#: .\templates\projects\default_project_view.html:34
+#: .\templates\projects\task_card.html:52
 msgid "Editar"
 msgstr "Edit"
 
-#: templates/projects/default_project_view.html:38
+#: .\templates\projects\default_project_view.html:38
 msgid "Ver Requerimientos"
 msgstr "View Requirements"
 
-#: templates/projects/default_project_view.html:45
+#: .\templates\projects\default_project_view.html:45
 msgid "Ver Postulaciones"
 msgstr "View Applications"
 
-#: templates/projects/default_project_view.html:63
+#: .\templates\projects\default_project_view.html:63
 msgid "Postularse a este proyecto"
 msgstr "Apply for this project"
 
-#: templates/projects/default_project_view.html:75
-#: templates/projects/default_project_view.html:83
-#: templates/projects/default_project_view.html:91
+#: .\templates\projects\default_project_view.html:75
+#: .\templates\projects\default_project_view.html:83
+#: .\templates\projects\default_project_view.html:91
 msgid "Estado de la postulación: "
 msgstr "Application status: "
 
-#: templates/projects/default_project_view.html:98
+#: .\templates\projects\default_project_view.html:98
 msgid "No te has postulado a este proyecto aún."
 msgstr "You haven't applied to this project yet."
 
-#: templates/projects/default_project_view.html:110
+#: .\templates\projects\default_project_view.html:110
 msgid "Postulaciones al Proyecto"
 msgstr "Project Applications"
 
-#: templates/projects/default_project_view.html:115
+#: .\templates\projects\default_project_view.html:115
 msgid "No hay postulaciones para este proyecto."
 msgstr "There are no applications for this project."
 
-#: templates/projects/default_project_view.html:121
+#: .\templates\projects\default_project_view.html:121
 msgid "Cerrar"
 msgstr "Close"
 
-#: templates/projects/deliverables.html:29
-#: templates/projects/upload_assigment_file.html:18
+#: .\templates\projects\deliverables.html:29
+#: .\templates\projects\upload_assigment_file.html:18
 msgid "Subir Entregable"
 msgstr "Upload Deliverable"
 
-#: templates/projects/deliverables.html:34
-#: templates/projects/milestones.html:36
+#: .\templates\projects\deliverables.html:34
+#: .\templates\projects\milestones.html:36
 msgid "Ver mas"
 msgstr "View Details"
 
-#: templates/projects/edit_description.html:7
+#: .\templates\projects\edit_description.html:7
 msgid "Editar Descripción"
 msgstr "Edit Description"
 
-#: templates/projects/manage_milestone.html:14
+#: .\templates\projects\manage_milestone.html:14
 msgid "Editar Hito"
 msgstr "Edit Milestone"
 
-#: templates/projects/manage_milestone.html:16
+#: .\templates\projects\manage_milestone.html:16
 msgid "Añadir Hito"
 msgstr "Add Milestone"
 
-#: templates/projects/manage_milestone.html:31
-#: templates/projects/project_members.html:69
+#: .\templates\projects\manage_milestone.html:31
+#: .\templates\projects\project_members.html:69
 msgid "Eliminar"
 msgstr "Delete Project"
 
-#: templates/projects/manage_milestone.html:37
+#: .\templates\projects\manage_milestone.html:37
 msgid "¿Estás seguro de borrar la tarea `{{milestone.name}}`?"
 msgstr "Are you sure you want to delete the task `{{milestone.name}}`?"
 
-#: templates/projects/manage_milestone.html:50
-#: templates/projects/project_members.html:15
+#: .\templates\projects\manage_milestone.html:50
+#: .\templates\projects\project_members.html:15
 msgid "Nombre"
 msgstr "Name"
 
-#: templates/projects/milestones.html:10
-#: templates/projects/project_navigation_tabs.html:9
+#: .\templates\projects\milestones.html:10
+#: .\templates\projects\project_navigation_tabs.html:9
 msgid "Hitos"
 msgstr "Milestones"
 
-#: templates/projects/milestones.html:29
+#: .\templates\projects\milestones.html:29
 msgid "Fecha de Inicio: "
 msgstr "Start Date: "
 
-#: templates/projects/milestones.html:30
+#: .\templates\projects\milestones.html:30
 msgid "Fecha de Finalización: "
 msgstr "End Date: "
 
-#: templates/projects/milestones.html:31
+#: .\templates\projects\milestones.html:31
 msgid "Entregables:"
 msgstr "Deliverables:"
 
-#: templates/projects/project_application_li.html:6
+#: .\templates\projects\project_application_li.html:6
 msgid "Usuario:"
 msgstr "User:"
 
-#: templates/projects/project_application_li.html:12
+#: .\templates\projects\project_application_li.html:12
 msgid "Fecha de Aplicación:"
 msgstr "Application Date:"
 
-#: templates/projects/project_application_li.html:14
+#: .\templates\projects\project_application_li.html:14
 #, fuzzy
 #| msgid "Proyectos"
 msgid "Proyecto:"
 msgstr "Projects"
 
-#: templates/projects/project_card.html:20
+#: .\templates\projects\project_card.html:20
 msgid "Presupuesto: $"
 msgstr "Budget: $"
 
-#: templates/projects/project_card.html:21
+#: .\templates\projects\project_card.html:21
 msgid "Ver Detalles"
 msgstr "View Details"
 
-#: templates/projects/project_delete.html:7
-#: templates/projects/project_delete.html:16
+#: .\templates\projects\project_delete.html:7
+#: .\templates\projects\project_delete.html:16
 msgid "Eliminar Proyecto"
 msgstr "Delete Project"
 
-#: templates/projects/project_delete.html:8
+#: .\templates\projects\project_delete.html:8
 msgid "Estas seguro que deseas eliminar este proyecto "
 msgstr "Are you sure you want to delete this project "
 
-#: templates/projects/project_form.html:8
+#: .\templates\projects\project_form.html:8
 #, fuzzy, python-format
 #| msgid "Editar proyecto"
 msgid "Editar %(project.title)s"
 msgstr "Edit project"
 
-#: templates/projects/project_form.html:17
+#: .\templates\projects\project_form.html:17
 msgid "Incluir progreso de hitos"
 msgstr "Include Milestone Progress"
 
-#: templates/projects/project_form.html:19
+#: .\templates\projects\project_form.html:19
 msgid "Incluir progreso de tareas"
 msgstr "Include Task Progress"
 
-#: templates/projects/project_form.html:21
+#: .\templates\projects\project_form.html:21
 msgid "Incluir hitos y tareas"
 msgstr "Include Milestone and Task Progress"
 
-#: templates/projects/project_form.html:23
+#: .\templates\projects\project_form.html:23
 msgid "Incluir tablero Kanban"
 msgstr "Include Kanban Board"
 
-#: templates/projects/project_form.html:25
+#: .\templates\projects\project_form.html:25
 msgid "Incluir gráfico Gantt"
 msgstr "Include Gantt chart"
 
-#: templates/projects/project_form.html:27
+#: .\templates\projects\project_form.html:27
 msgid "Frecuencia del reporte"
 msgstr "Frequency of reporting"
 
-#: templates/projects/project_form.html:49
-#: templates/projects/report_settings.html:49
+#: .\templates\projects\project_form.html:49
+#: .\templates\projects\report_settings.html:49
 #, fuzzy
 #| msgid "Configuración"
 msgid "Guardar Configuración"
 msgstr "Settings"
 
-#: templates/projects/project_list.html:9
+#: .\templates\projects\project_list.html:9
 msgid "Disponibles"
 msgstr "Available Projects"
 
-#: templates/projects/project_list.html:22
+#: .\templates\projects\project_list.html:22
 msgid "Crear Proyecto"
 msgstr "Create Proyect"
 
-#: templates/projects/project_list.html:38
-#: templates/projects/project_main_view.html:28
+#: .\templates\projects\project_list.html:38
+#: .\templates\projects\project_main_view.html:28
 msgid "Sin resultados."
 msgstr "No results."
 
-#: templates/projects/project_main_view.html:21
+#: .\templates\projects\project_main_view.html:21
 msgid "Proyectos Disponibles"
 msgstr "Available Projects"
 
-#: templates/projects/project_members.html:7
-#: templates/projects/project_navigation_tabs.html:45
+#: .\templates\projects\project_members.html:7
+#: .\templates\projects\project_navigation_tabs.html:45
 msgid "Miembros"
 msgstr "Members"
 
-#: templates/projects/project_members.html:18
+#: .\templates\projects\project_members.html:18
 #, fuzzy
 #| msgid "Email / NIT"
 msgid "Email"
 msgstr "Email / NIT"
 
-#: templates/projects/project_members.html:21
+#: .\templates\projects\project_members.html:21
 msgid "Rol"
 msgstr "Rol"
 
-#: templates/projects/project_members.html:24
-#: templates/projects/review_applications.html:13
+#: .\templates\projects\project_members.html:24
+#: .\templates\projects\review_applications.html:13
 msgid "Acciones"
 msgstr "Actions"
 
-#: templates/projects/project_members.html:56
+#: .\templates\projects\project_members.html:56
 #, fuzzy
 #| msgid "Comentarios"
 msgid "Propietario"
 msgstr "Comments"
 
-#: templates/projects/project_members.html:58
+#: .\templates\projects\project_members.html:58
 msgid "Administrador"
 msgstr "Administrator"
 
-#: templates/projects/project_members.html:59
+#: .\templates\projects\project_members.html:59
 msgid "Miembro"
 msgstr "Member"
 
-#: templates/projects/project_members.html:60
+#: .\templates\projects\project_members.html:60
 msgid "Visualizador"
 msgstr "Viewer"
 
-#: templates/projects/project_navigation_tabs.html:15
-#: templates/projects/tasks.html:8
+#: .\templates\projects\project_navigation_tabs.html:15
+#: .\templates\projects\tasks.html:8
 msgid "Tareas"
 msgstr "Tasks"
 
-#: templates/projects/project_navigation_tabs.html:27
+#: .\templates\projects\project_navigation_tabs.html:27
 msgid "Línea de Tiempo"
 msgstr "Timeline"
 
-#: templates/projects/project_navigation_tabs.html:39
+#: .\templates\projects\project_navigation_tabs.html:39
 #, fuzzy
 #| msgid "En Progreso"
 msgid "Progreso"
 msgstr "In progress"
 
-#: templates/projects/project_requirements.html:9
+#: .\templates\projects\project_requirements.html:9
 msgid "Requerimientos del Proyecto"
 msgstr "Project Requirements"
 
-#: templates/projects/project_requirements.html:22
+#: .\templates\projects\project_requirements.html:22
 msgid "Volver al Proyecto"
 msgstr "Back to Project"
 
-#: templates/projects/report_settings.html:8
+#: .\templates\projects\report_settings.html:8
 #, fuzzy
 #| msgid "Configuración"
 msgid "Configuración del Reporte para"
 msgstr "Settings"
 
-#: templates/projects/review_applications.html:11
+#: .\templates\projects\review_applications.html:11
 msgid "Estado"
 msgstr "Status"
 
-#: templates/projects/review_applications.html:12
+#: .\templates\projects\review_applications.html:12
 msgid "Fecha de Postulación"
 msgstr "Application Date"
 
-#: templates/projects/review_applications.html:23
+#: .\templates\projects\review_applications.html:23
 msgid "Ver Perfil"
 msgstr "View Profile"
 
-#: templates/projects/review_applications.html:28
+#: .\templates\projects\review_applications.html:28
 msgid "No hay postulaciones aún."
 msgstr "There are no applications yet."
 
-#: templates/projects/task_card.html:8
+#: .\templates\projects\task_card.html:8
 msgid "Hito: "
 msgstr "Milestone: "
 
-#: templates/projects/task_card.html:19
+#: .\templates\projects\task_card.html:19
 msgid "Inicio: "
 msgstr "Start: "
 
-#: templates/projects/task_card.html:20
+#: .\templates\projects\task_card.html:20
 msgid "Fin: "
 msgstr "End: "
 
-#: templates/projects/task_card.html:24
+#: .\templates\projects\task_card.html:24
 msgid "Prioridad:"
 msgstr "Priority"
 
-#: templates/projects/task_card.html:30
+#: .\templates\projects\task_card.html:30
 msgid "Estado Actual:"
 msgstr "Status:"
 
-#: templates/projects/task_card.html:32
-#: templates/projects/task_creation.html:58
+#: .\templates\projects\task_card.html:32
+#: .\templates\projects\task_creation.html:58
 msgid "Pendiente"
 msgstr "Pending"
 
-#: templates/projects/task_card.html:33
+#: .\templates\projects\task_card.html:33
 msgid "En Progreso"
 msgstr "In progress"
 
-#: templates/projects/task_card.html:34
-#: templates/projects/task_creation.html:60
+#: .\templates\projects\task_card.html:34
+#: .\templates\projects\task_creation.html:60
 msgid "Completada"
 msgstr "Completed"
 
-#: templates/projects/task_card.html:36
+#: .\templates\projects\task_card.html:36
 msgid "Actualizar Estado"
 msgstr "Update"
 
-#: templates/projects/task_card.html:41
+#: .\templates\projects\task_card.html:41
 msgid "Descripciones Adicionales"
 msgstr "Additional Descriptions"
 
-#: templates/projects/task_card.html:56
+#: .\templates\projects\task_card.html:56
 msgid "No hay descripciones adicionales aún."
 msgstr "There are no additional descriptions yet."
 
-#: templates/projects/task_card.html:64
+#: .\templates\projects\task_card.html:64
 msgid "Escribe una descripción..."
 msgstr "Add a description"
 
-#: templates/projects/task_card.html:66
+#: .\templates\projects\task_card.html:66
 msgid "Agregar Descripción"
 msgstr "Edit Description"
 
-#: templates/projects/task_card.html:72
+#: .\templates\projects\task_card.html:72
 msgid "Archivos"
 msgstr "Files"
 
-#: templates/projects/task_card.html:86
+#: .\templates\projects\task_card.html:86
 msgid "No hay archivos aún."
 msgstr "There are no files yet."
 
-#: templates/projects/task_card.html:94
+#: .\templates\projects\task_card.html:94
 msgid "Subir Archivo"
 msgstr "Upload Files"
 
-#: templates/projects/task_card.html:100
+#: .\templates\projects\task_card.html:100
 msgid "Comentarios"
 msgstr "Comments"
 
-#: templates/projects/task_card.html:111
+#: .\templates\projects\task_card.html:111
 msgid "No hay comentarios aún."
 msgstr "There are no comments yet."
 
-#: templates/projects/task_card.html:119
+#: .\templates\projects\task_card.html:119
 msgid "Escribe tu comentario..."
 msgstr "Write your comment..."
 
-#: templates/projects/task_card.html:121
+#: .\templates\projects\task_card.html:121
 msgid "Agregar Comentario"
 msgstr "Add comment"
 
-#: templates/projects/task_creation.html:13
+#: .\templates\projects\task_creation.html:13
 msgid "Nombre de la Tarea"
 msgstr "Task Name"
 
-#: templates/projects/task_creation.html:20
+#: .\templates\projects\task_creation.html:20
 msgid "Descripción de la Tarea"
 msgstr "Task Description"
 
-#: templates/projects/task_creation.html:45
+#: .\templates\projects\task_creation.html:45
 msgid "Prioridad"
 msgstr "Priority"
 
-#: templates/projects/task_creation.html:48
+#: .\templates\projects\task_creation.html:48
 msgid "Baja"
 msgstr "Low"
 
-#: templates/projects/task_creation.html:49
+#: .\templates\projects\task_creation.html:49
 msgid "Media"
 msgstr "Medium"
 
-#: templates/projects/task_creation.html:50
+#: .\templates\projects\task_creation.html:50
 msgid "Alta"
 msgstr "High"
 
-#: templates/projects/task_creation.html:55
+#: .\templates\projects\task_creation.html:55
 msgid "Estado de la Tarea"
 msgstr "Task Status"
 
-#: templates/projects/task_creation.html:59
+#: .\templates\projects\task_creation.html:59
 msgid "En progreso"
 msgstr "In progress"
 
-#: templates/projects/task_creation.html:65
+#: .\templates\projects\task_creation.html:65
 msgid "Hito asociado"
 msgstr "Associated Milestone"
 
-#: templates/projects/tasks.html:29
+#: .\templates\projects\tasks.html:29
 msgid "Filtrar por Hito:"
 msgstr "Filter by Milestone"
 
-#: templates/projects/tasks.html:31
+#: .\templates\projects\tasks.html:31
 msgid "Todos los hitos"
 msgstr "View all milestones"
 
-#: templates/projects/time_line.html:7
+#: .\templates\projects\time_line.html:7
 msgid "Linea de Tiempo"
 msgstr "Timeline"
 
-#: templates/projects/upload_assigment_file.html:7
+#: .\templates\projects\upload_assigment_file.html:7
 msgid "Subir Entregable para "
 msgstr "Upload Deliverable for "
 
-#: templates/projects/upload_assigment_file.html:11
+#: .\templates\projects\upload_assigment_file.html:11
 msgid "Seleccionar archivo:"
 msgstr "Select file:"
 
-#: templates/settings/account_settings.html:8
-#: templates/settings/settings_navbar.html:14
+#: .\templates\settings\account_settings.html:8
+#: .\templates\settings\settings_navbar.html:14
 msgid "Ajustes de Cuenta"
 msgstr "account settings"
 
-#: templates/settings/account_settings.html:34
+#: .\templates\settings\account_settings.html:34
 msgid "Cambiar descripción"
 msgstr "Edit Description"
 
-#: templates/settings/account_settings.html:41
+#: .\templates\settings\account_settings.html:41
 msgid "Nombre(s)"
 msgstr "Name"
 
-#: templates/settings/account_settings.html:46
+#: .\templates\settings\account_settings.html:46
 msgid "Apellido(s)"
 msgstr "Last Name"
 
-#: templates/settings/restore_password.html:16
+#: .\templates\settings\restore_password.html:16
 msgid "Restablecer credenciales"
 msgstr "Restore Password"
 
-#: templates/settings/restore_password.html:30
+#: .\templates\settings\restore_password.html:30
 msgid "Restablecer contraseña"
 msgstr "Forgot your password?"
 
-#: templates/settings/restore_password.html:62
+#: .\templates\settings\restore_password.html:62
 msgid "Las contraseñas no coinciden"
 msgstr "The passwords dont match"
 
-#: templates/settings/security_settings.html:8
-#: templates/settings/settings_navbar.html:32
+#: .\templates\settings\security_settings.html:8
+#: .\templates\settings\settings_navbar.html:32
 msgid "Seguridad e Inicio"
 msgstr "Security and Log In"
 
-#: templates/settings/security_settings.html:15
+#: .\templates\settings\security_settings.html:15
 msgid "Factor de Doble Autenticacion"
 msgstr "Double Auth"
 
-#: templates/settings/security_settings.html:21
+#: .\templates\settings\security_settings.html:21
 msgid "Activar el Factor de Doble autenticacion"
 msgstr "Activate Double Auth"
 
-#: templates/settings/security_settings.html:39
+#: .\templates\settings\security_settings.html:39
 msgid "Reestablecer credenciales"
 msgstr "Reestore my password"
 
-#: templates/settings/settings_navbar.html:23
+#: .\templates\settings\settings_navbar.html:23
 msgid "Ajustes de Notificaciones"
 msgstr "Notifications"
 
-#: templates/settings/settings_navbar.html:41
+#: .\templates\settings\settings_navbar.html:41
 msgid "Chat"
 msgstr "Chat"
 
-#: user/LoginForm.py:14
+#: .\user\LoginForm.py:14
 msgid "Username is empty"
 msgstr "Username is empty"
 
-#: user/LoginForm.py:15
+#: .\user\LoginForm.py:15
 msgid "Email / NIT"
 msgstr "Email / NIT"
 
-#: user/LoginForm.py:24
+#: .\user\LoginForm.py:24
 msgid "Password is empty"
 msgstr "Password is empty"
 
-#: user/RestorePasswordForm.py:10 user/RestorePasswordForm.py:22
+#: .\user\RestorePasswordForm.py:10 .\user\RestorePasswordForm.py:22
 msgid "Contraseña actual"
 msgstr "Password"
 
-#: user/RestorePasswordForm.py:14 user/RestorePasswordForm.py:23
+#: .\user\RestorePasswordForm.py:14 .\user\RestorePasswordForm.py:23
 msgid "Nueva contraseña"
 msgstr "Password"
 
-#: user/RestorePasswordForm.py:18 user/RestorePasswordForm.py:24
+#: .\user\RestorePasswordForm.py:18 .\user\RestorePasswordForm.py:24
 msgid "Confirmar nueva contraseña"
 msgstr "Confirm Password"
 
-#: user/RestorePasswordForm.py:27
+#: .\user\RestorePasswordForm.py:27
 msgid "Introduce tu contraseña actual."
 msgstr "Introduce current password"
 
-#: user/RestorePasswordForm.py:28
+#: .\user\RestorePasswordForm.py:28
 msgid "La nueva contraseña debe tener al menos 8 caracteres."
 msgstr "The new password has to have at least 8 characters"
 
-#: user/RestorePasswordForm.py:29
+#: .\user\RestorePasswordForm.py:29
 msgid "Introduce la misma contraseña que antes para confirmarla."
 msgstr "Introduce the same password"
 
-#: user/tests.py:49 user/tests.py:59 user/views.py:64 user/views.py:66
+#: .\user\tests.py:49 .\user\tests.py:59 .\user\views.py:64 .\user\views.py:66
 msgid "Por favor revise su usuario y contraseña"
 msgstr "Please check the username and the password"
 
-#: user/tests.py:100 user/views.py:95 user/views.py:99
+#: .\user\tests.py:100 .\user\views.py:95 .\user\views.py:99
 msgid "OTP incorrecto"
 msgstr "Incorrect Code"
 
-#: user/tests.py:118 user/views.py:111
+#: .\user\tests.py:118 .\user\views.py:111
 msgid "Se ha actualizado con exito"
 msgstr "It was updated successfully!"
 
-#: user/views.py:50
+#: .\user\views.py:50
 msgid "Verification Code"
 msgstr "Vertification COde"
 
-#: user/views.py:52
+#: .\user\views.py:52
 msgid "Your verification code is: "
 msgstr "Your Vertification code is: "
 
-#: user/views.py:53
+#: .\user\views.py:53
 msgid ""
 "If you did not request this, please ignore it and consider changing your "
 "credentials."
