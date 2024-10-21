@@ -45,7 +45,10 @@
        {% translate "Miembros" %}
     </a>
 
-    <a href="/project/{{ project.id }}/updates"
-            class="text-md font-semibold bg-primary_light rounded-xl px-10 py-1 {% if section == 'updates' %} !bg-primary_dark text-white{% endif %}">Actualizaciones</a>
+   <a href="/project/{{ project.id }}/updates"
+       class="text-md font-semibold bg-primary_light rounded-xl px-8 py-2 hover:bg-primary_dark transition-transform duration-300 hover:scale-105 min-w-[120px] 
+       {% if section == 'updates' %} !bg-primary_dark text-white{% endif %}">
+       {% translate "Actualizaciones" %}
+    </a>
 
 </div>
