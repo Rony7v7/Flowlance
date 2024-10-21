@@ -198,6 +198,8 @@ django-admin compilemessages
 
 - Ensure your virtual environment is activated if you encounter dependency errors.
 - Use `python manage.py createsuperuser` to set up an admin account for accessing the Django admin panel.
+- If the Google login or some features are not working, it's likely because the .env file is missing. Please contact us to get it.
+
 
 ---
 
