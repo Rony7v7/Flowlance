@@ -110,34 +110,9 @@ Open your browser and navigate to:
 http://127.0.0.1:8000
 ```
 
-#### **4. Testing the Latest Functionalities**
-
-To test the latest features, create a superuser:
-
-```bash
-python manage.py createsuperuser
-```
-
-Login via the `/login` URL using the superuser credentials. To access the `/profile` section, log in with a freelancer user account, which can be created via the `/admin/` panel.
-
-Use the following URLs to test specific modules:
-
-- [Upload Curriculum](http://127.0.0.1:8000/profile/upload_curriculum/):  
-  `http://127.0.0.1:8000/profile/upload_curriculum/`
-- [Add Experience](http://127.0.0.1:8000/profile/add_experience/):  
-  `http://127.0.0.1:8000/profile/add_experience/`
-- [Add Skills](http://127.0.0.1:8000/profile/add_skills/):  
-  `http://127.0.0.1:8000/profile/add_skills/`
-- [Add Project](http://127.0.0.1:8000/profile/add_project/):  
-  `http://127.0.0.1:8000/profile/add_project/`
-- [Add Course](http://127.0.0.1:8000/profile/add_course/):  
-  `http://127.0.0.1:8000/profile/add_course/`
-
----
-
 ## **Setting Up Internationalization (i18n)**
 
-### **5.1. Install `gettext`**
+### **4. Install `gettext`**
 
 Django uses `gettext` for managing translation files. Install it based on your operating system:
 
@@ -168,7 +143,7 @@ Verify the installation with:
 msguniq --version
 ```
 
-#### **5.2. Generate Translation Files**
+#### **4.1. Generate Translation Files**
 
 Generate `.po` files for each language:
 
@@ -184,7 +159,7 @@ Generate `.po` files for each language:
     django-admin makemessages -l en
     ```
 
-#### **5.3. Compile Translation Files**
+#### **4.2. Compile Translation Files**
 
 After editing the `.po` files, compile them into `.mo` files:
 
@@ -199,7 +174,6 @@ django-admin compilemessages
 - Ensure your virtual environment is activated if you encounter dependency errors.
 - Use `python manage.py createsuperuser` to set up an admin account for accessing the Django admin panel.
 - If the Google login or some features are not working, it's likely because the .env file is missing. Please contact us to get it.
-
 
 ---
 
