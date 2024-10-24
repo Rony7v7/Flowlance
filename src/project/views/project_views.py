@@ -133,6 +133,7 @@ def display_project(request, project_id, section):
             "members": project.memberships.filter(is_deleted=False),
             "updates": updates,
             "show_important": show_important,  
+            "applications": project.applications.filter(is_deleted=False),
         },
     )
 
