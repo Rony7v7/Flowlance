@@ -43,6 +43,7 @@ NPM_BIN_PATH = "C:\\Program Files\\nodejs\\npm.cmd"
 SITE_ID = 1
 
 INSTALLED_APPS = [
+    "daphne",
     "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -66,7 +67,11 @@ INSTALLED_APPS = [
     "payment",
     "notifications",
     "django_otp",
+    "channels",
+
 ]
+
+ASGI_APPLICATION = 'flowlance.asgi.application'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

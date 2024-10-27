@@ -1,0 +1,24 @@
+{% extends "navigation/navigation.html" %}
+
+{% load i18n %}
+
+{% block app_content %}
+<h2 class="text-2xl font-semibold">Mis Chats</h2>
+<div>
+    {% for project in projects %}
+        <div>
+            <h3 class="text-xl">{{ project.title }}</h3>
+            <ul>
+                {% for member in project.memberships.all %}
+                    {% if member.user != request.user %}
+                        <li>
+                            <a href="{% url 'chat_room' project.id member.id %}">{{ member.user.username }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
