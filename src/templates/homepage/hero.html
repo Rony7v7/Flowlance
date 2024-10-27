@@ -1,90 +1,37 @@
 {% load i18n %}
-<div class="flex flex-col items-center justify-center py-10 px-4 md:px-8 lg:px-16">
-    <!-- Main container with two sections -->
-    <div class="flex flex-col lg:flex-row items-start justify-between w-full max-w-6xl gap-16 mb-16">
-        <!-- Left part: Text -->
-        <div class="lg:w-1/2 text-left lg:pr-8 space-y-12">
-            {% blocktranslate %}
-            <p class="text-3xl font-semibold text-[#121670]">
-                Donde los <span class="text-[#636AF2] font-bold">proyectos</span> encuentran a los
-                <span class="text-[#F2AE30] font-bold"> profesionales</span>
-            </p>
-            {% endblocktranslate %}
-            <p class="text-xl text-[#121670] mt-9"> <!-- Added mt-4 to create space between the paragraphs -->
-                {% translate "Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel" %}
-            </p>
-        </div>
+{% load static %}
 
+<div class="hero relative min-h-screen flex flex-col items-center justify-center py-20">
+    <div class="relative z-10 flex flex-col items-center justify-center gap-10 m-auto w-3/5">
 
-        <!-- Right part: Images -->
-        <div class="lg:w-1/2 relative h-96">
-            <img src="https://img.freepik.com/foto-gratis/laboratorio-computacion-moderno-equipado_23-2149241221.jpg?w=826"
-                alt="Profile 1" class="absolute rounded-full object-cover w-48 h-48" style="top: 2%; left: 12%;">
-            <img src="https://img.freepik.com/foto-gratis/colegas-sonrientes-que-miran-ordenador-portatil-lugar-trabajo_23-2148222628.jpg?w=826"
-                alt="Profile 2" class="absolute rounded-full object-cover w-48 h-48" style="top: 6%; left: 60%;">
-            <img src="https://img.freepik.com/foto-gratis/personas-que-trabajan-codigos-html_23-2150038850.jpg?w=1480"
-                alt="Profile 3" class="absolute rounded-full object-cover w-48 h-48" style="top: 55%; left: 22%;">
-            <img src="https://img.freepik.com/foto-gratis/hombre-que-usa-computadora-portatil-oficina_23-2147807984.jpg?w=1480"
-                alt="Profile 4" class="absolute rounded-full object-cover w-48 h-48" style="top: 60%; left: 65%;">
-        </div>
-    </div>
-    <!-- Section for "¿Por qué elegirnos?" -->
-    <div class="text-center w-full mt-6 mb-16">
-        <div class="flex flex-col lg:flex-row justify-center gap-5">
-            <!-- Card 1 -->
-            <div
-                class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
-                <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "CALIDAD" %}</h3>
-                <p class="px-4 py-2 text-lg text-white">
-                    {% translate "Acceso a miles de freelancers verificados" %}
-                </p>
-                <img src="https://img.freepik.com/fotos-premium/persona-escribiendo-computadora-portatil-pantalla-que-dice-palabra-ella_889227-13444.jpg?w=900"
-                    class="w-full h-60 object-cover" />
-            </div>
-
-            <!-- Card 2 -->
-            <div
-                class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
-                <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "EFECTIVIDAD" %}</h3>
-                <p class="px-4 py-2 text-lg text-white">{% translate "Procesos de contratación rápidos y seguros" %}</p>
-                <img src="https://sosliem.com/wp/wp-content/uploads/2022/03/Nosotros.jpg"
-                    class="w-full h-60 object-cover" />
-            </div>
-
-            <!-- Card 3 -->
-            <div
-                class="flex flex-col items-center bg-[#8D92F2] rounded-lg shadow-lg w-full lg:w-[25%] overflow-hidden text-center">
-                <!-- Adjust lg:w-[30%] to change width -->
-                <h3 class="bg-[#8D92F2] py-3 text-xl font-bold text-white">{% translate "AMIGABLE" %}</h3>
-                <p class="px-12 py-2 text-lg text-white">{% translate "Plataforma intuitiva y fácil de usar" %}</p>
-                <img src="https://images.pexels.com/photos/2422293/pexels-photo-2422293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    class="w-full h-60 object-cover" />
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Image and Call to Action -->
-    <div class="relative w-full max-w-6xl h-96 rounded-lg mt-2 mb-8 flex flex-col items-center justify-center text-center p-8 bg-cover bg-center"
-        style="background-image: url('https://spacecloudec.com/wp-content/uploads/2024/03/13-1-1000x500.jpg');">
-        <div class="text-white text-2xl font-bold mb-6">
-            {% translate "Únete a nuestra red de freelancers y descubre proyectos adaptados a ti" %}
-        </div>
-        <a href="{% url 'choose_path' %}"
-            class="bg-[#3D46F2] text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-[#3D46F2] transition ease-in-out duration-300">
-            {% translate "Regístrate ahora!" %}
-        </a>
-    </div>
-
-
-    <!-- Login Link -->
-    <div>
-        <p class="text-md text-gray-600">
-            {% translate "¿Ya tienes una cuenta?" %}
-            <a href="/login" class="text-[#3D46F2] font-bold hover:underline">
-                {% translate "Inicia sesión aquí" %}
-            </a>.
+        {% blocktranslate %}
+        <p class="text-6xl font-bold text-primary_black text-center">
+            Donde los <span class="text-primary_medium font-bold">proyectos</span> encuentran a los
+            <span class="text-[#F2AE30] font-bold"> profesionales</span>
         </p>
+        {% endblocktranslate %}
+
+
+        <p class="text-xl font-medium text-gray-700 text-center">
+            {% translate "Encuentra el talento que necesitas y lleva tu negocio al siguiente nivel" %}
+        </p>
+
+        <div class="flex gap-4 items-center">
+            <a href="/choose-path/" class="bg-primary_medium text-white font-bold py-3 px-8 rounded-full hover:bg-primary_dark transition">
+                {% translate "Regístrate ahora" %}
+            </a>
+            <a href="" class="text-primary_medium font-bold hover:underline">
+                {% translate "Más información" %} →
+            </a>
+        </div>
     </div>
 </div>
+
+<!-- Imagen de fondo -->
+<style>
+    .hero {
+        background-image: url("{% static 'img/hero-bg.svg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
