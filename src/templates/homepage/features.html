@@ -1,0 +1,73 @@
+{% load i18n %}
+
+<div class="flex flex-col items-center px-6 py-12 md:px-12">
+    <!-- Subtítulo -->
+    <p class="text-primary_medium font-semibold text-center">
+        {% translate "¿Por qué elegir a Flowlance?" %}
+    </p>
+
+    <!-- Título Principal -->
+    <h2 class="text-4xl md:text-4xl font-bold text-center mt-2 md:mb-5 text-primary_black">
+        {% translate "Todo lo que necesitas para conectar proyectos y profesionales de confianza" %}
+    </h2>
+
+    <!-- Descripción -->
+    <p class="text-lg md:text-xl text-gray-500 text-center mt-4 md:mb-5 max-w-2xl">
+        {% translate "Conecta tu empresa con una red de freelancers altamente calificados y facilita el crecimiento de tu negocio con herramientas avanzadas de selección, seguridad y experiencia de usuario." %}
+    </p>
+
+    <!-- Características en cuadrícula -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 gap-y-10 mt-12 max-w-4xl">
+        <!-- Característica 1 -->
+        <div class="flex items-start gap-4">
+            <div class="bg-primary_medium text-white rounded-lg p-3 flex items-center justify-center">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-star"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" /></svg>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-primary_black">{% translate "Calidad Garantizada" %}</h3>
+                <p class="text-gray-500">
+                    {% translate "Accede a miles de freelancers verificados y experimentados, cuidadosamente seleccionados para asegurar el mejor talento en el mercado." %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Característica 2 -->
+        <div class="flex items-start gap-4">
+            <div class="bg-primary_medium text-white rounded-lg p-3 flex items-center justify-center">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-lock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2a5 5 0 0 1 5 5v3a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3v-3a5 5 0 0 1 5 -5m0 12a2 2 0 0 0 -1.995 1.85l-.005 .15a2 2 0 1 0 2 -2m0 -10a3 3 0 0 0 -3 3v3h6v-3a3 3 0 0 0 -3 -3" /></svg>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-primary_black">{% translate "Contratación Efectiva y Segura" %}</h3>
+                <p class="text-gray-500">
+                    {% translate "Procesos de contratación rápidos y seguros con verificación de antecedentes y un sistema de pagos integrado para gestionar cada proyecto con confianza." %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Característica 3 -->
+        <div class="flex items-start gap-4">
+            <div class="bg-primary_medium text-white rounded-lg p-3 flex items-center justify-center">
+                {% include 'icon/info-circle.html' with property="bold"  %}
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-primary_black">{% translate "Soporte Dedicado" %}</h3>
+                <p class="text-gray-500">
+                    {% translate "Contamos con un equipo de soporte especializado para guiarte en cada paso, desde la creación del proyecto hasta su finalización." %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Característica 4 -->
+        <div class="flex items-start gap-4">
+            <div class="bg-primary_medium text-white rounded-lg p-3 flex items-center justify-center">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-mood-happy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-2 9.66h-6a1 1 0 0 0 -1 1v.05a3.975 3.975 0 0 0 3.777 3.97l.227 .005a4.026 4.026 0 0 0 3.99 -3.79l.006 -.206a1 1 0 0 0 -1 -1.029zm-5.99 -5l-.127 .007a1 1 0 0 0 .117 1.993l.127 -.007a1 1 0 0 0 -.117 -1.993zm6 0l-.127 .007a1 1 0 0 0 .117 1.993l.127 -.007a1 1 0 0 0 -.117 -1.993z" /></svg>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-primary_black">{% translate "Experiencia de Usuario Intuitiva" %}</h3>
+                <p class="text-gray-500">
+                    {% translate "Plataforma diseñada para ser fácil de usar, optimizada para una experiencia fluida y profesional tanto para empresas como para freelancers." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
