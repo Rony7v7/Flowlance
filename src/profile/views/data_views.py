@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from ..forms import AddSkillsForm, AddWorkExperienceForm, UploadCVForm
-from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile, Notification
+from ..models import FreelancerProfile, CurriculumVitae, Portfolio, FreelancerProfile
 from ..forms import AddProjectForm, AddCourseForm
 from django.contrib import messages
 from django.views.decorators.http import require_POST

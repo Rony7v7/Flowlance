@@ -4,8 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from project.models import ProjectMember
-
-from profile.models import Notification
+from notifications.models import Notification
 from ..models import Project, Milestone, Task, TaskDescription, Comment, TaskFile, Application
 
 class TaskViewsTest(TestCase):

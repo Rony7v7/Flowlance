@@ -6,17 +6,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, HttpResponse
 
-from profile.models import Notification
 from project.forms import ProjectForm, EventForm, ProjectUpdateForm, ProjectReportSettingsForm
-from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
+from project.models import Application, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
 from project.management.commands.generate_periodic_reports import Command as ReportCommand
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
+from notifications.utils import send_notification
+from django.utils.translation import gettext as _
+
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
+
 
 @login_required
 @client_required
@@ -254,11 +257,8 @@ def project_edit(request, project_id):
         if form.is_valid():
             form.save()
 
-            
-            Notification.objects.create(
-                user=request.user,
-                message=f"El proyecto '{project.title}' ha sido editado exitosamente."
-            )
+            notification_message = _(f"El proyecto '{project.title}' ha sido editado exitosamente.") 
+            send_notification(notification_message,request.user)
 
         return redirect("project", project_id=project.pk, section="milestone")
 
@@ -284,11 +284,8 @@ def project_delete(request, project_id):
         project.save()
 
         
-        Notification.objects.create(
-            user=request.user,
-            message=f"El proyecto '{project_title}' ha sido eliminado exitosamente."
-        )
-
+        notification_message = _(f"El proyecto '{project_title}' ha sido eliminado exitosamente.") 
+        send_notification(notification_message,request.user)
         
         return redirect("project_list")
     
@@ -312,24 +309,16 @@ def apply_project(request, project_id):
     )
 
     if created:
-        
-        Notification.objects.create(
-            user=request.user,
-            message=f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión."
-        )
+        notification_message =  _(f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión.")
+        send_notification(notification_message, request.user)
 
-        
-        Notification.objects.create(
-            user=project.client,
-            message=f"{request.user.username} se ha postulado a tu proyecto '{project.title}'."
-        )
+        notification_message =  _(f"{request.user.username} se ha postulado a tu proyecto '{project.title}'.")
+        send_notification(notification_message, request.user)
 
     else:
        
-        Notification.objects.create(
-            user=request.user,
-            message=f"Ya te has postulado anteriormente al proyecto '{project.title}'."
-        )
+        notification_message =  _(f"Ya te has postulado anteriormente al proyecto '{project.title}'.")
+        send_notification(notification_message, request.user)
 
    
     return redirect("project", project_id=project_id, section="milestone")
@@ -359,8 +348,7 @@ def update_application_status(request, application_id, action):
         )
 
     application.save()
-
-    Notification.objects.create(user=application.user, message=message)
+    send_notification(message, request.user)
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect("project", project_id=application.project.id, section="milestone")

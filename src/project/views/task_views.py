@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from flowlance.decorators import role_required
 from project.models import Comment, Milestone, Project, Task, TaskDescription, TaskFile
-from profile.models import Notification
 from django.contrib.auth.models import User
+
+from notifications.utils import send_notification
+from django.utils.translation import gettext as _
 
 @role_required(['administrator', 'member'])
 @login_required
@@ -128,16 +130,12 @@ def add_comment(request, task_id):
 
             Comment.objects.create(task=task, user=request.user, content=content)
 
-            Notification.objects.create(
-                user=request.user,
-                message=f"Has añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-            )
+            notification_message = _("Has añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
+            send_notification(notification_message,request.user)            
 
             if task.responsible and task.responsible != request.user:
-                Notification.objects.create(
-                    user=task.responsible,
-                    message=f"{request.user.username} ha añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-                )
+                notification_message = _("{request.user.username} ha añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
+                send_notification(notification_message, task.responsible)
 
         return redirect("project", project_id=project_id, section="task")
 
@@ -157,17 +155,12 @@ def add_file(request, task_id):
             file=file,
         )
 
-        Notification.objects.create(
-            user=request.user,
-            message=f"Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-        )
+        notification_message = _("Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.") 
+        send_notification(notification_message,request.user)        
 
         if task.responsible and task.responsible != request.user:
-            Notification.objects.create(
-                user=task.responsible,
-                message=f"{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-            )
-
+            notification_message = "{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
+            send_notification(notification_message,task.responsible)
         
         return redirect("project", project_id=project_id, section="task")
 
@@ -186,12 +179,9 @@ def update_task_state(request, task_id):
         new_state = request.POST.get('state')
         task.state = new_state
         task.save()
-
+        notification_message = _("{request.user.username} ha cambiado el estado de la tarea '{task.title}' a '{new_state}' en el proyecto '{task.milestone.project.title}'.")
+        send_notification(notification_message, task.responsible)
         # Crear la notificación para el responsable de la tarea
-        Notification.objects.create(
-            user=task.responsible,
-            message=f"{request.user.username} ha cambiado el estado de la tarea '{task.title}' a '{new_state}' en el proyecto '{task.milestone.project.title}'."
-        )
 
         return redirect('project', project_id=task.milestone.project.id, section='task')
 
