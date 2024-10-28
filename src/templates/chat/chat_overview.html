@@ -4,21 +4,50 @@
 
 {% block app_content %}
 <h2 class="text-2xl font-semibold">Mis Chats</h2>
-<div>
-    {% for project in projects %}
-        <div>
-            <h3 class="text-xl">{{ project.title }}</h3>
-            <ul>
-                {% for member in project.memberships.all %}
-                    {% if member.user != request.user %}
-                        <li>
-                            <a href="{% url 'chat_room' project.id member.id %}">{{ member.user.username }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar por nombre..." class="w-full border p-2 rounded mb-4">
+</div>
 
-            </ul>
-        </div>
+<div id="projectList">
+    {% for project in projects %}
+        <h3 class="text-lg font-bold">{{ project.title }}</h3>
+        <ul class="member-list">
+            {% for member in project.memberships.all %}
+                {% if member.user != request.user %}
+                    <li class="member-item">
+                        <a href="{% url 'chat_room' project.id member.id %}">{{ member.user.username }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     {% endfor %}
 </div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchQuery = this.value.toLowerCase();
+        const projects = document.querySelectorAll('#projectList .member-list');
+
+        projects.forEach(function(project) {
+            const members = project.querySelectorAll('.member-item');
+            let hasVisibleMembers = false;
+
+            members.forEach(function(member) {
+                const memberName = member.textContent.toLowerCase();
+
+                if (memberName.includes(searchQuery)) {
+                    member.style.display = '';
+                    hasVisibleMembers = true;
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+
+            // Mostrar u ocultar el encabezado del proyecto según si tiene miembros visibles
+            project.previousElementSibling.style.display = hasVisibleMembers ? '' : 'none';
+        });
+    });
+</script>
+
+
 {% endblock %}
