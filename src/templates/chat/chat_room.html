@@ -5,51 +5,52 @@
 {% block app_content %}
 <div class="chat-room">
     <h2 class="text-2xl">Chat con {{ member.username }}</h2>
-    <div id="chat-log" class="border p-4 h-64 overflow-y-auto"></div>
+    <div id="chat-log" class="border p-4 h-64 overflow-y-auto">
+        {% for message in messages %}
+        <p><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
+        {% endfor %}
+    </div>
     <textarea id="chat-message-input" rows="2" class="border p-2 w-full mt-2"></textarea>
     <button id="chat-message-submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Enviar</button>
 </div>
 
 <script>
-    // Variables inyectadas desde Django
     const project_id = "{{ project.id }}";
-    const sender_id = "{{ user.id }}";  // Usuario actual que envía el mensaje
+    const sender_id = "{{ request.user.id }}";  // Usuario actual que envía el mensaje
     const recipient_id = "{{ member.id }}";  // Usuario con el que estamos chateando
 
-    // Conexión a WebSocket para el chat entre usuarios del proyecto
     const chatSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/chat/' + project_id + '_' + recipient_id + '/'
     );
 
-    // Función para manejar los mensajes entrantes
-    chatSocket.onmessage = function(e) {
+    chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         const chatLog = document.getElementById('chat-log');
         const newMessage = document.createElement("p");
         newMessage.innerHTML = `<strong>${data.user}:</strong> ${data.message}`;
         chatLog.appendChild(newMessage);
+
+        chatLog.scrollTop = chatLog.scrollHeight;
     };
 
-    // Manejo de cierre de conexión WebSocket
-    chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
-
-    // Enviar mensaje al hacer clic en el botón
-    document.getElementById('chat-message-submit').onclick = function(e) {
+    document.getElementById('chat-message-submit').onclick = function (e) {
         const messageInput = document.getElementById('chat-message-input');
         const message = messageInput.value;
-
-        // Envío del mensaje al servidor WebSocket
         chatSocket.send(JSON.stringify({
             'project_id': project_id,
             'sender_id': sender_id,
             'recipient_id': recipient_id,
             'message': message
         }));
-
-        // Limpiar campo de mensaje después de enviar
         messageInput.value = '';
     };
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatLog = document.getElementById('chat-log');
+        chatLog.scrollTop = chatLog.scrollHeight;
+    });
+
 </script>
+
 {% endblock %}
