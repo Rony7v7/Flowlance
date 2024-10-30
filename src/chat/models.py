@@ -11,12 +11,15 @@ class ChatRoom(models.Model):
         return f"Chat Room for {self.project.title}"
 
 class Message(models.Model):
-    room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name="messages")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_messages", null=True, blank=True)  # El remitente del mensaje
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="received_messages", null=True, blank=True)
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="messages",null=True, blank=True)  # El proyecto asociado
+    content = models.TextField()  # El contenido del mensaje
+    timestamp = models.DateTimeField(auto_now_add=True)  # Fecha y hora de envío del mensaje
 
     def __str__(self):
-        return f"{self.user.username}: {self.content[:20]}..."
+        return f"Message from {self.sender.username} to {self.recipient.username} at {self.timestamp}"
+
     
 
