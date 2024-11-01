@@ -7,7 +7,7 @@
     <h2 class="text-2xl">Chat con {{ member.username }}</h2>
     <div id="chat-log" class="border p-4 h-64 overflow-y-auto">
         {% for message in messages %}
-        <p><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
+            <p><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
         {% endfor %}
     </div>
     <textarea id="chat-message-input" rows="2" class="border p-2 w-full mt-2"></textarea>
@@ -16,8 +16,8 @@
 
 <script>
     const project_id = "{{ project.id }}";
-    const sender_id = "{{ request.user.id }}";  // Usuario actual que envía el mensaje
-    const recipient_id = "{{ member.id }}";  // Usuario con el que estamos chateando
+    const sender_id = "{{ request.user.id }}";
+    const recipient_id = "{{ member.id }}";
 
     const chatSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/chat/' + project_id + '_' + recipient_id + '/'
@@ -29,7 +29,6 @@
         const newMessage = document.createElement("p");
         newMessage.innerHTML = `<strong>${data.user}:</strong> ${data.message}`;
         chatLog.appendChild(newMessage);
-
         chatLog.scrollTop = chatLog.scrollHeight;
     };
 
@@ -45,12 +44,9 @@
         messageInput.value = '';
     };
 
-    
     document.addEventListener("DOMContentLoaded", function () {
         const chatLog = document.getElementById('chat-log');
         chatLog.scrollTop = chatLog.scrollHeight;
     });
-
 </script>
-
 {% endblock %}
