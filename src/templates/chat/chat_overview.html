@@ -1,53 +1,27 @@
 {% extends "navigation/navigation.html" %}
-
 {% load i18n %}
 
 {% block app_content %}
-<h2 class="text-2xl font-semibold">Mis Chats</h2>
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="Buscar por nombre..." class="w-full border p-2 rounded mb-4">
+<div class="flex h-screen bg-bg_white text-primary_black">
+    <!-- Left Sidebar -->
+    {% include "chat/chat_contacts.html" %}
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <div class="h-16 border-b border-primary_lightest flex items-center px-6 bg-bg_gray">
+            <h2 class="text-lg font-semibold text-primary_dark">Mis Chats</h2>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="flex-1 flex items-center justify-center">
+            <div class="text-center">
+                <svg class="w-16 h-16 mx-auto mb-4 text-primary_medium" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                <p class="text-xl text-primary_dark">Select a chat to start messaging</p>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div id="projectList">
-    {% for project in projects %}
-        <h3 class="text-lg font-bold">{{ project.title }}</h3>
-        <ul class="member-list">
-            {% for member in project.memberships.all %}
-                {% if member.user != request.user %}
-                    <li class="member-item">
-                        <a href="{% url 'chat_room' project.id member.id %}">{{ member.user.username }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endfor %}
-</div>
-
-<script>
-    document.getElementById('searchInput').addEventListener('keyup', function() {
-        const searchQuery = this.value.toLowerCase();
-        const projects = document.querySelectorAll('#projectList .member-list');
-
-        projects.forEach(function(project) {
-            const members = project.querySelectorAll('.member-item');
-            let hasVisibleMembers = false;
-
-            members.forEach(function(member) {
-                const memberName = member.textContent.toLowerCase();
-
-                if (memberName.includes(searchQuery)) {
-                    member.style.display = '';
-                    hasVisibleMembers = true;
-                } else {
-                    member.style.display = 'none';
-                }
-            });
-
-            // Mostrar u ocultar el encabezado del proyecto según si tiene miembros visibles
-            project.previousElementSibling.style.display = hasVisibleMembers ? '' : 'none';
-        });
-    });
-</script>
-
-
 {% endblock %}
