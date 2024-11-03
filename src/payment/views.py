@@ -73,19 +73,20 @@ def payment_view(request, member_id):
     })
 
 def payment_confirm(request, transaction_id):
-    transaction, created = Transaction.objects.get_or_create(
-        transaction_id=transaction_id,
-        defaults={
-            "freelancer": get_object_or_404(ProjectMember, user__email=settings.PAYPAL_RECEIVER_EMAIL).user,
-            "amount": "90.00",
-            "status": "Pending",
-            "created_at": timezone.now()
-        }
-    )
-
-    transaction.status = "Success"
-    transaction.save()
-
+    try:
+        transaction = Transaction.objects.get(transaction_id=transaction_id)
+        transaction.status = "Success"
+        transaction.save()
+    except Transaction.DoesNotExist:
+        freelancer = get_object_or_404(ProjectMember, user__email=settings.PAYPAL_RECEIVER_EMAIL).user
+        transaction = Transaction.objects.create(
+            freelancer=freelancer,
+            amount="90.00",
+            transaction_id=transaction_id,
+            status="Success",
+            created_at=timezone.now()
+        )
+    
     return render(request, "payment/payment_success.html", {"transaction": transaction})
 
 def dashboard(request):
