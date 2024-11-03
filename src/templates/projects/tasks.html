@@ -27,7 +27,9 @@
   <div class="flex justify-between items-center mt-4">
     <form method="GET" id="milestoneFilterForm" class="flex items-center space-x-4">
       <label for="milestone" class="text-primary_black font-semibold">{% translate "Filtrar por Hito:" %}</label>
-      <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded">
+      
+      <!-- No se modifica el appearance del select -->
+      <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded pr-10">
         <option value="">{% translate "Todos los hitos" %}</option>
         {% for milestone in milestones %}
         <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
@@ -35,11 +37,20 @@
         </option>
         {% endfor %}
       </select>
-      <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-colors">
+
+      <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
         {% translate "Filtrar" %}
       </button>
     </form>
-  </div>
+</div>
+
+<style>
+  /* Ajustamos el padding para dejar espacio a la flecha predeterminada */
+  select {
+      padding-right: 2.5rem; /* Deja espacio para la flecha */
+  }
+</style>
+
 
   <!-- Sección de Tareas -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">

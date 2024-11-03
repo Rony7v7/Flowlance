@@ -126,7 +126,8 @@ def display_project(request, project_id, section):
             "task_progress": task_progress,
             "milestones": milestones,
             "milestone_progress": milestone_progress,
-            "application": application,
+            "application": application, 
+            "applications": project.applications.filter(is_deleted=False),
             "user_is_owner": request.user == project.client,
             "events": event_list,
             "form": EventForm(),  
@@ -136,6 +137,7 @@ def display_project(request, project_id, section):
             "members": project.memberships.filter(is_deleted=False),
             "updates": updates,
             "show_important": show_important,  
+            "applications": project.applications.filter(is_deleted=False),
         },
     )
 
