@@ -1,13 +1,18 @@
-from django.db.models import Q
-from datetime import datetime
 import uuid
+from datetime import datetime
+
 from django.conf import settings
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
+
 from paypal.standard.forms import PayPalPaymentsForm
+
 from project.models import ProjectMember
 from .models import Transaction
+from email_service.email_service import send_email
+
 
 def filter_transactions(request, freelancer):
     transactions = Transaction.objects.filter(freelancer=freelancer).order_by('-created_at')
@@ -87,6 +92,54 @@ def payment_confirm(request, transaction_id):
             created_at=timezone.now()
         )
     
+    client_email = "dartunduagapenagos@gmail.com"
+    freelancer_email = "equipoia1234@gmail.com"
+    
+
+    subject = f"Comprobante de pago: {transaction.transaction_id}"
+
+    client_body = (
+        f"Estimado cliente,\n\n"
+        f"Su pago al freelancer {transaction.freelancer.username} se ha completado exitosamente.\n\n"
+        f"Detalles del pago:\n"
+        f"- ID de transacción: {transaction.transaction_id}\n"
+        f"- Freelancer: {transaction.freelancer.username}\n"
+        f"- Monto: ${transaction.amount}\n"
+        f"- Fecha: {transaction.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"- Estado: {transaction.status}\n\n"
+        f"Gracias por confiar en nuestra plataforma para gestionar sus proyectos.\n\n"
+        f"Atentamente,\nEl equipo de Flowlance"
+    )
+
+    freelancer_body = (
+        f"Estimado {transaction.freelancer.username},\n\n"
+        f"Ha recibido un nuevo pago de un cliente en nuestra plataforma.\n\n"
+        f"Detalles del pago:\n"
+        f"- ID de transacción: {transaction.transaction_id}\n"
+        f"- Cliente: {client_email}\n"  # Puedes mostrar el nombre del cliente si tienes acceso
+        f"- Monto: ${transaction.amount}\n"
+        f"- Fecha: {transaction.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"- Estado: {transaction.status}\n\n"
+        f"Gracias por usar nuestra plataforma. Continúe entregando un excelente trabajo.\n\n"
+        f"Atentamente,\nEl equipo de Flowlance"
+    )
+
+    send_email(
+        client_email,
+        subject,
+        client_body,
+        title="Comprobante de Pago Realizado",
+        footer="Gracias por usar Flowlance"
+    )
+
+    send_email(
+        freelancer_email,
+        subject,
+        freelancer_body,
+        title="Notificación de Nuevo Pago",
+        footer="Gracias por usar Flowlance"
+    )
+
     return render(request, "payment/payment_success.html", {"transaction": transaction})
 
 def dashboard(request):
