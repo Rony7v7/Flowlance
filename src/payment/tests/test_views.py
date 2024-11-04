@@ -47,14 +47,17 @@ class PaymentViewTests(TestCase):
             'paypal_email': 'testpaypal@example.com',
             'amount': '50.00'
         })
-        transaction = Transaction.objects.filter(freelancer=self.freelancer_user).first()
+        transaction = Transaction.objects.filter(freelancer=self.freelancer_user, client=self.company_user).first()
+        
         self.assertIsNotNone(transaction)
         self.assertEqual(transaction.amount, 50.00)
         self.assertEqual(transaction.status, "Pending")
-
+        self.assertEqual(transaction.client, self.company_user)  
+        self.assertEqual(transaction.freelancer, self.freelancer_user)  
     def test_payment_confirm(self):
         transaction_id = str(uuid.uuid4())
         transaction = Transaction.objects.create(
+            client=self.company_user,
             freelancer=self.freelancer_user,
             amount=50.00,
             transaction_id=transaction_id,
@@ -62,13 +65,14 @@ class PaymentViewTests(TestCase):
         )
         response = self.client.get(reverse('payment_confirm', args=[transaction_id]))
         transaction.refresh_from_db()  
-        self.assertEqual(transaction.status, "Success")  
+        
+        self.assertEqual(transaction.status, "Success")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "payment/payment_success.html")
 
-
     def test_filter_transactions_by_amount(self):
         Transaction.objects.create(
+            client=self.company_user,
             freelancer=self.freelancer_user,
             amount=50.00,
             transaction_id=str(uuid.uuid4()),
@@ -76,22 +80,26 @@ class PaymentViewTests(TestCase):
             created_at=timezone.now()
         )
         Transaction.objects.create(
+            client=self.company_user,
             freelancer=self.freelancer_user,
             amount=100.00,
             transaction_id=str(uuid.uuid4()),
             status="Success",
             created_at=timezone.now()
         )
+        
         response = self.client.get(self.payment_url, {
             'min_amount': '60.00',
             'max_amount': '150.00'
         })
         transactions = response.context['transactions']
+        
         self.assertEqual(len(transactions), 1)
         self.assertEqual(transactions[0].amount, 100.00)
 
     def test_filter_transactions_by_date(self):
         Transaction.objects.create(
+            client=self.company_user,
             freelancer=self.freelancer_user,
             amount=50.00,
             transaction_id=str(uuid.uuid4()),
@@ -99,6 +107,7 @@ class PaymentViewTests(TestCase):
             created_at=timezone.now() - timezone.timedelta(days=10)
         )
         Transaction.objects.create(
+            client=self.company_user,
             freelancer=self.freelancer_user,
             amount=75.00,
             transaction_id=str(uuid.uuid4()),
@@ -113,6 +122,6 @@ class PaymentViewTests(TestCase):
             'end_date': end_date
         })
         transactions = response.context['transactions']
+        
         self.assertEqual(len(transactions), 2)  
         self.assertEqual(transactions[0].amount, 50.00)
-
