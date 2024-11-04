@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from ..models import (
-    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, CompanyProfile
+    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, CompanyProfile,ProfileConfiguration
 )
 from ..forms import AddSkillsForm, AddWorkExperienceForm, RatingForm
 from notifications.models import Notification
@@ -28,6 +28,7 @@ class FreelancerPlatformTest(TestCase):
         self.other_user.save()
 
         self.other_profile, _ = FreelancerProfile.objects.get_or_create(user=self.other_user, identification="54321", phone="0987654321")
+        ProfileConfiguration.objects.create(freelancer_profile = self.other_profile)
 
         # Create a notification for testing
         self.notification, _ = Notification.objects.get_or_create(
@@ -79,7 +80,7 @@ class FreelancerPlatformTest(TestCase):
 
         self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
         self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
-
+        ProfileConfiguration.objects.get_or_create(freelancer_profile = self.freelancer_profile)
 
         # Iniciar sesión con la empresa
         self.client.login(username='company_user', password='password123')
@@ -92,7 +93,7 @@ class FreelancerPlatformTest(TestCase):
 
         # Check if a notification was created for the freelancer
         notification_exists = Notification.objects.filter(
-            user=self.company_user,
+            user=self.freelancer_user,
             title="Perfil visualizado",
         ).exists()
 

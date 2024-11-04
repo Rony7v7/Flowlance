@@ -31,3 +31,17 @@ def toggle_2fa(request):
             profile.save()
 
         return redirect('security_settings')  # Redirect to the profile page or another relevant page
+
+
+@login_required
+def toggle_notification_when_profile_visited(request):
+    user = request.user
+    profile, profile_type = user.get_profile_info()  # Use the get_profile_info method
+
+    if request.method == 'POST':
+        notification_when_profile_visited_variable = request.POST.get('notification_when_profile_visited_variable') == 'on'
+        if profile:  # If the user has a profile (either Freelancer or Company)
+            profile.profileconfiguration.notification_when_profile_visited = notification_when_profile_visited_variable
+            profile.save()
+
+        return redirect('security_settings')  # Redirect to the profile page or another relevant page

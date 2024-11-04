@@ -77,11 +77,12 @@ def freelancer_profile_view(request, username):
     context['is_owner'] = False
     context['viewer'] = request.user
 
-    notification_title = _("Perfil visualizado")
-    now = datetime.now()
-    notification_message = _(f"Su perfil ha sido visualizado por el cliente {request.user.username}, a las {now.strftime("%d/%m/%Y %H:%M:%S")}")
-    notification_link = reverse("my_profile")
-    send_notification(notification_title,notification_link,notification_message,request.user) 
+    if request.profile.profileconfiguration.notification_when_profile_visited:
+        notification_title = _("Perfil visualizado")
+        now = datetime.now()
+        notification_message = _(f"Su perfil ha sido visualizado por el cliente {request.user.username}, a las {now.strftime('%d/%m/%Y %H:%M:%S')}")
+        notification_link = reverse("my_profile")
+        send_notification(notification_title,notification_link,notification_message,request.profile.user) 
 
     return render(request, 'profile/freelancer_profile.html', context)
 
