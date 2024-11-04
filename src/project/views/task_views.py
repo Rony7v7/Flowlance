@@ -6,7 +6,7 @@ from django.contrib import messages
 from flowlance.decorators import role_required
 from project.models import Comment, Milestone, Project, Task, TaskDescription, TaskFile
 from django.contrib.auth.models import User
-
+from notifications.models import Notification
 from notifications.utils import send_notification
 from django.utils.translation import gettext as _
 
@@ -132,11 +132,11 @@ def add_comment(request, task_id):
             Comment.objects.create(task=task, user=request.user, content=content)
 
             notification_message = _("Has añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
-            send_notification(notification_title,notification_message,notifcation_link,request.user)            
+            send_notification(notification_title,notification_message,notifcation_link,request.user,Notification.NotificationType.PROJECT)
 
             if task.responsible and task.responsible != request.user:
                 notification_message = _("{request.user.username} ha añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
-                send_notification(notification_title,notification_message,notifcation_link, task.responsible)
+                send_notification(notification_title,notification_message,notifcation_link, task.responsible,Notification.NotificationType.PROJECT)
 
         return redirect("project", project_id=project_id, section="task")
 
@@ -159,11 +159,11 @@ def add_file(request, task_id):
         )
 
         notification_message = _("Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.") 
-        send_notification(notification_title,notification_message,notifcation_link,request.user)        
+        send_notification(notification_title,notification_message,notifcation_link,request.user,Notification.NotificationType.PROJECT)
 
         if task.responsible and task.responsible != request.user:
             notification_message = "{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-            send_notification(notifcation_link,notification_message,notification_title,task.responsible)
+            send_notification(notifcation_link,notification_message,notification_title,task.responsible,Notification.NotificationType.PROJECT)
         
         return redirect("project", project_id=project_id, section="task")
 
@@ -185,7 +185,7 @@ def update_task_state(request, task_id):
         notification_message = _("{request.user.username} ha cambiado el estado de la tarea '{task.title}' a '{new_state}' en el proyecto '{task.milestone.project.title}'.")
         notification_title = _("Estado de tarea actualizado")
         notification_link = f"/project/{task.milestone.project.id}/task"
-        send_notification(notification_title,notification_message,notification_link, task.responsible)
+        send_notification(notification_title,notification_message,notification_link ,task.responsible,notification_type=Notification.NotificationType.PROJECT)
         # Crear la notificación para el responsable de la tarea
 
         return redirect('project', project_id=task.milestone.project.id, section='task')

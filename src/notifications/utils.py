@@ -6,7 +6,11 @@ from asgiref.sync import async_to_sync
 
 # Please use this function every time you want to send a notification
 # The link of creation is where the notification is comming from, a dashboard, a proyect , a message?
-def send_notification(title, notification_message, link_of_creation, user_Receiver):
+
+#to use the notification type you can just use Notification.NotificationType.TYPE, type being either peojct, paymen tor message
+
+#By default it will de other
+def send_notification(title, notification_message, link_of_creation, user_Receiver,notification_type = Notification.NotificationType.OTHER):
     user = User.objects.get(username=user_Receiver)
 
     Notification.objects.create(
@@ -14,6 +18,7 @@ def send_notification(title, notification_message, link_of_creation, user_Receiv
         user=user_Receiver,
         message=notification_message,
         link_to_place_of_creation=link_of_creation,
+        notification_type = notification_type
     )
 
     channel_layer = get_channel_layer()
