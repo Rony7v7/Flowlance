@@ -1,45 +1,39 @@
 {% extends 'base.html' %}
-{% load socialaccount %}
+{% load socialaccount static i18n %}
 
-{% block title %}Log In - Flowlance{% endblock %}
+{% block title %}Log In{% endblock %}
 
 {% block content %}
-
-{% load i18n %}
-<div class="flex w-full justify-center items-center h-screen flex-col p-4 md:p-0">
+<div class="login-bg flex flex-col justify-center items-center h-screen p-4 md:p-0">
     <!-- Login Box -->
-    <div class="rounded-lg shadow-md text-center w-full max-w-md p-6 md:p-10">
+    <div class="rounded-lg shadow-md text-center w-full max-w-md p-6 md:p-10 bg-white">
 
         <!-- Logo -->
-        <div class="flex justify-center items-center mb-4">
-            <i> {% include 'icon/flowlance.html' with w='65' h='65' %} </i>
+        <div class="flex justify-center items-center mb-6">
+            {% include 'icon/flowlance.html' with w='65' h='65' %}
         </div>
 
         <!-- Título -->
-        <h1 class="text-primary_black text-2xl md:text-3xl font-bold mb-4">{% translate "Iniciar sesión" %}</h1>
+        <h1 class="text-primary_black text-2xl md:text-3xl font-bold mb-6">{% translate "Iniciar sesión" %}</h1>
 
-        <form method="post">
+        <!-- Formulario de inicio de sesión -->
+        <form method="post" class="text-left">
             {% csrf_token %}
-            <div class="text-left">
-
-                <div class="form-group mb-4">
-                    <div class="mb-2 text-primary_black">
-                        {{ form.username.label_tag }}
-                    </div>
-                    {{ form.username }}
-                </div>
-                <div class="form-group mb-6">
-                    <div class="mb-2 text-primary_black">
-                        {{ form.password.label_tag }}
-                    </div>
-                    {{ form.password }}
-                </div>
+            <div class="form-group mb-4">
+                <label class="mb-2 text-primary_black">{{ form.username.label }}</label>
+                {{ form.username }}
             </div>
-            <button type="submit" class="bg-primary_medium text-white w-full py-2 rounded-md mb-4">{% translate "Ingresar" %}</button>
+            <div class="form-group mb-6">
+                <label class="mb-2 text-primary_black">{{ form.password.label }}</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="bg-primary_medium text-white w-full py-2 rounded-md mb-4">
+                {% translate "Ingresar" %}
+            </button>
         </form>
 
-        <!-- Divider with Circle -->
-        <div class="flex items-center space-x-4 my-4">
+        <!-- Divider -->
+        <div class="flex items-center space-x-4 my-6">
             <div class="flex-1 border-t border-gray-300"></div>
             <div class="w-3 h-3 border border-primary_black rounded-full flex items-center justify-center">
                 <div class="w-1 h-1 bg-primary_lightest rounded-full"></div>
@@ -47,18 +41,22 @@
             <div class="flex-1 border-t border-gray-300"></div>
         </div>
 
+        <!-- Login con Google -->
         <a href="{% provider_login_url 'google' %}"
-           class="flex items-center justify-center bg-white text-black w-full py-2 border rounded-md mb-4 border-primary_medium">
-            <span class="text-primary_black flex gap-4 justify-center text-center items-center">
-                <i> {% include 'icon/google_icon.html' with w='32' h='32' %} </i> 
+           class="flex items-center justify-center bg-white text-primary_black w-full py-2 border border-primary_medium rounded-md mb-6">
+            <span class="flex gap-4 items-center">
+                {% include 'icon/google_icon.html' with w='24' h='24' %}
                 {% translate "Continuar con Google" %}
             </span>
         </a>
 
-        <!-- Enlaces adicionales -->
-        <a href="#" class="text-primary_black hover:underline mb-4 block font-bold">{% translate "¿Olvidaste tu contraseña?" %}</a>
-        <!-- Formulario -->
-        {% if form.errors %}
+        <!-- Enlace para recuperar contraseña -->
+        <a href="#" class="text-primary_black hover:underline mb-4 block font-bold">
+            {% translate "¿Olvidaste tu contraseña?" %}
+        </a>
+
+        <!-- Mensajes de error -->
+        {% if form.errors or messages %}
         <div class="bg-red-500 text-white p-2 mb-4 rounded-md">
             <ul>
                 {% for field in form %}
@@ -66,7 +64,6 @@
                 <li>{{ error }}</li>
                 {% endfor %}
                 {% endfor %}
-
                 {% for message in messages %}
                 <li>{{ message }}</li>
                 {% endfor %}
@@ -75,14 +72,23 @@
         {% endif %}
     </div>
 
-    <!-- Registration Link -->
-    <div class="rounded-lg shadow-md text-center mt-4 w-full max-w-md p-2">
-        <p class="text-black">
-            {% translate "¿No tienes cuenta?" %} 
-            <a href="{% url 'choose_path' %}" class="text-primary_black hover:underline font-bold">
+    <!-- Registro -->
+    <div class="rounded-lg shadow-md text-center mt-4 w-full max-w-md p-4 bg-white">
+        <p class="text-gray-700">
+            {% translate "¿No tienes cuenta?" %}
+            <a href="{% url 'choose_path' %}" class="text-primary_medium font-bold hover:underline">
                 {% translate "Regístrate" %}
             </a>
         </p>
     </div>
 </div>
+
+<!-- Imagen de fondo -->
+<style>
+    .login-bg {
+        background-image: url("{% static 'img/hero-bg.svg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
 {% endblock %}
