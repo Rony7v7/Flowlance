@@ -2,9 +2,10 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from ..models import (
-    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, Notification, CompanyProfile
+    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, CompanyProfile
 )
 from ..forms import AddSkillsForm, AddWorkExperienceForm, RatingForm
+from notifications.models import Notification
 
 
 class FreelancerPlatformTest(TestCase):
@@ -31,6 +32,8 @@ class FreelancerPlatformTest(TestCase):
         # Create a notification for testing
         self.notification, _ = Notification.objects.get_or_create(
             user=self.user,
+            title = "nuevo titulo",
+            link_to_place_of_creation = "link de prueba",
             message="New notification",
             is_read=False
         )
