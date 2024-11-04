@@ -72,6 +72,32 @@ class FreelancerPlatformTest(TestCase):
         self.assertTemplateUsed(response, 'profile/freelancer_profile.html')
         self.assertContains(response, self.other_profile.user.username)
 
+    def test_notification_created_on_profile_view(self):
+
+        self.company_user = User.objects.create_user(username='company_user', password='password123')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
+
+
+        # Iniciar sesión con la empresa
+        self.client.login(username='company_user', password='password123')
+
+        # Perform the GET request to view the freelancer profile
+        response = self.client.get(reverse('freelancer_profile_view', args=[self.freelancer_user.username]))
+
+        # Check if the response was successful
+        self.assertEqual(response.status_code, 200)
+
+        # Check if a notification was created for the freelancer
+        notification_exists = Notification.objects.filter(
+            user=self.company_user,
+            title="Perfil visualizado",
+        ).exists()
+
+        self.assertTrue(notification_exists, "Notification was not created for the freelancer on profile view.")
+
 
     def test_view_notifications(self):
         response = self.client.get(reverse('notifications'))
