@@ -22,6 +22,8 @@ class AllEventsViewTest(TestCase):
             end="2024-01-10T12:00:00",
             project=self.project
         )
+        self.client.login(username='testuser', password='12345')
+
     
     def test_invalid_project_id(self):
         response = self.client.get(reverse('all_events'), {'project_id': 'invalid'})

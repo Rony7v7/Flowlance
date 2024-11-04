@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from ..models import (
     FreelancerProfile, Skill, Portfolio, PortfolioProject, 
     Course, WorkExperience, CurriculumVitae, Rating, 
-    RatingResponse, Notification
+    RatingResponse
 )
 from django.utils import timezone
 
@@ -119,14 +119,4 @@ class RatingResponseModelTest(TestCase):
         self.assertEqual(response.rating, self.rating)
         self.assertEqual(response.response_text, 'Thank you!')
 
-class NotificationModelTest(TestCase):
-    def setUp(self):
-        self.user, created = User.objects.get_or_create(username='testuser', password='12345')
 
-    def test_notification_creation(self):
-        notification = Notification.objects.create(
-            user=self.user,
-            message='New notification message',
-        )
-        self.assertEqual(str(notification), f"Notification for {self.user.username}: New notification message")
-        self.assertFalse(notification.is_read)
