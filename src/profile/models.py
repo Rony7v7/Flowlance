@@ -32,6 +32,12 @@ class FreelancerProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+#En esta tabla podemos encontrar las cofiguraciones del perfil
+class ProfileConfiguration(models.Model):
+    freelancer_profile = models.OneToOneField(FreelancerProfile,on_delete=models.CASCADE)
+    notification_when_profile_visited = models.BooleanField(default=True)
+
+
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
