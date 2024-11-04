@@ -5,7 +5,10 @@ from django.utils import timezone
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=100)
     message = models.CharField(max_length=255)
+    link_to_place_of_creation = models.CharField(max_length=255) #This link is supposed to take you to the place where the notification was created
+    #so it can be chats, a proyect o the dasboard to see the payment
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False, null=False)

@@ -260,7 +260,9 @@ def project_edit(request, project_id):
             form.save()
 
             notification_message = _(f"El proyecto '{project.title}' ha sido editado exitosamente.") 
-            send_notification(notification_message,request.user)
+            notification_title = _("Actualizacion de proyecto")
+            notification_link = f"/project/{project.id}/milestone"
+            send_notification(notification_title,notification_message,notification_link,request.user)
 
         return redirect("project", project_id=project.pk, section="milestone")
 
@@ -287,7 +289,9 @@ def project_delete(request, project_id):
 
         
         notification_message = _(f"El proyecto '{project_title}' ha sido eliminado exitosamente.") 
-        send_notification(notification_message,request.user)
+        notification_title = _("Eliminacion de Projecto")
+        notification_link = "/dasboard/"
+        send_notification(notification_title,notification_message,notification_link,request.user)
         
         return redirect("project_list")
     
@@ -310,17 +314,19 @@ def apply_project(request, project_id):
         user=request.user, project=project
     )
 
+    notification_title =  _("Notificacion de postulacion")
+    notification_link = f"/project/{application.project.id}/milestone"
     if created:
         notification_message =  _(f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión.")
-        send_notification(notification_message, request.user)
+        send_notification(notification_title,notification_message,notification_link, request.user)
 
         notification_message =  _(f"{request.user.username} se ha postulado a tu proyecto '{project.title}'.")
-        send_notification(notification_message, request.user)
+        send_notification(notification_title,notification_message,notification_link, project.client)
 
     else:
        
         notification_message =  _(f"Ya te has postulado anteriormente al proyecto '{project.title}'.")
-        send_notification(notification_message, request.user)
+        send_notification(notification_title,notification_message, notification_link,request.user)
 
    
     return redirect("project", project_id=project_id, section="milestone")
@@ -349,8 +355,10 @@ def update_application_status(request, application_id, action):
             "project", project_id=application.project.id, section="milestone"
         )
 
+    notification_title = _("Actulizacion en postulacion")
+    notification_link = f"/project/{application.project.id}/milestone"
     application.save()
-    send_notification(message, request.user)
+    send_notification(notification_title,message,notification_link, request.user)
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect("project", project_id=application.project.id, section="milestone")

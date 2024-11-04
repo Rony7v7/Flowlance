@@ -24,7 +24,9 @@ def add_rating(request, freelancer_username):
             rating.client = request.user
             rating.save()
             notification_message = _("Has recibido una nueva calificación de {request.user.username}.")
-            send_notification(notification_message , request.user)
+            notification_title = _("Nueva Calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': freelancer_username})
+            send_notification(notification_title,notification_message ,notification_link, request.user)
             # Notificar al freelancer que ha recibido una nueva calificación
 
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -56,7 +58,9 @@ def add_rating_response(request, rating_id):
             response.save()
 
             notification_message = _("{request.user.username} ha respondido a tu calificación.")
-            send_notification(notification_message , request.user)
+            notification_title = _("Respuesta a Calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': request.user.username})
+            send_notification(notification_title,notification_message ,notification_link, request.user)
 
             return JsonResponse({'status': 'success'})
         else:
@@ -77,7 +81,9 @@ def edit_rating_response(request, response_id):
         if form.is_valid():
             form.save()
             notification_message = _("{request.user.username} ha editado la respuesta de la calificación.")
-            send_notification(notification_message, request.user)
+            notification_title = _("Edicion de calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': request.user.username})
+            send_notification(notification_title,notification_message,notification_link, request.user)
 
             messages.success(request, 'Respuesta editada con éxito.')
             return JsonResponse({'status': 'success'})

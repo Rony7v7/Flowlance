@@ -123,7 +123,8 @@ def add_description(request, task_id):
 def add_comment(request, task_id):
     task = get_object_or_404(Task, id=task_id,is_deleted=False)
     project_id = task.milestone.project.id
-
+    notification_title = "Nueva Comentario Creado"
+    notifcation_link = f"/project/{project_id}/task"
     if request.method == "POST":
         content = request.POST.get("content")
         if content:
@@ -131,11 +132,11 @@ def add_comment(request, task_id):
             Comment.objects.create(task=task, user=request.user, content=content)
 
             notification_message = _("Has añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
-            send_notification(notification_message,request.user)            
+            send_notification(notification_title,notification_message,notifcation_link,request.user)            
 
             if task.responsible and task.responsible != request.user:
                 notification_message = _("{request.user.username} ha añadido un comentario a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
-                send_notification(notification_message, task.responsible)
+                send_notification(notification_title,notification_message,notifcation_link, task.responsible)
 
         return redirect("project", project_id=project_id, section="task")
 
@@ -146,6 +147,8 @@ def add_comment(request, task_id):
 def add_file(request, task_id):
     task = get_object_or_404(Task, id=task_id,is_deleted=False)
     project_id = task.milestone.project.id
+    notification_title = _("Nueva tarea creada")
+    notifcation_link = f"/project/{project_id}/task"
 
     if request.method == "POST" and request.FILES.get("file"):
         file = request.FILES["file"]
@@ -156,11 +159,11 @@ def add_file(request, task_id):
         )
 
         notification_message = _("Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.") 
-        send_notification(notification_message,request.user)        
+        send_notification(notification_title,notification_message,notifcation_link,request.user)        
 
         if task.responsible and task.responsible != request.user:
             notification_message = "{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-            send_notification(notification_message,task.responsible)
+            send_notification(notifcation_link,notification_message,notification_title,task.responsible)
         
         return redirect("project", project_id=project_id, section="task")
 
@@ -180,7 +183,9 @@ def update_task_state(request, task_id):
         task.state = new_state
         task.save()
         notification_message = _("{request.user.username} ha cambiado el estado de la tarea '{task.title}' a '{new_state}' en el proyecto '{task.milestone.project.title}'.")
-        send_notification(notification_message, task.responsible)
+        notification_title = _("Estado de tarea actualizado")
+        notification_link = f"/project/{task.milestone.project.id}/task"
+        send_notification(notification_title,notification_message,notification_link, task.responsible)
         # Crear la notificación para el responsable de la tarea
 
         return redirect('project', project_id=task.milestone.project.id, section='task')

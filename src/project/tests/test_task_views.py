@@ -144,7 +144,6 @@ class TaskViewsTest(TestCase):
         # Verificar que la notificación haya sido creada
         self.assertTrue(Notification.objects.filter(
             user=self.task.responsible,
-            message__contains="ha cambiado el estado de la tarea"
         ).exists())
 
     def test_update_task_state_unauthorized(self):

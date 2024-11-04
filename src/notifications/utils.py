@@ -4,19 +4,22 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
 
-def send_notification(notification_message, user_Receiver):
+# Please use this function every time you want to send a notification
+# The link of creation is where the notification is comming from, a dashboard, a proyect , a message?
+def send_notification(title, notification_message, link_of_creation, user_Receiver):
     user = User.objects.get(username=user_Receiver)
 
-    Notification.objects.create(user=user_Receiver, message=notification_message)
+    Notification.objects.create(
+        title=title,
+        user=user_Receiver,
+        message=notification_message,
+        link_to_place_of_creation=link_of_creation,
+    )
 
     channel_layer = get_channel_layer()
-    group_name = f'notifications_{user.username}'
+    group_name = f"notifications_{user.username}"
 
     # Utiliza async_to_sync para llamar al método asincrónico desde un contexto sincrónico
     async_to_sync(channel_layer.group_send)(
-        group_name,
-        {
-            'type': 'send_notification',
-            'message': notification_message
-        }
+        group_name, {"type": "send_notification", "message": notification_message}
     )
