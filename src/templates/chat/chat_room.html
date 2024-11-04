@@ -69,13 +69,14 @@
     const project_id = "{{ project.id }}";
     const sender_id = "{{ request.user.id }}";
     const recipient_id = "{{ member.id }}";
+
     const chatSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/chat/' + project_id + '_' + recipient_id + '/'
     );
 
-    // Limpiar los mensajes visualmente al hacer clic en "Eliminar Chat"
+    // Función para limpiar los mensajes visualmente
     document.getElementById('clear-chat').onclick = function () {
-        fetch(`/chat/room/${project_id}/${recipient_id}/delete/`, {
+        fetch(`/chat/room/${project_id}/${recipient_id}/soft_delete/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': '{{ csrf_token }}',
@@ -90,13 +91,12 @@
         });
     };
 
-    // Manejo de mensajes del WebSocket
     chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         const chatLog = document.getElementById('chat-log');
         const newMessageDiv = document.createElement("div");
         const isCurrentUser = data.user === "{{ request.user.username }}";
-
+        
         newMessageDiv.className = `flex ${isCurrentUser ? 'justify-end' : ''} mb-4`;
         newMessageDiv.innerHTML = `
             <div class="max-w-[70%] ${isCurrentUser ? 'bg-primary_medium text-bg_white' : 'bg-bg_gray text-primary_black'} rounded-lg px-4 py-2">
@@ -107,7 +107,7 @@
                 <p class="text-sm">${data.message}</p>
             </div>
         `;
-
+        
         chatLog.appendChild(newMessageDiv);
         chatLog.scrollTop = chatLog.scrollHeight;
     };

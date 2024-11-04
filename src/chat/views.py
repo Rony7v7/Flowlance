@@ -16,21 +16,31 @@ from .models import ChatRoom, Message
 
 from django.db.models import Q
 
+# views.py
+
+from django.db.models import Q
+
 def chat_room(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(ProjectMember, id=member_id, project=project)
     room_name = f"{project_id}_{member_id}"
-
-    # Create chat room if it doesn't exist
+    
+    # Crear o obtener la sala de chat
     room, created = ChatRoom.objects.get_or_create(project=project, name=room_name)
-
-    # Load message history for both sender and recipient
-    messages = Message.objects.filter(
-        Q(project=project, sender=request.user, recipient=member.user) |
-        Q(project=project, sender=member.user, recipient=request.user)
-    ).order_by("timestamp")
-
-    # Get all projects for the sidebar
+    
+    # Filtrar mensajes de acuerdo con el usuario que hace la solicitud
+    if request.user == member.user:
+        messages = Message.objects.filter(
+            Q(project=project, sender=request.user, recipient=member.user, hidden_for_sender=False) |
+            Q(project=project, sender=member.user, recipient=request.user, hidden_for_recipient=False)
+        ).order_by("timestamp")
+    else:
+        messages = Message.objects.filter(
+            Q(project=project, sender=request.user, recipient=member.user, hidden_for_sender=False) |
+            Q(project=project, sender=member.user, recipient=request.user, hidden_for_recipient=False)
+        ).order_by("timestamp")
+    
+    # Cargar los proyectos en los que está el usuario para la barra lateral
     projects = Project.objects.filter(memberships__user=request.user)
 
     return render(request, 'chat/chat_room.html', {
@@ -41,6 +51,32 @@ def chat_room(request, project_id, member_id):
         'projects': projects,
         'current_member': member.user,
     })
+
+
+# views.py
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+@require_POST
+def soft_delete_chat(request, project_id, member_id):
+    project = get_object_or_404(Project, id=project_id)
+    member = get_object_or_404(ProjectMember, id=member_id, project=project)
+
+    # Marcar como ocultos los mensajes enviados o recibidos, solo para el usuario que realiza la solicitud
+    if request.user == member.user:
+        Message.objects.filter(
+            Q(project=project, sender=request.user, recipient=member.user) |
+            Q(project=project, sender=member.user, recipient=request.user)
+        ).update(hidden_for_recipient=True)
+    else:
+        Message.objects.filter(
+            Q(project=project, sender=request.user, recipient=member.user) |
+            Q(project=project, sender=member.user, recipient=request.user)
+        ).update(hidden_for_sender=True)
+
+    return JsonResponse({'status': 'success'})
+
 
 
 # views.py
