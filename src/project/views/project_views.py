@@ -254,7 +254,7 @@ def project_edit(request, project_id):
     project = get_object_or_404(Project, id=project_id, is_deleted=False)
     
     if request.method == "POST":
-        form = ProjectForm(request.POST, instance=project)
+        form = ProjectForm(request.POST, request.FILES ,instance=project)
         if form.is_valid():
             form.save()
 
@@ -274,6 +274,9 @@ def project_edit(request, project_id):
         "projects/project_form.html",
         {"form": form, "project": project, "action": "Edit"},
     )
+    if 'image' in request.FILES:
+        project.image = request.FILES['image']
+    project.save()
 
 @role_required("administrator")
 @login_required
