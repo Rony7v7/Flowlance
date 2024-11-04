@@ -1,6 +1,8 @@
 from django.test import TestCase , Client
 from django.contrib.auth.models import User
 from django.urls import reverse
+
+from profile.models import CompanyProfile, FreelancerProfile, ProfileConfiguration
 from .models import Notification
 from .utils import send_notification
 from .models import Notification
@@ -9,6 +11,17 @@ class NotificationTests(TestCase):
     def setUp(self):
         # Create a user for testing
         self.user = User.objects.create(username="testuser", password="password123")
+
+        self.company_user = User.objects.create_user(username='company_user', password='password123')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+        
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
+        
+        # Create a ProfileConfiguration for the freelancer with notification disabled by default
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create(freelancer_profile=self.freelancer_profile)
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
 
     def test_notification_creation(self):
         # Call the send_notification function
@@ -30,6 +43,75 @@ class NotificationTests(TestCase):
 
         notification = Notification.objects.get(user=self.user, message=notification_message)
         self.assertEqual(notification.message, notification_message)
+
+        
+    def test_toggle_notification_setting(self):
+        # Log in as freelancer user to toggle notification setting
+        self.client.login(username='freelancer_user', password='password123') 
+        self.profile_config.notification_when_profile_visited = True
+
+        
+        # Toggle the notification setting to enable it
+        response = self.client.post(reverse('toggle_notification_when_profile_visited'), {
+            'notification_when_profile_visited_variable': 'on'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile config and check if the setting is enabled
+        self.profile_config.refresh_from_db()
+        self.assertTrue(self.profile_config.notification_when_profile_visited, "Notification setting was not enabled")
+
+        # Toggle the notification setting to disable it again
+        response = self.client.post(reverse('toggle_notification_when_profile_visited'), {
+            'notification_when_profile_visited_variable': 'off'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile config and check if the setting is disabled
+        self.profile_config.refresh_from_db()
+        self.assertFalse(self.profile_config.notification_when_profile_visited, "Notification setting was not disabled")
+
+    def test_notification_created_on_profile_view(self):
+        # Enable notification setting for freelancer
+        self.profile_config.notification_when_profile_visited = True
+        self.profile_config.save()
+        
+        # Log in as the company user to view freelancer profile
+        self.client.login(username='company_user', password='password123')
+
+        # Perform the GET request to view the freelancer profile
+        response = self.client.get(reverse('freelancer_profile_view', args=[self.freelancer_user.username]))
+        
+        # Check if the response was successful
+        self.assertEqual(response.status_code, 200)
+
+        # Check if a notification was created for the freelancer
+        notification_exists = Notification.objects.filter(
+            user=self.freelancer_user,
+            title="Perfil visualizado",
+        ).exists()
+        self.assertTrue(notification_exists, "Notification was not created for the freelancer on profile view.")
+
+    def test_notification_not_created_when_disabled(self):
+        # Ensure notification setting is disabled for freelancer
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
+
+        # Log in as the company user to view freelancer profile
+        self.client.login(username='company_user', password='password123')
+
+        # Perform the GET request to view the freelancer profile
+        response = self.client.get(reverse('freelancer_profile_view', args=[self.freelancer_user.username]))
+        
+        # Check if the response was successful
+        self.assertEqual(response.status_code, 200)
+
+        # Check that no notification was created for the freelancer
+        notification_exists = Notification.objects.filter(
+            user=self.freelancer_user,
+            title="Perfil visualizado",
+        ).exists()
+        self.assertFalse(notification_exists, "Notification should not be created when the setting is disabled.")
 
 class NotificationModelTest(TestCase):
     def setUp(self):

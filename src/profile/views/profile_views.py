@@ -82,7 +82,7 @@ def freelancer_profile_view(request, username):
         now = datetime.now()
         notification_message = _(f"Su perfil ha sido visualizado por el cliente {request.user.username}, a las {now.strftime('%d/%m/%Y %H:%M:%S')}")
         notification_link = reverse("my_profile")
-        send_notification(notification_title,notification_link,notification_message,request.profile.user) 
+        send_notification(notification_title,notification_message,notification_link,request.profile.user) 
 
     return render(request, 'profile/freelancer_profile.html', context)
 
