@@ -5,6 +5,8 @@
     <div class="h-28 w-full bg-purple-600">
         {% if project.image %}
         <img src="{{ project.image.url }}" alt="{{ project.title }}" class="object-cover h-full w-full">
+        {% else %}
+        <img src="https://picsum.photos/450/300" alt="{{ project.title }}" class="object-cover h-full w-full">
         {% endif %}
     </div>
 

@@ -17,15 +17,18 @@ from io import BytesIO
 
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
+from django.core.files.storage import default_storage
 
 @login_required
 @client_required
 def create_project(request):
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.client = request.user
+            if 'image' in request.FILES:
+                project.image = request.FILES['image']
             project.save()
             
             ProjectMember.objects.create(project=project, user=request.user, role="administrator", is_owner=True)
@@ -35,7 +38,6 @@ def create_project(request):
     else:
         form = ProjectForm()
     return render(request, "projects/create_project.html", {"form": form})
-
 
 @login_required
 def my_projects(request):

@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 class Project(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.CharField(blank=True, max_length=500)
+    image = models.ImageField(upload_to='project_images/', null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     requirements = models.TextField()
