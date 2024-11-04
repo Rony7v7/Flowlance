@@ -46,8 +46,9 @@ def create_paypal_form(request, transaction_id, paypal_email, amount, freelancer
     }
     return PayPalPaymentsForm(initial=paypal_dict)
 
-def create_transaction(freelancer, amount, transaction_id):
+def create_transaction(client, freelancer, amount, transaction_id):
     return Transaction.objects.create(
+        client=client,
         freelancer=freelancer,
         amount=amount,
         transaction_id=transaction_id,
@@ -68,7 +69,8 @@ def payment_view(request, member_id):
         transaction_id = str(uuid.uuid4())
 
         paypal_form = create_paypal_form(request, transaction_id, paypal_email, amount, freelancer.user, host)
-        create_transaction(freelancer.user, amount, transaction_id)
+        
+        create_transaction(request.user, freelancer.user, amount, transaction_id)
 
     return render(request, "payment/payment.html", {
         "paypal_form": paypal_form,
@@ -86,20 +88,20 @@ def payment_confirm(request, transaction_id):
         freelancer = get_object_or_404(ProjectMember, user__email=settings.PAYPAL_RECEIVER_EMAIL).user
         transaction = Transaction.objects.create(
             freelancer=freelancer,
+            client=request.user,  
             amount="90.00",
             transaction_id=transaction_id,
             status="Success",
             created_at=timezone.now()
         )
     
-    client_email = "dartunduagapenagos@gmail.com"
-    freelancer_email = "equipoia1234@gmail.com"
-    
+    client_email = transaction.client.email
+    freelancer_email = transaction.freelancer.email
 
     subject = f"Comprobante de pago: {transaction.transaction_id}"
 
     client_body = (
-        f"Estimado cliente,\n\n"
+        f"Estimado {transaction.client.username},\n\n"
         f"Su pago al freelancer {transaction.freelancer.username} se ha completado exitosamente.\n\n"
         f"Detalles del pago:\n"
         f"- ID de transacción: {transaction.transaction_id}\n"
@@ -113,10 +115,10 @@ def payment_confirm(request, transaction_id):
 
     freelancer_body = (
         f"Estimado {transaction.freelancer.username},\n\n"
-        f"Ha recibido un nuevo pago de un cliente en nuestra plataforma.\n\n"
+        f"Ha recibido un nuevo pago de {transaction.client.username} en nuestra plataforma.\n\n"
         f"Detalles del pago:\n"
         f"- ID de transacción: {transaction.transaction_id}\n"
-        f"- Cliente: {client_email}\n"  # Puedes mostrar el nombre del cliente si tienes acceso
+        f"- Cliente: {transaction.client.username} ({client_email})\n"
         f"- Monto: ${transaction.amount}\n"
         f"- Fecha: {transaction.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n"
         f"- Estado: {transaction.status}\n\n"
