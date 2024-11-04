@@ -43,3 +43,27 @@ def chat_room(request, project_id, member_id):
     })
 
 
+# views.py
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.db.models import Q
+
+@require_POST
+def delete_chat(request, project_id, member_id):
+    # Obtener el proyecto y el miembro correspondiente
+    project = get_object_or_404(Project, id=project_id)
+    member = get_object_or_404(ProjectMember, id=member_id, project=project)
+
+    # Filtrar los mensajes en ambas direcciones (enviados y recibidos)
+    Message.objects.filter(
+        Q(project=project) & (
+            Q(sender=request.user, recipient=member.user) |
+            Q(sender=member.user, recipient=request.user)
+        )
+    ).delete()
+
+    return JsonResponse({'status': 'success'})
+
+
+
