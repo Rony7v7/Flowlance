@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumen de Notificaciones</title>
+</head>
+<body>
+    <h2>Hola {{ user.username }},</h2>
+    <p>Aquí tienes el resumen de tus notificaciones importantes:</p>
+    <ul>
+        {% for item in summary %}
+            <li>
+                <strong>{{ item.type }}:</strong> {{ item.title }} <br>
+                <span>{{ item.message }}</span> <br>
+                <a href="{{ item.link }}">Ver detalles</a> <br>
+                <small>Fecha: {{ item.created_at }}</small>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+    <p>Para más detalles, ingresa a tu cuenta.</p>
+    <p>Saludos,<br>El equipo de soporte</p>
+</body>
+</html>
