@@ -139,3 +139,37 @@ def upload_file(request):
             'message': message_text,
             'file_url': message.file.url if message.file else None
         })
+
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.core.files.storage import default_storage
+
+@require_POST
+def upload_message(request):
+    project_id = request.POST.get('project_id')
+    sender_id = request.POST.get('sender_id')
+    recipient_id = request.POST.get('recipient_id')
+    message_content = request.POST.get('message', '')
+    file = request.FILES.get('file')  # Obtén el archivo si existe
+
+    sender = User.objects.get(id=sender_id)
+    recipient = User.objects.get(id=recipient_id)
+    project = Project.objects.get(id=project_id)
+
+    # Crear el mensaje con el archivo o solo texto
+    message = Message.objects.create(
+        sender=sender,
+        recipient=recipient,
+        project=project,
+        content=message_content,
+        file=file if file else None
+    )
+
+    return JsonResponse({
+        'status': 'success',
+        'user': sender.username,
+        'message': message.content,
+        'file': message.file.url if message.file else None,
+        'filename': message.file.name if message.file else None
+    })

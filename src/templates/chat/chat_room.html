@@ -3,55 +3,71 @@
 
 {% block app_content %}
 <div class="flex h-screen bg-bg_white text-primary_black">
+    <!-- Left Sidebar -->
     {% include "chat/chat_contacts.html" %}
 
+    <!-- Main Chat Area -->
     <div class="flex-1 flex flex-col">
+        <!-- Chat Header -->
         <div class="h-16 border-b border-primary_lightest flex items-center px-6 bg-bg_gray">
             <div class="flex items-center">
-                <div
-                    class="w-10 h-10 bg-primary_medium rounded-full flex items-center justify-center text-bg_white font-semibold">
+                <div class="w-10 h-10 bg-primary_medium rounded-full flex items-center justify-center text-bg_white font-semibold">
                     {{ member.username|slice:":2"|upper }}
                 </div>
                 <h2 class="ml-3 text-lg font-semibold text-primary_dark">Chat con {{ member.username }}</h2>
             </div>
+
             <button id="clear-chat" class="bg-red-500 text-white px-2 py-2 rounded-lg ml-auto">
                 Borrar chat
             </button>
         </div>
 
+        <!-- Messages and Input Area -->
         <div class="flex-1 flex flex-col">
+            <!-- Messages -->
             <div id="chat-log" class="flex-1 overflow-y-auto p-6 space-y-4" style="max-height: calc(100vh - 160px);">
                 {% for message in messages %}
                 <div class="flex {% if message.sender == request.user %}justify-end{% endif %}">
-                    <div
-                        class="max-w-[70%] {% if message.sender == request.user %}bg-primary_medium text-bg_white{% else %}bg-bg_gray text-primary_black{% endif %} rounded-lg px-4 py-2">
-                        <div
-                            class="flex items-center {% if message.sender == request.user %}justify-end{% endif %} mb-1">
+                    <div class="max-w-[70%] {% if message.sender == request.user %}bg-primary_medium text-bg_white{% else %}bg-bg_gray text-primary_black{% endif %} rounded-lg px-4 py-2">
+                        <div class="flex items-center {% if message.sender == request.user %}justify-end{% endif %} mb-1">
                             <span class="font-semibold text-sm">{{ message.sender.username }}</span>
                             <span class="text-xs text-primary_light ml-2">{{ message.timestamp|time:"g:i A" }}</span>
                         </div>
-                        {% if message.content %}
-                        <p class="text-sm">{{ message.content }}</p>
-                        {% endif %}
                         {% if message.file %}
-                        <p class="text-sm"><a href="{{ message.file.url }}" target="_blank">Archivo adjunto</a></p>
+                            <p class="text-sm"><a href="{{ message.file.url }}" class="text-blue-500 underline" download>{{ message.file.name }}</a></p>
+                        {% else %}
+                            <p class="text-sm">{{ message.content }}</p>
                         {% endif %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
 
+            <!-- Message Input -->
             <div class="border-t border-primary_lightest p-4 bg-bg_gray">
                 <div class="flex items-center space-x-2">
-                    <textarea id="chat-message-input"
+                    <textarea 
+                        id="chat-message-input"
                         class="flex-1 bg-bg_white text-primary_black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary_medium"
-                        rows="2" placeholder="Escribe un mensaje..."></textarea>
+                        rows="2"
+                        placeholder="Type a message..."
+                    ></textarea>
+                    
+                    <!-- Botón de carga de archivos -->
                     <input type="file" id="chat-file-input" class="hidden">
-                    <label for="chat-file-input"
-                        class="bg-primary_dark hover:bg-primary_medium text-bg_white px-4 py-2 rounded-lg cursor-pointer">Adjuntar
-                        archivo</label>
-                    <button id="chat-message-submit"
-                        class="bg-primary_dark hover:bg-primary_medium text-bg_white px-6 py-3 rounded-lg transition-colors">
+                    <button 
+                        id="chat-file-button"
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-2 py-2 rounded-lg"
+                        onclick="document.getElementById('chat-file-input').click();"
+                    >
+                        📎
+                    </button>
+
+                    <!-- Botón de enviar mensaje -->
+                    <button 
+                        id="chat-message-submit"
+                        class="bg-primary_dark hover:bg-primary_medium text-bg_white px-6 py-3 rounded-lg transition-colors"
+                    >
                         Enviar
                     </button>
                 </div>
@@ -64,29 +80,10 @@
     const project_id = "{{ project.id }}";
     const sender_id = "{{ request.user.id }}";
     const recipient_id = "{{ member.id }}";
-    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + project_id + '_' + recipient_id + '/');
 
-    chatSocket.onmessage = function (e) {
-        const data = JSON.parse(e.data);
-        const chatLog = document.getElementById('chat-log');
-        const newMessageDiv = document.createElement("div");
-        const isCurrentUser = data.user === "{{ request.user.username }}";
-
-        newMessageDiv.className = `flex ${isCurrentUser ? 'justify-end' : ''} mb-4`;
-        newMessageDiv.innerHTML = `
-            <div class="max-w-[70%] ${isCurrentUser ? 'bg-primary_medium text-bg_white' : 'bg-bg_gray text-primary_black'} rounded-lg px-4 py-2">
-                <div class="flex items-center ${isCurrentUser ? 'justify-end' : ''} mb-1">
-                    <span class="font-semibold text-sm">${data.user}</span>
-                    <span class="text-xs text-primary_light ml-2">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                </div>
-                <p class="text-sm">${data.message}</p>
-                ${data.file_url ? `<p class="text-sm"><a href="${data.file_url}" target="_blank">Archivo adjunto</a></p>` : ""}
-            </div>
-        `;
-
-        chatLog.appendChild(newMessageDiv);
-        chatLog.scrollTop = chatLog.scrollHeight;
-    };
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + project_id + '_' + recipient_id + '/'
+    );
 
     // Función para limpiar los mensajes visualmente
     document.getElementById('clear-chat').onclick = function () {
@@ -96,60 +93,90 @@
                 'X-CSRFToken': '{{ csrf_token }}',
             },
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    const chatLog = document.getElementById('chat-log');
-                    chatLog.innerHTML = '';  // Limpiar la vista de mensajes
-                }
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const chatLog = document.getElementById('chat-log');
+                chatLog.innerHTML = '';  // Limpiar la vista de mensajes
+            }
+        });
     };
 
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        const chatLog = document.getElementById('chat-log');
+        const newMessageDiv = document.createElement("div");
+        const isCurrentUser = data.user === "{{ request.user.username }}";
+        
+        newMessageDiv.className = `flex ${isCurrentUser ? 'justify-end' : ''} mb-4`;
+        newMessageDiv.innerHTML = `
+            <div class="max-w-[70%] ${isCurrentUser ? 'bg-primary_medium text-bg_white' : 'bg-bg_gray text-primary_black'} rounded-lg px-4 py-2">
+                <div class="flex items-center ${isCurrentUser ? 'justify-end' : ''} mb-1">
+                    <span class="font-semibold text-sm">${data.user}</span>
+                    <span class="text-xs text-primary_light ml-2">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                </div>
+                ${data.file ? `<p class="text-sm"><a href="${data.file}" class="text-blue-500 underline">${data.filename}</a></p>` : `<p class="text-sm">${data.message}</p>`}
+            </div>
+        `;
+        
+        chatLog.appendChild(newMessageDiv);
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
 
-    document.getElementById('chat-message-submit').onclick = async function () {
+    document.getElementById('chat-message-submit').onclick = function (e) {
         const messageInput = document.getElementById('chat-message-input');
-        const message = messageInput.value;
         const fileInput = document.getElementById('chat-file-input');
+        const message = messageInput.value;
         const file = fileInput.files[0];
 
+        const formData = new FormData();
+        formData.append('project_id', project_id);
+        formData.append('sender_id', sender_id);
+        formData.append('recipient_id', recipient_id);
+        formData.append('message', message);
         if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('message', message);
-            formData.append('project_id', project_id);
-            formData.append('sender_id', sender_id);  // Asegúrate de que esto esté incluido
-            formData.append('recipient_id', recipient_id);
-
-            const response = await fetch('/chat/upload/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                },
-                body: formData
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                chatSocket.send(JSON.stringify({
-                    'project_id': project_id,
-                    'sender_id': sender_id,  // Asegúrate de que esto esté incluido
-                    'recipient_id': recipient_id,
-                    'message': data.message,
-                    'file_url': data.file_url
-                }));
-            }
-        } else {
-            chatSocket.send(JSON.stringify({
-                'project_id': project_id,
-                'sender_id': sender_id,  // Asegúrate de que esto esté incluido
-                'recipient_id': recipient_id,
-                'message': message
-            }));
+            formData.append('file', file);  // Adjunta el archivo si existe
         }
 
-        messageInput.value = '';
-        fileInput.value = '';
+        // Enviar el mensaje al servidor
+        fetch(`/chat/upload/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            }
+        }).then(response => response.json())
+          .then(data => {
+              if (data.status === 'success') {
+                  // Agregar el nuevo mensaje a la vista
+                  const chatLog = document.getElementById('chat-log');
+                  const newMessageDiv = document.createElement("div");
+                  const isCurrentUser = data.user === "{{ request.user.username }}";
+                  
+                  newMessageDiv.className = `flex ${isCurrentUser ? 'justify-end' : ''} mb-4`;
+                  newMessageDiv.innerHTML = `
+                      <div class="max-w-[70%] ${isCurrentUser ? 'bg-primary_medium text-bg_white' : 'bg-bg_gray text-primary_black'} rounded-lg px-4 py-2">
+                          <div class="flex items-center ${isCurrentUser ? 'justify-end' : ''} mb-1">
+                              <span class="font-semibold text-sm">${data.user}</span>
+                              <span class="text-xs text-primary_light ml-2">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                          </div>
+                          ${data.file ? `<p class="text-sm"><a href="${data.file}" class="text-blue-500 underline">${data.filename}</a></p>` : `<p class="text-sm">${data.message}</p>`}
+                      </div>
+                  `;
+                  
+                  chatLog.appendChild(newMessageDiv);
+                  chatLog.scrollTop = chatLog.scrollHeight;
+                  
+                  messageInput.value = '';
+                  fileInput.value = '';  // Limpiar el campo de archivo
+              }
+          });
     };
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatLog = document.getElementById('chat-log');
+        chatLog.scrollTop = chatLog.scrollHeight;
+    });
 </script>
+
 {% endblock %}
