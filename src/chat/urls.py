@@ -6,4 +6,5 @@ urlpatterns = [
     path("", views.chat_overview, name='chat_overview'),
     path('room/<int:project_id>/<int:member_id>/', views.chat_room, name='chat_room'),
     path('room/<int:project_id>/<int:member_id>/soft_delete/', views.delete_chat, name='soft_delete_chat'),
+    path('upload/', views.upload_file, name='upload_file'),
 ]

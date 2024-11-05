@@ -103,3 +103,39 @@ def delete_chat(request, project_id, member_id):
 
 
 
+# views.py
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .models import Message
+from django.core.files.storage import default_storage
+from django.conf import settings
+from django.contrib.auth.models import User
+
+@require_POST
+def upload_file(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+        project_id = request.POST.get('project_id')
+        sender_id = request.POST.get('sender_id')
+        recipient_id = request.POST.get('recipient_id')
+        message_text = request.POST.get('message', '')
+
+        # Guardar el mensaje en la base de datos
+        sender = User.objects.get(id=sender_id)
+        recipient = User.objects.get(id=recipient_id)
+        project = Project.objects.get(id=project_id)
+
+        message = Message.objects.create(
+            sender=sender,
+            recipient=recipient,
+            project=project,
+            content=message_text,
+            file=file
+        )
+
+        # Devolver la URL del archivo
+        return JsonResponse({
+            'user': sender.username,
+            'message': message_text,
+            'file_url': message.file.url if message.file else None
+        })

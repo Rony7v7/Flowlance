@@ -20,7 +20,8 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_messages", null=True, blank=True)
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="received_messages", null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="messages", null=True, blank=True)
-    content = models.TextField()
+    content = models.TextField(blank=True, null=True)  # Texto del mensaje
+    file = models.FileField(upload_to='chat_files/', blank=True, null=True)  # Nuevo campo para archivos
     timestamp = models.DateTimeField(auto_now_add=True)
 
     # Campos para soft delete
@@ -29,5 +30,3 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender.username} to {self.recipient.username} at {self.timestamp}"
-
-
