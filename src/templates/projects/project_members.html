@@ -71,7 +71,7 @@
                     {% endif %}
 
                     <!-- Botón de Pago (solo para freelancers) -->
-                    {% if member.role == 'member' %}
+                    {% if not member.is_owner and user_is_admin %}
                         <a href="{% url 'payment_process' member.id %}" class="text-blue-500 hover:underline ml-4">
                             {% translate "Pagar" %}
                         </a>
