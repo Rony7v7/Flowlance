@@ -6,7 +6,7 @@ from django.contrib.messages import get_messages
 from unittest.mock import patch
 from django.utils.translation import gettext as _
 from django.contrib.auth.forms import PasswordChangeForm
-from profile.models import FreelancerProfile, CompanyProfile  # Import your profile models
+from profile.models import FreelancerProfile  # Import your profile models
 
 class LoginViewTests(TestCase):
     

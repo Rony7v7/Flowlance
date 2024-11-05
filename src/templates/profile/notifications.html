@@ -1,24 +1,91 @@
-
 {% extends "base.html" %}
 
 {% load i18n %}
 {% block content %}
-<h2 class="text-2xl font-bold mb-4">{% translate "Notificaciones" %}</h2>
-<ul class="bg-white shadow-md rounded-lg p-4">
-    {% for notification in notifications %}
-    <li class="border-b border-gray-200 py-2">
-        <p>{{ notification.message }}</p>
-        <p class="text-sm text-gray-500">{{ notification.created_at|date:"d M Y H:i" }}</p>
-    </li>
-    {% empty %}
-    <li class="text-center py-4">{% translate "No tienes notificaciones." %}</li>
-    {% endfor %}
-</ul>
-<a href="#" class="mt-4 inline-block text-blue-500 hover:underline" onclick="markNotificationsAsRead()">{% translate "Marcar todas como leídas" %}</a>
+<div class="container mx-auto max-w-screen-lg">
+    <!-- Title -->
+    <h1 class="text-primary_black text-2xl font-bold mt-4 text-center">{% translate "Notificaciones" %}</h1>
+
+    <!-- Notification List Section -->
+    <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
+        <div class="flex flex-col">
+            <ul class="space-y-4">
+                {% for notification in notifications %}
+                <li class="flex items-start bg-white rounded-lg p-4 shadow-md hover:bg-primary_lightest transition-all duration-200 ease-in-out">
+                    <div class="flex-shrink-0">
+                        <img src="https://picsum.photos/80/80" alt="Notification Image" class="rounded-full">
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-primary_black font-semibold">{{ notification.message }}</p>
+                        <p class="text-sm text-primary_light mt-2">{{ notification.created_at|date:"d M Y H:i" }}</p>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="text-center bg-primary_lightest rounded-lg p-6 shadow-sm">
+                    <p class="text-primary_black text-lg">{% translate "No tienes notificaciones." %}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Mark All as Read Button -->
+    <div class="mt-6 text-center">
+        <button onclick="markNotificationsAsRead()"
+                class="bg-primary_medium text-white px-6 py-3 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+            {% translate "Marcar todas como leídas" %}
+        </button>
+
+        <!-- Button to open the modal -->
+        <button id="showModal"
+                class="ml-4 bg-primary_medium text-white px-6 py-3 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+            {% translate "Ver Detalles de Notificaciones" %}
+        </button>
+    </div>
+
+    <!-- Modal for Notifications Pop-up -->
+    <div id="notificationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl">
+            <h2 class="text-2xl font-bold mb-4">{% translate "Detalles de las Notificaciones" %}</h2>
+            <ul class="space-y-4">
+                {% for notification in notifications %}
+                <li class="flex items-start bg-primary_lightest p-4 rounded-lg shadow-md hover:bg-primary_light transition-all duration-200 ease-in-out">
+                    <div class="flex-shrink-0">
+                        <img src="https://picsum.photos/80/80" alt="Notification Image" class="rounded-full">
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-primary_black font-semibold">{{ notification.message }}</p>
+                        <p class="text-sm text-primary_light mt-2">{{ notification.created_at|date:"d M Y H:i" }}</p>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="text-center bg-primary_lightest rounded-lg p-6 shadow-sm">
+                    <p class="text-primary_black text-lg">{% translate "No tienes notificaciones." %}</p>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Close button for modal -->
+            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
+                {% translate "Cerrar" %}
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
     function markNotificationsAsRead() {
-        // Comlete this function to mark all notifications as read
+        // Completar funcionalidad para marcar todas las notificaciones como leídas
+        //ya existe el endpoint falta es hacer la logica para llamarlo
     }
+
+    // JavaScript para abrir y cerrar el modal
+    document.getElementById('showModal').addEventListener('click', function () {
+        document.getElementById('notificationsModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('notificationsModal').classList.add('hidden');
+    });
 </script>
 {% endblock %}

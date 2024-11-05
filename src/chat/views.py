@@ -53,7 +53,7 @@ def chat_room(request, project_id, member_id):
     })
 
 
-# views.py
+
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -63,7 +63,7 @@ def soft_delete_chat(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(ProjectMember, id=member_id, project=project)
 
-    # Marcar como ocultos los mensajes enviados o recibidos, solo para el usuario que realiza la solicitud
+
     if request.user == member.user:
         Message.objects.filter(
             Q(project=project, sender=request.user, recipient=member.user) |
@@ -91,7 +91,7 @@ def delete_chat(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(ProjectMember, id=member_id, project=project)
 
-    # Filtrar los mensajes en ambas direcciones (enviados y recibidos)
+
     Message.objects.filter(
         Q(project=project) & (
             Q(sender=request.user, recipient=member.user) |
@@ -120,7 +120,6 @@ def upload_file(request):
         recipient_id = request.POST.get('recipient_id')
         message_text = request.POST.get('message', '')
 
-        # Guardar el mensaje en la base de datos
         sender = User.objects.get(id=sender_id)
         recipient = User.objects.get(id=recipient_id)
         project = Project.objects.get(id=project_id)
@@ -133,7 +132,7 @@ def upload_file(request):
             file=file
         )
 
-        # Devolver la URL del archivo
+
         return JsonResponse({
             'user': sender.username,
             'message': message_text,
@@ -151,13 +150,13 @@ def upload_message(request):
     sender_id = request.POST.get('sender_id')
     recipient_id = request.POST.get('recipient_id')
     message_content = request.POST.get('message', '')
-    file = request.FILES.get('file')  # Obtén el archivo si existe
+    file = request.FILES.get('file')  
 
     sender = User.objects.get(id=sender_id)
     recipient = User.objects.get(id=recipient_id)
     project = Project.objects.get(id=project_id)
 
-    # Crear el mensaje con el archivo o solo texto
+
     message = Message.objects.create(
         sender=sender,
         recipient=recipient,

@@ -6,7 +6,7 @@
     <h2 class="text-xl font-bold text-primary_black">Actualizaciones del Proyecto</h2>
 
     <!-- Formulario para publicar una nueva actualización -->
-    <form method="POST" action="{% url 'add_project_update' project.id %}">
+    <form method="POST" action="{% url 'add_project_update' project.id %}" >
         {% csrf_token %}
         <textarea name="content" rows="3" class="w-full border border-gray-300 rounded-lg p-2 mb-4" required></textarea>
         <div class="flex items-center">
