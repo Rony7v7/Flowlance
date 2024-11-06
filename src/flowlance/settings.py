@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "payment",
     "notifications",
     "django_otp",
+    "paypal.standard.ipn",
     "channels",
 
 ]
@@ -176,6 +177,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+PAYPAL_TEST = True
+
+PAYPAL_RECEIVER_EMAIL = os.getenv("PAYPAL_RECEIVER_EMAIL")
 
 LANGUAGES = (("en", _("English")), ("es", _("Español")))
 

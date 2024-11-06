@@ -66,7 +66,15 @@
                 <!-- Acciones -->
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     {% if not member.is_owner %}
-                    <button class="text-red-500 hover:underline" onclick="deleteMember('{{ member.id }}')">{% translate "Eliminar" %}</button>
+                        <!-- Botón de Eliminar -->
+                        <button class="text-red-500 hover:underline" onclick="deleteMember('{{ member.id }}')">{% translate "Eliminar" %}</button>
+                    {% endif %}
+
+                    <!-- Botón de Pago (solo para freelancers) -->
+                    {% if not member.is_owner and user_is_admin %}
+                        <a href="{% url 'payment_process' member.id %}" class="text-blue-500 hover:underline ml-4">
+                            {% translate "Pagar" %}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
@@ -88,10 +96,10 @@
                 'X-CSRFToken': csrfToken,
             },
             body: JSON.stringify({ role: newRole })
-        })
+        });
     }
 
-    // Función para eliminar un miembro del proyecto // TODO: Si el miembro se elimina, no se puede volver a postular
+    // Función para eliminar un miembro del proyecto
     function deleteMember(memberId) {
         if (confirm("¿Estás seguro de eliminar a este miembro del proyecto?")) {
             fetch(`/project/delete_member/${memberId}/`, {
@@ -101,7 +109,7 @@
                     'X-CSRFToken': csrfToken,
                 },
             })
-            .then(() => location.reload())
+            .then(() => location.reload());
         }
     }
 </script>

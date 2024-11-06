@@ -1,27 +1,31 @@
+from collections import Counter
+from django.utils import timezone
 from django.test import TestCase , Client
 from django.contrib.auth.models import User
 from django.urls import reverse
-
 from profile.models import CompanyProfile, FreelancerProfile, ProfileConfiguration
 from .models import Notification
 from .utils import send_notification
 from .models import Notification
+from django.contrib.messages import get_messages
+from django.utils.translation import gettext as _
 
 class NotificationTests(TestCase):
     def setUp(self):
+
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         # Create a user for testing
         self.user = User.objects.create(username="testuser", password="password123")
 
         self.company_user = User.objects.create_user(username='company_user', password='password123')
-        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         
         self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
-        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789', profileconfiguration = self.profile_config)
         
         # Create a ProfileConfiguration for the freelancer with notification disabled by default
-        self.profile_config, _ = ProfileConfiguration.objects.get_or_create(freelancer_profile=self.freelancer_profile)
-        self.profile_config.notification_when_profile_visited = False
-        self.profile_config.save()
 
     def test_notification_creation(self):
         # Call the send_notification function
@@ -202,3 +206,121 @@ class NotificationModelTest(TestCase):
         # Check for the 405 response status code
         self.assertEqual(response.status_code, 405)
         self.assertJSONEqual(response.content, {"status": "error", "message": "Invalid request method."})
+
+class NotificationReportTests(TestCase):
+    def setUp(self):
+        # Set up client and test user
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
+
+        # Set up profile and profile configuration for the user
+        self.profile_config = ProfileConfiguration.objects.create(
+            periodicity_of_notification_report=ProfileConfiguration.Periodicity.DAILY
+        )
+        self.freelancer_profile = FreelancerProfile.objects.create(
+            user=self.user, identification='12345678', phone='123456789', profileconfiguration=self.profile_config
+        )
+
+        # Create sample notifications for the user
+        Notification.objects.create(
+            user=self.user,
+            title="Project Update",
+            message="Your project has been updated.",
+            link_to_place_of_creation="/projects/1/",
+            notification_type=Notification.NotificationType.PROJECT,
+            created_at=timezone.now()
+        )
+        Notification.objects.create(
+            user=self.user,
+            title="Payment Received",
+            message="You have received a payment.",
+            link_to_place_of_creation="/payments/1/",
+            notification_type=Notification.NotificationType.PAYMENT,
+            created_at=timezone.now()
+        )
+        Notification.objects.create(
+            user=self.user,
+            title="New Message",
+            message="You have a new message.",
+            link_to_place_of_creation="/messages/1/",
+            notification_type=Notification.NotificationType.MESSAGE,
+            created_at=timezone.now()
+        )
+
+    def test_create_report_notifications_content(self):
+        # Trigger the view
+        response = self.client.get(reverse('create-report-notification'))
+
+        # Verify that the notifications are fetched correctly
+        notifications = Notification.objects.filter(user=self.user, is_deleted=False)
+        self.assertEqual(notifications.count(), 3)
+
+        # Check that the correct message is generated in the context
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "Resumen de notificaciones enviado a su correo electrónico.")
+
+        # Build the notification counts summary
+        notification_counts = Counter(notif.notification_type for notif in notifications)
+        
+        # Verify the summary contents for notification counts
+        summary_counts = []
+        for notif_type, count in notification_counts.items():
+            notification_type_display = Notification.NotificationType(notif_type).label
+            summary_counts.append({
+                "type": notification_type_display,
+                "count": count,
+                "link": reverse('notifications')
+            })
+
+        # Check the counts in the summary
+        self.assertIn({
+            "type": "Proyecto",
+            "count": 1,
+            "link": reverse('notifications')
+        }, summary_counts)
+        self.assertIn({
+            "type": "Pago",
+            "count": 1,
+            "link": reverse('notifications')
+        }, summary_counts)
+        self.assertIn({
+            "type": "Mensaje",
+            "count": 1,
+            "link": reverse('notifications')
+        }, summary_counts)
+
+        # Validate summary contents (simulating what would be sent in the email)
+        summary_notifications = []
+        for notif in notifications:
+            summary_notifications.append({
+                "type": notif.get_notification_type_display(),
+                "title": notif.title,
+                "message": notif.message,
+                "link": notif.link_to_place_of_creation,
+                "created_at": notif.created_at.strftime("%Y-%m-%d %H:%M"),
+            })
+
+        # Verify the detailed notifications are included in the summary
+        self.assertIn({
+            "type": "Proyecto",
+            "title": "Project Update",
+            "message": "Your project has been updated.",
+            "link": "/projects/1/",
+            "created_at": notif.created_at.strftime("%Y-%m-%d %H:%M"),
+        }, summary_notifications)
+        self.assertIn({
+            "type": "Pago",
+            "title": "Payment Received",
+            "message": "You have received a payment.",
+            "link": "/payments/1/",
+            "created_at": notif.created_at.strftime("%Y-%m-%d %H:%M"),
+        }, summary_notifications)
+        self.assertIn({
+            "type": "Mensaje",
+            "title": "New Message",
+            "message": "You have a new message.",
+            "link": "/messages/1/",
+            "created_at": notif.created_at.strftime("%Y-%m-%d %H:%M"),
+        }, summary_notifications)

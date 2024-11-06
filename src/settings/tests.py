@@ -1,7 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from profile.models import FreelancerProfile, CompanyProfile  # Replace 'your_app' with your actual app name
+from profile.models import FreelancerProfile, CompanyProfile, ProfileConfiguration  # Replace 'your_app' with your actual app name
+from django.contrib.messages import get_messages
 
 class SettingsViewsTests(TestCase):
     
@@ -115,3 +116,100 @@ class CompanySettingsViewsTests(TestCase):
         self.assertRedirects(response, self.security_settings_url)
         self.company_profile.refresh_from_db()
         self.assertFalse(self.company_profile.has_2FA_on)
+
+class ToggleNotificationToEmailTests(TestCase):
+    
+    def setUp(self):
+
+        self.profile_config = ProfileConfiguration.objects.create()
+        self.profile_config.sending_notification_to_email = False
+        self.profile_config.save()
+
+        # Set up a freelancer user with a profile and profile configuration
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789',profileconfiguration = self.profile_config)
+        
+
+    def test_toggle_notification_to_email_on(self):
+        # Log in as freelancer user to toggle email notification setting
+        self.client.login(username='freelancer_user', password='password123')
+        
+        # Toggle the email notification setting to enable it
+        response = self.client.post(reverse('toggle_notification_to_email'), {
+            'sending_notification_to_email_variable': 'on'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile configuration and check if the setting is enabled
+        self.profile_config.refresh_from_db()
+        self.assertTrue(self.profile_config.sending_notification_to_email, "Email notification setting was not enabled")
+
+    def test_toggle_notification_to_email_off(self):
+        # Enable email notification initially
+        self.profile_config.sending_notification_to_email = True
+        self.profile_config.save()
+        
+        # Log in as freelancer user to toggle email notification setting
+        self.client.login(username='freelancer_user', password='password123')
+        
+        # Toggle the email notification setting to disable it
+        response = self.client.post(reverse('toggle_notification_to_email'), {
+            'sending_notification_to_email_variable': 'off'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile configuration and check if the setting is disabled
+        self.profile_config.refresh_from_db()
+        self.assertFalse(self.profile_config.sending_notification_to_email, "Email notification setting was not disabled")
+
+class ChangePeriodicityOfNotificationsReportsTest(TestCase):
+    def setUp(self):
+        # Set up profile configuration
+        self.profile_config = ProfileConfiguration.objects.create(
+            sending_notification_to_email=False,
+            periodicity_of_notification_report=ProfileConfiguration.Periodicity.MONTHLY
+        )
+        
+        # Set up a freelancer user with profile and profile configuration
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(
+            user=self.freelancer_user,
+            identification='12345678',
+            phone='123456789',
+            profileconfiguration=self.profile_config
+        )
+        
+        # Login the freelancer user
+        self.client.login(username='freelancer_user', password='password123')
+        
+    def test_change_periodicity_to_weekly(self):
+        # Send POST request to change periodicity to 'WEEKLY'
+        response = self.client.post(
+            reverse('set_periodicity_of_notification_reports'), 
+            {'new_periodicity': ProfileConfiguration.Periodicity.WEEKLY}
+        )
+
+        # Refresh profile configuration from database
+        self.profile_config.refresh_from_db()
+
+        # Check that the periodicity was updated
+        self.assertEqual(self.profile_config.periodicity_of_notification_report, ProfileConfiguration.Periodicity.WEEKLY)
+
+        # Check for a success message in the response
+        messages = list(get_messages(response.wsgi_request))
+        self.assertTrue(any("The periodicity of notification reports has been updated." in str(message) for message in messages))
+
+    def test_invalid_periodicity_choice(self):
+        # Send POST request with an invalid periodicity
+        response = self.client.post(
+            reverse('set_periodicity_of_notification_reports'), 
+            {'new_periodicity': 'INVALID'}
+        )
+
+        # Ensure the periodicity was not updated
+        self.profile_config.refresh_from_db()
+        self.assertEqual(self.profile_config.periodicity_of_notification_report, ProfileConfiguration.Periodicity.MONTHLY)
+
+        # Check for an error message in the response
+        messages = list(get_messages(response.wsgi_request))
+        self.assertTrue(any("Invalid periodicity choice." in str(message) for message in messages))

@@ -12,6 +12,8 @@ class FreelancerPlatformTest(TestCase):
     """Test cases for Freelancer Platform covering profiles, notifications, skills, experience, and ratings"""
 
     def setUp(self):
+
+        profile_config = ProfileConfiguration.objects.create()
         # Create test users
         self.user, _ = User.objects.get_or_create(username='testuser')
         self.user.set_password('12345')
@@ -27,8 +29,7 @@ class FreelancerPlatformTest(TestCase):
         self.other_user.set_password('12345')
         self.other_user.save()
 
-        self.other_profile, _ = FreelancerProfile.objects.get_or_create(user=self.other_user, identification="54321", phone="0987654321")
-        ProfileConfiguration.objects.create(freelancer_profile = self.other_profile)
+        self.other_profile, _ = FreelancerProfile.objects.get_or_create(user=self.other_user, identification="54321", phone="0987654321",profileconfiguration = profile_config)
 
         # Create a notification for testing
         self.notification, _ = Notification.objects.get_or_create(
@@ -75,12 +76,13 @@ class FreelancerPlatformTest(TestCase):
 
     def test_notification_created_on_profile_view(self):
 
+        profile_configuration = ProfileConfiguration.objects.create()
+
         self.company_user = User.objects.create_user(username='company_user', password='password123')
-        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890',profileconfiguration = profile_configuration)
 
         self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
-        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
-        ProfileConfiguration.objects.get_or_create(freelancer_profile = self.freelancer_profile)
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789',profileconfiguration = profile_configuration)
 
         # Iniciar sesión con la empresa
         self.client.login(username='company_user', password='password123')
