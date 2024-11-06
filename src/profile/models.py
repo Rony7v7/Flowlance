@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.translation import gettext_lazy as _
 
 class Skill(models.Model):
     name = models.CharField(max_length=100)
@@ -13,9 +14,16 @@ class Skill(models.Model):
 
 #En esta tabla podemos encontrar las cofiguraciones del perfil
 class ProfileConfiguration(models.Model):
+
+    class Periodicity(models.TextChoices):
+        DAILY = 'D', _('Diariamente')
+        WEEKLY = 'W', _('Semanalmente')
+        MONTHLY = 'M', _('Mensualmente')
+
     id = models.AutoField(primary_key=True)
     notification_when_profile_visited = models.BooleanField(default=True)
     sending_notification_to_email = models.BooleanField(default=False)
+    periodicity_of_notification_report = models.CharField(max_length=20,choices=Periodicity.choices,default=Periodicity.MONTHLY)
 
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

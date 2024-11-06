@@ -1,5 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.translation import gettext as _
+
+from profile.models import ProfileConfiguration
 
 
 @login_required
@@ -59,3 +63,20 @@ def toggle_notification_to_email(request):
 
         return redirect('security_settings')  # Redirect to the profile page or another relevant page
 
+@login_required
+def change_periodicity_of_notifications_reports(request):
+    if request.method == 'POST':
+        profile, profile_type = request.user.get_profile_info()
+        new_periodicity = request.POST.get('new_periodicity')
+
+        # Validate that the new periodicity is a valid choice
+        if new_periodicity in ProfileConfiguration.Periodicity.values:
+            profile.profileconfiguration.periodicity_of_notification_report = new_periodicity
+            profile.profileconfiguration.save()
+            messages.success(request, _("The periodicity of notification reports has been updated."))
+        else:
+            messages.error(request, _("Invalid periodicity choice."))
+
+        return redirect('security_settings')  # Redirect to an appropriate view
+
+    return redirect('security_settings')
