@@ -1,0 +1,57 @@
+<testsuite name="features.login.Login" tests="2" errors="2" failures="0" skipped="0" time="0.002757" timestamp="2024-11-06T14:32:38.517807" hostname="PCJPP"><testcase classname="features.login.Login" name="Usuario accede con credenciales válidas" status="failed" time="0.002239"><error type="AttributeError" message="'Context' object has no attribute 'browser'">
+<![CDATA[
+Failing step: Given el usuario está en la página de login ... failed in 0.002s
+Location: selenium_tests/behave_tests/features/login.feature:4
+Traceback (most recent call last):
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\model.py", line 1329, in run
+    match.run(runner.context)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+  File "selenium_tests\behave_tests\steps\login_steps.py", line 9, in step_open_login_page
+    context.page = LoginPage(context.browser)
+                             ^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\runner.py", line 321, in __getattr__
+    raise AttributeError(msg)
+AttributeError: 'Context' object has no attribute 'browser'
+]]>
+</error><system-out>
+<![CDATA[
+@scenario.begin
+  Scenario: Usuario accede con credenciales válidas
+    Given el usuario está en la página de login ... failed in 0.002s
+    When ingresa su nombre de usuario "testuser" y contraseña "12345" ... skipped in 0.000s
+    And hace clic en el botón de login ... skipped in 0.000s
+    Then debe ser redirigido a la página de autenticación de dos factores ... skipped in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="features.login.Login" name="Usuario accede con credenciales inválidas" status="failed" time="0.000517"><error type="AttributeError" message="'Context' object has no attribute 'browser'">
+<![CDATA[
+Failing step: Given el usuario está en la página de login ... failed in 0.001s
+Location: selenium_tests/behave_tests/features/login.feature:10
+Traceback (most recent call last):
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\model.py", line 1329, in run
+    match.run(runner.context)
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+  File "selenium_tests\behave_tests\steps\login_steps.py", line 9, in step_open_login_page
+    context.page = LoginPage(context.browser)
+                             ^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\runner.py", line 321, in __getattr__
+    raise AttributeError(msg)
+AttributeError: 'Context' object has no attribute 'browser'
+]]>
+</error><system-out>
+<![CDATA[
+@scenario.begin
+  Scenario: Usuario accede con credenciales inválidas
+    Given el usuario está en la página de login ... failed in 0.001s
+    When ingresa su nombre de usuario "testuser" y contraseña "wrongpassword" ... skipped in 0.000s
+    And hace clic en el botón de login ... skipped in 0.000s
+    Then debe ver un mensaje de error que diga "Por favor revise su usuario y contraseña" ... skipped in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase></testsuite>
