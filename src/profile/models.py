@@ -10,6 +10,13 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+
+#En esta tabla podemos encontrar las cofiguraciones del perfil
+class ProfileConfiguration(models.Model):
+    id = models.AutoField(primary_key=True)
+    notification_when_profile_visited = models.BooleanField(default=True)
+    sending_notification_to_email = models.BooleanField(default=False)
+
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     identification = models.CharField(max_length=20, unique=True)
@@ -25,19 +32,13 @@ class FreelancerProfile(models.Model):
     linkedin = models.URLField(blank=True, null=True)
     github = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
+    profileconfiguration = models.OneToOneField(ProfileConfiguration, on_delete=models.CASCADE,null=True)
 
     has_2FA_on = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         return self.user.username
-
-#En esta tabla podemos encontrar las cofiguraciones del perfil
-class ProfileConfiguration(models.Model):
-    freelancer_profile = models.OneToOneField(FreelancerProfile,on_delete=models.CASCADE)
-    notification_when_profile_visited = models.BooleanField(default=True)
-
-
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,6 +52,7 @@ class CompanyProfile(models.Model):
     phone = models.CharField(max_length=15)
     has_2FA_on = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='companies/', blank=True, null=True)
+    profileconfiguration = models.OneToOneField(ProfileConfiguration, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.user.username

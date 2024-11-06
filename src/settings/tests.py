@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from profile.models import FreelancerProfile, CompanyProfile  # Replace 'your_app' with your actual app name
+from profile.models import FreelancerProfile, CompanyProfile, ProfileConfiguration  # Replace 'your_app' with your actual app name
 
 class SettingsViewsTests(TestCase):
     
@@ -115,3 +115,48 @@ class CompanySettingsViewsTests(TestCase):
         self.assertRedirects(response, self.security_settings_url)
         self.company_profile.refresh_from_db()
         self.assertFalse(self.company_profile.has_2FA_on)
+
+class ToggleNotificationToEmailTests(TestCase):
+    
+    def setUp(self):
+
+        self.profile_config = ProfileConfiguration.objects.create()
+        self.profile_config.sending_notification_to_email = False
+        self.profile_config.save()
+
+        # Set up a freelancer user with a profile and profile configuration
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789',profileconfiguration = self.profile_config)
+        
+
+    def test_toggle_notification_to_email_on(self):
+        # Log in as freelancer user to toggle email notification setting
+        self.client.login(username='freelancer_user', password='password123')
+        
+        # Toggle the email notification setting to enable it
+        response = self.client.post(reverse('toggle_notification_to_email'), {
+            'sending_notification_to_email_variable': 'on'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile configuration and check if the setting is enabled
+        self.profile_config.refresh_from_db()
+        self.assertTrue(self.profile_config.sending_notification_to_email, "Email notification setting was not enabled")
+
+    def test_toggle_notification_to_email_off(self):
+        # Enable email notification initially
+        self.profile_config.sending_notification_to_email = True
+        self.profile_config.save()
+        
+        # Log in as freelancer user to toggle email notification setting
+        self.client.login(username='freelancer_user', password='password123')
+        
+        # Toggle the email notification setting to disable it
+        response = self.client.post(reverse('toggle_notification_to_email'), {
+            'sending_notification_to_email_variable': 'off'
+        })
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+
+        # Refresh the profile configuration and check if the setting is disabled
+        self.profile_config.refresh_from_db()
+        self.assertFalse(self.profile_config.sending_notification_to_email, "Email notification setting was not disabled")

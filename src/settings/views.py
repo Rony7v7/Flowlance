@@ -45,3 +45,17 @@ def toggle_notification_when_profile_visited(request):
             profile.profileconfiguration.save()
 
         return redirect('security_settings')  # Redirect to the profile page or another relevant page
+
+@login_required
+def toggle_notification_to_email(request):
+    user = request.user
+    profile, profile_type = user.get_profile_info()  # Use the get_profile_info method
+
+    if request.method == 'POST':
+        sending_notification_to_email_variable = request.POST.get('sending_notification_to_email_variable') == 'on' #esto se lo deberias pasar desde la form, para ver si lo quiere activar o no
+        if profile:  # If the user has a profile (either Freelancer or Company)
+            profile.profileconfiguration.sending_notification_to_email = sending_notification_to_email_variable
+            profile.profileconfiguration.save()
+
+        return redirect('security_settings')  # Redirect to the profile page or another relevant page
+

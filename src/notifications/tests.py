@@ -1,7 +1,6 @@
 from django.test import TestCase , Client
 from django.contrib.auth.models import User
 from django.urls import reverse
-
 from profile.models import CompanyProfile, FreelancerProfile, ProfileConfiguration
 from .models import Notification
 from .utils import send_notification
@@ -9,19 +8,20 @@ from .models import Notification
 
 class NotificationTests(TestCase):
     def setUp(self):
+
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         # Create a user for testing
         self.user = User.objects.create(username="testuser", password="password123")
 
         self.company_user = User.objects.create_user(username='company_user', password='password123')
-        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         
         self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
-        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789', profileconfiguration = self.profile_config)
         
         # Create a ProfileConfiguration for the freelancer with notification disabled by default
-        self.profile_config, _ = ProfileConfiguration.objects.get_or_create(freelancer_profile=self.freelancer_profile)
-        self.profile_config.notification_when_profile_visited = False
-        self.profile_config.save()
 
     def test_notification_creation(self):
         # Call the send_notification function
