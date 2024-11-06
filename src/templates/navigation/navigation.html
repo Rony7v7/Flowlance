@@ -35,11 +35,10 @@
 </div>
 
 <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('-translate-x-full');
-    });
+    var username = '{{request.user.username}}'
 </script>
+
+<script src="/static/js/websockets/websocketsLogic.js"></script>
+
+<script src="/static/js/navigation/navigation.js"></script>
 {% endblock %}

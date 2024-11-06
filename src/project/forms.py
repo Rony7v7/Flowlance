@@ -22,6 +22,7 @@ class ProjectForm(forms.ModelForm):
             "budget",
             "start_date",
             "end_date",
+            "image",
         ]
         labels = {
             'title': _('Titulo del Proyecto'),
@@ -30,6 +31,7 @@ class ProjectForm(forms.ModelForm):
             'budget': _('Presupuesto'),
             'start_date': _('Fecha de Inicio'),
             'end_date': _('Fecha de Finalización'),
+            'image': _('Imagen'),
         }
         widgets = {
             "start_date": forms.DateInput(
@@ -69,8 +71,30 @@ class ProjectForm(forms.ModelForm):
                     "placeholder": "presupuesto del proyecto",
                 }
             ),
+            "image": forms.FileInput(
+                attrs={
+                    "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    "placeholder": "nombre del proyecto",
+                }
+            ),
             
         }
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+
+        if end_date and start_date and end_date <= start_date:
+            self.add_error('end_date', "Your starting date must be before your ending date.")
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if image.size > 5 * 1024 * 1024:  # 5 MB
+                raise forms.ValidationError("El archivo es demasiado grande ( > 5 MB ).")
+            if not image.content_type in ["image/jpeg", "image/png"]:
+                raise forms.ValidationError("El archivo debe ser JPEG o PNG.")
+        return image
 
 
 class ProjectReportSettingsForm(forms.ModelForm):

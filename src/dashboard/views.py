@@ -112,12 +112,13 @@ def freelancer_pending_tasks_test(): # Add new TEMPORAL tasks to the list
 
     return tasks
 
+
 @client_required
 def company_dashboard(request):
     
-    # Get all freelancers that are members of some project of the company withouth duplicates
+    # Get all freelancers that are members of some project of the company without duplicates
     freelancers = []
-    for project in request.user.projects.all():
+    for project in request.user.projects.filter(is_deleted=False):
         project.freelancers_users = project.members.all().exclude(id=request.user.id)
         for user in project.freelancers_users:
             freelancer = user.freelancerprofile
@@ -137,13 +138,13 @@ def company_dashboard(request):
 
                 freelancers.append(freelancer)
 
-    company_projects = request.user.projects.all()
+    company_projects = request.user.projects.filter(is_deleted=False)
 
     pending_applications = []
 
-    # calc the progress of the projects
+    # Calculate the progress of the projects
     for project in company_projects:
-        project.pending_tasks = Task.objects.filter(milestone__project=project, state='pendiente' ).count()
+        project.pending_tasks = Task.objects.filter(milestone__project=project, state='pendiente').count()
         project.progress = getProjectProgress(project.milestones.all(), Task.objects.filter(milestone__project=project))[0]
         pending_applications += project.applications.filter(is_deleted=False, status='Pendiente')
 
