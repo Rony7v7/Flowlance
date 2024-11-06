@@ -5,8 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 
-from profile.models import FreelancerProfile, FreelancerProfile, Notification, Rating, RatingResponse
+from profile.models import FreelancerProfile, FreelancerProfile, Rating, RatingResponse
 from profile.forms import RatingForm, RatingResponseForm
+
+from notifications.utils import send_notification
+from django.utils.translation import gettext as _
 
 
 @login_required
@@ -20,12 +23,11 @@ def add_rating(request, freelancer_username):
             rating.freelancer = freelancer
             rating.client = request.user
             rating.save()
-
+            notification_message = _("Has recibido una nueva calificación de {request.user.username}.")
+            notification_title = _("Nueva Calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': freelancer_username})
+            send_notification(notification_title,notification_message ,notification_link, request.user)
             # Notificar al freelancer que ha recibido una nueva calificación
-            Notification.objects.create(
-                user=freelancer.user,
-                message=f"Has recibido una nueva calificación de {request.user.username}."
-            )
 
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({'status': 'success'}, status=200)
@@ -55,11 +57,10 @@ def add_rating_response(request, rating_id):
             response.rating = rating
             response.save()
 
-            # Notificar al cliente que su calificación ha recibido una respuesta
-            Notification.objects.create(
-                user=rating.client,
-                message=f"{request.user.username} ha respondido a tu calificación."
-            )
+            notification_message = _("{request.user.username} ha respondido a tu calificación.")
+            notification_title = _("Respuesta a Calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': request.user.username})
+            send_notification(notification_title,notification_message ,notification_link, request.user)
 
             return JsonResponse({'status': 'success'})
         else:
@@ -79,12 +80,10 @@ def edit_rating_response(request, response_id):
         form = RatingResponseForm(request.POST, instance=response)
         if form.is_valid():
             form.save()
-
-            # Notificar al cliente que la respuesta fue editada
-            Notification.objects.create(
-                user=response.rating.client,
-                message=f"{request.user.username} ha editado la respuesta de la calificación."
-            )
+            notification_message = _("{request.user.username} ha editado la respuesta de la calificación.")
+            notification_title = _("Edicion de calificacion")
+            notification_link = reverse('freelancer_profile', kwargs={'username': request.user.username})
+            send_notification(notification_title,notification_message,notification_link, request.user)
 
             messages.success(request, 'Respuesta editada con éxito.')
             return JsonResponse({'status': 'success'})

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course , ProfileConfiguration
 from django.db import IntegrityError
 from django.utils.translation import gettext as _, gettext_lazy as __
 
@@ -244,12 +244,13 @@ class FreelancerRegisterForm(UserCreationForm):
         if commit:
             user.save()
             try:
-                FreelancerProfile.objects.create(
+                freelancer_profile = FreelancerProfile.objects.create(
                     user=user,
                     identification=self.cleaned_data['identification'],
                     phone=self.cleaned_data['phone'],
                     photo=self.cleaned_data.get('photo')
                 )
+                ProfileConfiguration.objects.create(freelancer_profile = freelancer_profile)
             except IntegrityError as e:
                 if 'unique constraint' in str(e).lower() and 'identification' in str(e).lower():
                     self.add_error('identification', _('Este ID ya está registrado. Por favor, usa otro.'))
