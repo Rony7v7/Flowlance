@@ -247,8 +247,9 @@ def project_list_availableFreelancer(request):
 @login_required
 @attach_profile_info
 def project_list(request):
-    projects = Project.objects.filter(client=request.user,is_deleted=False)
-    return render(request, "projects/project_list.html", {"projects": projects})
+    # get all projects that the user is a member of
+    projects = Project.objects.filter(memberships__user=request.user, is_deleted=False) 
+    return render(request, "projects/project_list.html", {"own_projects": projects})
 
 
 @role_required("administrator")
