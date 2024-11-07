@@ -13,19 +13,16 @@
 
     <div class="bg-primary_lightest p-6 rounded-xl shadow-md mt-6">
         <div class="flex flex-col md:flex-row pt-10">
-            <!-- Left Section with Image -->
-            <div class="flex-shrink-0">
+            <!-- Left Section with Image and Basic Info -->
+            <div class="flex-shrink-0 w-full md:w-1/3">
                 {% if project.image %}
-                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full md:w-[400px] h-auto rounded-xl mr-6">
-                
-                {% else %}
-                <img src="https://picsum.photos/450/300" alt="Project Image"
-                     class="w-full md:w-[400px] h-auto rounded-xl mr-6">
-                
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-[300px] object-cover rounded-xl shadow-md">
                 {% endif %}
-                <div class="mt-4 space-y-2">
+                <div class="mt-4">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
-                    <p class="text-lg font-semibold text-primary_black">{% translate "Presupuesto:" %} <span class="text-primary_medium">{{ project.budget }}</span></p>
+                    <p class="text-lg font-semibold text-primary_black mt-1">
+                        {% translate "Presupuesto:" %} <span class="text-primary_medium">{{ project.budget }}</span>
+                    </p>
                 </div>
             </div>
 
