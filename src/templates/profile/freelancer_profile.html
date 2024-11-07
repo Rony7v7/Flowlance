@@ -11,8 +11,8 @@
         <div class="flex flex-col sm:flex-row items-center sm:items-start">
             
             <img src="{% if request.profile.photo %}{{ request.profile.photo.url }}{% else %}https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3383.jpg{% endif %}"
-                alt="Foto de {{ request.profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg">
-
+                alt="Foto de {{ request.profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg"> 
+            
             <div class="sm:ml-6 mt-6 sm:mt-0 flex-1">
                 <h1 class="text-3xl sm:text-3xl font-bold text-primary_black">{{ request.profile.user.username }}</h1>
                 <p class="text-primary_black font-semibold">
@@ -35,11 +35,13 @@
                         </span>
                     {% endif %}
                 </p>
+
                 <div class="flex space-x-4 mt-4">
                     {% if request.profile.linkedin %}
                     <a href="{{ request.profile.linkedin }}" aria-label="LinkedIn"
                         class="text-primary_medium hover:text-primary_dark">
                         {% include 'icon/LinkedInIcon.html' %}
+                    </a>
                     {% endif %}
                 
                     {% if request.profile.github %}
@@ -47,12 +49,13 @@
                         class="text-primary_medium hover:text-primary_dark">
                         {% include 'icon/GithubIcon.html' %}
                     {% endif %}
-                
+                    </a>
                     {% if request.profile.twitter %}
                     <a href="{{ request.profile.twitter }}" aria-label="Twitter"
                         class="text-primary_medium hover:text-primary_dark">
                         {% include 'icon/TwitterIcon.html' %}
                     {% endif %}
+                    </a>
                 </div>
                 
                 {% if is_owner %}
@@ -81,7 +84,7 @@
 
     <!-- Experiencia Laboral Section -->
     <div class="w-full bg-bg_gray shadow-lg rounded-lg mt-8 p-6 md:p-8">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center w-full">
             <h2 class="text-xl md:text-2xl font-bold text-primary_black">{% translate "Experiencia Laboral" %}</h2>
             {% if is_owner %}
             <a href="{% url 'add_experience' %}"
