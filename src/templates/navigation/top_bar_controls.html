@@ -2,7 +2,7 @@
 <div class="flex w-full gap-7 items-center h-12 justify-between">
     <!-- Barra de búsqueda -->
     <form action="/project/list/" method="GET" class="relative w-full focus:shadow-sm">
-        <div class="flex justify-between w-full bg-white rounded-xl border-primary_lightest border px-2 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+        <div class="flex justify-between w-full bg-white rounded-xl border-primary_lightest border px-2 hover:shadow-sm">
             <!-- Input de búsqueda -->
             <input type="search" name="search" id="default-search"
                 class="w-full px-2 py-2 text-sm text-primary_black border-none rounded-xl focus:outline-none focus:ring-0 focus:border-transparent"
@@ -19,7 +19,7 @@
             <!-- Botón de filtro con opciones desplegables -->
             <div class="relative">
                 <button type="button" id="filter-button"
-                    class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                    class="flex items-center px-3 py-2 bg-white rounded-xl border-primary_lightest hover:bg-gray-100 hover:shadow-sm">
                     {% include "icon/filter.html" with h="24" classname="" %}
                 </button>
 
@@ -33,28 +33,31 @@
     <div class="flex gap-4 items-center">
         <!-- Notificaciones -->
         <a href="/profile/notifications"
-            class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-lg transition-transform duration-300 hover:scale-110">
+           class="relative p-2 border border-primary_lightest bg-white rounded-full hover:bg-primary_lightest hover:border-primary_medium transition duration-200 ease-in-out">
             {% include "icon/bell.html" with w="24" h="24" %}
-            <span id="notification-counter" class="bg-red-500 text-white rounded-full text-xs px-2 ">0</span> 
-            <!-- ARREGLAR LA UI DE DONDE VA LA NOTIFICACION  -->
+            <span id="notification-counter" class="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-1 py-0.5 transform translate-x-1/2 -translate-y-1/2 shadow-md">
+                0
+            </span>
         </a>
 
         <!-- Configuración -->
         <a href="/settings"
-            class="p-2 border border-primary_lightest bg-white rounded-full hover:shadow-lg transition-transform duration-300 hover:scale-110">
+           class="p-2 border border-primary_lightest bg-white rounded-full hover:bg-primary_lightest hover:border-primary_medium transition duration-200 ease-in-out">
             {% include "icon/settings.html" with w="24" h="24" %}
         </a>
 
         <!-- Perfil -->
-        <a href="/profile" class="relative block w-10 h-10 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+        <a href="/profile" class="relative w-10 h-10">
             <!-- Loader antes de cargar la imagen -->
             <div class="absolute inset-0 bg-primary_lightest rounded-full animate-pulse"></div>
             <!-- Imagen del perfil -->
-            <img src="https://picsum.photos/42" alt="profile"
-                class="rounded-full hover:shadow-lg w-full h-full object-cover relative z-10 border border-primary_lightest"
-                onload="this.previousElementSibling.style.display='none';" />
+            <img src="{% if request.profile.photo %}{{ request.profile.photo.url }}{% else %}https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3383.jpg{% endif %}"
+                 alt="profile"
+                 class="rounded-full w-full h-full object-cover relative z-10 border border-primary_lightest transition-transform duration-200 ease-in-out hover:scale-105 hover:border-primary_medium hover:shadow-md"
+                 onload="this.previousElementSibling.style.display='none';" />
         </a>
     </div>
+
 </div>
 
 <script>
