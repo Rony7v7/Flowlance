@@ -100,11 +100,13 @@ def display_project(request, project_id, section):
         updates = ProjectUpdate.objects.filter(project=project)
 
     sections_map = {
-        "planning": "projects/milestones.html",
-        "management": "projects/tasks.html",
-        "execution": "projects/time_line.html",
-
+        "management": "projects/management_section/management_section.html",
+        "planning": "projects/planning_section/planning_section.html",
+        "team": "projects/team_section/team_section.html",
+        "progress": "projects/progress_section/progress_section.html",
     }
+    
+    # secciones del proyecto que anteriormente se usaban
     """
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
@@ -116,7 +118,7 @@ def display_project(request, project_id, section):
         "updates": "projects/updates.html",
     """
 
-    section_to_show = sections_map.get(section, "projects/planning_section/project_planning_section.html")
+    section_to_show = sections_map.get(section, "projects/management_section/management_section.html")
     application = project.applications.filter(user=request.user, is_deleted=False).first()
 
     return render(
