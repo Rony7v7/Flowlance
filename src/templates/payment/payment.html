@@ -43,6 +43,15 @@
                 </div>
             </div>
 
+            {% if paypal_form %}
+            <div class="bg-white p-6 rounded-xl shadow-md mt-6 border border-gray-200">
+                <p class="text-lg font-semibold text-primary_black mb-4">{% translate "Monto a pagar:" %} ${{ amount }}</p>
+                <div class="flex justify-center">
+                    {{ paypal_form.render }}
+                </div>
+            </div>
+            {% endif %}
+            
             <button type="submit" 
                     class="bg-gradient-to-r from-primary_medium to-primary_dark text-white px-8 py-3 rounded-full hover:from-primary_dark hover:to-primary_medium transition-all font-semibold shadow-md hover:shadow-lg w-full sm:w-auto mt-4">
                 {% translate "Pagar con Paypal" %}
@@ -51,6 +60,7 @@
         </form>
 
     </div>
+
 
     <!-- Historial de Transacciones y Filtros -->
     <div class="bg-primary_lightest/25 p-8 rounded-xl shadow-sm flex flex-col gap-2">
