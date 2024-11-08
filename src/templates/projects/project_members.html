@@ -65,18 +65,40 @@
 
                 <!-- Acciones -->
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {% if not member.is_owner %}
-                        <!-- Botón de Eliminar -->
-                        <button class="text-red-500 hover:underline" onclick="deleteMember('{{ member.id }}')">{% translate "Eliminar" %}</button>
-                    {% endif %}
+                    <div class="flex justify-start items-center space-x-4">
+                        {% if not member.is_owner %}
+                            <!-- Botón de Eliminar -->
+                            <button 
+                                onclick="deleteMember('{{ member.id }}')" 
+                                class="flex items-center px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                title="{% translate 'Eliminar miembro' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="hidden md:inline">
+                                    {% if request.profile == member.user.freelancerprofile%}
+                                    {% translate "Abandonar Proyecto" %}
+                                    {% else %}
+                                    {% translate "Eliminar miembro" %}
+                                    {% endif %}
+                                </span>
+                            </button>
+                        {% endif %}
 
-                    <!-- Botón de Pago (solo para freelancers) -->
-                    {% if not member.is_owner and user_is_admin %}
-                        <a href="{% url 'payment_process' member.id %}" class="text-blue-500 hover:underline ml-4">
-                            {% translate "Pagar" %}
-                        </a>
-                    {% endif %}
+                        {% if not member.is_owner and user_is_admin %}
+                            <!-- Botón de Pago -->
+                            <a href="{% url 'payment_process' member.id %}" 
+                            class="flex items-center px-3 py-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            title="{% translate 'Pagar al freelancer' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5v14" />
+                                </svg>
+                                <span class="hidden md:inline">{% translate "Pagar" %}</span>
+                            </a>
+                        {% endif %}
+                    </div>
                 </td>
+
             </tr>
             {% endfor %}
         </tbody>
