@@ -9,13 +9,13 @@
 
     {% if milestones.count == 0 %}
     
-    <div class="text-center p-4 bg-primary_lightest rounded-lg shadow-sm">
+    <div class="text-center p-4 bg-primary_lightest/25/25 rounded-lg shadow-sm">
         <p class="text-primary_black">{% translate "No hay entregables asociados a hitos" %}</p>
     </div>
 
     {% else %}
     
-    <div class="p-6 bg-primary_lightest rounded-lg shadow-sm grid grid-cols-3 gap-5 mt-4">
+    <div class="p-6 bg-primary_lightest/25 rounded-lg shadow-sm grid grid-cols-3 gap-5 mt-4">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         {% for assigment in milestone.assigments.all %}

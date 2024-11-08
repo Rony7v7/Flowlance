@@ -14,12 +14,12 @@
     </div>
 
     {% if milestones.count == 0 %}
-    <div class="text-center p-4 bg-primary_lightest rounded-lg shadow-sm">
+    <div class="text-center p-4 bg-primary_lightest/25/25 rounded-lg shadow-sm">
         <p class="text-primary_black">{% translate "No hay hitos registrados" %}</p>
     </div>
 
     {% else %}
-    <div class="p-6 rounded-lg shadow-sm grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 bg-primary_lightest">
+    <div class="p-6 rounded-lg shadow-sm grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 bg-primary_lightest/25">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         <div class="bg-bg_white p-4 rounded-lg text-center space-y-4 hover:shadow-md">
