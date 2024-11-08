@@ -1,13 +1,12 @@
-{% extends "projects/default_project_view.html" %}
 {% load i18n %}
 
-{% block section %}
+<div class="flex flex-col gap-2">
 
 <!-- Members Section -->
-<h2 class="text-2xl font-bold text-primary_black mb-4">{% translate "Miembros" %}</h2>
+<h2 class="text-2xl font-bold text-primary_black">{% translate "Miembros" %}</h2>
 
 <!-- Tabla -->
-<div class="overflow-x-auto">
+<div class="overflow-x-auto p-6 bg-primary_lightest/25 rounded-lg shadow-sm">
     <table class="min-w-full divide-y divide-gray-500">
         <thead>
             <tr>
@@ -136,4 +135,4 @@
     }
 </script>
 
-{% endblock %}
+</div>

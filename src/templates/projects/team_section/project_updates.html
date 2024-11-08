@@ -1,0 +1,100 @@
+{% load static %}
+
+<div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-primary_black">Actualizaciones del Proyecto</h2>
+
+    <div class="p-6 bg-primary_lightest/25 rounded-lg shadow-sm">
+    
+        <!-- Formulario para publicar una nueva actualización -->
+        <form method="POST" action="{% url 'add_project_update' project.id %}" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            {% csrf_token %}
+
+            <!-- Campo de Texto para la Actualización -->
+            <textarea 
+                name="content" 
+                rows="3" 
+                placeholder="Escribe una nueva actualización del proyecto..." 
+                class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow" 
+                required>
+            </textarea>
+
+            <!-- Marcar como Importante -->
+            <div class="flex items-center">
+                <input type="checkbox" name="is_important" id="is_important" class="h-4 w-4 text-primary_medium border-gray-300 rounded mr-2 focus:ring-primary_medium">
+                <label for="is_important" class="font-semibold text-primary_black">Marcar como importante</label>
+            </div>
+
+            <!-- Botón de Publicación -->
+            <button 
+                type="submit" 
+                class="bg-primary_medium text-white px-4 py-2 rounded-lg hover:bg-primary_dark transition-colors w-full sm:w-auto">
+                Publicar Actualización
+            </button>
+        </form>
+
+        <!-- Mostrar las actualizaciones -->
+        {% if updates %}
+        
+        <div class="mt-4">
+            {% if show_important %}
+            <a href="?show_important=false" class="text-blue-500 hover:text-blue-700">Ver todas las actualizaciones</a>
+            {% else %}
+            <a href="?show_important=true" class="text-blue-500 hover:text-blue-700">Ver solo las importantes</a>
+            {% endif %}
+        </div>
+
+        <div class="space-y-4 mt-6">
+            {% for update in updates %}
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <!-- Encabezado de la Actualización -->
+                <div class="flex justify-between items-center">
+                    <h4 class="text-lg font-semibold text-primary_black flex items-center">
+                        {% if update.is_important %}
+                        <span class="text-red-500 font-bold mr-2">[IMPORTANTE]</span>
+                        {% endif %}
+                        {{ update.content }}
+                    </h4>
+                    <span class="text-sm text-gray-400">{{ update.created_at|date:"d M Y, H:i" }}</span>
+                </div>
+                
+                <!-- Detalles de la Actualización -->
+                <p class="mt-3 text-gray-700">{{ update.details }}</p>
+                <p class="mt-3 text-sm text-gray-600">Publicado por: <strong>{{ update.author.username }}</strong></p>
+        
+                <!-- Sección de Comentarios -->
+                <div class="mt-4">
+                    <h5 class="text-primary_black font-semibold">Comentarios</h5>
+                    <ul class="space-y-3 mt-2 bg-gray-50 p-4 rounded-lg">
+                        {% for comment in update.comments.all %}
+                        <li class="border-b border-gray-200 pb-2 mb-2">
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <strong>{{ comment.user.username }}</strong>
+                                <span>{{ comment.created_at|date:"d M Y H:i" }}</span>
+                            </div>
+                            <p class="text-gray-700 mt-1">{{ comment.content }}</p>
+                        </li>
+                        {% empty %}
+                        <li class="text-gray-500">No hay comentarios aún.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        
+                <!-- Formulario para Agregar Comentario -->
+                <form method="POST" action="{% url 'add_comments' update.id %}" class="mt-4">
+                    {% csrf_token %}
+                    <textarea name="content" class="w-full border border-gray-300 rounded-lg p-2 mb-2" placeholder="Añade un comentario..." required></textarea>
+                    <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded-lg hover:bg-primary_dark transition-colors w-full sm:w-auto">
+                        Agregar Comentario
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        
+
+        {% else %}
+        <p class="text-gray-500">No hay actualizaciones aún.</p>
+        {% endif %}
+
+    </div>
+</div>
