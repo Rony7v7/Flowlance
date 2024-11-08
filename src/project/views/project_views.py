@@ -85,17 +85,11 @@ def display_project(request, project_id, section):
         }
         for event in events
     ]
-
-
-
-
-
-    
+ 
     if section == "updates":
         updates = ProjectUpdate.objects.filter(project=project).order_by('-created_at')
     else:
         updates = None
-
     
     show_important = request.GET.get('show_important', 'false').lower() == 'true'
 
@@ -106,6 +100,12 @@ def display_project(request, project_id, section):
         updates = ProjectUpdate.objects.filter(project=project)
 
     sections_map = {
+        "planning": "projects/milestones.html",
+        "management": "projects/tasks.html",
+        "execution": "projects/time_line.html",
+
+    }
+    """
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
         "time_line": "projects/time_line.html",
@@ -114,9 +114,9 @@ def display_project(request, project_id, section):
         "deliverable" : "projects/deliverables.html",
         "members" : "projects/project_members.html",
         "updates": "projects/updates.html",
-    }
+    """
 
-    section_to_show = sections_map.get(section, "projects/milestones.html")
+    section_to_show = sections_map.get(section, "projects/planning_section/project_planning_section.html")
     application = project.applications.filter(user=request.user, is_deleted=False).first()
 
     return render(
