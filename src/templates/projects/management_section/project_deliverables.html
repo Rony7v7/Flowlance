@@ -1,12 +1,21 @@
 {% load i18n %}
 
-<div>
+<div class="flex flex-col gap-2">
+
     <!-- Hitos Section -->
     <div class="flex justify-between items-center">
         <h2 class="text-2xl font-bold text-primary_black">{% translate "Entregables" %}</h2>
     </div>
 
-    <div class="grid grid-cols-3 gap-5 mt-4">
+    {% if milestones.count == 0 %}
+    
+    <div class="text-center p-4 bg-primary_lightest rounded-lg shadow-sm">
+        <p class="text-primary_black">{% translate "No hay entregables asociados a hitos" %}</p>
+    </div>
+
+    {% else %}
+    
+    <div class="p-6 bg-primary_lightest rounded-lg shadow-sm grid grid-cols-3 gap-5 mt-4">
         <!-- Loop through Milestones -->
         {% for milestone in milestones %}
         {% for assigment in milestone.assigments.all %}
@@ -36,4 +45,7 @@
         {% endfor %}
         {% endfor %}
     </div>
+    
+    {% endif %}
+    
 </div>

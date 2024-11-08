@@ -1,0 +1,70 @@
+{% load i18n %}
+
+<div class="flex flex-col gap-2">
+  <div class="flex justify-between items-center">
+    <h2 class="text-primary_black text-2xl font-bold">{% translate "Tareas" %}</h2>
+    
+    <!-- Botón para añadir una nueva tarea -->
+    {% if user_is_admin or user_is_member %}
+    {% url 'create_task' project.id as add_task_url %}
+    {% trans "Añadir" as translated_label %}
+    {% include 'utils/anchor_button.html' with type=1 label=translated_label url=add_task_url %}
+    {% endif %}
+
+    {% if messages %}
+    <div id="messages" class="hidden">
+      {% for message in messages %}
+      <span>{{ message }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% if tasks.count == 0 %}
+  <div class="text-center p-4 bg-primary_lightest rounded-lg shadow-sm">
+    <p class="text-primary_black">{% translate "No hay tareas registradas" %}</p>
+  </div>
+  {% else %}
+
+  <!-- Filtro por Hito -->
+  <div class="flex justify-between items-center">
+      <form method="GET" id="milestoneFilterForm" class="flex items-center space-x-4">
+        <label for="milestone" class="text-primary_black">{% translate "Filtrar por:" %}</label>
+        
+        <!-- No se modifica el appearance del select -->
+        <select name="milestone" id="milestone" class="border border-gray-300 p-2 rounded pr-10">
+          <option value="">{% translate "Todos los hitos" %}</option>
+          {% for milestone in milestones %}
+          <option value="{{ milestone.id }}" {% if milestone.id|stringformat:"s" == request.GET.milestone %}selected{% endif %}>
+            {{ milestone.name }}
+          </option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="bg-primary_medium text-white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+          {% translate "Filtrar" %}
+        </button>
+      </form>
+  </div>
+
+  <div class="bg-primary_lightest p-6 rounded-lg shadow-sm">
+  
+
+    <!-- Sección de Tareas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+      {% for milestone in milestones %}
+        {% if not request.GET.milestone or request.GET.milestone == milestone.id|stringformat:"s" %}
+          {% for task in milestone.tasks.all %}
+            {% include 'projects/task_card.html' %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+
+  {% endif %}
+</div>
+
+
+{% include 'utils/popup_success.html' %}
