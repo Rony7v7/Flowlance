@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block app_content %}
 <div class=" py-6">
-    <div class="flex flex-col gap-2 md:flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-xl mb-4">
+    <div class="flex flex-col gap-2 md:flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-lg mb-4">
         <div class="flex flex-row gap-2">
             {% url 'project_list' as project_main_view %}
             {% trans "Disponibles" as translated_label %}
@@ -31,7 +31,7 @@
     </div>
 
     <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-lg">
         {% for project in own_projects %}
         {% include 'projects/project_card.html' %}
         {% empty %}

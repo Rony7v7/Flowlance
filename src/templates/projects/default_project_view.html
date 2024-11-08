@@ -16,7 +16,7 @@
             <!-- Left Section with Image and Basic Info -->
             <div class="flex-shrink-0 w-full md:w-1/3">
                 {% if project.image %}
-                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-[300px] object-cover rounded-xl shadow-md">
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-[300px] object-cover rounded-lg shadow-md">
                 {% endif %}
                 <div class="mt-4">
                     <h2 class="text-3xl font-bold text-primary_black">{{ project.title }}</h2>
@@ -33,25 +33,25 @@
                 {% if user_is_admin %}
                 <div class="flex space-x-4 mt-4">
                     <a href="{% url 'project_edit' project.pk %}"
-                       class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-lg hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         {% translate "Editar" %}
                     </a>
                     <a href="{% url 'project_requirements' project.pk %}"
-                       class="bg-primary_medium text-white px-4 py-2 rounded-xl hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                       class="bg-primary_medium text-white px-4 py-2 rounded-lg hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         {% translate "Ver Requerimientos" %}
                     </a>
                 </div>
 
                 <!-- Applications list -->
                 <button id="showApplications"
-                        class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                        class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                     {% translate "Ver Postulaciones" %}
                 </button>
 
                 <!-- Delete Button -->
                 <div class="mt-4 flex space-x-4 items-center">
                     <a href="{% url 'project_delete' project.pk %}"
-                       class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
+                       class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
                         Eliminar Proyecto
                     </a>
                 </div>
@@ -62,7 +62,7 @@
                 <form method="POST" action="{% url 'apply_project' project.id %}">
                     {% csrf_token %}
                     <button type="submit"
-                            class="bg-primary_medium text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
+                            class="bg-primary_medium text-white px-4 py-2 rounded-lg mt-4 hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
                         {% translate "Postularse a este proyecto" %}
                     </button>
                 </form>
@@ -109,7 +109,7 @@
 
     <!-- Pop-up of applications -->
     <div id="applicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
             <h2 class="text-2xl font-bold mb-4">{% translate "Postulaciones al Proyecto" %}</h2>
             <ul>
                 {% for application in applications %}
@@ -119,7 +119,7 @@
                 {% endfor %}
             </ul>
             <button id="closeModal"
-                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
+                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
 
                 {% translate "Cerrar" %}
             </button>
