@@ -25,12 +25,13 @@
     </div>
 
     <!-- Main content -->
-    <div class="flex flex-col gap-5 w-full h-full md:pl-72 px-7 py-2">
+    <div class="flex flex-col gap-5 w-full min-h-screen md:pl-72 px-7 py-2">
         {% include "navigation/top_bar_controls.html" %}
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-5 h-full">
             {% block app_content %}
             {% endblock %}
         </div>
+        {% include "homepage/footer.html" %}
     </div>
 </div>
 
