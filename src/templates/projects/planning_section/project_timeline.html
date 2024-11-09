@@ -1,0 +1,47 @@
+{% load static %}
+
+{% load i18n %}
+
+<div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-primary_black">{% translate "Linea de Tiempo" %}</h2>
+
+    <div id="visualization" class="p-6 bg-white rounded-lg shadow-sm"></div>
+
+    <script type="text/javascript" src="https://unpkg.com/moment@latest"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-data@latest/peer/umd/vis-data.min.js"></script>
+    <script type="text/javascript"
+        src="https://unpkg.com/vis-timeline@latest/peer/umd/vis-timeline-graph2d.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vis-timeline/styles/vis-timeline-graph2d.min.css" />
+    <link href="{% static 'css/project/timeline.css' %}" rel="stylesheet">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var container = document.getElementById('visualization');
+
+            // Use the Django template to inject JSON data for the milestones
+            var items = new vis.DataSet({{ milestone_data|safe }});
+
+            // Get current date
+            var today = new Date();
+            var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // last day of the current month
+
+            var options = {
+                groupOrder: 'content',
+                width: '100%',
+                height: '400px',
+                stack: true,
+                showMajorLabels: true,
+                showMinorLabels: true,
+                zoomMin: 1000 * 60 * 60 * 24, // one day
+                zoomMax: 1000 * 60 * 60 * 24 * 365, // about a year
+                orientation: 'top',
+                start: firstDayOfMonth,
+                end: lastDayOfMonth,
+                timeAxis: { scale: 'day', step: 1 }
+            };
+
+            var timeline = new vis.Timeline(container, items, options);
+        });
+    </script>
+</div>
