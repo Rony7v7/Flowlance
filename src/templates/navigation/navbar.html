@@ -52,14 +52,14 @@
       <!-- Chat Link -->
       {% if 'chat' in request.path %}
       {% with icon_property="bold" %}
-      <a href="{% url 'chat' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
+      <a href="{% url 'chat_overview' %}" class="flex items-center p-3 gap-3 bg-primary_medium text-white rounded-lg">
         {% include 'icon/message.html' with property=icon_property %}
         Chat
       </a>
       {% endwith %}
       {% else %}
       {% with icon_property="outline" %}
-      <a href="{% url 'chat' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
+      <a href="{% url 'chat_overview' %}" class="flex items-center p-3 gap-3 text-primary_medium hover:bg-bg_gray rounded">
         {% include 'icon/message.html' with property=icon_property %}
         Chat
       </a>
