@@ -184,3 +184,4 @@ django-admin compilemessages
 - **Juan Pablo Parra** - A00398004
 - **David Artunduaga** - A00396342
 - **Pablo Andrés Guzmán** - A00399523
+- **Daniel Gonzalez** - A00399873
