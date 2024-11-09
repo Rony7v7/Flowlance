@@ -1,0 +1,11 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block project_section %}
+
+<div class="flex flex-col gap-8 h-full">
+    {% include "projects/management_section/project_milestones.html" %}
+    {% include "projects/management_section/project_deliverables.html" %}
+    {% include "projects/management_section/project_tasks.html" %}
+</div>
+    
+{% endblock %}

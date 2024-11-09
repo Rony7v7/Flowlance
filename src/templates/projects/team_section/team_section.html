@@ -1,0 +1,10 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block project_section %}
+
+<div class="flex flex-col gap-8 h-full">
+    {% include "projects/team_section/project_members.html" %}
+    {% include "projects/team_section/project_updates.html" %}
+</div>
+    
+{% endblock %}

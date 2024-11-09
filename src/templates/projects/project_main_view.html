@@ -2,8 +2,8 @@
 
 {% load i18n %}
 {% block app_content %}
-<div class="container mx-auto px-4 py-6">
-    <div class="flex flex-col gap-2 md:flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-xl mb-4">
+<div class="py-6">
+    <div class="flex flex-col gap-2 md:flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-lg mb-4">
         <div class="flex flex-row gap-2">
             {% include 'utils/anchor_button.html' with label='Disponibles' type=1 %}
             {% url 'my_projects' as list_projects_available %}
@@ -21,7 +21,7 @@
         <h1 class="text-3xl font-bold">{% translate "Proyectos Disponibles" %}</h1>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-lg">
         {% for project in projects %}
             {% include 'projects/project_card.html' %}
         {% empty %}

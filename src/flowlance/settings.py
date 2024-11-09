@@ -40,7 +40,7 @@ INTERNAL_IPS = [
 
 NPM_BIN_PATH = os.getenv(
     "NPM_BIN_PATH", "npm"
-)  # Default to 'npm' if env variable is not set
+)  # Default to 'npm' if env variable is not set
 
 SITE_ID = 1
 
@@ -69,8 +69,21 @@ INSTALLED_APPS = [
     "payment",
     "notifications",
     "django_otp",
+    "paypal.standard.ipn",
     "channels",
+
 ]
+
+
+
+ASGI_APPLICATION = "flowlance.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -166,6 +179,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+PAYPAL_TEST = True
+
+PAYPAL_RECEIVER_EMAIL = os.getenv("PAYPAL_RECEIVER_EMAIL")
 
 LANGUAGES = (("en", _("English")), ("es", _("Español")))
 
