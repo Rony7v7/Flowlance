@@ -4,66 +4,130 @@
 
 {% block app_content %}
 <div class="space-y-12">
+    {% if paypal_form %}
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-4 border border-gray-200">
+        <!-- Monto a pagar -->
+        <p class="text-xl font-semibold text-primary_black text-center">{% translate "Monto a pagar:" %} ${{ amount }}</p>
+        
+        <!-- Formulario de PayPal centrado -->
+        <div class="flex justify-center mt-4">
+            {{ paypal_form.render }}
+        </div>
+        
+        <!-- Botón Atrás -->
+        <form action="" class="mt-6 flex justify-center">
+            <button type="" class="bg-gray-200 text-primary_black px-6 py-2 rounded-lg shadow-md hover:bg-gray-300 transition-colors font-semibold">
+                {% translate "Atrás" %}
+            </button>
+        </form>
+    </div>
+    
+    {% else %}
     <!-- Información de Pago -->
-    <div class="bg-primary_lightest/25 p-8 rounded-xl shadow-sm flex flex-col gap-2">
-        <h2 class="text-xl font-bold text-primary_black">{% translate "Información de Pago" %}</h2>
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-2 border-gray-200">
+        <h2 class="text-xl font-bold text-primary_black">{% translate "Realizar Pago" %}</h2>
         <div class="flex justify-between text-primary_black/55">
             <p class="">{% translate "Por favor, ingresa la información de pago para proceder con la transacción." %}</p>
             <!-- <span>{% translate "Paso 1 de 3" %}</span> -->
         </div>
+        <div class="flex flex-col gap-4">
+            <!-- Método de Pago: Tarjeta de Crédito -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
         
-        <form method="post" action="{% url 'payment_process' freelancer.id %}" class="flex flex-col gap-2">
-            {% csrf_token %}
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="paypal_email" class="block  text-primary_black">{% translate "Correo de PayPal" %}</label>
-                    <input 
-                        type="email" 
-                        id="paypal_email" 
-                        name="paypal_email" 
-                        value="{{ freelancer.user.email }}" 
-                        required 
-                        class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
-                        placeholder="ejemplo@correo.com">
-                </div>
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
 
-                <div>
-                    <label for="amount" class="block  text-primary_black">{% translate "Monto a Pagar (USD)" %}</label>
-                    <input 
-                        type="number" 
-                        id="amount" 
-                        name="amount" 
-                        min="1" 
-                        step="0.01" 
-                        value="80.00" 
-                        required 
-                        class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
-                        placeholder="Ej. 100.00">
+                    <div class="flex items-center gap-3">    
+                        <input type="radio" name="payment_method" value="credit_card" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('credit_card')">
+                        <span class="text-lg font-medium text-gray-800">{% translate "Tarjeta de Crédito" %}</span>
+                    </div>
+                    <div class="ml-auto flex">
+                        {% include 'icon/visa_mastercard.html' %}
+                    </div>
+                </label>
+        
+                <div id="credit_card_fields" class="p-4 mt-2 space-y-4 hidden">
+                    <p class="text-gray-600">{% translate "Método de pago no disponible en este momento." %}</p>
+                </div>
+        
+            </div>
+        
+            <!-- Método de Pago: PayPal -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
+                <!-- Método de Pago: PayPal -->
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="payment_method" value="paypal" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('paypal')">
+                        <span class="text-lg font-medium text-gray-800">PayPal</span>
+                    </div>
+                    {% include 'icon/paypal.html' %}
+                </label>
+        
+                <div id="paypal_fields" class="p-4 mt-2 hidden">
+                    <form method="post" action="{% url 'payment_process' freelancer.id %}" class="flex flex-col gap-2">
+                        {% csrf_token %}
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="paypal_email" class="block  text-primary_black">{% translate "Cuenta de PayPal del destinatario" %}</label>
+                                <input 
+                                    type="email" 
+                                    id="paypal_email" 
+                                    name="paypal_email" 
+                                    value="{{ freelancer.user.email }}" 
+                                    required 
+                                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
+                                    placeholder="ejemplo@correo.com">
+                            </div>
+            
+                            <div>
+                                <label for="amount" class="block  text-primary_black">{% translate "Monto a Pagar (USD)" %}</label>
+                                <input 
+                                    type="number" 
+                                    id="amount" 
+                                    name="amount" 
+                                    min="1" 
+                                    step="0.01" 
+                                    value="80.00" 
+                                    required 
+                                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
+                                    placeholder="Ej. 100.00">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="bg-gradient-to-r from-primary_medium to-primary_dark text-white px-8 py-3 rounded-full hover:from-primary_dark hover:to-primary_medium transition-all font-semibold shadow-md hover:shadow-lg w-full sm:w-auto mt-4">
+                            {% translate "Continuar con paypal" %}
+                        </button>
+                        
+                    </form>
                 </div>
             </div>
-
-            {% if paypal_form %}
-            <div class="bg-white p-6 rounded-xl shadow-md mt-6 border border-gray-200">
-                <p class="text-lg font-semibold text-primary_black mb-4">{% translate "Monto a pagar:" %} ${{ amount }}</p>
-                <div class="flex justify-center">
-                    {{ paypal_form.render }}
+        
+            <!-- Método de pago: Bitcoin -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
+                <!-- Método de Pago: Bitcoin -->
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="payment_method" value="bitcoin" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('bitcoin')">
+                        <span class="text-lg font-medium text-gray-800">Bitcoin</span>
+                    </div>
+                    {% include 'icon/bitcoin.html' %}
+                </label>
+        
+                <div id="bitcoin_fields" class="p-4 mt-2 hidden">
+                    <p class="text-gray-600">{% translate "Método de pago no disponible en este momento." %}</p>
                 </div>
             </div>
-            {% endif %}
-            
-            <button type="submit" 
-                    class="bg-gradient-to-r from-primary_medium to-primary_dark text-white px-8 py-3 rounded-full hover:from-primary_dark hover:to-primary_medium transition-all font-semibold shadow-md hover:shadow-lg w-full sm:w-auto mt-4">
-                {% translate "Pagar con Paypal" %}
-            </button>
-            
-        </form>
+        
+        </div>
 
     </div>
 
+    {% endif %}
+
 
     <!-- Historial de Transacciones y Filtros -->
-    <div class="bg-primary_lightest/25 p-8 rounded-xl shadow-sm flex flex-col gap-2">
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-2 border-gray-200">
         <h2 class="text-xl font-bold text-primary_black">{% translate "Historial de Transacciones" %}</h2>
         <div class="flex justify-between text-primary_black/55">
             <p class="">{% translate "Revisa el historial de transacciones de este freelancer." %}</p>
@@ -147,4 +211,22 @@
         </table>
     </div>
 </div>
+
+<script>
+    function showPaymentFields(method) {
+        // Oculta todos los campos de métodos de pago
+        document.getElementById('credit_card_fields').classList.add('hidden');
+        document.getElementById('paypal_fields').classList.add('hidden');
+        document.getElementById('bitcoin_fields').classList.add('hidden');
+
+        // Muestra los campos correspondientes al método seleccionado
+        if (method === 'credit_card') {
+            document.getElementById('credit_card_fields').classList.remove('hidden');
+        } else if (method === 'paypal') {
+            document.getElementById('paypal_fields').classList.remove('hidden');
+        } else if (method === 'bitcoin') {
+            document.getElementById('bitcoin_fields').classList.remove('hidden');
+        }
+    }
+</script>
 {% endblock %}
