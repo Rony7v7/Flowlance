@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from email_service.email_service import send_email
@@ -156,6 +157,34 @@ def check_profile(request):
             return redirect('choose_path')
 
 
+@login_required
+def change_username(request):
+    if request.method == "POST":
+        user = request.user
+        username = request.POST.get("username", "").strip()
 
+        # Verificar si se ingresó un nombre de usuario y si es diferente al actual
+        if username and username != user.username:
+            # Validar si el nombre de usuario ya está en uso
+            if User.objects.filter(username=username).exclude(id=user.id).exists():
+                # Agregar mensaje de error
+                messages.error(request, _("Username is already taken. Please choose another one."))
+            else:
+                # Guardar el nuevo nombre de usuario y agregar mensaje de éxito
+                user.username = username
+                user.save()
+                messages.success(request, _("Your username has been updated successfully."))
+
+        else:
+            if username == user.username:
+                messages.error(request, _("Please enter a different username."))
+            # Si no se ingresó un nombre de usuario válido, agregar mensaje de error
+            messages.error(request, _("Please enter a valid username."))
+
+        # Redirigir de vuelta a la página de configuración de cuenta
+        return redirect("account_settings")
+    
+    # Si el método no es POST, redirigir de vuelta a la configuración de cuenta
+    return redirect("account_settings")
 
 

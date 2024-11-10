@@ -1,0 +1,23 @@
+{% extends "navigation/navigation.html" %}
+
+{% load i18n %}
+
+{% block app_content %}
+
+<div class="flex flex-col gap-4">
+    <div class="flex flex-col">
+        <h1 class="text-3xl font-semibold text-primary_black">{% translate "Ajustes" %}</h1>
+        <!-- <p class="text-primary_black/50">{% translate "Ajustes" %} / {% block settings_title %} {% endblock %}</p> -->
+    </div>
+
+    <div class="flex gap-8">
+        {% include "settings/settings_navigation_tabs.html" %}
+
+        {% block settings_section %}
+        {% endblock %}
+    </div>
+
+
+</div>
+
+{% endblock %}
