@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load i18n static %}
 {% block content %}
 <div class="container mx-auto max-w-screen-lg">
     <!-- Title -->
@@ -73,19 +73,6 @@
     </div>
 </div>
 
-<script>
-    function markNotificationsAsRead() {
-        // Completar funcionalidad para marcar todas las notificaciones como leídas
-        //ya existe el endpoint falta es hacer la logica para llamarlo
-    }
+<script src="{% static 'js/profile/notifications.js' %}"></script>
 
-    // JavaScript para abrir y cerrar el modal
-    document.getElementById('showModal').addEventListener('click', function () {
-        document.getElementById('notificationsModal').classList.remove('hidden');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('notificationsModal').classList.add('hidden');
-    });
-</script>
 {% endblock %}

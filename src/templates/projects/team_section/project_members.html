@@ -1,5 +1,4 @@
-{% load i18n %}
-
+{% load i18n static %}
 <div class="flex flex-col gap-2">
 
 <!-- Members Section -->
@@ -49,8 +48,8 @@
                 <!-- Role Dropdown -->
                 <td class="px-6 py-4 text-sm text-primary_lightest">
                     <div class="relative inline-block text-left">
-                        <select class="bg-primary_black text-bg_white text-sm py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary_medium"
-                        onchange="updateRole('{{ member.id }}', this.value)">
+                        <select class="bg-primary_black text-bg_white text-sm py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary_medium role-select"
+                        data-member-id="{{ member.id }}">
                             {% if member.is_owner %}
                             <option value="administrator" selected>{% translate "Propietario" %}</option>
                             {% else %}
@@ -68,32 +67,20 @@
                         {% if not member.is_owner %}
                             <!-- Botón de Eliminar -->
                             <button 
-                                onclick="deleteMember('{{ member.id }}')" 
-                                class="flex items-center px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                class="flex items-center px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 delete-button"
+                                data-member-id="{{ member.id }}"
                                 title="{% translate 'Eliminar miembro' %}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                                 <span class="hidden md:inline">
-                                    {% if request.profile == member.user.freelancerprofile%}
+                                    {% if request.profile == member.user.freelancerprofile %}
                                     {% translate "Abandonar Proyecto" %}
                                     {% else %}
                                     {% translate "Eliminar miembro" %}
                                     {% endif %}
                                 </span>
                             </button>
-                        {% endif %}
-
-                        {% if not member.is_owner and user_is_admin %}
-                            <!-- Botón de Pago -->
-                            <a href="{% url 'payment_process' member.id %}" 
-                            class="flex items-center px-3 py-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            title="{% translate 'Pagar al freelancer' %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5v14" />
-                                </svg>
-                                <span class="hidden md:inline">{% translate "Pagar" %}</span>
-                            </a>
                         {% endif %}
                     </div>
                 </td>
@@ -104,35 +91,9 @@
     </table>
 </div>
 
-<!-- Scripts -->
-<script>
-    const csrfToken = '{{ csrf_token }}';
+<!-- CSRF Token -->
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
 
-    // Función para actualizar el rol del miembro
-    function updateRole(memberId, newRole) {
-        fetch(`/project/update_role/${memberId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            body: JSON.stringify({ role: newRole })
-        });
-    }
-
-    // Función para eliminar un miembro del proyecto
-    function deleteMember(memberId) {
-        if (confirm("¿Estás seguro de eliminar a este miembro del proyecto?")) {
-            fetch(`/project/delete_member/${memberId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
-                },
-            })
-            .then(() => location.reload());
-        }
-    }
-</script>
-
+<!-- Incluir el archivo JavaScript externo -->
+<script src="{% static 'js/project/project_members.js' %}"></script>
 </div>
