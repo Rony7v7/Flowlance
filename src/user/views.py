@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 
 from email_service.email_service import send_email
 
-from profile.forms import FreelancerRegisterForm
 from .LoginForm import LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
@@ -144,7 +143,7 @@ def check_profile(request):
             if hasattr(existing_user, 'profile'):
                 return redirect('dashboard')
             else:
-                return redirect('dashboard') #acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                return redirect('dashboard') 
         except User.DoesNotExist:
             # No user with this email exists, redirect to registration
             return redirect('register')
