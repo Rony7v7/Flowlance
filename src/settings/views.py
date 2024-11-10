@@ -28,7 +28,11 @@ def security_settings(request):
 
 @login_required
 def account_settings(request):
-    return render(request, "settings/account_settings.html")
+    return render(request, "settings/account_settings.html", {"section": "account"})
+
+@login_required
+def notification_settings(request):
+    return render(request, "settings/notification_settings.html", {"section": "notification"})
 
 @login_required
 def toggle_2fa(request):
