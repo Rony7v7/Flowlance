@@ -2,15 +2,18 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from ..models import (
-    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, Notification, CompanyProfile
+    FreelancerProfile, Skill, WorkExperience, Rating, RatingResponse, CompanyProfile,ProfileConfiguration
 )
 from ..forms import AddSkillsForm, AddWorkExperienceForm, RatingForm
+from notifications.models import Notification
 
 
 class FreelancerPlatformTest(TestCase):
     """Test cases for Freelancer Platform covering profiles, notifications, skills, experience, and ratings"""
 
     def setUp(self):
+
+        profile_config = ProfileConfiguration.objects.create()
         # Create test users
         self.user, _ = User.objects.get_or_create(username='testuser')
         self.user.set_password('12345')
@@ -26,11 +29,13 @@ class FreelancerPlatformTest(TestCase):
         self.other_user.set_password('12345')
         self.other_user.save()
 
-        self.other_profile, _ = FreelancerProfile.objects.get_or_create(user=self.other_user, identification="54321", phone="0987654321")
+        self.other_profile, _ = FreelancerProfile.objects.get_or_create(user=self.other_user, identification="54321", phone="0987654321",profileconfiguration = profile_config)
 
         # Create a notification for testing
         self.notification, _ = Notification.objects.get_or_create(
             user=self.user,
+            title = "nuevo titulo",
+            link_to_place_of_creation = "link de prueba",
             message="New notification",
             is_read=False
         )
@@ -68,6 +73,33 @@ class FreelancerPlatformTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile/freelancer_profile.html')
         self.assertContains(response, self.other_profile.user.username)
+
+    def test_notification_created_on_profile_view(self):
+
+        profile_configuration = ProfileConfiguration.objects.create()
+
+        self.company_user = User.objects.create_user(username='company_user', password='password123')
+        self.company_profile = CompanyProfile.objects.create(user=self.company_user, company_name='Test Company', nit='1234567890',profileconfiguration = profile_configuration)
+
+        self.freelancer_user = User.objects.create_user(username='freelancer_user', password='password123')
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, identification='12345678', phone='123456789',profileconfiguration = profile_configuration)
+
+        # Iniciar sesión con la empresa
+        self.client.login(username='company_user', password='password123')
+
+        # Perform the GET request to view the freelancer profile
+        response = self.client.get(reverse('freelancer_profile_view', args=[self.freelancer_user.username]))
+
+        # Check if the response was successful
+        self.assertEqual(response.status_code, 200)
+
+        # Check if a notification was created for the freelancer
+        notification_exists = Notification.objects.filter(
+            user=self.freelancer_user,
+            title="Perfil visualizado",
+        ).exists()
+
+        self.assertTrue(notification_exists, "Notification was not created for the freelancer on profile view.")
 
 
     def test_view_notifications(self):

@@ -25,21 +25,21 @@
     </div>
 
     <!-- Main content -->
-    <div class="flex flex-col gap-5 w-full md:pl-72 px-7 py-2">
+    <div class="flex flex-col gap-5 w-full min-h-screen md:pl-72 px-7 py-2">
         {% include "navigation/top_bar_controls.html" %}
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-5 h-full">
             {% block app_content %}
             {% endblock %}
         </div>
+        {% include "homepage/footer.html" %}
     </div>
 </div>
 
 <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('-translate-x-full');
-    });
+    var username = '{{request.user.username}}'
 </script>
+
+<script src="/static/js/websockets/websocketsLogic.js"></script>
+
+<script src="/static/js/navigation/navigation.js"></script>
 {% endblock %}

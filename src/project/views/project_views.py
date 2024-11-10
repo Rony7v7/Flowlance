@@ -6,26 +6,33 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, HttpResponse
 
-from profile.models import Notification
 from project.forms import ProjectForm, EventForm, ProjectUpdateForm, ProjectReportSettingsForm
-from project.models import Application, Milestone, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
+from project.models import Application, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
 from project.management.commands.generate_periodic_reports import Command as ReportCommand
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
+from notifications.models import Notification
+from notifications.utils import send_notification
+from django.utils.translation import gettext as _
+
 # Decorators
 from flowlance.decorators import client_required, freelancer_required, attach_profile_info, role_required
+from django.core.files.storage import default_storage
+
 
 @login_required
 @client_required
 def create_project(request):
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.client = request.user
+            if 'image' in request.FILES:
+                project.image = request.FILES['image']
             project.save()
             
             ProjectMember.objects.create(project=project, user=request.user, role="administrator", is_owner=True)
@@ -35,7 +42,6 @@ def create_project(request):
     else:
         form = ProjectForm()
     return render(request, "projects/create_project.html", {"form": form})
-
 
 @login_required
 def my_projects(request):
@@ -79,17 +85,11 @@ def display_project(request, project_id, section):
         }
         for event in events
     ]
-
-
-
-
-
-    
+ 
     if section == "updates":
         updates = ProjectUpdate.objects.filter(project=project).order_by('-created_at')
     else:
         updates = None
-
     
     show_important = request.GET.get('show_important', 'false').lower() == 'true'
 
@@ -100,6 +100,14 @@ def display_project(request, project_id, section):
         updates = ProjectUpdate.objects.filter(project=project)
 
     sections_map = {
+        "management": "projects/management_section/management_section.html",
+        "planning": "projects/planning_section/planning_section.html",
+        "team": "projects/team_section/team_section.html",
+        "progress": "projects/progress_section/progress_section.html",
+    }
+    
+    # secciones del proyecto que anteriormente se usaban
+    """
         "milestone": "projects/milestones.html",
         "task": "projects/tasks.html",
         "time_line": "projects/time_line.html",
@@ -108,9 +116,9 @@ def display_project(request, project_id, section):
         "deliverable" : "projects/deliverables.html",
         "members" : "projects/project_members.html",
         "updates": "projects/updates.html",
-    }
+    """
 
-    section_to_show = sections_map.get(section, "projects/milestones.html")
+    section_to_show = sections_map.get(section, "projects/management_section/management_section.html")
     application = project.applications.filter(user=request.user, is_deleted=False).first()
 
     return render(
@@ -241,8 +249,9 @@ def project_list_availableFreelancer(request):
 @login_required
 @attach_profile_info
 def project_list(request):
-    projects = Project.objects.filter(client=request.user,is_deleted=False)
-    return render(request, "projects/project_list.html", {"projects": projects})
+    # get all projects that the user is a member of
+    projects = Project.objects.filter(memberships__user=request.user, is_deleted=False) 
+    return render(request, "projects/project_list.html", {"own_projects": projects})
 
 
 @role_required("administrator")
@@ -252,15 +261,14 @@ def project_edit(request, project_id):
     project = get_object_or_404(Project, id=project_id, is_deleted=False)
     
     if request.method == "POST":
-        form = ProjectForm(request.POST, instance=project)
+        form = ProjectForm(request.POST, request.FILES ,instance=project)
         if form.is_valid():
             form.save()
 
-            
-            Notification.objects.create(
-                user=request.user,
-                message=f"El proyecto '{project.title}' ha sido editado exitosamente."
-            )
+            notification_message = _(f"El proyecto '{project.title}' ha sido editado exitosamente.") 
+            notification_title = _("Actualizacion de proyecto")
+            notification_link = f"/project/{project.id}/milestone"
+            send_notification(notification_title,notification_message,notification_link,request.user,Notification.NotificationType.PROJECT)
 
         return redirect("project", project_id=project.pk, section="milestone")
 
@@ -272,6 +280,9 @@ def project_edit(request, project_id):
         "projects/project_form.html",
         {"form": form, "project": project, "action": "Edit"},
     )
+    if 'image' in request.FILES:
+        project.image = request.FILES['image']
+    project.save()
 
 @role_required("administrator")
 @login_required
@@ -286,11 +297,10 @@ def project_delete(request, project_id):
         project.save()
 
         
-        Notification.objects.create(
-            user=request.user,
-            message=f"El proyecto '{project_title}' ha sido eliminado exitosamente."
-        )
-
+        notification_message = _(f"El proyecto '{project_title}' ha sido eliminado exitosamente.") 
+        notification_title = _("Eliminacion de Projecto")
+        notification_link = "/dasboard/"
+        send_notification(notification_title,notification_message,notification_link,request.user,Notification.NotificationType.PROJECT)
         
         return redirect("project_list")
     
@@ -313,25 +323,19 @@ def apply_project(request, project_id):
         user=request.user, project=project
     )
 
+    notification_title =  _("Notificacion de postulacion")
+    notification_link = f"/project/{application.project.id}/milestone"
     if created:
-        
-        Notification.objects.create(
-            user=request.user,
-            message=f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión."
-        )
+        notification_message =  _(f"Te has postulado al proyecto '{project.title}'. Tu postulación está pendiente de revisión.")
+        send_notification(notification_title,notification_message,notification_link, request.user,Notification.NotificationType.PROJECT)
 
-        
-        Notification.objects.create(
-            user=project.client,
-            message=f"{request.user.username} se ha postulado a tu proyecto '{project.title}'."
-        )
+        notification_message =  _(f"{request.user.username} se ha postulado a tu proyecto '{project.title}'.")
+        send_notification(notification_title,notification_message,notification_link, project.client,Notification.NotificationType.PROJECT)
 
     else:
        
-        Notification.objects.create(
-            user=request.user,
-            message=f"Ya te has postulado anteriormente al proyecto '{project.title}'."
-        )
+        notification_message =  _(f"Ya te has postulado anteriormente al proyecto '{project.title}'.")
+        send_notification(notification_title,notification_message, notification_link,request.user,Notification.NotificationType.PROJECT)
 
    
     return redirect("project", project_id=project_id, section="milestone")
@@ -360,9 +364,10 @@ def update_application_status(request, application_id, action):
             "project", project_id=application.project.id, section="milestone"
         )
 
+    notification_title = _("Actulizacion en postulacion")
+    notification_link = f"/project/{application.project.id}/milestone"
     application.save()
-
-    Notification.objects.create(user=application.user, message=message)
+    send_notification(notification_title,message,notification_link,  request.user,Notification.NotificationType.PROJECT)
 
     messages.success(request, f"La postulación ha sido {application.status.lower()}.")
     return redirect("project", project_id=application.project.id, section="milestone")

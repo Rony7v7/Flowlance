@@ -144,8 +144,5 @@ def payment_confirm(request, transaction_id):
 
     return render(request, "payment/payment_success.html", {"transaction": transaction})
 
-def dashboard(request):
-    return render(request, "dashboard/company_dashboard.html", {})
-
 def payment_failed(request):
     return render(request, "payment/payment_failed.html", {})

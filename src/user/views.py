@@ -12,9 +12,7 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .RestorePasswordForm import StyledPasswordChangeForm
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from allauth.socialaccount.models import SocialAccount
 

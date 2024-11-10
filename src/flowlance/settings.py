@@ -40,11 +40,12 @@ INTERNAL_IPS = [
 
 NPM_BIN_PATH = os.getenv(
     "NPM_BIN_PATH", "npm"
-)  # Default to 'npm' if env variable is not set
+)  # Default to 'npm' if env variable is not set
 
 SITE_ID = 1
 
 INSTALLED_APPS = [
+    "daphne",
     "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -69,8 +70,20 @@ INSTALLED_APPS = [
     "notifications",
     "django_otp",
     "paypal.standard.ipn",
+    "channels",
 
 ]
+
+
+
+ASGI_APPLICATION = "flowlance.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -199,3 +212,18 @@ AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend"
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_ADAPTER = 'user.adapters.MySocialAccountAdapter'
 LOGIN_REDIRECT_URL = '/check-profile/'
+
+##CHANNELS - WEBSOCKET
+
+# This setting tells Django Channels which backend to use for storing and distributing messages between the client and the server. In this example, we'll 
+# use the in-memory backend, which is suitable for development and testing purposes:
+#this should use reddis in production
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
+#Esta linea esta apuntando a la carpeta flowlance, dentro de asgi y a la variable aplication
+#La utlizamos para decirle a django donde ir a buscar la informacion.
+ASGI_APPLICATION = 'flowlance.asgi.application'

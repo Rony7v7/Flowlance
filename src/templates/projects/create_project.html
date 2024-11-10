@@ -9,7 +9,7 @@
     <h1 class="text-2xl font-bold text-primary_black mb-2">{% translate "Creación de proyecto" %}</h1>
     <h2 class="text-lg text-primary_dark mb-6">{% translate "Información de los proyectos" %}</h2>
 
-    <form method="post" class="space-y-6 w-full flex justify-center items-center flex-col">
+    <form method="post" class="space-y-6 w-full flex justify-center items-center flex-col" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -55,6 +55,13 @@
                     {{ form.end_date }}
                     {{ form.end_date.errors }}
                 </div>
+            </div>
+
+            <div>
+                <label for="{{ form.image.id_for_label }}"
+                    class="block text-sm font-medium text-primary_black mb-1">{% translate "Imagen del proyecto" %}</label>
+                {{ form.image }}
+                {{ form.image.errors }}
             </div>
         </div>
         <div class="flex justify-center items-center">

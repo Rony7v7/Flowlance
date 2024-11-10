@@ -8,7 +8,7 @@
             {% blocktrans %}Editar {{ project.title }}{% endblocktrans %}
         </h1>
 
-        <form method="post" class="space-y-6">
+        <form method="post" class="space-y-6" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form %}
                 <div>

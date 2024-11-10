@@ -1,10 +1,12 @@
 {% load i18n %}
 {% if not list %}
-<div class="bg-white rounded-lg shadow-md transition-transform transform hover:shadow-lg duration-300 w-full max-w-xs md:max-w-sm flex flex-col overflow-hidden">
+<div class="bg-white rounded-lg shadow-md transition-transform transform hover:shadow-lg duration-300 w-full max-w-xs md:max-w-sm flex flex-col ">
     <!-- Image or placeholder -->
     <div class="h-28 w-full bg-purple-600">
         {% if project.image %}
         <img src="{{ project.image.url }}" alt="{{ project.title }}" class="object-cover h-full w-full">
+        {% else %}
+        <img src="https://picsum.photos/450/300" alt="{{ project.title }}" class="object-cover h-full w-full">
         {% endif %}
     </div>
 
@@ -34,7 +36,7 @@
     </div>
 
     <div class="w-full bg-gray-200 rounded-full h-2">
-        <div class="bg-primary_light h-2 rounded-full" style="width: {{ project.progress }}%"></div>
+        <div class="bg-primary_light h-2 rounded-full" style="width: '{{ project.progress }}%'"></div>
     </div>
 </div>
 

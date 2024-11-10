@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course , ProfileConfiguration
 from django.db import IntegrityError
 from django.utils.translation import gettext as _, gettext_lazy as __
 
@@ -244,11 +244,14 @@ class FreelancerRegisterForm(UserCreationForm):
         if commit:
             user.save()
             try:
-                FreelancerProfile.objects.create(
+
+                profile_config = ProfileConfiguration.objects.create()
+                freelancer_profile = FreelancerProfile.objects.create(
                     user=user,
                     identification=self.cleaned_data['identification'],
                     phone=self.cleaned_data['phone'],
-                    photo=self.cleaned_data.get('photo')
+                    photo=self.cleaned_data.get('photo'),
+                    profileconfiguration = profile_config
                 )
             except IntegrityError as e:
                 if 'unique constraint' in str(e).lower() and 'identification' in str(e).lower():
@@ -302,6 +305,7 @@ class CompanyRegisterForm(UserCreationForm):
         user = super().save(commit=False)
         try:
             if commit:
+                profile_config = ProfileConfiguration.objects.create()
                 user.save()
                 CompanyProfile.objects.create(
                     user=user,
@@ -313,7 +317,8 @@ class CompanyRegisterForm(UserCreationForm):
                     address=self.cleaned_data['address'],
                     legal_representative=self.cleaned_data['legal_representative'],
                     phone=self.cleaned_data['phone'],
-                    photo=self.cleaned_data.get('photo')
+                    photo=self.cleaned_data.get('photo'),
+                    profileconfiguration = profile_config
                 )
         except IntegrityError as e:
             if 'unique constraint' in str(e).lower() and 'nit' in str(e).lower():

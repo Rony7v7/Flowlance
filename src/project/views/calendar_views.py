@@ -6,6 +6,7 @@ from project.forms import EventForm
 from ..models import Event
 
 
+@login_required
 def all_events(request):
     project_id = request.GET.get('project_id')
     
