@@ -1,0 +1,49 @@
+{% load i18n %}
+<nav class="bg-white rounded-lg shadow-sm p-4 h-fit">
+    <ul class="flex flex-col gap-4">
+        <li>
+            <a href="/settings/account" class="
+                text-lg font-medium transition-colors duration-200
+                {% if section == 'account' %}
+                    text-primary_black border-l-4 border-primary_black pl-3
+                {% else %}
+                    text-primary_light hover:text-primary_black hover:border-l-4 hover:border-primary_light/75 pl-3
+                {% endif %}">
+                {% translate "Cuenta" %}
+            </a>
+        </li>
+        <li>
+            <a href="/settings/notification_settings" class="
+                text-lg font-medium transition-colors duration-200
+                {% if section == 'notification' %}
+                    text-primary_black border-l-4 border-primary_black pl-3
+                {% else %}
+                    text-primary_light hover:text-primary_black hover:border-l-4 hover:border-primary_light/75 pl-3
+                {% endif %}">
+                {% translate "Notificaciones" %}
+            </a>
+        </li>
+        <li>
+            <a href="/settings/security" class="whitespace-nowrap
+                text-lg font-medium transition-colors duration-200
+                {% if section == 'security' %}
+                    text-primary_black border-l-4 border-primary_black pl-3
+                {% else %}
+                    text-primary_light hover:text-primary_black hover:border-l-4 hover:border-primary_light/75 pl-3
+                {% endif %}">
+                {% translate "Seguridad e Inicio" %}
+            </a>
+        </li>
+        <li>
+            <a href="/settings/chat_settings" class="
+                text-lg font-medium transition-colors duration-200
+                {% if section == 'chat' %}
+                    text-primary_black border-l-4 border-primary_black pl-3
+                {% else %}
+                    text-primary_light hover:text-primary_black hover:border-l-4 hover:border-primary_light/75 pl-3
+                {% endif %}">
+                {% translate "Chat" %}
+            </a>
+        </li>
+    </ul>
+</nav>
