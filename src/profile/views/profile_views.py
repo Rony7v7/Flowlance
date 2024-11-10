@@ -113,11 +113,11 @@ def generate_freelancer_context(profile):
 
     return context
 
-
 @login_required
+@attach_profile_info
 def notifications(request):
-    notifications = request.user.notifications.filter(is_read=False)
-    return render(request, 'profile/notifications.html', {'notifications': notifications})
+    notifications = request.user.notifications.filter(is_deleted=False)
+    return render(request, 'profile/notifications.html', {'notifications': notifications, 'section': 'notifications'})
 
 
 @login_required

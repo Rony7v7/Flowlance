@@ -9,6 +9,8 @@ def attach_profile_info(func):
     def wrapper(request, *args, **kwargs):
         user = request.user
         profile, profile_type = user.get_profile_info()
+        unread_notifications = user.notifications.filter(is_read=False).count()
+        profile.unread_notifications = unread_notifications
         request.profile = profile
         request.profile_type = profile_type
         return func(request, **kwargs)
