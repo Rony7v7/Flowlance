@@ -6,6 +6,7 @@ urlpatterns = [
     path("account", views.settings, name="account_settings"),
     path("security", views.security_settings, name="security_settings"),
     path("notification", views.notification_settings, name="notification_settings"),
+    path("chat", views.chat_settings, name="chat_settings"),
     path("toggle_2fa/", views.toggle_2fa, name="toggle_2fa"),
     path("toggle_notification_when_profile_visited", views.toggle_notification_when_profile_visited,name = "toggle_notification_when_profile_visited"),
     path("toggle_notification_to_email",views.toggle_notification_to_email,name = "toggle_notification_to_email"),

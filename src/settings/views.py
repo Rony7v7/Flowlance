@@ -35,6 +35,10 @@ def notification_settings(request):
     return render(request, "settings/notification_settings.html", {"section": "notification"})
 
 @login_required
+def chat_settings(request):
+    return render(request, "settings/chat_settings.html", {"section": "chat"})
+
+@login_required
 def toggle_2fa(request):
     user = request.user
     profile, profile_type = user.get_profile_info()  # Use the get_profile_info method
