@@ -263,13 +263,11 @@ def project_list(request):
 
 @login_required
 def project_list_search(request):
-    # Obtener el término de búsqueda y filtros de los parámetros GET
     query = request.GET.get('search', '').strip()
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     min_budget = request.GET.get('min_budget')
     max_budget = request.GET.get('max_budget')
-    categories = request.GET.getlist('category')  # List de categorías seleccionadas
 
     # Inicia la consulta de proyectos
     projects = Project.objects.all()
@@ -277,10 +275,6 @@ def project_list_search(request):
     # Filtro de búsqueda de texto
     if query:
         projects = projects.filter(title__icontains=query)
-
-    # Filtro de categoría
-    if categories:
-        projects = projects.filter(category__in=categories)
 
     # Filtro de rango de fechas
     if start_date:
@@ -295,7 +289,6 @@ def project_list_search(request):
         projects = projects.filter(budget__lte=max_budget)
 
     return render(request, 'projects/project_list.html', {'projects': projects, 'query': query})
-
 
 
 
