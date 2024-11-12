@@ -5,7 +5,7 @@ from .views import project_views , milestone_views , task_views , assigment_view
 urlpatterns = [
     path('', project_views.project_list_availableFreelancer, name='project_list'),
     path("create/", project_views.create_project, name="create_project"),
-    path("list/", project_views.project_list, name="list_projects"),# David changed this line from views.lists_projects to views.project_list because that does not exist in views.py
+    path("list/", project_views.project_list_search, name="list_projects"),# David changed this line from views.lists_projects to views.project_list because that does not exist in views.py
     path("list/", project_views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
     path("my_projects/", project_views.project_list, name="my_projects"), 
     

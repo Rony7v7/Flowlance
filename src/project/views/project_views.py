@@ -10,6 +10,11 @@ from project.forms import ProjectForm, EventForm, ProjectUpdateForm, ProjectRepo
 from project.models import Application, Project, ProjectMember, Task, ProjectReportSettings, ProjectUpdate, UpdateComment, UserProjectReportSettings
 from project.management.commands.generate_periodic_reports import Command as ReportCommand
 
+from django.shortcuts import render
+from django.db.models import Q
+from datetime import datetime
+from project.models import Project
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
@@ -247,19 +252,50 @@ def project_list_availableFreelancer(request):
     )
 
 
-from project.models import Project
-
-
-
+@login_required
+@attach_profile_info
 def project_list(request):
-    query = request.GET.get('search', '').strip()  # Obtener el término de búsqueda del parámetro GET
+    # get all projects that the user is a member of
+    projects = Project.objects.filter(memberships__user=request.user, is_deleted=False) 
+    return render(request, "projects/project_list.html", {"own_projects": projects})
+
+
+
+@login_required
+def project_list_search(request):
+    # Obtener el término de búsqueda y filtros de los parámetros GET
+    query = request.GET.get('search', '').strip()
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    min_budget = request.GET.get('min_budget')
+    max_budget = request.GET.get('max_budget')
+    categories = request.GET.getlist('category')  # List de categorías seleccionadas
+
+    # Inicia la consulta de proyectos
     projects = Project.objects.all()
 
-    # Filtrar proyectos si se proporciona un término de búsqueda
+    # Filtro de búsqueda de texto
     if query:
-        projects = projects.filter(title__icontains=query)  # Busca proyectos por título usando `icontains` para búsqueda parcial
+        projects = projects.filter(title__icontains=query)
+
+    # Filtro de categoría
+    if categories:
+        projects = projects.filter(category__in=categories)
+
+    # Filtro de rango de fechas
+    if start_date:
+        projects = projects.filter(created_at__gte=start_date)
+    if end_date:
+        projects = projects.filter(created_at__lte=end_date)
+
+    # Filtro de presupuesto
+    if min_budget:
+        projects = projects.filter(budget__gte=min_budget)
+    if max_budget:
+        projects = projects.filter(budget__lte=max_budget)
 
     return render(request, 'projects/project_list.html', {'projects': projects, 'query': query})
+
 
 
 
