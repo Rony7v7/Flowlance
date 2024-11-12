@@ -1,47 +1,38 @@
-{% extends "navigation/navigation.html" %}
+{% extends "settings/settings.html" %}
 {% load i18n %}
 
-{% block app_content %}
-<div class="h-full w-full">
+{% block settings_title %}{% translate "Seguridad e Inicio" %}{% endblock %}
 
-    <div class="flex items-center justify-between mb-8">
-        <h1 class="text-3xl font-semibold text-primary_black">{% translate "Seguridad e Inicio" %}</h1>
-    </div>
-    <!-- La nav bar de la derecha -->
-    {% include "settings/settings_navbar.html" with section='security' %}
-
-    <div class="bg-primary_lightest p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <div>
-            <h2 class="text-3xl font-semibold text-primary_black mb-6">{% translate "Factor de Doble Autenticacion" %}
-            </h2>
-
-            <form action="{% url 'toggle_2fa' %}" method="POST">
-                {% csrf_token %}
-                <label for="has_2FA_on" class="text-primary_black text-lg font-medium">
-                    {% translate "Activar el Factor de Doble autenticacion" %}
+{% block settings_section %}
+<div class="bg-primary_lightest/20 p-8 rounded-lg w-full shadow-md flex flex-col">
+    <!-- Sección de Autenticación Doble Factor -->
+    <div class="pb-6">
+        <h1 class="text-2xl font-bold text-primary_black mb-4">{% translate "Factor de Doble Autenticación" %}</h1>
+        <form id="toggle-2fa-form" action="{% url 'toggle_2fa' %}" method="POST">
+            {% csrf_token %}
+            
+            <!-- Etiqueta e Interruptor de Activación -->
+            <div class="flex items-center gap-4">
+                <label for="has_2FA_on" class="text-primary_black cursor-pointer">
+                    {% translate "Activar el Factor de Doble Autenticación" %}
                 </label>
 
-                <!-- Tailwind Toggle Switch -->
-                <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
-                    <input type="checkbox" name="has_2FA_on" id="has_2FA_on" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition duration-200 ease-in transform
-               {% if has_2FA_on %}
-                   translate-x-6 border-transparent
-               {% endif %}" {% if has_2FA_on %} checked {% endif %}>
-                    <label for="has_2FA_on"
-                        class="block overflow-hidden h-6 rounded-full bg-primary_medium cursor-pointer"></label>
-                </div>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input <input type="checkbox" name="has_2FA_on" id="has_2FA_on" class="sr-only peer"
+                    onchange="document.getElementById('toggle-2fa-form').submit();"
+                    {% if has_2FA_on %} checked {% endif %}>
+                    <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-primary_black/25 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary_medium"></div>
+                </label>
 
-                <button type="submit" class="mt-4 bg-primary_dark text-white py-2 px-4 rounded-md">{% translate "Guardar" %}</button>
-            </form>
-        </div>
-
-        <div class="mt-8">
-            <h2 class="mb-5 text-3xl font-semibold text-primary_black">{% translate "Reestablecer credenciales" %}</h2>
-            <!-- el link y toda esta logica esta manejada desde user, pero la template esta en settings -->
-            {% url 'restore_password' as restore_password %}
-            {% include "utils/anchor_button.html" with type=1 label="Reestablecer redenciales" url=restore_password%}
-        </div>
+            </div>
+        </form>
     </div>
-</div>
+
+    <!-- Sección de Restablecimiento de Credenciales -->
+    <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-xl font-semibold text-primary_black mb-4">{% translate "Restablecer Credenciales" %}</h2>
+        {% url 'restore_password' as restore_password %}
+        {% include "utils/anchor_button.html" with type=1 label="Restablecer Credenciales" url=restore_password %}
+    </div>
 </div>
 {% endblock %}

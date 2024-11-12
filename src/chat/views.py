@@ -1,25 +1,19 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.db.models import Q
+from django.contrib.auth.models import User
+
+from flowlance.decorators import attach_profile_info
 from project.models import Project, ProjectMember
-from .models import ChatRoom
 from .models import ChatRoom, Message
 
+@attach_profile_info
 def chat_overview(request):
     projects = Project.objects.filter(memberships__user=request.user)
     return render(request, 'chat/chat_overview.html', {'projects': projects})
 
-
-
-# views.py
-from django.shortcuts import redirect, render, get_object_or_404
-from project.models import Project, ProjectMember
-from .models import ChatRoom, Message
-
-from django.db.models import Q
-
-# views.py
-
-from django.db.models import Q
-
+@attach_profile_info
 def chat_room(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
     member = get_object_or_404(ProjectMember, id=member_id, project=project)
@@ -52,12 +46,6 @@ def chat_room(request, project_id, member_id):
         'current_member': member.user,
     })
 
-
-
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-
 @require_POST
 def soft_delete_chat(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
@@ -77,14 +65,6 @@ def soft_delete_chat(request, project_id, member_id):
 
     return JsonResponse({'status': 'success'})
 
-
-
-# views.py
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.db.models import Q
-
 @require_POST
 def delete_chat(request, project_id, member_id):
     # Obtener el proyecto y el miembro correspondiente
@@ -100,16 +80,6 @@ def delete_chat(request, project_id, member_id):
     ).delete()
 
     return JsonResponse({'status': 'success'})
-
-
-
-# views.py
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from .models import Message
-from django.core.files.storage import default_storage
-from django.conf import settings
-from django.contrib.auth.models import User
 
 @require_POST
 def upload_file(request):
@@ -138,11 +108,6 @@ def upload_file(request):
             'message': message_text,
             'file_url': message.file.url if message.file else None
         })
-
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.core.files.storage import default_storage
 
 @require_POST
 def upload_message(request):

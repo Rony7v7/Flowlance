@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from .models import Notification
 from django.contrib.auth.decorators import login_required
@@ -37,9 +37,9 @@ def mark_all_notifications_as_read(request):
         updated_count = Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
         
         # Return a JSON response indicating the number of notifications updated
-        return JsonResponse({"status": "success", "updated_count": updated_count})
+        return redirect('notifications')
     else:
-        return JsonResponse({"status": "error", "message": "Invalid request method."}, status=405)
+        return redirect('notifications')
 
 
 @login_required

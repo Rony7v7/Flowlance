@@ -364,7 +364,7 @@ def update_application_status(request, application_id, action):
             "project", project_id=application.project.id, section="milestone"
         )
 
-    notification_title = _("Actulizacion en postulacion")
+    notification_title = _("Actualización de postulación")
     notification_link = f"/project/{application.project.id}/milestone"
     application.save()
     send_notification(notification_title,message,notification_link,  request.user,Notification.NotificationType.PROJECT)

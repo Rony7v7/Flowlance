@@ -13,4 +13,5 @@ urlpatterns = [
     path('choose-path/', views.choose_path_view, name='choose_path'), 
     path('check-profile/', views.check_profile, name='check_profile'),
     path('success-or-not/', views.success_or_not, name='success_or_not'),
+    path('change_username/', views.change_username, name='change_username'),
 ]
