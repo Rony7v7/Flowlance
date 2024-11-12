@@ -246,12 +246,21 @@ def project_list_availableFreelancer(request):
         {"projects": projects},
     )
 
-@login_required
-@attach_profile_info
+
+from project.models import Project
+
+
+
 def project_list(request):
-    # get all projects that the user is a member of
-    projects = Project.objects.filter(memberships__user=request.user, is_deleted=False) 
-    return render(request, "projects/project_list.html", {"own_projects": projects})
+    query = request.GET.get('search', '').strip()  # Obtener el término de búsqueda del parámetro GET
+    projects = Project.objects.all()
+
+    # Filtrar proyectos si se proporciona un término de búsqueda
+    if query:
+        projects = projects.filter(title__icontains=query)  # Busca proyectos por título usando `icontains` para búsqueda parcial
+
+    return render(request, 'projects/project_list.html', {'projects': projects, 'query': query})
+
 
 
 @role_required("administrator")

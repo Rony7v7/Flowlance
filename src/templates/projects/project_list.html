@@ -2,41 +2,24 @@
 
 {% load i18n %}
 {% block app_content %}
-<div class=" py-6">
-    <div class="flex flex-col gap-2 md:flex-row justify-between items-center w-full bg-bg_gray py-2 px-4 rounded-lg mb-4">
-        <div class="flex flex-row gap-2">
-            {% url 'project_list' as project_main_view %}
-            {% trans "Disponibles" as translated_label %}
-            {% include 'utils/anchor_button.html' with label=translated_label type=2 url=project_main_view %}
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Resultados de la búsqueda</h1>
 
+    {% if query %}
+        <p class="text-gray-700 mb-2">Resultados para: <strong>{{ query }}</strong></p>
+    {% endif %}
 
-            {% url 'my_projects' as list_projects_available %}
-            {% trans "Mis Proyectos" as translated_label %}
-            {% include 'utils/anchor_button.html' with label=translated_label type=1 url=list_projects_available %}
-
-        </div>
-
-        {% if request.profile_type == 'company' %}
-        <div class="flex">
-            {% url 'create_project' as create_project_url %}
-            {% trans "Crear Proyecto" as translated_label %}
-            {% include 'utils/anchor_button.html' with label=translated_label type=1 url=create_project_url %}
-        </div>
-        {% endif %}
-
-    </div>
-
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">{% translate "Mis Proyectos" %}</h1>
-    </div>
-
-    <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-bg_gray w-full h-full p-4 rounded-lg">
-        {% for project in own_projects %}
-        {% include 'projects/project_card.html' %}
-        {% empty %}
-        <p class="text-gray-500 col-span-3">{% translate "Sin resultados." %}</p>
-        {% endfor %}
-    </div>
+    {% if projects %}
+        <ul class="space-y-4">
+            {% for project in projects %}
+                <li class="bg-white p-4 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold">{{ project.name }}</h2>
+                    <p class="text-gray-600">{{ project.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500">No se encontraron proyectos que coincidan con la búsqueda.</p>
+    {% endif %}
 </div>
 {% endblock app_content %}
