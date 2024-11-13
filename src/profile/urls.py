@@ -25,6 +25,8 @@ urlpatterns = [
     path('freelancer_profile/<str:username>/', profile_views.freelancer_profile_view, name='freelancer_profile'),  # URL for finshing edit the RatingResponse
     path('register/freelancer/', register_views.register_freelancer, name='register_freelancer'),
     path('register/company/', register_views.register_company, name='register_company'),
+    path('notification-preferences/', profile_views.notification_preferences, name='notification_preferences'),
+    path('reset-notification-preferences/', profile_views.reset_notification_preferences, name='reset_notification_preferences'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,13 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Preferences</button>
+</form>
+
+<h3>Notification Preview</h3>
+<ul>
+    {% if preview.receive_project_updates %}<li>Project Updates</li>{% endif %}
+    {% if preview.receive_messages %}<li>Messages</li>{% endif %}
+    {% if preview.receive_job_opportunities %}<li>Job Opportunities</li>{% endif %}
+</ul>
+<a href="{% url 'reset_notification_preferences' %}">Reset to Default</a>
