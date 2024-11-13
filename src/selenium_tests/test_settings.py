@@ -14,8 +14,11 @@ DATABASES = {
         'NAME': ':memory:',
     }
 }
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+]
 
-# Disable debug mode
 DEBUG = False
+# Disable debug mode
 
 # Add any additional test-specific settings here
