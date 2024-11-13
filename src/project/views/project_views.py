@@ -257,7 +257,7 @@ def project_list_availableFreelancer(request):
 def project_list(request):
     # get all projects that the user is a member of
     projects = Project.objects.filter(memberships__user=request.user, is_deleted=False) 
-    return render(request, "projects/project_list.html", {"own_projects": projects})
+    return render(request, "projects/project_list_own.html", {"own_projects": projects})
 
 
 
