@@ -1,91 +1,62 @@
-{% extends "base.html" %}
-
+{% extends "navigation/navigation.html" %}
 {% load i18n %}
-{% block content %}
-<div class="container mx-auto max-w-screen-lg">
-    <!-- Title -->
-    <h1 class="text-primary_black text-2xl font-bold mt-4 text-center">{% translate "Notificaciones" %}</h1>
 
-    <!-- Notification List Section -->
-    <div class="bg-primary_lightest p-6 rounded-lg shadow-md mt-6">
-        <div class="flex flex-col">
-            <ul class="space-y-4">
-                {% for notification in notifications %}
-                <li class="flex items-start bg-white rounded-lg p-4 shadow-md hover:bg-primary_lightest transition-all duration-200 ease-in-out">
-                    <div class="flex-shrink-0">
-                        <img src="https://picsum.photos/80/80" alt="Notification Image" class="rounded-full">
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-primary_black font-semibold">{{ notification.message }}</p>
-                        <p class="text-sm text-primary_light mt-2">{{ notification.created_at|date:"d M Y H:i" }}</p>
-                    </div>
-                </li>
-                {% empty %}
-                <li class="text-center bg-primary_lightest rounded-lg p-6 shadow-sm">
-                    <p class="text-primary_black text-lg">{% translate "No tienes notificaciones." %}</p>
-                </li>
-                {% endfor %}
-            </ul>
+{% block app_content %}
+<div class="flex flex-col gap-6 h-full">
+    <!-- Título -->
+    <h1 class="text-primary_black text-3xl font-bold text-center mb-4">{% translate "Notificaciones" %}</h1>
+
+    <!-- Sección de Lista de Notificaciones -->
+    <div class="bg-primary_lightest/25 p-6 rounded-lg shadow min-h-[70vh]">
+        <div class="flex flex-col gap-6">
+            {% if notifications %}
+                <!-- Contenedor con scroll interno -->
+                <ul class="flex flex-col-reverse gap-4 max-h-screen overflow-y-auto pr-2">
+                    {% for notification in notifications %}
+                    <li class="flex items-start bg-white rounded-lg p-4 shadow">
+                        <div class="flex-shrink-0 mr-4">
+                            {% if notification.notification_type == 'PG' %}
+                                <div class="bg-green-100 text-green-600 p-2 rounded-full">💵</div>
+                            {% elif notification.notification_type == 'PY' %}
+                                <div class="bg-primary_medium/25 text-primary_medium p-2 rounded-full">📁</div>
+                            {% elif notification.notification_type == 'MJ' %}
+                                <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">💬</div>
+                            {% else %}
+                                <div class="bg-gray-100 text-gray-600 p-2 rounded-full">🔔</div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow">
+                            <p class="text-primary_black font-semibold">{{ notification.title }}</p>
+                            <p class="text-sm text-primary_light mt-1">{{ notification.message }}</p>
+                            <a href="{{ notification.link_to_place_of_creation }}" target="_blank" class="text-primary_dark text-sm hover:underline mt-2 inline-block">
+                                {% translate "Ver detalles" %}
+                            </a>
+                            <p class="text-xs text-gray-500 mt-1">{{ notification.created_at|date:"d M Y H:i" }}</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            {% if not notification.is_read %}
+                                <span class="text-green-600 text-3xl font-medium">•</span>
+                            {% else %}
+                                <span class="text-gray-500 text-xs">{% translate "Leída" %}</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-primary_black text-lg m-auto">{% translate "No tienes notificaciones." %}</p>
+            {% endif %}
         </div>
     </div>
 
-    <!-- Mark All as Read Button -->
-    <div class="mt-6 text-center">
-        <button onclick="markNotificationsAsRead()"
-                class="bg-primary_medium text-white px-6 py-3 rounded-lg hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-            {% translate "Marcar todas como leídas" %}
-        </button>
-
-        <!-- Button to open the modal -->
-        <button id="showModal"
-                class="ml-4 bg-primary_medium text-white px-6 py-3 rounded-lg hover:bg-primary_dark transition-transform duration-300 hover:scale-110">
-            {% translate "Ver Detalles de Notificaciones" %}
-        </button>
-    </div>
-
-    <!-- Modal for Notifications Pop-up -->
-    <div id="notificationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
-            <h2 class="text-2xl font-bold mb-4">{% translate "Detalles de las Notificaciones" %}</h2>
-            <ul class="space-y-4">
-                {% for notification in notifications %}
-                <li class="flex items-start bg-primary_lightest p-4 rounded-lg shadow-md hover:bg-primary_light transition-all duration-200 ease-in-out">
-                    <div class="flex-shrink-0">
-                        <img src="https://picsum.photos/80/80" alt="Notification Image" class="rounded-full">
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-primary_black font-semibold">{{ notification.message }}</p>
-                        <p class="text-sm text-primary_light mt-2">{{ notification.created_at|date:"d M Y H:i" }}</p>
-                    </div>
-                </li>
-                {% empty %}
-                <li class="text-center bg-primary_lightest rounded-lg p-6 shadow-sm">
-                    <p class="text-primary_black text-lg">{% translate "No tienes notificaciones." %}</p>
-                </li>
-                {% endfor %}
-            </ul>
-
-            <!-- Close button for modal -->
-            <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-transform duration-300 hover:scale-110 hover:animate-wiggle">
-                {% translate "Cerrar" %}
+    <!-- Botón de Marcar Todas como Leídas -->
+    <div class="mt-4 text-center">
+        <form method="POST" action="{% url 'mark-all-as-read' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-primary_medium text-white px-6 py-3 rounded-lg hover:bg-primary_dark transition">
+                {% translate "Marcar todas como leídas" %}
             </button>
-        </div>
+        </form>
     </div>
 </div>
-
-<script>
-    function markNotificationsAsRead() {
-        // Completar funcionalidad para marcar todas las notificaciones como leídas
-        //ya existe el endpoint falta es hacer la logica para llamarlo
-    }
-
-    // JavaScript para abrir y cerrar el modal
-    document.getElementById('showModal').addEventListener('click', function () {
-        document.getElementById('notificationsModal').classList.remove('hidden');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('notificationsModal').classList.add('hidden');
-    });
-</script>
 {% endblock %}
