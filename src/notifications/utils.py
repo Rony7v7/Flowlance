@@ -32,12 +32,6 @@ def send_notification(title, notification_message, link_of_creation, user_Receiv
         notification_type = notification_type
     )
 
-    # Send email if the user has opted in
-    if pref and pref.receive_email_notifications:
-        email_subject = _("New Notification")
-        email_body = f"{notification_message}\n\n{link_of_creation}"
-        send_email(user.email, email_subject, email_body)
-
     channel_layer = get_channel_layer()
     group_name = f"notifications_{user.username}"
 

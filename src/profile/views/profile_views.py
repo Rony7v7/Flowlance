@@ -177,6 +177,7 @@ def reset_notification_preferences(request):
             profile = request.user.companyprofile
         else:
             messages.error(request, "Profile not found.")
+            #! Redirect to home or another page
             return redirect('home')
 
         # Get the ProfileConfiguration associated with the profile
