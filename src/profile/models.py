@@ -24,6 +24,13 @@ class ProfileConfiguration(models.Model):
     notification_when_profile_visited = models.BooleanField(default=True)
     sending_notification_to_email = models.BooleanField(default=False)
     periodicity_of_notification_report = models.CharField(max_length=20,choices=Periodicity.choices,default=Periodicity.MONTHLY)
+    silent_start = models.TimeField(null=True, blank=True, help_text="Start of silent hours")
+    silent_end = models.TimeField(null=True, blank=True, help_text="End of silent hours")
+    receive_project_updates = models.BooleanField(default=True)
+    receive_messages = models.BooleanField(default=False)  # Default to False as required
+    receive_job_opportunities = models.BooleanField(default=True)
+    
+    
 
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
