@@ -89,3 +89,4 @@ virtualenv==20.26.4
 wcwidth==0.2.13
 yarl==1.10.0
 zope.interface==7.1.0
+psycopg2==2.9.10

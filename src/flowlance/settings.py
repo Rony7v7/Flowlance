@@ -140,11 +140,16 @@ WSGI_APPLICATION = "flowlance.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql.psycopg2',  # Motor de la base de datos
+        'NAME': 'test',          # Nombre de tu base de datos PostgreSQL
+        'USER': 'postgres',                 # Usuario de PostgreSQL
+        'PASSWORD': 'password',        # Contraseña del usuario
+        'HOST': 'localhost',                # Servidor de PostgreSQL
+        'PORT': '5432',                     # Puerto de PostgreSQL (por defecto es 5432)
     }
 }
+
 
 
 # Password validation
