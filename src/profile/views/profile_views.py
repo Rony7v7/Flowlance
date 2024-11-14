@@ -160,9 +160,15 @@ def notification_preferences(request):
         form = ProfileConfigurationForm(instance=profile_config)
 
     preview = {
+        "periodicity_of_notification_report": profile_config.periodicity_of_notification_report,
+        "notification_when_profile_visited": profile_config.notification_when_profile_visited,
+        "sending_notification_to_email": profile_config.sending_notification_to_email,
         "receive_project_updates": profile_config.receive_project_updates,
         "receive_messages": profile_config.receive_messages,
         "receive_job_opportunities": profile_config.receive_job_opportunities,
+        "silent_start": profile_config.silent_start,
+        "silent_end": profile_config.silent_end,
+        
     }
     
     return render(request, 'profile/notification_preferences.html', {'form': form, 'preview': preview})
