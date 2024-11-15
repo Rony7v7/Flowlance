@@ -7,6 +7,12 @@ from django.contrib.auth.models import User
 from flowlance.decorators import attach_profile_info
 from project.models import Project, ProjectMember
 from .models import ChatRoom, Message
+from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.core.files.storage import default_storage
+from django.conf import settings
+from django.contrib.auth.models import User
 
 @attach_profile_info
 def chat_overview(request):
@@ -46,6 +52,7 @@ def chat_room(request, project_id, member_id):
         'current_member': member.user,
     })
 
+
 @require_POST
 def soft_delete_chat(request, project_id, member_id):
     project = get_object_or_404(Project, id=project_id)
@@ -64,6 +71,7 @@ def soft_delete_chat(request, project_id, member_id):
         ).update(hidden_for_sender=True)
 
     return JsonResponse({'status': 'success'})
+
 
 @require_POST
 def delete_chat(request, project_id, member_id):
@@ -108,6 +116,7 @@ def upload_file(request):
             'message': message_text,
             'file_url': message.file.url if message.file else None
         })
+
 
 @require_POST
 def upload_message(request):
