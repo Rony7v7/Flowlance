@@ -1,9 +1,13 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
+from django.urls import reverse
 from .models import Message
 from django.contrib.auth.models import User
 from project.models import Project
+from notifications.utils import send_notification
+from django.utils.translation import gettext as _
+from notifications.models import Notification
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -36,6 +40,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         sender = await sync_to_async(User.objects.get)(id=sender_id)
         recipient = await sync_to_async(User.objects.get)(id=recipient_id)
         project = await sync_to_async(Project.objects.get)(id=project_id)
+        notification_subject = _("Nuevo Mensaje")
+        notification_body = _(f"Tiene un nuevo mensaje de {sender}: \n {message}")
+        notification_link = reverse("chat_overview")
+        send_notification(notification_subject,notification_body,notification_link,recipient,notification_type=Notification.NotificationType.MESSAGE)
 
         # Crear el mensaje en la base de datos
         await sync_to_async(Message.objects.create)(
