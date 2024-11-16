@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from project.models import Event, Project
 from profile.models import CompanyProfile, ProfileConfiguration
+from django.utils import timezone
+from datetime import datetime
 
 class AllEventsViewTest(TestCase):
     def setUp(self):
@@ -20,10 +22,19 @@ class AllEventsViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+        # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
         self.client.login(username='testuser', password='12345')
@@ -60,10 +71,19 @@ class EditEventViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+        # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
         self.client.login(username='testuser', password='12345')
@@ -106,10 +126,19 @@ class DisplayProjectViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+         # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
         self.client.login(username='testuser', password='12345')

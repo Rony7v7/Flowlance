@@ -6,12 +6,16 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from project.models import ProjectMember
 from notifications.models import Notification
 from ..models import Project, Milestone, Task, TaskDescription, Comment, TaskFile, Application
+from profile.models import CompanyProfile , ProfileConfiguration
 
 class TaskViewsTest(TestCase):
     def setUp(self):
+
+        profile_config = ProfileConfiguration.objects.create()
         # Set up the test client, create a user, and log them in
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = profile_config)
         self.client.login(username='testuser', password='12345')
 
         # Create a project for testing

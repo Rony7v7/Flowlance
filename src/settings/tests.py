@@ -33,7 +33,7 @@ class SettingsViewsTests(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(self.security_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'settings/security.html')
+        self.assertTemplateUsed(response, 'settings/security_settings.html')
         self.assertFalse(response.context['has_2FA_on'])
 
     def test_security_view_not_logged_in(self):
@@ -99,7 +99,7 @@ class CompanySettingsViewsTests(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(self.security_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'settings/security.html')
+        self.assertTemplateUsed(response, 'settings/security_settings.html')
         self.assertFalse(response.context['has_2FA_on'])
 
     def test_toggle_2fa_view_company(self):

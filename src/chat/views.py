@@ -85,7 +85,7 @@ def delete_chat(request, project_id, member_id):
             Q(sender=request.user, recipient=member.user) |
             Q(sender=member.user, recipient=request.user)
         )
-    ).delete()
+    ).update(hidden_for_sender=True)
 
     return JsonResponse({'status': 'success'})
 
