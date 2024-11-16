@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="flex w-full gap-7 items-center h-12 justify-between">
     <!-- Barra de búsqueda -->
-    <form action="/project/list/" method="GET" class="relative w-full focus:shadow-sm">
+    <form action="/project/list" method="GET" class="relative w-full focus:shadow-sm">
         <div class="flex justify-between w-full bg-white rounded-lg border-primary_lightest border px-2 hover:shadow-sm">
             <!-- Input de búsqueda -->
             <input type="search" name="search" id="default-search"
@@ -43,7 +43,7 @@
         </a>
 
         <!-- Configuración -->
-        <a href="/settings"
+        <a href="/settings/account_settings"
            class="p-2 border border-primary_lightest bg-white rounded-full hover:bg-primary_lightest hover:border-primary_medium transition duration-200 ease-in-out">
             {% include "icon/settings.html" with w="24" h="24" %}
         </a>

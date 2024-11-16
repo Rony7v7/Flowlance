@@ -1,50 +1,5 @@
 {% load i18n %}
 <div id="filter-options" class="hidden absolute top-full right-0 mt-2 w-auto bg-white shadow-lg rounded-lg border border-gray-300 z-10 flex flex-col md:flex-row gap-4 p-4">
-    
-    <!-- Filtro de categoría -->
-    <div class="relative">
-        <span class="text-gray-600 text-sm mb-1">{% translate "Categoría" %}</span>
-        <button type="button" id="category-button" class="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100">
-            {% translate "Todas" %}
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-        </button>
-
-        <!-- Opciones desplegables de categoría -->
-        <div id="category-options" class="hidden absolute top-full mt-2 md:mt-5 w-64 bg-white shadow-lg rounded-lg border border-gray-300 z-10">
-            <div class="p-4">
-                <label class="flex items-center mb-2 cursor-pointer">
-                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary_dark" checked>
-                    <span class="ml-2 text-gray-700">{% translate "Seleccionar todo" %}</span>
-                </label>
-
-                <!-- Opciones de categorías con checkbox -->
-                <div class="border-t border-gray-200 mt-2 pt-2">
-                    <label class="flex items-center mb-2 cursor-pointer">
-                        <input type="checkbox" name="category" value="web" class="form-checkbox h-4 w-4 text-primary_dark">
-                        <span class="ml-2 text-gray-700">{% translate "Programación Web" %}</span>
-                        <span class="ml-auto text-gray-500">84</span>
-                    </label>
-                    <label class="flex items-center mb-2 cursor-pointer">
-                        <input type="checkbox" name="category" value="design" class="form-checkbox h-4 w-4 text-primary_dark">
-                        <span class="ml-2 text-gray-700">{% translate "Diseño Web" %}</span>
-                        <span class="ml-auto text-gray-500"> 293 </span>
-                    </label>
-                    <label class="flex items-center mb-2 cursor-pointer">
-                        <input type="checkbox" name="category" value="data" class="form-checkbox h-4 w-4 text-primary_dark">
-                        <span class="ml-2 text-gray-700">{% translate "Data Science" %}</span>
-                        <span class="ml-auto text-gray-500"> 98</span>
-                    </label>
-                    <label class="flex items-center mb-2 cursor-pointer">
-                        <input type="checkbox" name="category" value="other" class="form-checkbox h-4 w-4 text-primary_dark">
-                        <span class="ml-2 text-gray-700">{% translate "Otros" %}</span>
-                        <span class="ml-auto text-gray-500">632</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Filtro de fecha de publicación -->
     <div class="relative">
@@ -86,14 +41,7 @@
     </div>
 </div>
 
-
 <script>
-    // Mostrar/ocultar las opciones de categoría
-    document.getElementById('category-button').addEventListener('click', function () {
-        const categoryOptions = document.getElementById('category-options');
-        categoryOptions.classList.toggle('hidden');
-    });
-    
     // Mostrar/ocultar las opciones de rango de fechas
     document.getElementById('date-range-button').addEventListener('click', function () {
         const dateRangeOptions = document.getElementById('date-range-options');
