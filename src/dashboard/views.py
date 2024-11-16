@@ -39,7 +39,7 @@ def freelancer_dashboard(request):
 
     freelancer_projects = Project.objects.filter(members=request.user).order_by('-created_at')[:5]
     freelancer_transactions = Transaction.objects.filter(freelancer=request.user, status="Success")
-    freelancer_pending_tasks = Task.objects.filter(responsible=request.user, state='pendiente') #TODO: Va a causar problemas en la traducción
+    freelancer_pending_tasks = Task.objects.filter(responsible=request.user, state='pendiente') 
 
     max_payment = freelancer_transactions.aggregate(Max('amount'))['amount__max'] or 0
     min_payment = freelancer_transactions.aggregate(Min('amount'))['amount__min'] or 0
@@ -62,7 +62,7 @@ def freelancer_dashboard(request):
     tasks_pending_count = freelancer_pending_tasks.count()
 
     for project in freelancer_projects:
-        project.pending_tasks = Task.objects.filter(responsible=request.user, milestone__project=project, state='pendiente' ).count() #TODO: Va a causar problemas en la traducción
+        project.pending_tasks = Task.objects.filter(responsible=request.user, milestone__project=project, state='pendiente' ).count() 
         project.progress = getProjectProgress(project.milestones.all(), Task.objects.filter(milestone__project=project))[0]
 
     freelancer_progress = [tasks_done_count, tasks_pending_count]
