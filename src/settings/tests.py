@@ -15,8 +15,8 @@ class SettingsViewsTests(TestCase):
             phone='1234567890',
             has_2FA_on=False
         )
-        self.settings_url = reverse('account')
-        self.security_url = reverse('security')
+        self.settings_url = reverse('account_settings')
+        self.security_url = reverse('security_settings')
         self.toggle_2fa_url = reverse('toggle_2fa')
 
     def test_settings_view(self):
@@ -92,7 +92,7 @@ class CompanySettingsViewsTests(TestCase):
             phone='1234567890',
             has_2FA_on=False
         )
-        self.security_url = reverse('security')
+        self.security_url = reverse('security_settings')
         self.toggle_2fa_url = reverse('toggle_2fa')
 
     def test_security_view_company(self):

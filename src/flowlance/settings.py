@@ -141,7 +141,7 @@ WSGI_APPLICATION = "flowlance.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql.psycopg2',  # Motor de la base de datos
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Motor de la base de datos
         'NAME': 'test',          # Nombre de tu base de datos PostgreSQL
         'USER': 'postgres',                 # Usuario de PostgreSQL
         'PASSWORD': 'password',        # Contraseña del usuario

@@ -2,12 +2,16 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from project.models import Event, Project
-from django.utils import timezone
+from profile.models import CompanyProfile, ProfileConfiguration
 
 class AllEventsViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
@@ -42,8 +46,12 @@ class AllEventsViewTest(TestCase):
 
 class EditEventViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
@@ -84,8 +92,12 @@ class EditEventViewTest(TestCase):
 
 class DisplayProjectViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
