@@ -145,12 +145,17 @@ def add_comment(request, task_id):
 @role_required(['administrator', 'member'])
 @login_required
 def add_file(request, task_id):
-    task = get_object_or_404(Task, id=task_id,is_deleted=False)
+    task = get_object_or_404(Task, id=task_id, is_deleted=False)
     project_id = task.milestone.project.id
     notification_title = _("Nueva tarea creada")
-    notifcation_link = f"/project/{project_id}/task"
+    notification_link = f"/project/{project_id}/task"
 
-    if request.method == "POST" and request.FILES.get("file"):
+    if request.method == "POST":
+        
+        if "file" not in request.FILES:
+            messages.error(request, _("Por favor, selecciona un archivo antes de subirlo."))
+            return redirect("project", project_id=project_id, section="task")
+
         file = request.FILES["file"]
 
         TaskFile.objects.create(
@@ -158,12 +163,13 @@ def add_file(request, task_id):
             file=file,
         )
 
-        notification_message = _("Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.") 
-        send_notification(notification_title,notification_message,notifcation_link,request.user,Notification.NotificationType.PROJECT)
+        notification_message = _("Has subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'.")
+        send_notification(notification_title, notification_message, notification_link, request.user, Notification.NotificationType.PROJECT)
 
         if task.responsible and task.responsible != request.user:
             notification_message = "{request.user.username} ha subido un archivo a la tarea '{task.title}' en el proyecto '{task.milestone.project.title}'."
-            send_notification(notifcation_link,notification_message,notification_title,task.responsible,Notification.NotificationType.PROJECT)
+            send_notification(notification_link, notification_message, notification_title, task.responsible, Notification.NotificationType.PROJECT)
+        
         
         return redirect("project", project_id=project_id, section="task")
 

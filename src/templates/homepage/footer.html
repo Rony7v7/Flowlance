@@ -7,10 +7,10 @@
     <div class="flex flex-col md:flex-row justify-between items-center w-full space-y-2 md:space-y-0">
         <!-- Parte superior: Enlaces -->
         <div class="flex flex-wrap justify-center space-x-4 mb-2">
-            <a href="#" class="text-blue-700 hover:underline">{% translate "Términos de servicio" %}</a>
-            <a href="#" class="text-blue-700 hover:underline">{% translate "Política de privacidad" %}</a>
-            <a href="#" class="text-blue-700 hover:underline">{% translate "Sobre nosotros" %}</a>
-            <a href="#" class="text-blue-700 hover:underline">{% translate "Configuración" %}</a>
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Términos de servicio" %}</a>
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Política de privacidad" %}</a>
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Sobre nosotros" %}</a>
+            <a href="{% url 'account_settings' %}" class="text-blue-700 hover:underline">{% translate "Configuración" %}</a>
         </div>
 
         <!-- Selector de idioma -->
@@ -37,7 +37,7 @@
 
         <!-- Aclaración de Autoría -->
         <div class="text-center w-full">
-            <p>{% translate "Aplicación desarrollada por:" %} <strong>Rony Ordoñez, David Artunduaga, Juan de la Pava, Juan Parra, Pablo Guzmán y Daniel González
+            <p>{% translate "Aplicación desarrollada por:" %} <strong>David Artunduaga, Juan de la Pava, Daniel González, Pablo Guzmán, Juan Parra y Rony Ordoñez
             </strong></p>
         </div>
 </footer>

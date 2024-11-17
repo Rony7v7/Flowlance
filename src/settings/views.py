@@ -95,3 +95,8 @@ def change_periodicity_of_notifications_reports(request):
         return redirect('security_settings')  # Redirect to an appropriate view
 
     return redirect('security_settings')
+
+
+@login_required
+def information(request):
+    return render(request, "settings/information.html")
