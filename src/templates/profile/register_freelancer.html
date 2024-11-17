@@ -121,8 +121,7 @@
         </div>
     </div>
 
-    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" data-registration-successful="{{ registration_successful|yesno:'true,false' }}">        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <div class="text-center">
                 <svg class="mx-auto h-12 w-12 text-primary_medium mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -137,30 +136,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const registrationSuccessful = {{ registration_successful|yesno:"true,false" }};
-            const modal = document.getElementById('confirmationModal');
-            const acceptButton = document.getElementById('acceptButton');
-            const uploadSuccess = document.getElementById('uploadSuccess');
-
-            if (registrationSuccessful === true) {
-                modal.classList.remove('hidden');
-            }
-
-            acceptButton.addEventListener('click', function() {
-                window.location.href = "{% url 'customize_profile' %}";
-            });
-
-            document.getElementById('id_photo').addEventListener('change', function () {
-                if (this.files.length > 0) {
-                    uploadSuccess.classList.remove('hidden');
-                    setTimeout(() => {
-                        uploadSuccess.classList.add('hidden');
-                    }, 3000);
-                }
-            });
-        });
-    </script>
+    <script src="{% static 'js/profile/register_freelancer.js' %}"></script>
 </div>
 {% endblock %}

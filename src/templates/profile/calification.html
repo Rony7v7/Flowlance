@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% load i18n %}
+{% load i18n static %}
 <div class="pt-16 pb-10 px-4 sm:px-6 lg:px-8 bg-white">
 
     <!-- Título de la página -->
@@ -115,19 +115,6 @@
     </div>
 </div>
 
-<script>
-    // Capturar los clics en los botones de estrellas y asignar el valor al campo oculto
-    document.querySelectorAll("button[id^='star-']").forEach(button => {
-        button.addEventListener('click', function() {
-            // Extraer el número de estrellas del ID del botón
-            const rating = this.id.split('-')[1];
-            // Asignar el valor al campo oculto
-            document.getElementById('selected-rating').value = rating;
-            // Cambiar el color del botón seleccionado
-            document.querySelectorAll("button[id^='star-']").forEach(btn => btn.classList.remove('bg-green-500'));
-            this.classList.add('bg-green-500');
-        });
-    });
-</script>
+<script src="{% static 'js/profile/calification.js' %}"></script>
 
 {% endblock %}

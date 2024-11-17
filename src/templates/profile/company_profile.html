@@ -1,5 +1,5 @@
 {% extends "navigation/navigation.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block app_content %}
 <div class="flex flex-col items-center justify-center w-full h-full px-8">
 
@@ -142,14 +142,6 @@
 </div>
 
 
-<script>
-    document.getElementById('editProfileButton').addEventListener('click', function() {
-        document.getElementById('editProfileModal').classList.remove('hidden');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('editProfileModal').classList.add('hidden');
-    });
-</script>
+<script src="{% static 'js/profile/company_profile.js' %}"></script>
 
 {% endblock %}
