@@ -75,30 +75,38 @@
 
 </div>
 
-<!-- SECTION 3 - SUCCESS ANALISIS -->
-<div class="w-full md:flex-1 flex flex-col overflow-hidden">
-    <div class="flex justify-between items-center mb-2">
-        <p class="text-lg font-bold text-primary_black"> {% translate "Análisis de éxito" %} </p>
-    </div>
-    <div class="bg-bg_gray rounded-lg flex-1 overflow-y-auto">
-        <div class="flex flex-col gap-4 p-4 rounded-lg h-full">
-
-        </div>
-    </div>
-</div>
-
-<!-- SECTION 4 - FINANCE -->
+<!-- SECTION 3 - FINANCE -->
 <div class="flex flex-col gap-2">
 
     <div class="flex justify-between items-center">
         <p class="text-lg font-bold text-primary_black"> {% translate "Estado Financiero" %} </p>
     </div>
 
-    <div class="bg-bg_gray rounded-lg h-96 gap-4 p-4 flex flex-col">
+    <div class="bg-bg_gray rounded-lg min-h-96 gap-4 p-4 flex flex-col">
 
         <!-- SECTION 3.1 - BALANCE -->
         <div class="bg-bg_white rounded-lg flex-1 p-3">
             <p>{% translate "Balance General" %}</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <!-- MAX -->
+                <div class="bg-white border border-gray-200 rounded-md shadow-sm p-4 text-center">
+                    <h3 class="text-lg font-semibold text-gray-700">{% translate "Pago Máximo" %}</h3>
+                    <p class="text-2xl font-bold text-green-600 mt-2">${{ max_payment }}</p>
+                </div>
+            
+                <!-- MIN -->
+                <div class="bg-white border border-gray-200 rounded-md shadow-sm p-4 text-center">
+                    <h3 class="text-lg font-semibold text-gray-700">{% translate "Pago Mínimo" %}</h3>
+                    <p class="text-2xl font-bold text-red-600 mt-2">${{ min_payment }}</p>
+                </div>
+            
+                <!-- AVG -->
+                <div class="bg-white border border-gray-200 rounded-md shadow-sm p-4 text-center">
+                    <h3 class="text-lg font-semibold text-gray-700">{% translate "Pago Promedio" %}</h3>
+                    <p class="text-2xl font-bold text-primary_medium mt-2">${{ avg_payment }}</p>
+                </div>
+            </div>
         </div>
 
         <!-- SECTION 3.2 - LAST TRANSACTIONS / PENDING PAYMENTS -->
@@ -109,34 +117,62 @@
                 <p>{% translate "Últimos Movimientos" %}</p>
 
                 <div>
-                    {% for transaction in last_transactions %}
-                        {% include 'projects/transaction_card.html' %}
-                    {% empty %}
-                        <p class="text-gray-500 text-center w-full"> {% translate "No hay movimientos recientes." %} </p>
-                    {% endfor %}
+                    <table class="min-w-full bg-white rounded-md shadow mt-4 border border-gray-200">
+                        <thead class="bg-gray-100 text-gray-600 text-sm">
+                            <tr>
+                                <th class="py-2 px-4 text-left font-medium">{% translate "ID" %}</th>
+                                <th class="py-2 px-4 text-left font-medium">{% translate "Fecha" %}</th>
+                                <th class="py-2 px-4 text-left font-medium">{% translate "Monto" %}</th>
+                                <th class="py-2 px-4 text-left font-medium">{% translate "Estado" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for transaction in last_10_transactions %}
+                            <tr class="border-t hover:bg-gray-50">
+                                <td class="py-2 px-4 text-sm">{{ transaction.transaction_id }}</td>
+                                <td class="py-2 px-4 text-sm">{{ transaction.created_at|date:"d/m/Y" }}</td>
+                                <td class="py-2 px-4 text-sm">${{ transaction.amount }}</td>
+                                <td class="py-2 px-4 text-sm">
+                                    {% if transaction.status == "Success" %}
+                                        <span class="text-green-600">✓</span>
+                                    {% elif transaction.status == "Pending" %}
+                                        <span class="text-yellow-500">⏳</span>
+                                    {% else %}
+                                        <span class="text-red-600">✗</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-sm text-gray-500">{% translate "Sin transacciones." %}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
 
-            <!-- SECTION 3.2.2 - PENDING PAYMENTS -->
+            <!-- SECTION 3.2.2 - PAYMENTS BY FREELANCERS -->
             <div class="flex-1 bg-bg_white p-3 rounded-lg">
-                <p>{%translate "Pagos Pendientes"%}</p>
+                <p>{%translate "Pagos Acumulados a Freelancers"%}</p>
 
-                <div>
-                    {% for payment in pending_payments %}
-                        {% include 'projects/payment_card.html' %}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                    {% for payment in payments_by_freelancer %}
+                    <div class="bg-white border border-gray-200 rounded-md shadow-sm p-4 flex flex-col items-center text-center">
+                        <h3 class="text-lg font-semibold text-gray-700">{{ payment.freelancer__username }}</h3>
+                        <p class="text-sm text-gray-500 mt-1">{% translate "Total pagado:" %}</p>
+                        <p class="text-xl font-bold text-primary_medium">${{ payment.total_paid }}</p>
+                    </div>
                     {% empty %}
-                        <p class="text-gray-500 text-center w-full"> {% translate "No hay pagos pendientes." %} </p>
+                    <p class="text-gray-500 text-center w-full col-span-full">{% translate "No se han realizado pagos aún." %}</p>
                     {% endfor %}
                 </div>
-
             </div>
+            
 
         </div>
 
     </div>
 </div>
-
-
-
 {% endblock %}
