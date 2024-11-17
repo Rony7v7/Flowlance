@@ -110,6 +110,7 @@ def generate_freelancer_context(profile):
         'projects': projects,
         'courses': courses,
         'ratings': ratings,
+        'profile': profile,
     }
 
     return context
