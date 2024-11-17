@@ -1,11 +1,11 @@
 # urls.py
 from django.urls import path
-from .views import project_views , milestone_views , task_views , assigment_views, members_views
+from .views import project_views , milestone_views , task_views , assigment_views, members_views,calendar_views
 
 urlpatterns = [
     path('', project_views.project_list_availableFreelancer, name='project_list'),
     path("create/", project_views.create_project, name="create_project"),
-    path("list/", project_views.project_list, name="list_projects"),# David changed this line from views.lists_projects to views.project_list because that does not exist in views.py
+    path("list/", project_views.project_list_search, name="list_projects"),# David changed this line from views.lists_projects to views.project_list because that does not exist in views.py
     path("list/", project_views.project_list_availableFreelancer, name="available_projectsFreelancer"), 
     path("my_projects/", project_views.project_list, name="my_projects"), 
     
@@ -30,7 +30,6 @@ urlpatterns = [
     path('task/<int:task_id>/add-comment/', task_views.add_comment, name='add_comment'),
     path("task/create/<int:project_id>",task_views.create_task,name="create_task"),
     path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
-    path('task/update_state/<int:task_id>/', task_views.update_task_state, name='update_task_state'),
     path('description/<int:description_id>/edit/', task_views.edit_description, name='edit_description'),
     
     # Assignments
@@ -54,5 +53,10 @@ urlpatterns = [
     path('<int:project_id>/updates', project_views.add_project_update, name='project_updates'), 
     path('project/<int:project_id>/updates/add/', project_views.add_project_update, name='add_project_update'),
     path('project/<int:update_id>/add_comment/', project_views.add_comment, name='add_comments'),
+
+    
+    #Calendar
+    path('all_events/', calendar_views.all_events, name='all_events'),
+    path('edit_event/<int:event_id>/', calendar_views.edit_event, name='edit_event'),
 ]
 

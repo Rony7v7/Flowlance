@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.utils.timezone import localtime
 
 from project.forms import EventForm
 from ..models import Event
@@ -25,8 +26,8 @@ def all_events(request):
         events.append({
             'title': event.name,
             'id': event.id,
-            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),
-            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),
+            'start': localtime(event.start).strftime("%m/%d/%Y, %H:%M:%S"),
+            'end': localtime(event.end).strftime("%m/%d/%Y, %H:%M:%S"),
         })
     return JsonResponse(events, safe=False)
 

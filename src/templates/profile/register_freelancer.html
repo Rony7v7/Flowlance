@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_email">{% translate "Correo Electrónico" %}</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_email">{% translate "Correo Electrónico (Asociado a su cuenta de Gmail si desea la vinculación con google)" %}</label>
                     <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Correo Electrónico' %}" required>

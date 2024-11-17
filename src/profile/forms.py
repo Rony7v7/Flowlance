@@ -4,6 +4,26 @@ from django.contrib.auth.models import User
 from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course , ProfileConfiguration
 from django.db import IntegrityError
 from django.utils.translation import gettext as _, gettext_lazy as __
+from .models import ProfileConfiguration
+
+class ProfileConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = ProfileConfiguration
+        fields = ['notification_when_profile_visited', 'sending_notification_to_email', 'periodicity_of_notification_report', 'silent_start', 'silent_end', 'receive_project_updates', 'receive_messages', 'receive_job_opportunities']
+        widgets = {
+            'silent_start': forms.TimeInput(attrs={'type': 'time'}),
+            'silent_end': forms.TimeInput(attrs={'type': 'time'}),
+        }
+        labels = {
+            'notification_when_profile_visited': _('Notificar cuando visitan mi perfil'),
+            'sending_notification_to_email': _('Enviar notificaciones al correo electrónico'),
+            'periodicity_of_notification_report': _('Periodicidad del informe de notificaciones'),
+            'silent_start': _('Inicio de horas silenciosas'),
+            'silent_end': _('Fin de horas silenciosas'),
+            'receive_project_updates': _('Recibir actualizaciones de proyectos'),
+            'receive_messages': _('Recibir mensajes'),
+            'receive_job_opportunities': _('Recibir oportunidades de trabajo'),
+        }
 
 
 class AddCourseForm(forms.ModelForm):

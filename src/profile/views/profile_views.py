@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from ..models import CompanyProfile, Portfolio, Rating
 from django.contrib import messages
-from ..forms import CompanyProfileForm
+from ..forms import CompanyProfileForm, ProfileConfigurationForm
 from notifications.utils import send_notification
+from ..models import ProfileConfiguration
 from django.utils.translation import gettext as _
 from datetime import datetime
 
@@ -113,12 +114,98 @@ def generate_freelancer_context(profile):
 
     return context
 
+@login_required
+@attach_profile_info
+def notifications(request):
+    notifications = request.user.notifications.filter(is_deleted=False)
+    return render(request, 'profile/notifications.html', {'notifications': notifications, 'section': 'notifications'})
 
 @login_required
-def notifications(request):
-    notifications = request.user.notifications.filter(is_read=False)
-    return render(request, 'profile/notifications.html', {'notifications': notifications})
+@attach_profile_info
+def notification_preferences(request):
+    # Get the user's profile and profile configuration
+    try:
+        # Assuming users can have either a FreelancerProfile or CompanyProfile
+        if hasattr(request.user, 'freelancerprofile'):
+            profile = request.user.freelancerprofile
+        elif hasattr(request.user, 'companyprofile'):
+            profile = request.user.companyprofile
+        else:
+            # If neither profile exists, redirect or raise an error
+            messages.error(request, "Profile not found.")
+            return redirect('home')
 
+        # Get or create the ProfileConfiguration associated with the profile
+        profile_config, created = ProfileConfiguration.objects.get_or_create(
+            id=profile.profileconfiguration.id if profile.profileconfiguration else None,
+            defaults={'notification_when_profile_visited': True}
+        )
+        if created:
+            profile.profileconfiguration = profile_config
+            profile.save()
+
+    except ProfileConfiguration.DoesNotExist:
+        messages.error(request, "Unable to access notification preferences.")
+        #! Redirect to home or another page
+        return redirect('home')
+
+    # Handle form submission
+    if request.method == 'POST':
+        form = ProfileConfigurationForm(request.POST, instance=profile_config)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Preferences updated successfully.')
+            return redirect('notification_preferences')
+    else:
+        form = ProfileConfigurationForm(instance=profile_config)
+
+    preview = {
+        "periodicity_of_notification_report": profile_config.periodicity_of_notification_report,
+        "notification_when_profile_visited": profile_config.notification_when_profile_visited,
+        "sending_notification_to_email": profile_config.sending_notification_to_email,
+        "receive_project_updates": profile_config.receive_project_updates,
+        "receive_messages": profile_config.receive_messages,
+        "receive_job_opportunities": profile_config.receive_job_opportunities,
+        "silent_start": profile_config.silent_start,
+        "silent_end": profile_config.silent_end,
+        
+    }
+    
+    return render(request, 'profile/notification_preferences.html', {'form': form, 'preview': preview})
+@login_required
+@attach_profile_info
+def reset_notification_preferences(request):
+    try:
+        # Check if the user has either a FreelancerProfile or CompanyProfile
+        if hasattr(request.user, 'freelancerprofile'):
+            profile = request.user.freelancerprofile
+        elif hasattr(request.user, 'companyprofile'):
+            profile = request.user.companyprofile
+        else:
+            messages.error(request, "Profile not found.")
+            #! Redirect to home or another page
+            return redirect('home')
+
+        # Get the ProfileConfiguration associated with the profile
+        profile_config = profile.profileconfiguration
+        if not profile_config:
+            messages.error(request, "Notification preferences not found.")
+            return redirect('notification_preferences')
+
+        # Reset the preferences
+        profile_config.receive_project_updates = True
+        profile_config.receive_messages = False
+        profile_config.receive_job_opportunities = True
+        profile_config.silent_start = None
+        profile_config.silent_end = None
+        profile_config.save()
+        
+        messages.success(request, 'Preferences reset to default values.')
+
+    except ProfileConfiguration.DoesNotExist:
+        messages.error(request, "Unable to reset preferences.")
+    
+    return redirect('notification_preferences')
 
 @login_required
 def update_company_profile(request):

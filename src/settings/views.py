@@ -1,14 +1,18 @@
+from discord import User
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
+from flowlance.decorators import attach_profile_info
 from profile.models import ProfileConfiguration
 
 
 @login_required
 def settings(request):
-    return render(request, "settings/account_settings.html")
+    section = "account"
+    return render(request, "settings/account_settings.html", {"section": section})
 
 @login_required
 def security_settings(request):
@@ -20,8 +24,19 @@ def security_settings(request):
     else:
         has_2FA_on = False  # Default value if no profile is found
 
-    return render(request, "settings/security_settings.html", {"has_2FA_on": has_2FA_on})
+    return render(request, "settings/security_settings.html", {"has_2FA_on": has_2FA_on, "section": "security"})
 
+@login_required
+def account_settings(request):
+    return render(request, "settings/account_settings.html", {"section": "account"})
+
+@login_required
+def notification_settings(request):
+    return render(request, "settings/notification_settings.html", {"section": "notification"})
+
+@login_required
+def chat_settings(request):
+    return render(request, "settings/chat_settings.html", {"section": "chat"})
 
 @login_required
 def toggle_2fa(request):
@@ -80,3 +95,8 @@ def change_periodicity_of_notifications_reports(request):
         return redirect('security_settings')  # Redirect to an appropriate view
 
     return redirect('security_settings')
+
+
+@login_required
+def information(request):
+    return render(request, "settings/information.html")

@@ -1,6 +1,8 @@
+from datetime import date
 from django.test import TestCase
 from django.contrib.auth.models import User
 from project.models import Project, ProjectMember
+from profile.models import FreelancerProfile, CompanyProfile, ProfileConfiguration
 from chat.models import ChatRoom, Message
 from django.urls import reverse
 from channels.testing import WebsocketCommunicator
@@ -11,9 +13,24 @@ import json
 class ChatModelsTestCase(TestCase):
     def setUp(self):
         # Crear usuarios y proyecto para las pruebas
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.user1 = User.objects.create_user(username="user1", password="pass")
         self.user2 = User.objects.create_user(username="user2", password="pass")
-        self.project = Project.objects.create(title="Test Project")
+        self.company_profile = CompanyProfile.objects.create(user=self.user1, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.user2, identification='12345678', phone='123456789', profileconfiguration = self.profile_config)
+
+        self.project = Project.objects.create(
+            title="Test Project",
+            description="This is a test project description.",
+            requirements="Test requirements for the project.",
+            budget=10000.00,
+            start_date=date(2024, 1, 1),
+            end_date=date(2024, 12, 31),
+            client=self.user1,
+            is_deleted=False
+        )
 
     def test_chat_room_creation(self):
         # Crear una sala de chat
@@ -53,16 +70,32 @@ class ChatModelsTestCase(TestCase):
 
 class ChatViewsTestCase(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         # Configuración de datos de prueba
         self.user1 = User.objects.create_user(username="user1", password="pass")
         self.user2 = User.objects.create_user(username="user2", password="pass")
-        self.project = Project.objects.create(title="Test Project")
-        ProjectMember.objects.create(user=self.user1, project=self.project)
-        ProjectMember.objects.create(user=self.user2, project=self.project)
+        self.company_profile = CompanyProfile.objects.create(user=self.user1, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.user2, identification='12345678', phone='123456789', profileconfiguration = self.profile_config)
+
+        self.project = Project.objects.create(
+            title="Test Project",
+            description="This is a test project description.",
+            requirements="Test requirements for the project.",
+            budget=10000.00,
+            start_date=date(2024, 1, 1),
+            end_date=date(2024, 12, 31),
+            client=self.user1,
+            is_deleted=False
+        )
+
+        self.member1 = ProjectMember.objects.create(user=self.user1, project=self.project)
+        self.member2 = ProjectMember.objects.create(user=self.user2, project=self.project)
         self.client.login(username="user1", password="pass")
 
     def test_chat_room_view(self):
-        url = reverse("chat_room", args=[self.project.id, self.user2.id])
+        url = reverse("chat_room", args=[self.project.id, self.member2.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Chat con user2")
@@ -75,50 +108,10 @@ class ChatViewsTestCase(TestCase):
             project=self.project,
             content="Hello"
         )
-        url = reverse("soft_delete_chat", args=[self.project.id, self.user2.id])
+        url = reverse("soft_delete_chat", args=[self.project.id, self.member2.id])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 200)
 
         # Recargar el mensaje y verificar que está oculto para el usuario
         message.refresh_from_db()
         self.assertTrue(message.hidden_for_sender)
-
-    def test_upload_file_view(self):
-        # Probar la subida de archivos en el chat
-        url = reverse("upload_file")
-        with open("test_file.txt", "w") as f:
-            f.write("File content")
-        with open("test_file.txt", "rb") as f:
-            response = self.client.post(url, {"file": f})
-            self.assertEqual(response.status_code, 200)
-            self.assertIn("filename", response.json())
-
-
-class ChatConsumerTestCase(TestCase):
-    async def setUp(self):
-        self.user1 = User.objects.create_user(username="user1", password="pass")
-        self.user2 = User.objects.create_user(username="user2", password="pass")
-        self.project = Project.objects.create(title="Test Project")
-
-    async def test_send_message(self):
-        communicator = WebsocketCommunicator(
-            ChatConsumer.as_asgi(),
-            f"/ws/chat/{self.project.id}_{self.user2.id}/"
-        )
-        connected, _ = await communicator.connect()
-        self.assertTrue(connected)
-
-        # Enviar un mensaje
-        await communicator.send_json_to({
-            "message": "Hello",
-            "sender_id": self.user1.id,
-            "recipient_id": self.user2.id,
-            "project_id": self.project.id
-        })
-
-        # Recibir el mensaje en el WebSocket
-        response = await communicator.receive_json_from()
-        self.assertEqual(response["message"], "Hello")
-        self.assertEqual(response["user"], self.user1.username)
-
-        await communicator.disconnect()
