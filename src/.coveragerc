@@ -1,0 +1,15 @@
+[run]
+branch = True
+
+[report]
+show_missing = False
+skip_covered = False
+omit = 
+    */chat/consumers.py
+    */chat/views.py
+    */notifications/views.py
+    */profile/views/calification_views.py
+    */profile/views/data_views.py
+    */user/adapters.py
+    */user/views.py
+    */project/views/project_views.py 

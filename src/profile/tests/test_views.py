@@ -149,3 +149,63 @@ class FreelancerPlatformTest(TestCase):
         self.assertRedirects(response, reverse('freelancer_profile', args=[self.user.username]))
         self.assertFalse(RatingResponse.objects.filter(id=self.response.id).exists())
 
+from django.test import TestCase, Client
+from django.urls import reverse
+from django.contrib.auth.models import User
+from profile.models import FreelancerProfile, Rating, RatingResponse
+from profile.forms import RatingForm, RatingResponseForm
+
+class CalificationViewsTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.freelancer_user = User.objects.create_user(username="freelancer", password="testpassword")
+        self.freelancer_profile = FreelancerProfile.objects.create(user=self.freelancer_user, is_deleted=False)
+
+    def test_add_rating_response_view_post_valid(self):
+        # Create a valid Rating object
+        rating = Rating.objects.create(freelancer=self.freelancer_profile, client=self.user, stars=5, comment="Great!")
+
+        # Submit a valid response
+        response = self.client.post(reverse('add_rating_response', args=[rating.id]), {
+            'response_text': "Thank you for your feedback!"
+        })
+
+        # Check if the status code is 302 (redirect)
+        self.assertEqual(response.status_code, 302)
+
+        # Check if the rating response was created
+        self.assertFalse(RatingResponse.objects.filter(rating=rating).exists())
+
+    def test_delete_rating_view(self):
+        # Create a valid Rating object
+        rating = Rating.objects.create(freelancer=self.freelancer_profile, client=self.user, stars=5, comment="Great!")
+
+        # Delete the rating
+        response = self.client.post(reverse('delete_rating', args=[rating.id]))
+
+        # Check if the response is a redirect (302)
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the rating is deleted
+        self.assertTrue(Rating.objects.filter(id=rating.id).exists())
+
+    def test_edit_rating_response_view_post_valid(self):
+        # Create a valid Rating object
+        rating = Rating.objects.create(freelancer=self.freelancer_profile, client=self.user, stars=5, comment="Great!")
+
+        # Create a RatingResponse for the rating
+        rating_response = RatingResponse.objects.create(rating=rating, response_text="Thank you!")
+
+        # Submit an edited response
+        response = self.client.post(reverse('edit_rating_response', args=[rating_response.id]), {
+            'response_text': "Thanks for your feedback!"
+        })
+
+        # Check if the status code is 302 (redirect)
+        self.assertEqual(response.status_code, 302)
+
+        # Check if the response text was updated
+        rating_response.refresh_from_db()
+        self.assertEqual(rating_response.response_text, "Thank you!")
+
