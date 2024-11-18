@@ -226,6 +226,7 @@ class RatingResponseForm(forms.ModelForm):
         fields = ['response_text']
 
 class FreelancerRegisterForm(UserCreationForm):
+    full_name = forms.CharField(max_length=100, required=True, label=_('Nombre Completo'))
     identification = forms.CharField(max_length=20, required=True, label=_('ID de Identificación'))
     phone = forms.CharField(max_length=15, required=True, label=_('Teléfono'))
     photo = forms.ImageField(required=False, label=_('Foto de Perfil'))
@@ -268,6 +269,7 @@ class FreelancerRegisterForm(UserCreationForm):
                 profile_config = ProfileConfiguration.objects.create()
                 freelancer_profile = FreelancerProfile.objects.create(
                     user=user,
+                    full_name=self.cleaned_data['full_name'], 
                     identification=self.cleaned_data['identification'],
                     phone=self.cleaned_data['phone'],
                     photo=self.cleaned_data.get('photo'),

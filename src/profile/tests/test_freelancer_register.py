@@ -13,12 +13,14 @@ class FreelancerRegisterFormTest(TestCase):
             'password2': 'securePassword123!',
             'identification': '1234567890',
             'phone': '3001234567',
+            'full_name': 'Freelancer Test',  # Agregar el nuevo campo
         }
         form = FreelancerRegisterForm(data)
         self.assertTrue(form.is_valid())
         user = form.save()
         freelancer_profile = FreelancerProfile.objects.get(user=user)
         self.assertEqual(freelancer_profile.identification, '1234567890')
+
 
     def test_freelancer_registration_duplicate_email(self):
         User.objects.create_user(username='existing_user', email='existing@example.com', password='securePassword123!')

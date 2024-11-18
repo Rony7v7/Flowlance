@@ -17,10 +17,12 @@ class RegisterViewTest(TestCase):
             'password2': 'securePassword123!',
             'identification': '1234567890',
             'phone': '3001234567',
+            'full_name': 'Freelancer Test',  # Agregar el nuevo campo
         }
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(User.objects.filter(username='freelancer_test').exists())
+
 
     def test_company_registration_view(self):
         url = reverse('register_company')

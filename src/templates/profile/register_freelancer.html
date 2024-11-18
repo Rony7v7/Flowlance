@@ -18,15 +18,26 @@
                 {{ form.non_field_errors }}
 
                 <div class="max-w-2xl mx-auto">
-                    <label class="block text-sm font-medium text-gray-700" for="id_username">{% translate "Nombre completo" %}</label>
+                    <label class="block text-sm font-medium text-gray-700" for="id_username">{% translate "Nombre de usuario" %}</label>
                     <input type="text" name="username" id="id_username"
                         value="{{ form.username.value|default_if_none:'' }}"
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Nombre completo' %}" required>
                     {% if form.username.errors %}
-                    <div class="text-red-500 text-sm">{{ form.username.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.username.errors.0 }}</div>
                     {% endif %}
                 </div>
+
+                <div class="max-w-2xl mx-auto">
+                    <label class="block text-sm font-medium text-gray-700" for="id_full_name">{% translate "Nombre completo" %}</label>
+                    <input type="text" name="full_name" id="id_full_name"
+                        value="{{ form.full_name.value|default_if_none:'' }}"
+                        class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
+                        placeholder="{% translate 'Nombre completo' %}" required>
+                    {% if form.full_name.errors %}
+                        <div class="text-red-500 text-sm">{{ form.full_name.errors.0 }}</div>
+                    {% endif %}
+                </div> 
 
                 <div class="max-w-2xl mx-auto">
                     <label class="block text-sm font-medium text-gray-700" for="id_identification">{% translate "Número de identificación (CC)" %}</label>
@@ -35,7 +46,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Número de identificación' %}" required>
                     {% if form.identification.errors %}
-                    <div class="text-red-500 text-sm">{{ form.identification.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.identification.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -45,7 +56,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Número de teléfono' %}" required>
                     {% if form.phone.errors %}
-                    <div class="text-red-500 text-sm">{{ form.phone.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.phone.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -55,7 +66,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Correo Electrónico' %}" required>
                     {% if form.email.errors %}
-                    <div class="text-red-500 text-sm">{{ form.email.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.email.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -65,7 +76,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Contraseña' %}" required>
                     {% if form.password1.errors %}
-                    <div class="text-red-500 text-sm">{{ form.password1.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.password1.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -75,7 +86,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 focus:ring-primary_medium focus:border-primary_medium"
                         placeholder="{% translate 'Confirmar Contraseña' %}" required>
                     {% if form.password2.errors %}
-                    <div class="text-red-500 text-sm">{{ form.password2.errors.0 }}</div>
+                        <div class="text-red-500 text-sm">{{ form.password2.errors.0 }}</div>
                     {% endif %}
                 </div>
 

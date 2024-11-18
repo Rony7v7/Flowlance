@@ -34,6 +34,7 @@ class ProfileConfiguration(models.Model):
 
 class FreelancerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100, blank=False, null=False)
     identification = models.CharField(max_length=20, unique=True)
     phone = models.CharField(max_length=15)
     photo = models.ImageField(upload_to='freelancers/', blank=True, null=True)
