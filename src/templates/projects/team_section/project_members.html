@@ -81,7 +81,19 @@
                                     {% endif %}
                                 </span>
                             </button>
+                            {% if not member.is_owner and user_is_admin %}
+                                <!-- Botón de Pago -->
+                                <a href="{% url 'payment_process' member.id %}" 
+                                class="flex items-center px-3 py-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                title="{% translate 'Pagar al freelancer' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5v14" />
+                                </svg>
+                                <span class="hidden md:inline">{% translate "Pagar" %}</span>
+                            </a>
+                            {% endif %}
                         {% endif %}
+
                     </div>
                 </td>
 
