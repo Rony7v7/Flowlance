@@ -8,7 +8,7 @@ from notifications.utils import send_notification
 from ..models import ProfileConfiguration
 from django.utils.translation import gettext as _
 from datetime import datetime
-
+from django.db.models import Q
 from flowlance.decorators import attach_profile_info, client_required
 from django.contrib.auth.models import User
 
@@ -119,6 +119,25 @@ def generate_freelancer_context(profile):
 @attach_profile_info
 def notifications(request):
     notifications = request.user.notifications.filter(is_deleted=False)
+
+      # Apply filtering by type
+    filter_type = request.GET.get('filter', '')
+    if filter_type:
+        notifications = notifications.filter(notification_type=filter_type)
+
+    # Apply search query
+    search_query = request.GET.get('q', '')
+    if search_query:
+        notifications = notifications.filter(
+            Q(title__icontains=search_query) | Q(message__icontains=search_query)
+        )
+
+    context = {
+        'notifications': notifications,
+        'filter_type': filter_type,
+        'search_query': search_query,
+        'section': 'notifications',
+    }
     return render(request, 'profile/notifications.html', {'notifications': notifications, 'section': 'notifications'})
 
 @login_required

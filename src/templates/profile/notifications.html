@@ -6,6 +6,34 @@
     <!-- Título -->
     <h1 class="text-primary_black text-3xl font-bold text-center mb-4">{% translate "Notificaciones" %}</h1>
 
+    <<form method="GET" class="mb-4 flex flex-col gap-2">
+    <!-- Search Bar -->
+    <label for="q" class="block text-sm font-medium text-gray-700">{% translate "Buscar" %}</label>
+    <input
+        id="q"
+        name="q"
+        type="text"
+        value="{{ search_query }}"
+        placeholder="{% translate 'Buscar notificaciones...' %}"
+        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+    />
+
+    <!-- Filter Dropdown -->
+    <label for="filter" class="block text-sm font-medium text-gray-700">{% translate "Filtrar por tipo" %}</label>
+    <select id="filter" name="filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+        <option value="" {% if not filter_type %}selected{% endif %}>{% translate "Todos" %}</option>
+        <option value="MJ" {% if filter_type == 'MJ' %}selected{% endif %}>{% translate "Mensajes Nuevos" %}</option>
+        <option value="PY" {% if filter_type == 'PY' %}selected{% endif %}>{% translate "Actualizaciones de Proyectos" %}</option>
+        <option value="PG" {% if filter_type == 'PG' %}selected{% endif %}>{% translate "Oportunidades de Trabajo" %}</option>
+    </select>
+
+    <!-- Submit Button -->
+    <button type="submit" class="mt-2 px-4 py-2 bg-primary text-white rounded-md">
+        {% translate "Aplicar" %}
+    </button>
+</form>
+
+
     <!-- Sección de Lista de Notificaciones -->
     <div class="bg-primary_lightest/25 p-6 rounded-lg shadow min-h-[70vh]">
         <div class="flex flex-col gap-6">
