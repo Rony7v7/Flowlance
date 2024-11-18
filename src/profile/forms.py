@@ -1,9 +1,29 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course
+from .models import Rating, RatingResponse, Skill, FreelancerProfile, CompanyProfile, WorkExperience, CurriculumVitae, PortfolioProject, Course , ProfileConfiguration
 from django.db import IntegrityError
 from django.utils.translation import gettext as _, gettext_lazy as __
+from .models import ProfileConfiguration
+
+class ProfileConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = ProfileConfiguration
+        fields = ['notification_when_profile_visited', 'sending_notification_to_email', 'periodicity_of_notification_report', 'silent_start', 'silent_end', 'receive_project_updates', 'receive_messages', 'receive_job_opportunities']
+        widgets = {
+            'silent_start': forms.TimeInput(attrs={'type': 'time'}),
+            'silent_end': forms.TimeInput(attrs={'type': 'time'}),
+        }
+        labels = {
+            'notification_when_profile_visited': _('Notificar cuando visitan mi perfil'),
+            'sending_notification_to_email': _('Enviar notificaciones al correo electrónico'),
+            'periodicity_of_notification_report': _('Periodicidad del informe de notificaciones'),
+            'silent_start': _('Inicio de horas silenciosas'),
+            'silent_end': _('Fin de horas silenciosas'),
+            'receive_project_updates': _('Recibir actualizaciones de proyectos'),
+            'receive_messages': _('Recibir mensajes'),
+            'receive_job_opportunities': _('Recibir oportunidades de trabajo'),
+        }
 
 
 class AddCourseForm(forms.ModelForm):
@@ -206,6 +226,7 @@ class RatingResponseForm(forms.ModelForm):
         fields = ['response_text']
 
 class FreelancerRegisterForm(UserCreationForm):
+    full_name = forms.CharField(max_length=100, required=True, label=_('Nombre Completo'))
     identification = forms.CharField(max_length=20, required=True, label=_('ID de Identificación'))
     phone = forms.CharField(max_length=15, required=True, label=_('Teléfono'))
     photo = forms.ImageField(required=False, label=_('Foto de Perfil'))
@@ -244,11 +265,15 @@ class FreelancerRegisterForm(UserCreationForm):
         if commit:
             user.save()
             try:
-                FreelancerProfile.objects.create(
+
+                profile_config = ProfileConfiguration.objects.create()
+                freelancer_profile = FreelancerProfile.objects.create(
                     user=user,
+                    full_name=self.cleaned_data['full_name'], 
                     identification=self.cleaned_data['identification'],
                     phone=self.cleaned_data['phone'],
-                    photo=self.cleaned_data.get('photo')
+                    photo=self.cleaned_data.get('photo'),
+                    profileconfiguration = profile_config
                 )
             except IntegrityError as e:
                 if 'unique constraint' in str(e).lower() and 'identification' in str(e).lower():
@@ -302,6 +327,7 @@ class CompanyRegisterForm(UserCreationForm):
         user = super().save(commit=False)
         try:
             if commit:
+                profile_config = ProfileConfiguration.objects.create()
                 user.save()
                 CompanyProfile.objects.create(
                     user=user,
@@ -313,7 +339,8 @@ class CompanyRegisterForm(UserCreationForm):
                     address=self.cleaned_data['address'],
                     legal_representative=self.cleaned_data['legal_representative'],
                     phone=self.cleaned_data['phone'],
-                    photo=self.cleaned_data.get('photo')
+                    photo=self.cleaned_data.get('photo'),
+                    profileconfiguration = profile_config
                 )
         except IntegrityError as e:
             if 'unique constraint' in str(e).lower() and 'nit' in str(e).lower():

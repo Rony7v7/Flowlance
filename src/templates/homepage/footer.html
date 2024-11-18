@@ -1,31 +1,43 @@
 {% load i18n %}
 
 <!-- Pie de página -->
-<div class="flex justify-between p-4 bg-gray-50 border-t border-gray-200 w-full">
-    <!-- Parte izquierda: Enlaces -->
-    <div class="space-x-4">
-        <a href="#" class="text-blue-700 hover:underline">{% translate "Términos de servicio" %}</a>
-        <a href="#" class="text-blue-700 hover:underline">{% translate "Política de privacidad" %}</a>
-        <a href="#" class="text-blue-700 hover:underline">{% translate "Sobre nosotros" %}</a>
-        <a href="#" class="text-blue-700 hover:underline">{% translate "Configuración" %}</a>
+<footer class="flex flex-col items-center justify-between p-4 bg-gray-50 border-t border-gray-200 w-full mt-auto text-sm text-gray-600">
+
+    <!-- Parte inferior: Autores y selector de idioma -->
+    <div class="flex flex-col md:flex-row justify-between items-center w-full space-y-2 md:space-y-0">
+        <!-- Parte superior: Enlaces -->
+        <div class="flex flex-wrap justify-center space-x-4 mb-2">
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Términos de servicio" %}</a>
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Política de privacidad" %}</a>
+            <a href="{% url 'information' %}" class="text-blue-700 hover:underline">{% translate "Sobre nosotros" %}</a>
+            <a href="{% url 'account_settings' %}" class="text-blue-700 hover:underline">{% translate "Configuración" %}</a>
+        </div>
+
+        <!-- Selector de idioma -->
+        <div class="flex items-center space-x-2">
+            <form action="{% url 'set_language' %}" method="post" class="flex items-center">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language" class="border border-gray-300 bg-gray-50 text-blue-700 rounded-md p-1 focus:outline-none">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="bg-blue-700 text-white py-1 px-3 rounded-md hover:bg-blue-800 transition-colors ml-2">
+                    {% translate "Cambiar" %}
+                </button>
+            </form>
+        </div>
     </div>
 
-    <!-- Parte derecha: Selector de idioma -->
-    <div>
-        <form action="{% url 'set_language' %}" method="post" class="flex items-center space-x-2">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ redirect_to }}">
-            <select name="language" class="border-none bg-gray-50 text-blue-700 focus:outline-none">
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for language in languages %}
-                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                    {{ language.name_local }} ({{ language.code }})
-                </option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Go" class="bg-blue-700 text-white py-1 px-2 rounded-md hover:bg-blue-800">
-        </form>
-    </div>
-</div>
+        <!-- Aclaración de Autoría -->
+        <div class="text-center w-full">
+            <p>{% translate "Aplicación desarrollada por:" %} <strong>David Artunduaga, Juan de la Pava, Daniel González, Pablo Guzmán, Juan Parra y Rony Ordoñez
+            </strong></p>
+        </div>
+</footer>

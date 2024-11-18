@@ -49,15 +49,6 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('file').addEventListener('change', function () {
-        if (this.files.length > 0) {
-            document.getElementById('uploadSuccess').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('uploadSuccess').classList.add('hidden');
-            }, 3000); // Ocultar el mensaje después de 3 segundos
-        }
-    });
-</script>
+<script src="{% static 'js/profile/upload_cv.js }"></script>
 
 {% endblock %}

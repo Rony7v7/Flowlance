@@ -4,8 +4,9 @@
     <div>
         <p>
             <strong>{% translate "Usuario:" %}</strong> 
-            <a href="text-blue-500 hover:underline">
-               {{ application.user.username }}
+
+            <a href="{% url 'freelancer_profile_view' application.user.username %}" class="hover:underline">
+                {{ application.user.username }}
             </a>
         </p>                     
         <p><strong>{% translate "Estado:" %}</strong> {{ application.status }}</p>

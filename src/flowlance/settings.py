@@ -45,6 +45,7 @@ NPM_BIN_PATH = os.getenv(
 SITE_ID = 1
 
 INSTALLED_APPS = [
+    "daphne",
     "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -68,7 +69,21 @@ INSTALLED_APPS = [
     "payment",
     "notifications",
     "django_otp",
+    "paypal.standard.ipn",
+    "channels",
+
 ]
+
+
+
+ASGI_APPLICATION = "flowlance.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -124,12 +139,25 @@ WSGI_APPLICATION = "flowlance.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql.psycopg2',  # Motor de la base de datos
+        'NAME': 'test',          # Nombre de tu base de datos PostgreSQL
+        'USER': 'postgres',                 # Usuario de PostgreSQL
+        'PASSWORD': 'password',        # Contraseña del usuario
+        'HOST': 'localhost',                # Servidor de PostgreSQL
+        'PORT': '5432',                     # Puerto de PostgreSQL (por defecto es 5432)
     }
 }
+
+#*change the database to sqlite3
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -165,6 +193,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+PAYPAL_TEST = True
+
+PAYPAL_RECEIVER_EMAIL = os.getenv("PAYPAL_RECEIVER_EMAIL")
+
 LANGUAGES = (("en", _("English")), ("es", _("Español")))
 
 
@@ -193,3 +225,18 @@ AUTHENTICATION_BACKENDS = ("allauth.account.auth_backends.AuthenticationBackend"
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_ADAPTER = 'user.adapters.MySocialAccountAdapter'
 LOGIN_REDIRECT_URL = '/check-profile/'
+
+##CHANNELS - WEBSOCKET
+
+# This setting tells Django Channels which backend to use for storing and distributing messages between the client and the server. In this example, we'll 
+# use the in-memory backend, which is suitable for development and testing purposes:
+#this should use reddis in production
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
+#Esta linea esta apuntando a la carpeta flowlance, dentro de asgi y a la variable aplication
+#La utlizamos para decirle a django donde ir a buscar la informacion.
+ASGI_APPLICATION = 'flowlance.asgi.application'

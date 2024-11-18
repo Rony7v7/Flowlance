@@ -1,0 +1,232 @@
+{% extends 'navigation/navigation.html' %}
+
+{% load i18n %}
+
+{% block app_content %}
+<div class="space-y-12">
+    {% if paypal_form %}
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-4 border border-gray-200">
+        <!-- Monto a pagar -->
+        <p class="text-xl font-semibold text-primary_black text-center">{% translate "Monto a pagar:" %} ${{ amount }}</p>
+        
+        <!-- Formulario de PayPal centrado -->
+        <div class="flex justify-center mt-4">
+            {{ paypal_form.render }}
+        </div>
+        
+        <!-- Botón Atrás -->
+        <form action="" class="mt-6 flex justify-center">
+            <button type="" class="bg-gray-200 text-primary_black px-6 py-2 rounded-lg shadow-md hover:bg-gray-300 transition-colors font-semibold">
+                {% translate "Atrás" %}
+            </button>
+        </form>
+    </div>
+    
+    {% else %}
+    <!-- Información de Pago -->
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-2 border-gray-200">
+        <h2 class="text-xl font-bold text-primary_black">{% translate "Realizar Pago" %}</h2>
+        <div class="flex justify-between text-primary_black/55">
+            <p class="">{% translate "Por favor, ingresa la información de pago para proceder con la transacción." %}</p>
+            <!-- <span>{% translate "Paso 1 de 3" %}</span> -->
+        </div>
+        <div class="flex flex-col gap-4">
+            <!-- Método de Pago: Tarjeta de Crédito -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
+        
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
+
+                    <div class="flex items-center gap-3">    
+                        <input type="radio" name="payment_method" value="credit_card" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('credit_card')">
+                        <span class="text-lg font-medium text-gray-800">{% translate "Tarjeta de Crédito" %}</span>
+                    </div>
+                    <div class="ml-auto flex">
+                        {% include 'icon/visa_mastercard.html' %}
+                    </div>
+                </label>
+        
+                <div id="credit_card_fields" class="p-4 mt-2 space-y-4 hidden">
+                    <p class="text-gray-600">{% translate "Método de pago no disponible en este momento." %}</p>
+                </div>
+        
+            </div>
+        
+            <!-- Método de Pago: PayPal -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
+                <!-- Método de Pago: PayPal -->
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="payment_method" value="paypal" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('paypal')">
+                        <span class="text-lg font-medium text-gray-800">PayPal</span>
+                    </div>
+                    {% include 'icon/paypal.html' %}
+                </label>
+        
+                <div id="paypal_fields" class="p-4 mt-2 hidden">
+                    <form method="post" action="{% url 'payment_process' freelancer.id %}" class="flex flex-col gap-2">
+                        {% csrf_token %}
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="paypal_email" class="block  text-primary_black">{% translate "Cuenta de PayPal del destinatario" %}</label>
+                                <input 
+                                    type="email" 
+                                    id="paypal_email" 
+                                    name="paypal_email" 
+                                    value="{{ freelancer.user.email }}" 
+                                    required 
+                                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
+                                    placeholder="ejemplo@correo.com">
+                            </div>
+            
+                            <div>
+                                <label for="amount" class="block  text-primary_black">{% translate "Monto a Pagar (USD)" %}</label>
+                                <input 
+                                    type="number" 
+                                    id="amount" 
+                                    name="amount" 
+                                    min="1" 
+                                    step="0.01" 
+                                    value="80.00" 
+                                    required 
+                                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow"
+                                    placeholder="Ej. 100.00">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="bg-gradient-to-r from-primary_medium to-primary_dark text-white px-8 py-3 rounded-full hover:from-primary_dark hover:to-primary_medium transition-all font-semibold shadow-md hover:shadow-lg w-full sm:w-auto mt-4">
+                            {% translate "Continuar con paypal" %}
+                        </button>
+                        
+                    </form>
+                </div>
+            </div>
+        
+            <!-- Método de pago: Bitcoin -->
+            <div class="bg-primary_lightest/25 p-4 rounded-lg">
+                <!-- Método de Pago: Bitcoin -->
+                <label class="flex justify-between items-center space-x-3 cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="payment_method" value="bitcoin" class="text-blue-600 focus:ring-0" onclick="showPaymentFields('bitcoin')">
+                        <span class="text-lg font-medium text-gray-800">Bitcoin</span>
+                    </div>
+                    {% include 'icon/bitcoin.html' %}
+                </label>
+        
+                <div id="bitcoin_fields" class="p-4 mt-2 hidden">
+                    <p class="text-gray-600">{% translate "Método de pago no disponible en este momento." %}</p>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Historial de Transacciones y Filtros -->
+    <div class="bg-white p-8 rounded-xl shadow-sm flex flex-col gap-2 border-gray-200">
+        <h2 class="text-xl font-bold text-primary_black">{% translate "Historial de Transacciones" %}</h2>
+        <div class="flex justify-between text-primary_black/55">
+            <p class="">{% translate "Revisa el historial de transacciones de este freelancer." %}</p>
+            <!-- <span>{% translate "Paso 2 de 3" %}</span> -->
+        </div>
+        
+        <form method="get" action="{% url 'payment_process' freelancer.id %}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Campos de Filtro -->
+            <div>
+                <label for="min_amount" class="block text-primary_black">{% translate "Monto mínimo" %}</label>
+                <input 
+                    type="number" 
+                    id="min_amount" 
+                    name="min_amount" 
+                    step="0.01" 
+                    value="{{ request.GET.min_amount }}" 
+                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow">
+            </div>
+
+            <div>
+                <label for="max_amount" class="block  text-primary_black">{% translate "Monto máximo" %}</label>
+                <input 
+                    type="number" 
+                    id="max_amount" 
+                    name="max_amount" 
+                    step="0.01" 
+                    value="{{ request.GET.max_amount }}" 
+                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow">
+            </div>
+
+            <div>
+                <label for="start_date" class="block  text-primary_black">{% translate "Fecha de inicio" %}</label>
+                <input 
+                    type="date" 
+                    id="start_date" 
+                    name="start_date" 
+                    value="{{ request.GET.start_date }}" 
+                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow">
+            </div>
+
+            <div>
+                <label for="end_date" class="block  text-primary_black">{% translate "Fecha de fin" %}</label>
+                <input 
+                    type="date" 
+                    id="end_date" 
+                    name="end_date" 
+                    value="{{ request.GET.end_date }}" 
+                    class="w-full border border-gray-300 rounded-lg p-3 focus:border-primary_medium focus:ring-1 focus:ring-primary_medium transition-shadow">
+            </div>
+
+            <button type="submit" 
+                    class="col-span-1 md:col-span-4 bg-gradient-to-r from-primary_medium to-primary_dark text-white px-8 py-3 rounded-full hover:from-primary_dark hover:to-primary_medium transition-all font-semibold shadow-md hover:shadow-lg w-full sm:w-auto mt-4">
+                {% translate "Filtrar" %}
+            </button>
+        </form>
+
+        <!-- Tabla de Transacciones -->
+        <table class="min-w-full bg-white rounded-lg shadow-lg mt-6 border border-gray-300">
+            <thead class="bg-primary_lightest/25 text-primary_black">
+                <tr>
+                    <th class="text-left py-4 px-6 font-semibold text-sm uppercase tracking-wider">{% translate "ID de Transacción" %}</th>
+                    <th class="text-left py-4 px-6 font-semibold text-sm uppercase tracking-wider">{% translate "Fecha" %}</th>
+                    <th class="text-left py-4 px-6 font-semibold text-sm uppercase tracking-wider">{% translate "Monto" %}</th>
+                    <th class="text-left py-4 px-6 font-semibold text-sm uppercase tracking-wider">{% translate "Estado" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr class="border-t border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td class="py-4 px-6 text-sm text-gray-700">{{ transaction.transaction_id }}</td>
+                    <td class="py-4 px-6 text-sm text-gray-700">{{ transaction.created_at }}</td>
+                    <td class="py-4 px-6 text-sm text-gray-700">${{ transaction.amount }}</td>
+                    <td class="py-4 px-6 text-sm text-gray-700">{{ transaction.status }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-6 text-gray-500">{% translate "No hay transacciones registradas para este freelancer." %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function showPaymentFields(method) {
+        // Oculta todos los campos de métodos de pago
+        document.getElementById('credit_card_fields').classList.add('hidden');
+        document.getElementById('paypal_fields').classList.add('hidden');
+        document.getElementById('bitcoin_fields').classList.add('hidden');
+
+        // Muestra los campos correspondientes al método seleccionado
+        if (method === 'credit_card') {
+            document.getElementById('credit_card_fields').classList.remove('hidden');
+        } else if (method === 'paypal') {
+            document.getElementById('paypal_fields').classList.remove('hidden');
+        } else if (method === 'bitcoin') {
+            document.getElementById('bitcoin_fields').classList.remove('hidden');
+        }
+    }
+</script>
+{% endblock %}

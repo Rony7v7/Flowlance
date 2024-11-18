@@ -1,0 +1,10 @@
+{% extends "projects/default_project_view.html" %}
+
+{% block project_section %}
+
+<div class="flex flex-col gap-8 h-full">
+    {% include "projects/planning_section/project_timeline.html" %}
+    {% include "projects/planning_section/project_calendar.html" %}
+</div>
+    
+{% endblock %}

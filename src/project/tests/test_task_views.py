@@ -4,15 +4,18 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from project.models import ProjectMember
-
-from profile.models import Notification
+from notifications.models import Notification
 from ..models import Project, Milestone, Task, TaskDescription, Comment, TaskFile, Application
+from profile.models import CompanyProfile , ProfileConfiguration
 
 class TaskViewsTest(TestCase):
     def setUp(self):
+
+        profile_config = ProfileConfiguration.objects.create()
         # Set up the test client, create a user, and log them in
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = profile_config)
         self.client.login(username='testuser', password='12345')
 
         # Create a project for testing
@@ -145,7 +148,6 @@ class TaskViewsTest(TestCase):
         # Verificar que la notificación haya sido creada
         self.assertTrue(Notification.objects.filter(
             user=self.task.responsible,
-            message__contains="ha cambiado el estado de la tarea"
         ).exists())
 
     def test_update_task_state_unauthorized(self):

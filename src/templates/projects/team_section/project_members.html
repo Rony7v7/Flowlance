@@ -1,0 +1,111 @@
+{% load i18n static %}
+<div class="flex flex-col gap-2">
+
+<!-- Members Section -->
+<h2 class="text-2xl font-bold text-primary_black">{% translate "Miembros" %}</h2>
+
+<!-- Tabla -->
+<div class="overflow-x-auto p-6 bg-primary_lightest/25 rounded-lg shadow-sm">
+    <table class="min-w-full divide-y divide-gray-500">
+        <thead>
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
+                    {% translate "Nombre" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
+                    {% translate "Email" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
+                    {% translate "Rol" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-primary_black uppercase tracking-wider">
+                    {% translate "Acciones" %}
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for member in members %}
+            <tr class="bg-transparent">
+                <!-- Nombre -->
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10">
+                            <img class="h-10 w-10 rounded-full"
+                                src="{{ member.user.profile_picture.url|default:'https://via.placeholder.com/150' }}" alt="">
+                        </div>
+                        <div class="ml-4">
+                            <a href="../../profile/freelancer_profile/{{member.user.username}}" class="text-sm font-medium ">{{ member.user.username }} </a>
+                        </div>
+                    </div>
+                </td>
+
+                <!-- Email -->
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-primary_black">{{ member.user.email|default:"-" }}</div>
+                </td>
+
+                <!-- Role Dropdown -->
+                <td class="px-6 py-4 text-sm text-primary_lightest">
+                    <div class="relative inline-block text-left">
+                        <select class="bg-primary_black text-bg_white text-sm py-1 px-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary_medium role-select"
+                        data-member-id="{{ member.id }}">
+                            {% if member.is_owner %}
+                            <option value="administrator" selected>{% translate "Propietario" %}</option>
+                            {% else %}
+                            <option value="administrator" {% if member.role == 'administrator' %}selected{% endif %}>{% translate "Administrador" %}</option>
+                            <option value="member" {% if member.role == 'member' %}selected{% endif %}>{% translate "Miembro" %}</option>
+                            <option value="viewer" {% if member.role == 'viewer' %}selected{% endif %}>{% translate "Visualizador" %}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </td>
+
+                <!-- Acciones -->
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex justify-start items-center space-x-4">
+                        {% if not member.is_owner %}
+                            <!-- Botón de Eliminar -->
+                            <button 
+                                class="flex items-center px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 delete-button"
+                                data-member-id="{{ member.id }}"
+                                title="{% translate 'Eliminar miembro' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="hidden md:inline">
+                                    {% if request.profile == member.user.freelancerprofile %}
+                                    {% translate "Abandonar Proyecto" %}
+                                    {% else %}
+                                    {% translate "Eliminar miembro" %}
+                                    {% endif %}
+                                </span>
+                            </button>
+                            {% if not member.is_owner and user_is_admin %}
+                                <!-- Botón de Pago -->
+                                <a href="{% url 'payment_process' member.id %}" 
+                                class="flex items-center px-3 py-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                title="{% translate 'Pagar al freelancer' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5v14" />
+                                </svg>
+                                <span class="hidden md:inline">{% translate "Pagar" %}</span>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- CSRF Token -->
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+<!-- Incluir el archivo JavaScript externo -->
+<script src="{% static 'js/project/project_members.js' %}"></script>
+</div>

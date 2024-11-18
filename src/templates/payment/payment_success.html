@@ -1,0 +1,5 @@
+<h1>¡Pago exitoso!</h1>
+<p>ID de transacción: {{ transaction.transaction_id }}</p>
+<p>Monto: {{ transaction.amount }}</p>
+<p>Estado: {{ transaction.status }}</p>
+<a href="{% url 'dashboard' %}">Volver a Flowlance</a>

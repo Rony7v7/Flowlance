@@ -1,12 +1,17 @@
 from unittest import mock
-from django.test import TestCase, Client
+from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from unittest.mock import patch
 from django.utils.translation import gettext as _
 from django.contrib.auth.forms import PasswordChangeForm
-from profile.models import FreelancerProfile, CompanyProfile  # Import your profile models
+from profile.models import FreelancerProfile  # Import your profile models
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.core.exceptions import ImmediateHttpResponse
+from django.urls import reverse
+from user.adapters import MySocialAccountAdapter
 
 class LoginViewTests(TestCase):
     

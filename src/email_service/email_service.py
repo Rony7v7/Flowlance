@@ -14,7 +14,7 @@ def send_email(To, Subject, Body, title="",footer=""):
             'footer':footer
         }
 
-    html_content = render_to_string("utils/Email_template.html",context)
+    html_content = render_to_string("emails/Email_template.html",context)
     email_to_send = EmailMultiAlternatives(
         Subject,
         Body,

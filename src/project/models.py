@@ -1,15 +1,21 @@
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 
 
 class Project(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.CharField(blank=True, max_length=500)
+    image = models.ImageField(upload_to='project_images/', null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     requirements = models.TextField()
-    budget = models.DecimalField(max_digits=10, decimal_places=2)
+    budget = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        validators=[MinValueValidator(0)]
+        )
     start_date = models.DateField()
     end_date = models.DateField()
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_projects")
@@ -172,14 +178,23 @@ class TaskDescription(models.Model):
         return f"Description by {self.user.username} on {self.task.title}"
 
 
+
 class TaskFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='files')
     file = models.FileField(upload_to='task_files/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False, null=False)
+    original_name = models.CharField(max_length=255, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Guarda el nombre original si aún no se ha definido
+        if not self.original_name and self.file:
+            self.original_name = self.file.name
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"File for {self.task.title}"
+
     
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')

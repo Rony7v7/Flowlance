@@ -1,0 +1,56 @@
+<div class="w-80 border-r border-primary_lightest flex flex-col">
+    <!-- Search bar -->
+    <div class="p-4 border-b border-primary_lightest">
+        <input type="text" id="searchInput" placeholder="Buscar por nombre..." class="w-full bg-bg_gray text-primary_black px-4 py-2 rounded-md">
+    </div>
+
+    <!-- Project and member list -->
+    <div id="projectList" class="overflow-y-auto flex-1">
+        {% for project in projects %}
+            <h3 class="text-lg font-bold px-4 py-2 bg-primary_lightest text-primary_dark">{{ project.title }}</h3>
+            <ul class="member-list">
+                {% for member in project.memberships.all %}
+                    {% if member.user != request.user %}
+                        <li class="member-item hover:bg-bg_gray">
+                            <a href="{% url 'chat_room' project.id member.id %}" class="flex items-center p-4 {% if member.user == current_member %}bg-primary_light text-bg_white{% endif %}">
+                                <div class="w-10 h-10 bg-primary_medium rounded-full flex items-center justify-center text-bg_white font-semibold mr-3">
+                                    {{ member.user.username|slice:":2"|upper }}
+                                </div>
+                                <div>
+                                    <div class="font-semibold">{{ member.user.username }}</div>
+                                    <div class="text-sm text-primary_medium">Click to chat</div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchQuery = this.value.toLowerCase();
+        const projects = document.querySelectorAll('#projectList .member-list');
+
+        projects.forEach(function(project) {
+            const members = project.querySelectorAll('.member-item');
+            let hasVisibleMembers = false;
+
+            members.forEach(function(member) {
+                const memberName = member.textContent.toLowerCase();
+
+                if (memberName.includes(searchQuery)) {
+                    member.style.display = '';
+                    hasVisibleMembers = true;
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+
+            // Show or hide the project header based on visible members
+            project.previousElementSibling.style.display = hasVisibleMembers ? '' : 'none';
+        });
+    });
+</script>

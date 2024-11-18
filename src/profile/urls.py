@@ -5,10 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # TODO: No se tiene url my_profile en donde se pueda ver el perfil del usuario cliente o freelancer
-    # path('my_profile/', views.my_profile, name='my_profile'),  # URL for viewing the own profile
-    # No se tiene en cuenta la url por defecto profile/ en donde se pueda ver el perfil del usuario cliente o freelancer o NAN
-    path('', profile_views.my_profile, name='my_profile'), # TODO: URL for viewing the own profile - name debería ser 'my_profile' y por lo tanto ser actualizado en donde se llame
+    path('', profile_views.my_profile, name='my_profile'), 
     path('freelancer_profile/<str:username>/', profile_views.freelancer_profile_view, name='freelancer_profile_view'),  # URL for viewing another freelancer profile
     path("customize_profile/", data_views.customize_profile, name="customize_profile"),
     path('update/', profile_views.update_company_profile, name='update_company_profile'),
@@ -25,6 +22,8 @@ urlpatterns = [
     path('freelancer_profile/<str:username>/', profile_views.freelancer_profile_view, name='freelancer_profile'),  # URL for finshing edit the RatingResponse
     path('register/freelancer/', register_views.register_freelancer, name='register_freelancer'),
     path('register/company/', register_views.register_company, name='register_company'),
+    path('notification-preferences/', profile_views.notification_preferences, name='notification_preferences'),
+    path('reset-notification-preferences/', profile_views.reset_notification_preferences, name='reset_notification_preferences'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

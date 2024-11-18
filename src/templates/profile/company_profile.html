@@ -1,5 +1,5 @@
 {% extends "navigation/navigation.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block app_content %}
 <div class="flex flex-col items-center justify-center w-full h-full px-8">
 
@@ -53,7 +53,7 @@
 
                 {% if is_owner %}
                 <button id="editProfileButton"
-                    class="bg-primary_medium text-white px-6 py-2 rounded-xl mt-6 hover:bg-primary_dark transition-transform duration-300 hover:scale-105">
+                    class="bg-primary_medium text-white px-6 py-2 rounded-lg mt-6 hover:bg-primary_dark transition-transform duration-300 hover:scale-105">
                     {% translate 'Editar Perfil' %}
                 </button>
                 {% endif %}
@@ -142,14 +142,6 @@
 </div>
 
 
-<script>
-    document.getElementById('editProfileButton').addEventListener('click', function() {
-        document.getElementById('editProfileModal').classList.remove('hidden');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('editProfileModal').classList.add('hidden');
-    });
-</script>
+<script src="{% static 'js/profile/company_profile.js' %}"></script>
 
 {% endblock %}

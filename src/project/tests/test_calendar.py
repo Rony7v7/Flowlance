@@ -2,12 +2,18 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from project.models import Event, Project
+from profile.models import CompanyProfile, ProfileConfiguration
 from django.utils import timezone
+from datetime import datetime
 
 class AllEventsViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
@@ -16,12 +22,23 @@ class AllEventsViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+        # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
+        self.client.login(username='testuser', password='12345')
+
     
     def test_invalid_project_id(self):
         response = self.client.get(reverse('all_events'), {'project_id': 'invalid'})
@@ -40,8 +57,12 @@ class AllEventsViewTest(TestCase):
 
 class EditEventViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
@@ -50,10 +71,19 @@ class EditEventViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+        # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
         self.client.login(username='testuser', password='12345')
@@ -82,8 +112,12 @@ class EditEventViewTest(TestCase):
 
 class DisplayProjectViewTest(TestCase):
     def setUp(self):
+        self.profile_config, _ = ProfileConfiguration.objects.get_or_create()
+        self.profile_config.notification_when_profile_visited = False
+        self.profile_config.save()
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.company_profile = CompanyProfile.objects.create(user=self.user, company_name='Test Company', nit='1234567890',profileconfiguration = self.profile_config)
         self.project = Project.objects.create(
             title="Test Project",
             description="Project description",
@@ -92,10 +126,19 @@ class DisplayProjectViewTest(TestCase):
             end_date="2024-12-31",
             client=self.user
         )
+         # Parse the string into a naive datetime
+        start_naive = datetime.strptime("2024-01-10T10:00:00", "%Y-%m-%dT%H:%M:%S")
+        end_naive = datetime.strptime("2024-01-10T12:00:00", "%Y-%m-%dT%H:%M:%S")
+
+        # Convert the naive datetime to a time zone-aware datetime
+        start_aware = timezone.make_aware(start_naive)
+        end_aware = timezone.make_aware(end_naive)
+
+        # Now, use these aware datetime objects to create the event
         self.event = Event.objects.create(
             name="Test Event",
-            start="2024-01-10T10:00:00",
-            end="2024-01-10T12:00:00",
+            start=start_aware,
+            end=end_aware,
             project=self.project
         )
         self.client.login(username='testuser', password='12345')

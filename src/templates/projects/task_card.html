@@ -79,8 +79,10 @@
                             d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
                         </path>
                     </svg>
-                    <a href="{{ file.file.url }}" class="text-sm text-primary_medium hover:underline" target="_blank">{{
-                        file.file.name }}</a>
+                    <a href="{{ file.file.url }}" class="text-sm text-primary_medium hover:underline" target="_blank">
+                        {{ file.original_name }}
+                    </a>
+                    
                 </li>
                 {% empty %}
                 <li class="text-sm text-primary_medium">{% translate "No hay archivos aún." %}</li>
@@ -93,6 +95,20 @@
                 <button type="submit"
                     class="w-full bg-primary_medium text-bg_white px-4 py-2 rounded hover:bg-primary_dark transition-transform duration-300 hover:scale-105">{% translate "Subir Archivo" %}</button>
             </form>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.querySelector('form');
+                    const fileInput = document.querySelector('input[type="file"]');
+            
+                    form.addEventListener('submit', function (event) {
+                        if (!fileInput.files.length) {
+                            event.preventDefault(); // Evita el envío del formulario
+                            alert("Por favor, selecciona un archivo antes de subirlo.");
+                        }
+                    });
+                });
+            </script>
         </div>
 
         <!-- Comments Section -->
@@ -150,6 +166,9 @@
     
     
 </a>
+
+
+
 
 
 {% endif %}

@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from ..models import Project, Milestone, Application
@@ -72,14 +72,14 @@ class ProjectViewsTest(TestCase):
         # Test the GET request to the my_projects view
         response = self.client.get(reverse('my_projects'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'projects/project_list.html')
+        self.assertTemplateUsed(response, 'projects/project_list_own.html')
         self.assertContains(response, self.project.title)
 
     def test_display_project_GET(self):
         # Test the GET request to display a specific project with the milestone section
         response = self.client.get(reverse('project', args=[self.project.id, 'milestone']))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'projects/milestones.html')
+        self.assertTemplateUsed(response, 'projects/management_section/management_section.html')
 
     def test_project_list_availableFreelancer_GET(self):
         # Test the GET request to list available projects for freelancers
@@ -180,7 +180,7 @@ class ProjectViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
         # Verificar que se está utilizando la plantilla correcta
-        self.assertTemplateUsed(response, 'projects/data_project.html')
+        self.assertTemplateUsed(response, 'projects/management_section/management_section.html')
 
         # Verificar que el contexto contiene el proyecto correcto
         self.assertEqual(response.context['project'], self.project)
