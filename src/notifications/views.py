@@ -9,11 +9,10 @@ from collections import Counter
 from email_service.email_service import send_email
 from django.contrib import messages
 from django.utils.translation import gettext as _
+from django.db.models import Q
+from datetime import datetime
 
 # Create your views here.
-
-def notifications(request):
-    return render(request, "navigation/building.html")
 
 @login_required
 def mark_notification_as_read(request, notification_id):
@@ -29,6 +28,43 @@ def mark_notification_as_read(request, notification_id):
         return JsonResponse({"status": "success", "message": "Notification marked as read."})
     else:
         return JsonResponse({"status": "error", "message": "Invalid request method."}, status=405)
+
+@login_required
+def mark_notification_as_unread(request, notification_id):
+    if request.method == "POST":
+        # Fetch the notification or return a 404 if it doesn't exist
+        notification = get_object_or_404(Notification, id=notification_id)
+        
+        # Mark the notification as unread
+        notification.is_read = False
+        notification.save()
+        
+        # Return a success response
+        return JsonResponse({"status": "success", "message": "Notification marked as unread."})
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method."}, status=405)
+
+@login_required
+def search_notifications(request):
+    #*Search notifications by query or date.
+    query = request.GET.get('q', '')
+    date_filter = request.GET.get('date', '')
+
+    notifications = Notification.objects.filter(user=request.user, is_deleted=False)
+
+    if query:
+        notifications = notifications.filter(
+            Q(title__icontains=query) | Q(message__icontains=query)
+        )
+
+    if date_filter:
+        notifications = notifications.filter(created_at__date=datetime.strptime(date_filter, "%Y-%m-%d").date())
+
+    notifications = notifications.order_by('-created_at')
+
+    return render(request, 'profile/notifications.html', {'notifications': notifications})
+
+
 
 @login_required
 def mark_all_notifications_as_read(request):
