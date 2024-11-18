@@ -1,13 +1,39 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Preferences</button>
-</form>
+{% extends "settings/settings.html" %}
+{% load i18n %}
 
-<h3>Notification Preview</h3>
-<ul>
-    {% if preview.receive_project_updates %}<li>Project Updates</li>{% endif %}
-    {% if preview.receive_messages %}<li>Messages</li>{% endif %}
-    {% if preview.receive_job_opportunities %}<li>Job Opportunities</li>{% endif %}
-</ul>
-<a href="{% url 'reset_notification_preferences' %}">Reset to Default</a>
+{% block settings_title %}{% translate "Preferencias de Notificación" %}{% endblock %}
+
+{% block settings_section %}
+<div class="bg-primary_lightest/20 p-8 rounded-lg w-full shadow-md flex flex-col space-y-8">
+    <!-- Sección de Preferencias de Notificación -->
+    <div class="pb-6">
+        <h1 class="text-2xl font-bold text-primary_black mb-4">{% translate "Preferencias de Notificación" %}</h1>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div class="space-y-2">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="px-4 py-2 bg-primary_medium text-white font-semibold rounded-md hover:bg-primary_dark transition">
+                {% translate "Guardar Preferencias" %}
+            </button>
+        </form>
+    </div>
+
+    <!-- Sección de Vista Previa de Notificación -->
+    <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-xl font-semibold text-primary_black mb-4">{% translate "Vista Previa de Notificación" %}</h2>
+        <ul class="space-y-2 list-disc list-inside text-primary_dark ml-4">
+            {% if preview.receive_project_updates %}<li>{% translate "Actualizaciones de Proyecto" %}</li>{% endif %}
+            {% if preview.receive_messages %}<li>{% translate "Mensajes" %}</li>{% endif %}
+            {% if preview.receive_job_opportunities %}<li>{% translate "Oportunidades de Trabajo" %}</li>{% endif %}
+        </ul>
+    </div>
+
+    <!-- Sección de Restablecimiento de Preferencias -->
+    <div class="pt-6">
+        <a href="{% url 'reset_notification_preferences' %}" class="text-primary_medium hover:underline font-semibold">
+            {% translate "Restablecer a los valores predeterminados" %}
+        </a>
+    </div>
+</div>
+{% endblock %}
