@@ -151,7 +151,7 @@ DATABASES = {
     }
 }
 
-# #*change the database to sqlite3
+#*change the database to sqlite3
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
