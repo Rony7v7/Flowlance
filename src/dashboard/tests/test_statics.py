@@ -98,5 +98,5 @@ class CompanyDashboardViewTest(TestCase):
 
         self.assertIn('last_10_transactions', response.context)
         self.assertEqual(len(response.context['last_10_transactions']), 2)
-        self.assertEqual(response.context['last_10_transactions'][0]['amount'], 100.00)
-        self.assertEqual(response.context['last_10_transactions'][1]['amount'], 200.00)
+        self.assertEqual(response.context['last_10_transactions'][0]['amount'], 200.00)
+        self.assertEqual(response.context['last_10_transactions'][1]['amount'], 100.00)
