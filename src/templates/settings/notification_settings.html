@@ -1,8 +1,76 @@
 {% extends "settings/settings.html" %}
 {% load i18n %}
 
+{% block settings_title %}{% translate "Preferencias de Notificación" %}{% endblock %}
+
 {% block settings_section %}
-<div class="w-full bg-primary_lightest/25 p-8 rounded-lg">
-    
+<div class="bg-primary_lightest/20 p-8 rounded-lg w-full shadow-md flex flex-col space-y-8">
+
+    <!-- Sección de Preferencias -->
+    <div class="">
+        <h1 class="text-xl font-bold text-primary_black mb-4">{% translate "Preferencias de Notificación" %}</h1>
+        <a href="{% url 'reset_notification_preferences' %}" class="text-primary_medium hover:underline font-medium">
+            {% translate "Editar los valores predeterminados" %}
+        </a>
+    </div>
+
+    <!-- Sección de Otros Ajustes -->
+    <div class="border-t border-gray-200 pt-6 space-y-6">
+        <h2 class="text-xl font-semibold text-primary_black mb-4">{% translate "Otros Ajustes" %}</h2>
+
+        <!-- Formulario para notificación cuando el perfil es visitado -->
+        <form method="post" action="{% url 'toggle_notification_when_profile_visited' %}" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex items-center">
+                <input id="notification_when_profile_visited_variable" name="notification_when_profile_visited_variable" type="checkbox" class="w-4 h-4 text-primary_medium bg-gray-100 border-gray-300 rounded focus:ring-primary_dark" {% if has_notification_when_profile_visited %}checked{% endif %}>
+                <label for="notification_when_profile_visited_variable" class="ml-2 text-sm font-medium text-primary_black">
+                    {% translate "Notificarme cuando mi perfil sea visitado" %}
+                </label>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="mt-2 text-white bg-primary_medium hover:bg-primary_dark focus:ring-4 focus:ring-primary_light font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                    {% translate "Guardar" %}
+                </button>
+            </div>
+        </form>
+        
+        <!-- Formulario para envío de notificaciones al correo electrónico -->
+        <form method="post" action="{% url 'toggle_notification_to_email' %}" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex items-center">
+                <input id="sending_notification_to_email_variable" name="sending_notification_to_email_variable" type="checkbox" class="w-4 h-4 text-primary_medium bg-gray-100 border-gray-300 rounded focus:ring-primary_dark" {% if has_sending_notification_to_email %}checked{% endif %}>
+                <label for="sending_notification_to_email_variable" class="ml-2 text-sm font-medium text-primary_black">
+                    {% translate "Enviar notificaciones a mi correo electrónico" %}
+                </label>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="mt-2 text-white bg-primary_medium hover:bg-primary_dark focus:ring-4 focus:ring-primary_light font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                    {% translate "Guardar" %}
+                </button>
+            </div>
+        </form>
+        
+        <!-- Formulario para cambiar la periodicidad de los informes de notificaciones -->
+        <form method="post" action="{% url 'set_periodicity_of_notification_reports' %}" class="space-y-4">
+            {% csrf_token %}
+            <div class="mb-2">
+                <label for="periodicity_of_notifications_reports" class="block text-sm font-medium text-primary_black">
+                    {% translate "Periodicidad de los informes de notificaciones" %}
+                </label>
+                <select name="periodicity_of_notifications_reports" id="periodicity_of_notifications_reports" class="bg-gray-50 border border-gray-300 text-primary_black text-sm rounded-lg focus:ring-primary_dark focus:border-primary_dark w-full p-2.5">
+                    <option value="diaria" {% if profile.profileconfiguration.periodicity_of_notifications_reports == 'Diariamente' %}selected{% endif %}>{% translate "Diariamente" %}</option>
+                    <option value="semanal" {% if profile.profileconfiguration.periodicity_of_notifications_reports == 'Semanalmente' %}selected{% endif %}>{% translate "Semanalmente" %}</option>
+                    <option value="mensual" {% if profile.profileconfiguration.periodicity_of_notifications_reports == 'Mensualmente' %}selected{% endif %}>{% translate "Mensualmente" %}</option>
+                </select>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="mt-2 text-white bg-primary_medium hover:bg-primary_dark focus:ring-4 focus:ring-primary_light font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                    {% translate "Guardar" %}
+                </button>
+            </div>
+        </form>
+
+    </div>
+
 </div>
 {% endblock %}

@@ -32,7 +32,17 @@ def account_settings(request):
 
 @login_required
 def notification_settings(request):
-    return render(request, "settings/notification_settings.html", {"section": "notification"})
+    user = request.user
+    profile, profile_type = user.get_profile_info()
+
+    if profile:
+        periodicity_of_notification_report = profile.profileconfiguration.periodicity_of_notification_report
+        has_notification_when_profile_visited = profile.profileconfiguration.notification_when_profile_visited
+        has_sending_notification_to_email = profile.profileconfiguration.sending_notification_to_email
+    else:
+        periodicity_of_notification_report = ProfileConfiguration.Periodicity.DAILY
+
+    return render(request, "settings/notification_settings.html", {"section": "notification", "periodicity_of_notification_report": periodicity_of_notification_report, "has_notification_when_profile_visited": has_notification_when_profile_visited, "has_sending_notification_to_email": has_sending_notification_to_email})
 
 @login_required
 def chat_settings(request):
@@ -63,7 +73,7 @@ def toggle_notification_when_profile_visited(request):
             profile.profileconfiguration.notification_when_profile_visited = notification_when_profile_visited_variable
             profile.profileconfiguration.save()
 
-        return redirect('security_settings')  # Redirect to the profile page or another relevant page
+        return redirect('notification_settings')  # Redirect to the profile page or another relevant page
 
 @login_required
 def toggle_notification_to_email(request):
@@ -76,7 +86,7 @@ def toggle_notification_to_email(request):
             profile.profileconfiguration.sending_notification_to_email = sending_notification_to_email_variable
             profile.profileconfiguration.save()
 
-        return redirect('security_settings')  # Redirect to the profile page or another relevant page
+        return redirect('notification_settings')  # Redirect to the profile page or another relevant page
 
 @login_required
 def change_periodicity_of_notifications_reports(request):
@@ -92,9 +102,9 @@ def change_periodicity_of_notifications_reports(request):
         else:
             messages.error(request, _("Invalid periodicity choice."))
 
-        return redirect('security_settings')  # Redirect to an appropriate view
+        return redirect('notification_settings') 
 
-    return redirect('security_settings')
+    return redirect('notification_settings')
 
 
 @login_required
