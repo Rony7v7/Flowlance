@@ -14,7 +14,7 @@
                 alt="Foto de {{ request.profile.user.username }}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg"> 
             
             <div class="sm:ml-6 mt-6 sm:mt-0 flex-1">
-                <h1 class="text-3xl sm:text-3xl font-bold text-primary_black">{{ request.profile.user.username }}</h1>
+                <h1 class="text-3xl sm:text-3xl font-bold text-primary_black">{{ request.profile.full_name }}</h1>
                 <p class="text-primary_black font-semibold">
                     {% if request.profile.job_title %}
                         {{ request.profile.job_title }}

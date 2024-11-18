@@ -72,7 +72,7 @@ class ProjectViewsTest(TestCase):
         # Test the GET request to the my_projects view
         response = self.client.get(reverse('my_projects'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'projects/project_list.html')
+        self.assertTemplateUsed(response, 'projects/project_list_own.html')
         self.assertContains(response, self.project.title)
 
     def test_display_project_GET(self):
