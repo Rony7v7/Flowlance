@@ -34,7 +34,7 @@ Ensure the following dependencies are installed:
 Clone the project repository to your local environment:
 
 ```bash
-git clone https://github.com/2024-2-PI1-G3/202402-proyecto-gecko-team
+git clone https://github.com/rony7v7/flowlance
 ```
 
 #### **2. Navigate to the Project Directory**
@@ -110,6 +110,8 @@ Open your browser and navigate to:
 http://127.0.0.1:8000
 ```
 
+---
+
 ## **Setting Up Internationalization (i18n)**
 
 ### **4. Install `gettext`**
@@ -173,15 +175,15 @@ django-admin compilemessages
 
 - Ensure your virtual environment is activated if you encounter dependency errors.
 - Use `python manage.py createsuperuser` to set up an admin account for accessing the Django admin panel.
-- If the Google login or some features are not working, it's likely because the .env file is missing. Please contact us to get it.
+- If the Google login or some features are not working, it's likely because the `.env` file is missing. Please contact us to get it.
 
 ---
 
 ## **Authors**
 
-- **Rony Farid Ordoñez** - A00397968
-- **Juan José De La Pava** - A00381213
-- **Juan Pablo Parra** - A00398004
-- **David Artunduaga** - A00396342
-- **Pablo Andrés Guzmán** - A00399523
-- **Daniel Gonzalez** - A00399873
+- [Rony Ordoñez](https://github.com/Rony7v7)
+- [Juan de la Pava](https://github.com/JuanJDlp)
+- [David Artunduaga](https://github.com/David104087)
+- [Juan Parra](https://github.com/Juanpapb0401)
+- [Pablo Guzmán](https://github.com/Pableis05)
+- [Daniel González](https://github.com/danielgrw)
