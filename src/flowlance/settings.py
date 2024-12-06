@@ -102,7 +102,7 @@ MIDDLEWARE = [
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": "532493897687-11mimm8cjun6h95acafodm320inp9pq5.apps.googleusercontent.com",
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
             "secret": os.getenv("GOOGLE_SECRET"),
         },
         "SCOPE": ["profile", "email"],
