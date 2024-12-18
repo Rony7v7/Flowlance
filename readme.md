@@ -34,7 +34,7 @@ Ensure the following dependencies are installed:
 Clone the project repository to your local environment:
 
 ```bash
-git clone https://github.com/rony7v7/flowlance
+git clone https://github.com/ronyoz/flowlance
 ```
 
 #### **2. Navigate to the Project Directory**
@@ -42,7 +42,7 @@ git clone https://github.com/rony7v7/flowlance
 Move into the project folder (`src` directory):
 
 ```bash
-cd 202402-proyecto-gecko-team/src
+cd flowlance/src
 ```
 
 #### **3. Set Up the Virtual Environment**
